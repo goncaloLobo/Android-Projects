@@ -8,6 +8,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -19,14 +20,11 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final String TAG = "MainActivity";
 
-
     //widgets
     private ImageView mImageView1,mImageView2;
 
-
     //vars
     private GestureDetector mGestureDetector;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,30 +95,35 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onDown(MotionEvent motionEvent) {
         Log.d(TAG, "onDown: called.");
+        Toast.makeText(this, "onDown: called", Toast.LENGTH_LONG);
         return false;
     }
 
     @Override
     public void onShowPress(MotionEvent motionEvent) {
         Log.d(TAG, "onShowPress: called.");
+        Toast.makeText(this, "onShowPress: called", Toast.LENGTH_LONG);
 
     }
 
     @Override
     public boolean onSingleTapUp(MotionEvent motionEvent) {
         Log.d(TAG, "onSingleTapUp: called.");
+        Toast.makeText(this, "onSingleTapUp: called", Toast.LENGTH_LONG);
         return false;
     }
 
     @Override
     public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         Log.d(TAG, "onScroll: called.");
+        Toast.makeText(this, "onScroll: called", Toast.LENGTH_LONG);
         return false;
     }
 
     @Override
     public void onLongPress(MotionEvent motionEvent) {
         Log.d(TAG, "onLongPress: called.");
+        Toast.makeText(this, "onLongPress: called", Toast.LENGTH_LONG);
 
         View.DragShadowBuilder builder = new View.DragShadowBuilder(mImageView1);
 
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
         Log.d(TAG, "onFling: called.");
+        Toast.makeText(this, "onFling: called", Toast.LENGTH_LONG);
         return false;
     }
 
@@ -145,11 +149,13 @@ public class MainActivity extends AppCompatActivity implements
 
             case DragEvent.ACTION_DRAG_STARTED:
                 Log.d(TAG, "onDrag: drag started.");
+                Toast.makeText(this, "onDrag started: called", Toast.LENGTH_LONG);
 
                 return true;
 
             case DragEvent.ACTION_DRAG_ENTERED:
                 Log.d(TAG, "onDrag: drag entered.");
+                Toast.makeText(this, "onDragEn: called", Toast.LENGTH_LONG);
                 return true;
 
             case DragEvent.ACTION_DRAG_LOCATION:
@@ -190,18 +196,21 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public boolean onSingleTapConfirmed(MotionEvent motionEvent) {
         Log.d(TAG, "onSingleTapConfirmed: called.");
+        Toast.makeText(this, "onSingleTap: called", Toast.LENGTH_LONG);
         return false;
     }
 
     @Override
     public boolean onDoubleTap(MotionEvent motionEvent) {
         Log.d(TAG, "onDoubleTap: called.");
+        Toast.makeText(this, "onDoubleTap: called", Toast.LENGTH_LONG);
         return false;
     }
 
     @Override
     public boolean onDoubleTapEvent(MotionEvent motionEvent) {
         Log.d(TAG, "onDoubleTapEvent: called.");
+        Toast.makeText(this, "onDoubleTapEvent: called", Toast.LENGTH_LONG);
         return false;
     }
 }
