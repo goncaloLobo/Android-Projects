@@ -1,5 +1,7 @@
 package com.example.android.simplegesturesapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -7,6 +9,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
+
+import androidx.core.view.GestureDetectorCompat;
 
 public class CustomView extends SurfaceView implements Runnable {
 
@@ -18,7 +22,9 @@ public class CustomView extends SurfaceView implements Runnable {
     private boolean isPlaying, isGameOver = false;
     private Paint paint;
     private Thread thread;
+    private Ellipse ellipse;
 
+    private GestureDetectorCompat mDetector;
     int x, y;
 
     public CustomView(GameActivity gameActivity, int screenX, int screenY) {
@@ -32,6 +38,7 @@ public class CustomView extends SurfaceView implements Runnable {
         screenRatioY = 1080f / screenY;
 
         background1 = new Background(screenX, screenY, getResources());
+        ellipse = new Ellipse(getResources());
 
         paint = new Paint();
         paint.setTextSize(128);
@@ -85,12 +92,16 @@ public class CustomView extends SurfaceView implements Runnable {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
+        x = (int) event.getX();
+        y = (int) event.getY();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.d(DEBUG_TAG, "Action was DOWN");
+                // Posição Inicial do Gesto
+                Log.d(DEBUG_TAG, "Action was DOWN: x: " + x + ";y: " + y);
                 break;
             case MotionEvent.ACTION_UP:
+                // Posição Final do Gesto
                 performClick();
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -105,11 +116,14 @@ public class CustomView extends SurfaceView implements Runnable {
     }
 
     private void draw() {
-        Log.d("ENTREI1", "entrei1");
         if (getHolder().getSurface().isValid()) {
-            Log.d("ENTREI2", "entrei2");
             Canvas canvas = getHolder().lockCanvas();
+
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
+            canvas.drawBitmap(ellipse.ellipseBitmap1, ellipse.x+50, ellipse.y+900, paint);
+            canvas.drawBitmap(ellipse.ellipseBitmap2, ellipse.x+600, ellipse.y+900, paint);
+            canvas.drawBitmap(ellipse.ellipseBitmap3, ellipse.x+50, ellipse.y+1200, paint);
+            canvas.drawBitmap(ellipse.ellipseBitmap4, ellipse.x+600, ellipse.y+1200, paint);
 
             getHolder().unlockCanvasAndPost(canvas);
         }
