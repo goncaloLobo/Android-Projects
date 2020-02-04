@@ -1,12 +1,21 @@
 package com.example.android.simplegesturesapp;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
+import android.view.View;
+import android.widget.Toast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class CustomView extends SurfaceView implements Runnable {
@@ -24,6 +33,8 @@ public class CustomView extends SurfaceView implements Runnable {
 
     private GestureDetector gestureDetector;
     private Toupeira toupeira1;
+    private Toupeira[] toupeiras;
+    private Hole hole1, hole2;
 
     public CustomView(GameActivity gameActivity, int screenX, int screenY) {
         super(gameActivity);
@@ -42,6 +53,11 @@ public class CustomView extends SurfaceView implements Runnable {
         paint.setColor(Color.WHITE);
 
         toupeira1 = new Toupeira(getResources());
+        toupeiras = new Toupeira[2];
+        toupeiras[0] = toupeira1;
+
+        hole1 = new Hole(getResources());
+        hole2 = new Hole(getResources());
         gestureDetector = new GestureDetector(gameActivity.getApplicationContext(), new GestureListener());
     }
 
@@ -79,10 +95,13 @@ public class CustomView extends SurfaceView implements Runnable {
 
     private void draw() {
         if (getHolder().getSurface().isValid()) {
-            Canvas canvas = getHolder().lockCanvas();
+            final Canvas canvas = getHolder().lockCanvas();
 
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
-            canvas.drawBitmap(toupeira1.getToupeira(), toupeira1.x, toupeira1.y, paint);
+            //canvas.drawBitmap(toupeira1.getToupeira(), toupeira1.x, toupeira1.y, paint);
+            canvas.drawBitmap(hole1.getHole(), hole1.x + 100, hole1.y, paint);
+            canvas.drawBitmap(hole2.getHole(), hole1.x + 700, hole1.y, paint);
+
             getHolder().unlockCanvasAndPost(canvas);
         }
     }
