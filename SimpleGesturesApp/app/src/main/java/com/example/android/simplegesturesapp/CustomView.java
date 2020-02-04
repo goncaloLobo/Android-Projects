@@ -1,16 +1,13 @@
 package com.example.android.simplegesturesapp;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
-import android.view.View;
 
-import androidx.core.view.GestureDetectorCompat;
 
 public class CustomView extends SurfaceView implements Runnable {
 
@@ -22,10 +19,11 @@ public class CustomView extends SurfaceView implements Runnable {
     private boolean isPlaying, isGameOver = false;
     private Paint paint;
     private Thread thread;
-    private Ellipse ellipse;
 
-    private GestureDetectorCompat mDetector;
     int x, y;
+
+    private GestureDetector gestureDetector;
+    private Toupeira toupeira1;
 
     public CustomView(GameActivity gameActivity, int screenX, int screenY) {
         super(gameActivity);
@@ -38,77 +36,41 @@ public class CustomView extends SurfaceView implements Runnable {
         screenRatioY = 1080f / screenY;
 
         background1 = new Background(screenX, screenY, getResources());
-        ellipse = new Ellipse(getResources());
 
         paint = new Paint();
         paint.setTextSize(128);
         paint.setColor(Color.WHITE);
 
-        View myView = findViewById(R.id.play);
-        /*myView.setOnTouchListener(new View.OnTouchListener() {
-            private GestureDetector gestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
-                @Override
-                public boolean onDoubleTap(MotionEvent e) {
-                    Toast.makeText(getContext(), "onDoubleTap", Toast.LENGTH_SHORT).show();
-                    Log.d(DEBUG_TAG,"onDoubleTap " + " x: " + x + "; y: " + y);
-                    return super.onDoubleTap(e);
-                }
-
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent event) {
-                    Toast.makeText(getContext(), "onSingleTapConfirmed", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-
-                @Override
-                public boolean onFling(MotionEvent event1, MotionEvent event2,
-                                       float velocityX, float velocityY) {
-                    Toast.makeText(getContext(), "onFling", Toast.LENGTH_SHORT).show();
-                    return true;
-                }
-            });
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                x = (int) event.getX();
-                y = (int) event.getY();
-                gestureDetector.onTouchEvent(event);
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.d(DEBUG_TAG,"Action was DOWN");
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        Log.d(DEBUG_TAG,"Action was UP");
-                        break;
-                    case MotionEvent.ACTION_MOVE :
-                        Log.d(DEBUG_TAG,"Action was MOVE");
-                        break;
-                }
-                return true;
-            }
-        });*/
+        toupeira1 = new Toupeira(getResources());
+        gestureDetector = new GestureDetector(gameActivity.getApplicationContext(), new GestureListener());
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        super.onTouchEvent(event);
-        x = (int) event.getX();
-        y = (int) event.getY();
-
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                // Posição Inicial do Gesto
-                Log.d(DEBUG_TAG, "Action was DOWN: x: " + x + ";y: " + y);
-                break;
-            case MotionEvent.ACTION_UP:
-                // Posição Final do Gesto
+        /*int action = event.getAction();
+        switch(action) {
+            case (MotionEvent.ACTION_DOWN) :
+                Log.d(DEBUG_TAG,"Action was DOWN");
+                return true;
+            case (MotionEvent.ACTION_MOVE) :
+                Log.d(DEBUG_TAG,"Action was MOVE");
+                Log.d(DEBUG_TAG, "onTouch: (x,y): (" + event.getX() + " , " + event.getY() + ")");
+                return true;
+            case (MotionEvent.ACTION_UP) :
                 performClick();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                Log.d(DEBUG_TAG, "Action was MOVE");
-                break;
-        }
-        return false;
+                Log.d(DEBUG_TAG,"Action was UP");
+                return true;
+            case (MotionEvent.ACTION_CANCEL) :
+                Log.d(DEBUG_TAG,"Action was CANCEL");
+                return true;
+            case (MotionEvent.ACTION_OUTSIDE) :
+                Log.d(DEBUG_TAG,"Movement occurred outside bounds " +
+                        "of current screen element");
+                return true;
+            default :
+                return super.onTouchEvent(event);
+        }*/
+        return gestureDetector.onTouchEvent(event);
     }
 
     private void update() {
@@ -120,11 +82,7 @@ public class CustomView extends SurfaceView implements Runnable {
             Canvas canvas = getHolder().lockCanvas();
 
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
-            canvas.drawBitmap(ellipse.ellipseBitmap1, ellipse.x+50, ellipse.y+900, paint);
-            canvas.drawBitmap(ellipse.ellipseBitmap2, ellipse.x+600, ellipse.y+900, paint);
-            canvas.drawBitmap(ellipse.ellipseBitmap3, ellipse.x+50, ellipse.y+1200, paint);
-            canvas.drawBitmap(ellipse.ellipseBitmap4, ellipse.x+600, ellipse.y+1200, paint);
-
+            canvas.drawBitmap(toupeira1.getToupeira(), toupeira1.x, toupeira1.y, paint);
             getHolder().unlockCanvasAndPost(canvas);
         }
     }
@@ -155,11 +113,34 @@ public class CustomView extends SurfaceView implements Runnable {
     }
 
     public void pause() {
-        try{
+        try {
             isPlaying = false;
             thread.join();
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onDoubleTap(MotionEvent e) {
+            float x = e.getX();
+            float y = e.getY();
+            Log.d("Double Tap", "Tapped at: (" + x + "," + y + ")");
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+                               float velocityY) {
+            Log.d("onFling", "Fling: (" + velocityX + "," + velocityY + ")");
+            return true;
+        }
+
     }
 }
