@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="guigue.chris.whack_a_mole.ScoreBoardFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <guigue.chris.whack_a_mole.GIFView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/viewHeart"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="40dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:id="@+id/tvLives"
+            android:gravity="center"
+            android:textColor="#ffff00"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Game Speed"
+            android:id="@+id/tvlblGameSpeed"
+            android:layout_weight="1"
+            android:gravity="bottom|center"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="x1.00"
+            android:id="@+id/tvGameSpeed"
+            android:layout_weight="1"
+            android:gravity="top|center"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView"
+            android:src="@drawable/molezombie" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="0"
+            android:id="@+id/tvMolesHit"
+            android:gravity="center"
+            android:textColor="#ffff00"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Moles Hit"
+            android:id="@+id/tvlblMolesHit"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:gravity="top|center"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</LinearLayout>

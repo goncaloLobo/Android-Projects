@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="guigue.chris.whack_a_mole.MolesFragment">
+
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/gvMoleHoles"
+        android:numColumns="auto_fit"
+        android:choiceMode="multipleChoice"
+        android:textFilterEnabled="false"
+        android:gravity="bottom"
+        android:horizontalSpacing="2dp"
+        android:verticalSpacing="20dp"
+        android:splitMotionEvents="true"
+        android:layout_gravity="bottom"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentEnd="false"
+        android:translationZ="0dp"
+        android:columnWidth="109dp" />
+
+</RelativeLayout>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#86cfdb"
+    tools:context="guigue.chris.whack_a_mole.MainMenu">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ivTitle"
+        android:contentDescription="@string/strwhacktitle"
+        android:src="@drawable/whackamoletitle"
+        android:layout_weight="1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/strBtnPlay"
+        android:id="@+id/btnPlay"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        android:background="#589fa1" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/strBtnOptions"
+        android:id="@+id/btnOptions"
+        android:layout_weight="1"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        android:background="#949e58" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/strBtnHighScores"
+        android:id="@+id/btnHighScores"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        android:background="#915e54" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/strBtnAbout"
+        android:id="@+id/btnAbout"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
+        android:background="#864e91" />
+</LinearLayout>

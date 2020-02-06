@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="guigue.chris.whack_a_mole.About">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strAboutTitle"
+        android:id="@+id/tvAbout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/game"
+        android:id="@+id/tvGameTitle"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#010101"
+        android:layout_below="@+id/tvAbout"
+        android:layout_toStartOf="@+id/tvAbout" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvGameValue"
+        android:text="@string/app_name"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/tvGameTitle"
+        android:layout_toEndOf="@+id/tvGameTitle"
+        android:layout_marginStart="67dp"
+        android:textStyle="bold"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/version"
+        android:id="@+id/tvVersionTitle"
+        android:layout_below="@+id/tvGameTitle"
+        android:layout_alignEnd="@+id/tvGameTitle"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strVersion"
+        android:id="@+id/tvVersionValue"
+        android:textSize="20sp"
+        android:layout_alignTop="@+id/tvVersionTitle"
+        android:layout_alignStart="@+id/tvGameValue"
+        android:textStyle="bold"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strAuthorTitle"
+        android:id="@+id/tvAuthorTitle"
+        android:layout_below="@+id/tvVersionTitle"
+        android:layout_alignEnd="@+id/tvVersionTitle"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strAuthor"
+        android:id="@+id/tvAuthorValue"
+        android:layout_below="@+id/tvVersionValue"
+        android:layout_alignStart="@+id/tvVersionValue"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strCompleteTitle"
+        android:id="@+id/tvCompleted"
+        android:layout_below="@+id/tvAuthorTitle"
+        android:layout_alignEnd="@+id/tvAuthorTitle"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/strCompleted"
+        android:id="@+id/tvDateCompleted"
+        android:layout_below="@+id/tvAuthorValue"
+        android:layout_alignStart="@+id/tvAuthorValue"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textColor="#010101" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/strGameDescription"
+        android:id="@+id/tvDescription"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#010101"
+        android:layout_below="@+id/tvDateCompleted"
+        android:layout_alignEnd="@+id/tvGameValue"
+        android:layout_alignStart="@+id/tvVersionTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCurDate"
+        android:layout_below="@+id/tvDescription"
+        android:layout_alignStart="@+id/tvDescription"
+        android:layout_marginTop="79dp"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvCurTime"
+        android:layout_below="@+id/tvCurDate"
+        android:layout_alignStart="@+id/tvCurDate"
+        android:textStyle="bold"
+        android:textIsSelectable="false"
+        android:textSize="30sp" />
+</RelativeLayout>

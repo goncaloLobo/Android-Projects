@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#86cfdb"
+    tools:context="guigue.chris.whack_a_mole.Options">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llTitle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/strOptionsTitle"
+            android:id="@+id/tvOptionsTitle"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:textSize="70sp"
+            android:textStyle="bold|italic"
+            android:textColor="#010101" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llBkGrnd">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strBackgroundColour"
+            android:id="@+id/tvBackgroundColour"
+            android:layout_weight="1.5"
+            android:gravity="center|right"
+            android:textSize="35sp"
+            android:textColor="#010101" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spnBackGroundColour"
+            android:layout_weight="2"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llHole">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strHoleColour"
+            android:id="@+id/tvHoleColour"
+            android:layout_weight="1.5"
+            android:gravity="center|right"
+            android:textSize="35sp"
+            android:textColor="#010101" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spnHoleColour"
+            android:layout_weight="2"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llLives">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strStartingLives"
+            android:id="@+id/tvStartingLives"
+            android:gravity="center|right"
+            android:layout_weight="1.5"
+            android:textSize="35sp"
+            android:textColor="#010101" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spnStartingLives"
+            android:layout_weight="2"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llBonusLife">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strGiveLife"
+            android:id="@+id/tvGiveLife"
+            android:gravity="center|right"
+            android:layout_weight="1.5"
+            android:textSize="35sp"
+            android:textColor="#010101" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spnBonusLives"
+            android:layout_weight="2"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llUser">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strUserName"
+            android:id="@+id/tvUserName"
+            android:gravity="center|right"
+            android:layout_weight="1.5"
+            android:textSize="35sp"
+            android:textColor="#010101" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/spnUsers"
+            android:layout_weight="2"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llAddUser"
+        android:visibility="gone">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/etUser"
+            android:textSize="30sp"
+            android:layout_below="@+id/spnUsers"
+            android:layout_alignStart="@+id/tvUser"
+            android:layout_weight="1" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/strBtnCommit"
+            android:id="@+id/btnCommit"
+            android:layout_alignTop="@+id/etUser"
+            android:layout_toEndOf="@+id/etUser"
+            android:layout_weight="3" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:id="@+id/llSave">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Save Options"
+            android:id="@+id/btnSave"
+            android:textSize="60sp"
+            android:textColor="#010101"
+            android:background="#e39032" />
+    </LinearLayout>
+</LinearLayout>
