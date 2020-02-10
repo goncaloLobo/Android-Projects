@@ -1,16 +1,11 @@
 package com.example.dropanddrag;
 
 import android.app.Activity;
-
 import android.content.ClipData;
-import android.graphics.Point;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,8 +40,6 @@ public class MainActivity extends Activity {
                     case DragEvent.ACTION_DRAG_ENTERED:
                         break;
                     case DragEvent.ACTION_DROP: {
-                        Point point = getPointOfView(dragButton);
-                        Point point2 = getPointOfView(dropButton);
                         fail += 1;
                         return true;
                     }
@@ -79,11 +72,5 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
-    }
-
-    private Point getPointOfView(View view) {
-        int[] location = new int [2];
-        view.getLocationInWindow(location);
-        return new Point(location[0], location[1]);
     }
 }

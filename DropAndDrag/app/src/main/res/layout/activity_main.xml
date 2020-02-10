@@ -4,16 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:weightSum="2"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/bottomlinear"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="#E9967a"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/one"
@@ -25,32 +27,83 @@
 
     <LinearLayout
         android:id="@+id/bottomlinear1"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="#ffffff"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/drop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/dashed1"
-            android:textSize="30sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical"
+            android:weightSum="3">
 
-        <TextView
-            android:id="@+id/Total"
-            android:layout_width="wrap_content"
-            android:layout_gravity="left"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/Success"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/drop1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dashed1"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/drop2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dashed1"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/drop3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dashed1"
+                    android:textSize="30sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/Success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textSize="20sp" />
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>
