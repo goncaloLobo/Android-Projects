@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
     private Button dragButton1, dragButton2, dragButton3, dragButton4, dragButton5, dragButton6;
+    private Button restart;
     private LinearLayout dropButton;
     TextView tv, success, dropD1, dropD2, dropD3, dropD4, dropD5, dropD6;
     private int total, fail = 0, id = 0;
@@ -28,6 +29,7 @@ public class MainActivity extends Activity {
         dragButton5 = findViewById(R.id.box5);
         dragButton6 = findViewById(R.id.box6);
         dropButton = (LinearLayout) findViewById(R.id.bottomlinear1);
+        restart = findViewById(R.id.restart);
         //tv = findViewById(R.id.Total);
         //success = findViewById(R.id.Success);
 
@@ -158,6 +160,26 @@ public class MainActivity extends Activity {
                 View.DragShadowBuilder shadow = new View.DragShadowBuilder(dragButton6);
                 v.startDragAndDrop(data, shadow, null, 0);
                 id = 6;
+                return false;
+            }
+        });
+
+        restart.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dropD1 = findViewById(R.id.drop1);
+                dropD2 = findViewById(R.id.drop2);
+                dropD3 = findViewById(R.id.drop3);
+                dropD4 = findViewById(R.id.drop4);
+                dropD5 = findViewById(R.id.drop5);
+                dropD6 = findViewById(R.id.drop6);
+
+                dropD1.setBackgroundResource(R.drawable.dashed1);
+                dropD2.setBackgroundResource(R.drawable.dashed1);
+                dropD3.setBackgroundResource(R.drawable.dashed1);
+                dropD4.setBackgroundResource(R.drawable.dashed1);
+                dropD5.setBackgroundResource(R.drawable.dashed1);
+                dropD6.setBackgroundResource(R.drawable.dashed1);
                 return false;
             }
         });
