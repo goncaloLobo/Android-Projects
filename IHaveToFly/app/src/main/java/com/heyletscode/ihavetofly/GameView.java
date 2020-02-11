@@ -162,7 +162,7 @@ public class GameView extends SurfaceView implements Runnable {
             if (bird.x + bird.width < 0) {
 
                 if (!bird.wasShot) {
-                    isGameOver = true;
+                    //isGameOver = true;
                     return;
                 }
 
@@ -180,7 +180,7 @@ public class GameView extends SurfaceView implements Runnable {
 
             if (Rect.intersects(bird.getCollisionShape(), flight.getCollisionShape())) {
 
-                isGameOver = true;
+                //isGameOver = true;
                 return;
             }
 
@@ -196,8 +196,8 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
             canvas.drawBitmap(background2.background, background2.x, background2.y, paint);
 
-            for (Bird bird : birds)
-                canvas.drawBitmap(bird.getBird(), bird.x, bird.y, paint);
+            //for (Bird bird : birds)
+            //    canvas.drawBitmap(bird.getBird(), bird.x, bird.y, paint);
 
             canvas.drawText(score + "", screenX / 2f, 164, paint);
 
@@ -212,8 +212,8 @@ public class GameView extends SurfaceView implements Runnable {
 
             canvas.drawBitmap(flight.getFlight(), flight.x, flight.y, paint);
 
-            for (Bullet bullet : bullets)
-                canvas.drawBitmap(bullet.bullet, bullet.x, bullet.y, paint);
+            //for (Bullet bullet : bullets)
+            //    canvas.drawBitmap(bullet.bullet, bullet.x, bullet.y, paint);
 
             getHolder().unlockCanvasAndPost(canvas);
 
