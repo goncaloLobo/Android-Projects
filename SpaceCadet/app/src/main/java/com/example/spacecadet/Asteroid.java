@@ -13,25 +13,40 @@ public class Asteroid {
     public int speed = 20;
     public boolean wasShot = true;
     int x = 0, y = 0, width, height, asteroidCounter = 1;
-    Bitmap asteroid;
+    Bitmap asteroid1, asteroid2, asteroid3;
 
     public Asteroid(Resources res) {
-        asteroid = BitmapFactory.decodeResource(res, R.drawable.asteroid);
+        asteroid1 = BitmapFactory.decodeResource(res, R.drawable.asteroid1);
+        asteroid2 = BitmapFactory.decodeResource(res, R.drawable.asteroid2);
+        asteroid3 = BitmapFactory.decodeResource(res, R.drawable.asteroid3);
 
-        width = asteroid.getWidth();
-        height = asteroid.getHeight();
+        width = asteroid1.getWidth();
+        height = asteroid1.getHeight();
 
-        //width /= 6;
-        //height /= 6;
+        width /= 3;
+        height /= 3;
 
         width = (int) (width * screenRatioX);
         height = (int) (height * screenRatioY);
 
-        asteroid = Bitmap.createScaledBitmap(asteroid, width, height, false);
+        asteroid1 = Bitmap.createScaledBitmap(asteroid1, width, height, false);
+        asteroid2 = Bitmap.createScaledBitmap(asteroid2, width, height, false);
+        asteroid3 = Bitmap.createScaledBitmap(asteroid3, width, height, false);
     }
 
     public Bitmap getAsteroid() {
-        return asteroid;
+        if (asteroidCounter == 1) {
+            asteroidCounter++;
+            return asteroid1;
+        }
+
+        if (asteroidCounter == 2) {
+            asteroidCounter++;
+            return asteroid2;
+        }
+
+        asteroidCounter = 1;
+        return asteroid3;
     }
 
     public Rect getCollisionShape() {

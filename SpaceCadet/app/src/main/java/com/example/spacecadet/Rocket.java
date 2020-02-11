@@ -23,7 +23,7 @@ public class Rocket {
         height = rocket.getHeight();
 
         width /= 3;
-        height /= 2;
+        height /= 1.5;
 
         width = (int) (width * screenRatioX);
         height = (int) (height * screenRatioY);

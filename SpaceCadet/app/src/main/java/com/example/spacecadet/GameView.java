@@ -11,7 +11,7 @@ public class GameView extends SurfaceView implements Runnable {
     private boolean isPlaying;
     private int screenX, screenY;
     private Paint paint;
-    private Asteroid asteroid;
+    private Asteroid[] asteroids;
     private Rocket rocket;
     public static float screenRatioX, screenRatioY;
     private Background background1, background2;
@@ -31,8 +31,14 @@ public class GameView extends SurfaceView implements Runnable {
         background2.y = screenY;
 
         paint = new Paint();
-        asteroid = new Asteroid(getResources());
         rocket = new Rocket(this, screenX, getResources());
+
+        // criacao dos vários asteroids
+        asteroids = new Asteroid[3];
+        for (int i = 0; i < 3; i++) {
+            Asteroid ast = new Asteroid(getResources());
+            asteroids[i] = ast;
+        }
     }
 
     @Override
@@ -65,12 +71,15 @@ public class GameView extends SurfaceView implements Runnable {
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
             canvas.drawBitmap(background2.background, background2.x, background2.y, paint);
 
-            //canvas.drawBitmap(asteroid.getAsteroid(), asteroid.x, asteroid.y, paint);
+            // desenhar os vários asteroids
+            for (Asteroid ast : asteroids) {
+                canvas.drawBitmap(ast.getAsteroid(), ast.x, ast.y, paint);
+            }
 
             // coloca o foguetão no centro, em baixo no ecrã
-            int startX= (canvas.getWidth()-rocket.getRocket().getWidth())/2;
-            int startY=(canvas.getHeight()-rocket.getRocket().getHeight()-50);
-            canvas.drawBitmap(rocket.getRocket(), startX, startY, paint);
+            int startX1 = (canvas.getWidth() - rocket.getRocket().getWidth()) / 2;
+            int startY1 = (canvas.getHeight() - rocket.getRocket().getHeight() - 50);
+            canvas.drawBitmap(rocket.getRocket(), startX1, startY1, paint);
 
             getHolder().unlockCanvasAndPost(canvas);
         }
