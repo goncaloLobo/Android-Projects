@@ -35,6 +35,7 @@ public class Asteroid {
     }
 
     public Bitmap getAsteroid() {
+        /*
         if (asteroidCounter == 1) {
             asteroidCounter++;
             return asteroid1;
@@ -47,6 +48,8 @@ public class Asteroid {
 
         asteroidCounter = 1;
         return asteroid3;
+        */
+        return asteroid1;
     }
 
     public Rect getCollisionShape() {
