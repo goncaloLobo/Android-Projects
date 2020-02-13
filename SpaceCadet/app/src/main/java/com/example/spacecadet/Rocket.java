@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
-import android.util.Log;
 
 import static com.example.spacecadet.GameView.screenRatioX;
 import static com.example.spacecadet.GameView.screenRatioY;

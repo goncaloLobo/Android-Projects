@@ -10,7 +10,7 @@ import static com.example.spacecadet.GameView.screenRatioY;
 
 public class Asteroid {
 
-    public int speed = 20;
+    public int speed = 5;
     public boolean wasShot = true;
     int x = 0, y = 0, width, height, asteroidCounter = 1;
     Bitmap asteroid1, asteroid2, asteroid3;
@@ -23,8 +23,8 @@ public class Asteroid {
         width = asteroid1.getWidth();
         height = asteroid1.getHeight();
 
-        width /= 3;
-        height /= 3;
+        width /= 5;
+        height /= 2;
 
         width = (int) (width * screenRatioX);
         height = (int) (height * screenRatioY);
