@@ -55,18 +55,19 @@ public class GameView extends SurfaceView implements Runnable {
         rocket = new Rocket(this, screenX, screenY, getResources());
 
         // criacao dos vários asteroids
-        asteroidTeste = new Asteroid(getResources());
-        //asteroids = new Asteroid[3];
-        //for (int i = 0; i < 3; i++) {
-        //    Asteroid ast = new Asteroid(getResources());
-        //    asteroids[i] = ast;
-        //}
+        //asteroidTeste = new Asteroid(getResources());
+        asteroids = new Asteroid[3];
+        for (int i = 0; i < 3; i++) {
+            Asteroid ast = new Asteroid(getResources());
+            asteroids[i] = ast;
+        }
 
         random = new Random();
     }
 
     @Override
     public void run() {
+        Log.d("Isplaying ", "-> " + isPlaying);
         while (isPlaying) {
             update();
             draw();
@@ -102,33 +103,32 @@ public class GameView extends SurfaceView implements Runnable {
             rocket.y = screenY - rocket.height;
 
 
-        // for (Asteroid ast : asteroids){
+        for (Asteroid ast : asteroids) {
+            ast.y += ast.speed;
 
-        asteroidTeste.y += asteroidTeste.speed;
+            if (ast.y + ast.height > screenY) {
+                if (!ast.wasShot) {
+                    Log.d("GameOver: ", "entrei");
+                    isGameOver = true;
+                    saveIfHighScore();
+                    waitBeforeExiting();
+                    return;
+                }
 
-        if (asteroidTeste.y + asteroidTeste.height > screenY) {
-            if (!asteroidTeste.wasShot) {
-                Log.d("GameOver: ", "entrei");
-                isGameOver = true;
-                saveIfHighScore();
-                waitBeforeExiting();
-                return;
+                int bound = (int) (30 * screenRatioY);
+                ast.speed = random.nextInt(bound);
+
+                if (ast.speed < 10 * screenRatioY) {
+                    ast.speed = (int) (10 * screenRatioY);
+                }
+
+                ast.y = screenY;
+                ast.x = random.nextInt(screenX - ast.width);
+
+                ast.wasShot = false;
             }
 
-            int bound = (int) (30 * screenRatioY);
-            asteroidTeste.speed = random.nextInt(bound);
-
-            if (asteroidTeste.speed < 10 * screenRatioY) {
-                asteroidTeste.speed = (int) (10 * screenRatioY);
-            }
-
-            asteroidTeste.y = screenY;
-            asteroidTeste.x = random.nextInt(screenX - asteroidTeste.width);
-
-            asteroidTeste.wasShot = false;
-
-            if (Rect.intersects(asteroidTeste.getCollisionShape(), rocket.getCollisionShape())) {
-                Log.d("entrei colisão: ", "entrei");
+            if (Rect.intersects(ast.getCollisionShape(), rocket.getCollisionShape())) {
                 isGameOver = true;
                 return;
             }
@@ -141,19 +141,21 @@ public class GameView extends SurfaceView implements Runnable {
             Canvas canvas = getHolder().lockCanvas();
 
             canvas.drawBitmap(background1.background, background1.x, background1.y, paint);
-            
-            //desenha os foguetoes
-            canvas.drawBitmap(rocket.getRocket(), rocket.x, rocket.y, paint);
 
             // desenha os asteroids
-            canvas.drawBitmap(asteroidTeste.getAsteroid(), asteroidTeste.x, asteroidTeste.y, paint);
+            for (Asteroid ast : asteroids)
+                canvas.drawBitmap(ast.getAsteroid(), ast.x, ast.y, paint);
 
             if (isGameOver) {
+                Log.d("Entrei crl", "entrei entrei");
                 isPlaying = false;
                 getHolder().unlockCanvasAndPost(canvas);
+                waitBeforeExiting ();
                 return;
             }
 
+            //desenha os foguetoes
+            canvas.drawBitmap(rocket.getRocket(), rocket.x, rocket.y, paint);
 
             getHolder().unlockCanvasAndPost(canvas);
         }

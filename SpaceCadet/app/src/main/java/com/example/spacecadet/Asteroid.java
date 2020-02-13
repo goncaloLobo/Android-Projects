@@ -17,8 +17,8 @@ public class Asteroid {
 
     public Asteroid(Resources res) {
         asteroid1 = BitmapFactory.decodeResource(res, R.drawable.asteroid1);
-        asteroid2 = BitmapFactory.decodeResource(res, R.drawable.asteroid2);
-        asteroid3 = BitmapFactory.decodeResource(res, R.drawable.asteroid3);
+        //asteroid2 = BitmapFactory.decodeResource(res, R.drawable.asteroid2);
+        //asteroid3 = BitmapFactory.decodeResource(res, R.drawable.asteroid3);
 
         width = asteroid1.getWidth();
         height = asteroid1.getHeight();
@@ -30,8 +30,8 @@ public class Asteroid {
         height = (int) (height * screenRatioY);
 
         asteroid1 = Bitmap.createScaledBitmap(asteroid1, width, height, false);
-        asteroid2 = Bitmap.createScaledBitmap(asteroid2, width, height, false);
-        asteroid3 = Bitmap.createScaledBitmap(asteroid3, width, height, false);
+        //asteroid2 = Bitmap.createScaledBitmap(asteroid2, width, height, false);
+        //asteroid3 = Bitmap.createScaledBitmap(asteroid3, width, height, false);
     }
 
     public Bitmap getAsteroid() {
