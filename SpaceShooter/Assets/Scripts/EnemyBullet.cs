@@ -41,6 +41,7 @@ public class EnemyBullet : MonoBehaviour
 
             if ((transform.position.x < min.x) || (transform.position.x > max.x) || (transform.position.y < min.y) || (transform.position.y > max.y))
             {
+                // a bala é destruída qdo passa os limites do ecrã
                 Destroy(gameObject);
             }
         }
@@ -50,6 +51,7 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.tag == "PlayerShipTag")
         {
+            // destroi a bala quando bate na nave
             Destroy(gameObject);
         }
     }

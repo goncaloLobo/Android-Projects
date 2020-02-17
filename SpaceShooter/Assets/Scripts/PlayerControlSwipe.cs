@@ -26,14 +26,18 @@ public class PlayerControlSwipe : MonoBehaviour
     public void Init()
     {
         lives = MaxLives;
+        Debug.Log("Lives inicial: " + lives);
         LivesUIText.text = lives.ToString();
         transform.position = new Vector2(0, -2);
+
+        //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -116,11 +120,11 @@ public class PlayerControlSwipe : MonoBehaviour
             LivesUIText.text = lives.ToString();
             if(lives == 0)
             {
+                Debug.Log("ENTREIIIII");
                 // mudar o estado para gameover
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
                 gameObject.SetActive(false); // esconder o objecto
             }
-            //Destroy(gameObject);
         }
     }
 

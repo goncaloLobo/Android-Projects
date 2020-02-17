@@ -31,6 +31,7 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
+    // Deteta colisao entre bala do jogador que vem da nave do jogador
     void OnTriggerEnter2D(Collider2D collision)
     {
         if ((collision.tag == "PlayerShipTag") || (collision.tag == "PlayerBulletTag"))

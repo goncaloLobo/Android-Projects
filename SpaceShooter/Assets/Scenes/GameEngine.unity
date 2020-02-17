@@ -1228,6 +1228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerGO: {fileID: 1693170702}
+  PlayerGO: {fileID: 1950541782}
   PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
     type: 3}
   bulletPosition01: {fileID: 1771285709}
