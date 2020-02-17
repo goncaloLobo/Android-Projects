@@ -27,4 +27,12 @@ public class PlayerBullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "EnemyShipTag")
+        {
+            Destroy(gameObject);
+        }
+    }
 }

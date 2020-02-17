@@ -309,12 +309,13 @@ GameObject:
   - component: {fileID: 1950541785}
   - component: {fileID: 1950541784}
   - component: {fileID: 1950541783}
-  - component: {fileID: 1950541787}
   - component: {fileID: 1950541786}
   - component: {fileID: 1950541788}
+  - component: {fileID: 1950541787}
+  - component: {fileID: 1950541789}
   m_Layer: 0
   m_Name: PlayerGO
-  m_TagString: Untagged
+  m_TagString: PlayerShipTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -419,7 +420,49 @@ MonoBehaviour:
     type: 3}
   bulletPosition01: {fileID: 1771285709}
   bulletPosition02: {fileID: 445422684}
---- !u!50 &1950541787
+--- !u!61 &1950541787
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950541782}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.72, y: 0.72}
+    newSize: {x: 0.72, y: 0.72}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.27, y: 0.47}
+  m_EdgeRadius: 0
+--- !u!114 &1950541788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950541782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1815092f8a2f5704da9c5c42c50bbcd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
+    type: 3}
+  bulletPosition01: {fileID: 1771285709}
+  bulletPosition02: {fileID: 445422684}
+--- !u!50 &1950541789
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -440,19 +483,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1950541788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950541782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1815092f8a2f5704da9c5c42c50bbcd5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
-    type: 3}
-  bulletPosition01: {fileID: 1771285709}
-  bulletPosition02: {fileID: 445422684}

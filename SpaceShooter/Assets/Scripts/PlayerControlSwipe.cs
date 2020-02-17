@@ -88,4 +88,12 @@ public class PlayerControlSwipe : MonoBehaviour
                 break;
         }
     }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
+        {
+            Destroy(gameObject);
+        }
+    }
 }
