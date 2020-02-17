@@ -11,9 +11,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
-
-        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+        
     }
 
     // Update is called once per frame
@@ -58,5 +56,20 @@ public class EnemySpawner : MonoBehaviour
         {
             CancelInvoke("IncreaseSpawnRate");
         }
+    }
+
+    // começar o enemy spawner
+    public void ScheduleEnemySpawner()
+    {
+        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
+
+        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+    }
+
+    // parar o enemy spawner
+    public void UnscheduleEnemySpawner()
+    {
+        CancelInvoke("SpawnEnemy");
+        CancelInvoke("IncreaseSpawnRate");
     }
 }

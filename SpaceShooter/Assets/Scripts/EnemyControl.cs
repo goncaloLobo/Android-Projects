@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
-
+    public GameObject ExplosionGO;
     public float speed;
 
     // Start is called before the first frame update
@@ -32,7 +32,14 @@ public class EnemyControl : MonoBehaviour
     {
         if ((collision.tag == "PlayerShipTag") || (collision.tag == "PlayerBulletTag"))
         {
+            PlayExplosion();
             Destroy(gameObject);
         }
+    }
+
+    void PlayExplosion()
+    {
+        GameObject explosion = (GameObject)Instantiate(ExplosionGO);
+        explosion.transform.position = transform.position;
     }
 }

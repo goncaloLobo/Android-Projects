@@ -2,9 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControlSwipe : MonoBehaviour
 {
+    public GameObject GameManagerGO; // game manager
 
     private Vector2 startTouchPosition, endTouchPosition;
     private Vector3 startRocketPosition, endRocketPosition;
@@ -14,6 +16,19 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject PlayerBulletGO;
     public GameObject bulletPosition01;
     public GameObject bulletPosition02;
+
+    public GameObject ExplosionGO;
+
+    public Text LivesUIText;
+    const int MaxLives = 3;
+    int lives;
+
+    public void Init()
+    {
+        lives = MaxLives;
+        LivesUIText.text = lives.ToString();
+        gameObject.SetActive(true);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -93,7 +108,22 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
         {
-            Destroy(gameObject);
+            PlayExplosion();
+            lives--;
+            LivesUIText.text = lives.ToString();
+            if(lives == 0)
+            {
+                // mudar o estado para gameover
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
+                gameObject.SetActive(false); // esconder o objecto
+            }
+            //Destroy(gameObject);
         }
+    }
+
+    void PlayExplosion()
+    {
+        GameObject explosion = (GameObject)Instantiate(ExplosionGO);
+        explosion.transform.position = transform.position;
     }
 }
