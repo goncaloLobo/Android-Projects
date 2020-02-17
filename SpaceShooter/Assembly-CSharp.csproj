@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\EnemyGun.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GameScore.cs" />
     <Compile Include="Assets\Scripts\PlayerBullet.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\PlayerControlDrag.cs" />

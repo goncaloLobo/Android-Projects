@@ -27,6 +27,7 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
+        transform.position = new Vector2(0, -2);
         gameObject.SetActive(true);
     }
 
@@ -57,11 +58,11 @@ public class PlayerControlSwipe : MonoBehaviour
                 StartCoroutine(Fly("right"));
             }
 
-            if ((endTouchPosition.y > startTouchPosition.y) && transform.position.y > -1.75f)
-            {
-                //transform.position = new Vector2(transform.position.x - 1.75f, transform.position.y);
-                StartCoroutine(Fly("top"));
-            }
+            //if ((endTouchPosition.y > startTouchPosition.y) && transform.position.y > -1.75f)
+            //{
+            //    //transform.position = new Vector2(transform.position.x - 1.75f, transform.position.y);
+            //    StartCoroutine(Fly("top"));
+            //}
         }
     }
 
@@ -72,7 +73,7 @@ public class PlayerControlSwipe : MonoBehaviour
             case "left":
                 flytime = 0f;
                 startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x - 1.75f, transform.position.y, transform.position.z);
+                endRocketPosition = new Vector3(startRocketPosition.x - 1.4f, transform.position.y, transform.position.z);
 
                 while(flytime < flightDuration)
                 {
@@ -84,7 +85,7 @@ public class PlayerControlSwipe : MonoBehaviour
             case "right":
                 flytime = 0f;
                 startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x + 1.75f, transform.position.y, transform.position.z);
+                endRocketPosition = new Vector3(startRocketPosition.x + 1.4f, transform.position.y, transform.position.z);
 
                 while(flytime < flightDuration)
                 {
@@ -93,14 +94,16 @@ public class PlayerControlSwipe : MonoBehaviour
                     yield return null;
                 }
                 break;
-            case "top":
-                GameObject bullet01 = (GameObject)Instantiate(PlayerBulletGO);
-                bullet01.transform.position = bulletPosition01.transform.position;
+            //case "top":
+            //    // som do laser a disparar
+            //    GetComponent<AudioSource>().Play();
+            //    GameObject bullet01 = (GameObject)Instantiate(PlayerBulletGO);
+            //    bullet01.transform.position = bulletPosition01.transform.position;
 
-                GameObject bullet02 = (GameObject)Instantiate(PlayerBulletGO);
-                bullet02.transform.position = bulletPosition02.transform.position;
-
-                break;
+            //    GameObject bullet02 = (GameObject)Instantiate(PlayerBulletGO);
+            //    bullet02.transform.position = bulletPosition02.transform.position;
+            //
+            //    break;
         }
     }
 
