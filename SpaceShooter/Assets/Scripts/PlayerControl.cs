@@ -73,11 +73,11 @@ public class PlayerControl : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
 
-        max.x = max.x - 0.225f;
-        min.x = min.x + 0.225f;
+        max.x = max.x - 0.225f; // subtrai metade da largura da sprite
+        min.x = min.x + 0.225f; // adiciona metade da largura da sprite
 
-        max.y = max.y - 0.285f;
-        min.y = min.y + 0.285f;
+        max.y = max.y - 0.285f; // subtrai metade da altura da sprite
+        min.y = min.y + 0.285f; // adiciona metade da altura da sprite
 
         Vector2 pos = transform.position;
 

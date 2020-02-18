@@ -322,7 +322,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7dc661a4d48b554e96b057591bcbd8d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1077,7 +1077,6 @@ GameObject:
   - component: {fileID: 1950541785}
   - component: {fileID: 1950541784}
   - component: {fileID: 1950541783}
-  - component: {fileID: 1950541786}
   - component: {fileID: 1950541788}
   - component: {fileID: 1950541787}
   - component: {fileID: 1950541789}
@@ -1173,23 +1172,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1950541786
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950541782}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66a2ca1e5eeb91468b0f4b3488c2cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 4
-  PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
-    type: 3}
-  bulletPosition01: {fileID: 1771285709}
-  bulletPosition02: {fileID: 445422684}
 --- !u!61 &1950541787
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1278,9 +1260,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

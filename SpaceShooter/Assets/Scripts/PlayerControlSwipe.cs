@@ -25,6 +25,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public void Init()
     {
+        Debug.Log("Screen width: " + Screen.width);
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
         transform.position = new Vector2(0, -2);
@@ -76,7 +77,7 @@ public class PlayerControlSwipe : MonoBehaviour
             case "left":
                 flytime = 0f;
                 startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x - 1.4f, transform.position.y, transform.position.z);
+                endRocketPosition = new Vector3(startRocketPosition.x - 1f, transform.position.y, transform.position.z);
 
                 while(flytime < flightDuration)
                 {
@@ -88,7 +89,7 @@ public class PlayerControlSwipe : MonoBehaviour
             case "right":
                 flytime = 0f;
                 startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x + 1.4f, transform.position.y, transform.position.z);
+                endRocketPosition = new Vector3(startRocketPosition.x + 1f, transform.position.y, transform.position.z);
 
                 while(flytime < flightDuration)
                 {

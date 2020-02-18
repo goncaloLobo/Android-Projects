@@ -21,6 +21,7 @@ public class EnemyGun : MonoBehaviour
     
     void FireEnemyBullet()
     {
+        //LEMBRAR DISTO
         GameObject playerShip = GameObject.Find("PlayerGO");
 
         if(playerShip != null)
