@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner2Half : MonoBehaviour
 {
-    public GameObject EnemyGO;
+    public GameObject EnemyGO1;
 
     float maxSpawnRateInSeconds = 5f;
 
@@ -26,7 +26,7 @@ public class EnemySpawner2Half : MonoBehaviour
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
         // objetos em posicoes random no x de meio até ao lado dir do ecra
-        GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
+        GameObject anEnemy = (GameObject)Instantiate(EnemyGO1);
         anEnemy.transform.position = new Vector2(Random.Range(0, max.x), max.y);
         //Schedule when to spawn next enemy
         ScheduleNextEnemySpawn();

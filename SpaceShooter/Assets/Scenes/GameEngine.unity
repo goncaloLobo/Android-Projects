@@ -793,8 +793,54 @@ MonoBehaviour:
   playButton: {fileID: 1770039755}
   playerShip: {fileID: 1950541782}
   enemySpawner: {fileID: 1749605646}
+  enemySpawner2Half: {fileID: 1724136390}
   GameOverGO: {fileID: 1336017725}
   scoreUITextGO: {fileID: 2029485241}
+--- !u!1 &1724136390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724136392}
+  - component: {fileID: 1724136391}
+  m_Layer: 0
+  m_Name: EnemySpawnerGO2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724136391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724136390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f7178acfe41e7b4c859583f02218478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyGO1: {fileID: 1501506873366405532, guid: 6f817f6f2b526d741bb0d45e7e165891,
+    type: 3}
+--- !u!4 &1724136392
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724136390}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.24498217, y: 0.4212034, z: 0.07271232}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1739291466
 GameObject:
   m_ObjectHideFlags: 0
