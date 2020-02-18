@@ -1082,6 +1082,7 @@ GameObject:
   - component: {fileID: 1950541787}
   - component: {fileID: 1950541789}
   - component: {fileID: 1950541790}
+  - component: {fileID: 1950541791}
   m_Layer: 0
   m_Name: PlayerGO
   m_TagString: PlayerShipTag
@@ -1222,13 +1223,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950541782}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1815092f8a2f5704da9c5c42c50bbcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerGO: {fileID: 1693170702}
-  PlayerGO: {fileID: 1950541782}
   PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
     type: 3}
   bulletPosition01: {fileID: 1771285709}
@@ -1353,6 +1353,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1950541791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950541782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6ae8dc189ec200479e04e7fa60eb379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
+    type: 3}
+  bulletPosition01: {fileID: 1771285709}
+  bulletPosition02: {fileID: 445422684}
+  ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
+    type: 3}
+  GameManagerGO: {fileID: 1693170702}
+  LivesUIText: {fileID: 840643950}
+  speed: 4
 --- !u!1 &2029485241
 GameObject:
   m_ObjectHideFlags: 0

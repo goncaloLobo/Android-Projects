@@ -20,13 +20,12 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject ExplosionGO;
 
     public Text LivesUIText;
-    const int MaxLives = 3;
+    const int MaxLives = 1;
     int lives;
 
     public void Init()
     {
         lives = MaxLives;
-        Debug.Log("Lives inicial: " + lives);
         LivesUIText.text = lives.ToString();
         transform.position = new Vector2(0, -2);
 
@@ -120,7 +119,6 @@ public class PlayerControlSwipe : MonoBehaviour
             LivesUIText.text = lives.ToString();
             if(lives == 0)
             {
-                Debug.Log("ENTREIIIII");
                 // mudar o estado para gameover
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
                 gameObject.SetActive(false); // esconder o objecto

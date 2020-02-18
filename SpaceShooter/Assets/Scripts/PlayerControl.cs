@@ -1,11 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
+    public GameObject PlayerBulletGO;
+    public GameObject bulletPosition01;
+    public GameObject bulletPosition02;
+    public GameObject ExplosionGO;
+    
+    public GameObject GameManagerGO; // game manager
+
+    public Text LivesUIText;
+    const int MaxLives = 1;
+    int lives = 4;
 
     public float speed;
+
+    public void Init()
+    {
+        //if(lives > MaxLives)
+        //{
+        //    lives = MaxLives;
+        //    LivesUIText.text = lives.ToString();
+        //}
+        //else
+        //{
+        //    LivesUIText.text = lives.ToString();
+        //}
+        //Debug.Log("vou fazer SetActive: ");
+        //gameObject.SetActive(true);
+
+        // caso para o jogo apenas ter uma vida
+        lives = MaxLives;
+        LivesUIText.text = lives.ToString();
+        transform.position = new Vector2(0, -2);
+
+        //mostra a nave do jogador no ecra
+        gameObject.SetActive(true);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +50,17 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown("space"))
+        {
+            GameObject bullet01 = (GameObject)Instantiate(PlayerBulletGO);
+            bullet01.transform.position = bulletPosition01.transform.position;
+
+            GameObject bullet02 = (GameObject)Instantiate(PlayerBulletGO);
+            bullet02.transform.position = bulletPosition02.transform.position;
+        }
+        
         // the value will be -1, 0 or 1 (left, no input or right)
         float x = Input.GetAxisRaw("Horizontal");
-
-        // the value will be -1, 0 or 1 (down, no input or right)
         float y = Input.GetAxisRaw("Vertical");
 
         Vector2 direction = new Vector2(x, y).normalized;
@@ -50,10 +91,24 @@ public class PlayerControl : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
+        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
         {
-            Destroy(gameObject);
+            PlayExplosion();
+            lives--;
+            LivesUIText.text = lives.ToString();
+            if (lives == 0)
+            {
+                // mudar o estado para gameover
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
+                gameObject.SetActive(false); // esconder o objecto
+            }
         }
+    }
+
+    void PlayExplosion()
+    {
+        GameObject explosion = (GameObject)Instantiate(ExplosionGO);
+        explosion.transform.position = transform.position;
     }
 
 }

@@ -32,12 +32,11 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
-
                 //Reset ao score
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
                 playButton.SetActive(false);
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
+                playerShip.GetComponent<PlayerControl>().Init();
 
                 //iniciar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();

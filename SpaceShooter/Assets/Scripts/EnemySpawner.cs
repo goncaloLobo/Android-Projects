@@ -27,7 +27,6 @@ public class EnemySpawner : MonoBehaviour
 
         GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
         anEnemy.transform.position = new Vector2(Random.Range(min.x, max.x), max.y);
-
         //Schedule when to spawn next enemy
         ScheduleNextEnemySpawn();
     }
@@ -45,17 +44,14 @@ public class EnemySpawner : MonoBehaviour
         Invoke("SpawnEnemy", spawnInNSeconds);
     }
 
-    // Function to increase the difficulty of the game
+    // aumenta a velocidade com que faz spawn
     void IncreaseSpawnRate()
     {
         if(maxSpawnRateInSeconds > 1f)
-        {
             maxSpawnRateInSeconds--;
-        }
+        
         if(maxSpawnRateInSeconds == 1f)
-        {
             CancelInvoke("IncreaseSpawnRate");
-        }
     }
 
     // começar o enemy spawner
