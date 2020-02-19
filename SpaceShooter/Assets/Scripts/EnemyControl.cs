@@ -27,6 +27,7 @@ public class EnemyControl : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         if(transform.position.y < min.y)
         {
+            scoreUITextGO.GetComponent<GameScore>().Score += 100;
             Destroy(gameObject);
         }
     }

@@ -35,7 +35,6 @@ public class PlayerControl : MonoBehaviour
         // caso para o jogo apenas ter uma vida
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
-        transform.position = new Vector2(0, -2);
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
