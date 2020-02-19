@@ -25,10 +25,9 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public void Init()
     {
-        Debug.Log("Screen width: " + Screen.width);
+        // caso para o jogo apenas ter uma vida
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
-        transform.position = new Vector2(0, -2);
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
@@ -118,7 +117,7 @@ public class PlayerControlSwipe : MonoBehaviour
             PlayExplosion();
             lives--;
             LivesUIText.text = lives.ToString();
-            if(lives == 0)
+            if (lives == 0)
             {
                 // mudar o estado para gameover
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);

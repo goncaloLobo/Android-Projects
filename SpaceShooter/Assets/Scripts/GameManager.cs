@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
 
+    public bool isPlaying = false;
+    float currCountdownValue;
+
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
+                isPlaying = true;
                 //Reset ao score
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
@@ -41,14 +45,75 @@ public class GameManager : MonoBehaviour
                 playerShip.GetComponent<PlayerControl>().Init();
 
                 //iniciar o enemy spawner
-                //enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                //enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
-                enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                int roll = Random.Range(1, 4);
+                switch (roll)
+                {
+                    case 3:
+                        Debug.Log("entrei caso 3.");
+                        enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                        StartCoroutine(StartCountdown());
+                        if(Random.value < 0.5f)
+                        {
+                            Debug.Log("entreiiii1");
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                        }
+                        else
+                        {
+                            Debug.Log("entreiiii2");
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                        }
+                        
+                        break;
+                    case 2:
+                        Debug.Log("entrei caso 2.");
+                        enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                        StartCoroutine(StartCountdown());
+
+                        if (Random.value < 0.5f)
+                        {
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                        }
+                        else
+                        {
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                        }
+
+                        break;
+                    case 1:
+                        Debug.Log("entrei caso 1.");
+                        enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                        StartCoroutine(StartCountdown());
+
+                        if (Random.value < 0.5f)
+                        {
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                        }
+                        else
+                        {
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                            StartCoroutine(StartCountdown());
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                        }
+                        break;
+                }
+
                 break;
             case GameManagerState.GameOver:
-                // stop enemy spawner
-                //enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
-                //enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
+                isPlaying = false;
+
+                // parar o enemy spawner
+                enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
+                enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
                 enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
                 //display game over
                 GameOverGO.SetActive(true);
@@ -74,5 +139,15 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public IEnumerator StartCountdown(float countdownvalue = 20)
+    {
+        currCountdownValue = countdownvalue;
+        while (currCountdownValue > 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            currCountdownValue--;
+        }
     }
 }

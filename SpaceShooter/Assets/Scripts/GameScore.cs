@@ -27,6 +27,7 @@ public class GameScore : MonoBehaviour
     void UpdateScoreTextUI()
     {
         string scoreStr = string.Format("{0:0000000}", score);
+        Debug.Log("pontos: " + score);
         scoreTextUI.text = scoreStr;
     }
     

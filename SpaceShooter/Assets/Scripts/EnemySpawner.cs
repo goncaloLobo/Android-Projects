@@ -37,6 +37,7 @@ public class EnemySpawner : MonoBehaviour
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>1 e <5)
             spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
         }
         else
@@ -60,7 +61,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Invoke("SpawnEnemy", maxSpawnRateInSeconds);
 
-        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+        //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }
 
     // parar o enemy spawner

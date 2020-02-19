@@ -60,7 +60,7 @@ public class EnemySpawner3 : MonoBehaviour
     {
         Invoke("SpawnEnemy", maxSpawnRateInSeconds);
 
-        InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
+        //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }
 
     // parar o enemy spawner
