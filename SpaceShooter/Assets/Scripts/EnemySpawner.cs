@@ -25,9 +25,13 @@ public class EnemySpawner : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
-        // objetos em posicoes random no x do lado esq do ecra ate meio
+        Debug.Log("min: " + min);
+        Debug.Log("max: " + max);
+        Debug.Log("1/3 x: " + (min.x + max.x) / 3);
+        Debug.Log("2/3 x: " + ((min.x + max.x) / 3)*2);
+        // objetos em posicoes random no x do lado esq do ecra ate 1/3 do ecra
         GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
-        anEnemy.transform.position = new Vector2(Random.Range(min.x, 0), max.y);
+        anEnemy.transform.position = new Vector2(Random.Range(min.x, (min.x + max.x)/3), max.y);
         //Schedule when to spawn next enemy
         ScheduleNextEnemySpawn();
     }

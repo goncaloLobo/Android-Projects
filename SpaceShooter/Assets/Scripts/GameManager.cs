@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
     public GameObject playButton;
     public GameObject playerShip;
     public GameObject enemySpawner;
-    public GameObject enemySpawner2Half;
+    public GameObject enemySpawner2;
+    public GameObject enemySpawner3;
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
 
@@ -40,13 +41,15 @@ public class GameManager : MonoBehaviour
                 playerShip.GetComponent<PlayerControl>().Init();
 
                 //iniciar o enemy spawner
-                enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                enemySpawner2Half.GetComponent<EnemySpawner2Half>().ScheduleEnemySpawner();
+                //enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                //enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
                 break;
             case GameManagerState.GameOver:
                 // stop enemy spawner
-                enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
-                enemySpawner2Half.GetComponent<EnemySpawner2Half>().UnscheduleEnemySpawner();
+                //enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
+                //enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
+                enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
                 //display game over
                 GameOverGO.SetActive(true);
                 //mudar o estado do gamemanagerstate
