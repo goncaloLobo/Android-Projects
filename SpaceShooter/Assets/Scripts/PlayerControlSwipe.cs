@@ -60,12 +60,6 @@ public class PlayerControlSwipe : MonoBehaviour
                 //transform.position = new Vector2(transform.position.x + 1.75f, transform.position.y);
                 StartCoroutine(Fly("right"));
             }
-
-            //if ((endTouchPosition.y > startTouchPosition.y) && transform.position.y > -1.75f)
-            //{
-            //    //transform.position = new Vector2(transform.position.x - 1.75f, transform.position.y);
-            //    StartCoroutine(Fly("top"));
-            //}
         }
     }
 
@@ -78,7 +72,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x - 1f, transform.position.y, transform.position.z);
 
-                while(flytime < flightDuration)
+                while (flytime < flightDuration)
                 {
                     flytime += Time.deltaTime;
                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
@@ -90,23 +84,13 @@ public class PlayerControlSwipe : MonoBehaviour
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x + 1f, transform.position.y, transform.position.z);
 
-                while(flytime < flightDuration)
+                while (flytime < flightDuration)
                 {
                     flytime += Time.deltaTime;
                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                     yield return null;
                 }
                 break;
-            //case "top":
-            //    // som do laser a disparar
-            //    GetComponent<AudioSource>().Play();
-            //    GameObject bullet01 = (GameObject)Instantiate(PlayerBulletGO);
-            //    bullet01.transform.position = bulletPosition01.transform.position;
-
-            //    GameObject bullet02 = (GameObject)Instantiate(PlayerBulletGO);
-            //    bullet02.transform.position = bulletPosition02.transform.position;
-            //
-            //    break;
         }
     }
 

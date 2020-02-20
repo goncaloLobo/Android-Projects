@@ -42,8 +42,9 @@ public class GameManager : MonoBehaviour
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
                 playButton.SetActive(false);
-                playerShip.GetComponent<PlayerControl>().Init();
+                playerShip.GetComponent<PlayerControlSwipe>().Init();
 
+                
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
                 switch (roll)

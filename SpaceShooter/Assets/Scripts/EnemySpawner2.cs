@@ -27,7 +27,7 @@ public class EnemySpawner2 : MonoBehaviour
 
         // objetos em posicoes random no x de 1/3 do ecra ate 2/3
         GameObject anEnemy = (GameObject)Instantiate(EnemyGO1);
-        anEnemy.transform.position = new Vector2(Random.Range((min.x + max.x) / 3, ((min.x + max.x) / 3) * 2), max.y);
+        anEnemy.transform.position = new Vector2((min.x + max.x)/2, max.y);
 
         //Schedule when to spawn next enemy
         ScheduleNextEnemySpawn();
