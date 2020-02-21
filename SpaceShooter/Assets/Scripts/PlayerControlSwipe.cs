@@ -19,7 +19,8 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public GameObject ExplosionGO;
 
-    private Camera mainCamera;
+    public AudioSource swipeSound;
+    public AudioSource hitWallSound;
 
     public Text LivesUIText;
     const int MaxLives = 1;
@@ -75,15 +76,18 @@ public class PlayerControlSwipe : MonoBehaviour
                 flytime = 0f;
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x - 1f, transform.position.y, transform.position.z);
-                if(endRocketPosition.x > border.x)
+                if (endRocketPosition.x > border.x)
                 {
                     while (flytime < flightDuration)
                     {
+                        swipeSound.Play();
                         flytime += Time.deltaTime;
                         transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                         yield return null;
                     }
-                }                
+                }
+                else
+                    hitWallSound.Play();
                 break;
 
             case "right":
@@ -94,11 +98,14 @@ public class PlayerControlSwipe : MonoBehaviour
                 {
                     while (flytime < flightDuration)
                     {
+                        swipeSound.Play();
                         flytime += Time.deltaTime;
                         transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                         yield return null;
                     }
-                }                
+                }
+                else
+                    hitWallSound.Play();
                 break;
         }
     }
