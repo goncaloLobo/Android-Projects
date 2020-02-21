@@ -19,6 +19,8 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public GameObject ExplosionGO;
 
+    private Camera mainCamera;
+
     public Text LivesUIText;
     const int MaxLives = 1;
     int lives;
@@ -65,31 +67,38 @@ public class PlayerControlSwipe : MonoBehaviour
 
     private IEnumerator Fly(string wheretofly)
     {
+        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
+        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1,1)); // para limite dir
         switch (wheretofly)
         {
             case "left":
                 flytime = 0f;
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x - 1f, transform.position.y, transform.position.z);
-
-                while (flytime < flightDuration)
+                if(endRocketPosition.x > border.x)
                 {
-                    flytime += Time.deltaTime;
-                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                    yield return null;
-                }
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                        yield return null;
+                    }
+                }                
                 break;
+
             case "right":
                 flytime = 0f;
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x + 1f, transform.position.y, transform.position.z);
-
-                while (flytime < flightDuration)
+                if(endRocketPosition.x < border2.x)
                 {
-                    flytime += Time.deltaTime;
-                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                    yield return null;
-                }
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                        yield return null;
+                    }
+                }                
                 break;
         }
     }
