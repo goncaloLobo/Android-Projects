@@ -20,7 +20,8 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject ExplosionGO;
 
     public AudioSource swipeSound;
-    public AudioSource hitWallSound;
+    public AudioSource hitWallSoundRight;
+    public AudioSource hitWallSoundLeft;
 
     public Text LivesUIText;
     const int MaxLives = 1;
@@ -87,7 +88,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
                 }
                 else
-                    hitWallSound.Play();
+                    hitWallSoundLeft.Play();
                 break;
 
             case "right":
@@ -105,7 +106,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
                 }
                 else
-                    hitWallSound.Play();
+                    hitWallSoundRight.Play();
                 break;
         }
     }
