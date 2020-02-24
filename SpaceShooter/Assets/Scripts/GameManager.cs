@@ -40,9 +40,12 @@ public class GameManager : MonoBehaviour
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
                 playButton.SetActive(false);
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
+                //playerShip.GetComponent<PlayerControlSwipe>().Init();
+                playerShip.GetComponent<PlayerControl>().Init();
 
-                
+                enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+
+                /*
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
                 switch (roll)
@@ -104,7 +107,7 @@ public class GameManager : MonoBehaviour
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                         }
                         break;
-                }
+                }*/
 
                 break;
             case GameManagerState.GameOver:

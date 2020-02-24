@@ -24,12 +24,11 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource hitWallSoundLeft;
 
     public Text LivesUIText;
-    const int MaxLives = 1;
-    int lives;
+    const int MaxLives = 3;
+    int lives = 0;
 
     public void Init()
     {
-        // caso para o jogo apenas ter uma vida
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
 
@@ -46,8 +45,13 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
+        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
+
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
             startTouchPosition = Input.GetTouch(0).position;
+        }            
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
@@ -55,25 +59,6 @@ public class PlayerControlSwipe : MonoBehaviour
 
             if ((endTouchPosition.x < startTouchPosition.x) && transform.position.x > -1.75f)
             {
-                //transform.position = new Vector2(transform.position.x - 1.75f, transform.position.y);
-                StartCoroutine(Fly("left"));
-            }
-
-            if ((endTouchPosition.x > startTouchPosition.x) && transform.position.x < 1.75f)
-            {
-                //transform.position = new Vector2(transform.position.x + 1.75f, transform.position.y);
-                StartCoroutine(Fly("right"));
-            }
-        }
-    }
-
-    private IEnumerator Fly(string wheretofly)
-    {
-        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
-        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1,1)); // para limite dir
-        switch (wheretofly)
-        {
-            case "left":
                 flytime = 0f;
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x - 1f, transform.position.y, transform.position.z);
@@ -84,30 +69,29 @@ public class PlayerControlSwipe : MonoBehaviour
                         swipeSound.Play();
                         flytime += Time.deltaTime;
                         transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        yield return null;
                     }
                 }
                 else
                     hitWallSoundLeft.Play();
-                break;
+            }
 
-            case "right":
+            if ((endTouchPosition.x > startTouchPosition.x) && transform.position.x < 1.75f)
+            {
                 flytime = 0f;
                 startRocketPosition = transform.position;
                 endRocketPosition = new Vector3(startRocketPosition.x + 1f, transform.position.y, transform.position.z);
-                if(endRocketPosition.x < border2.x)
+                if (endRocketPosition.x < border2.x)
                 {
                     while (flytime < flightDuration)
                     {
                         swipeSound.Play();
                         flytime += Time.deltaTime;
                         transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        yield return null;
                     }
                 }
                 else
                     hitWallSoundRight.Play();
-                break;
+            }
         }
     }
 

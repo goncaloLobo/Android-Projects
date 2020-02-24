@@ -5,14 +5,13 @@ using UnityEngine;
 public class EnemyControl : MonoBehaviour
 {
     public GameObject ExplosionGO;
-    public GameObject scoreUITextGO;
+    GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
     public float speed;
 
     // Start is called before the first frame update
     void Start()
     {
         speed = 2f;
-
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
     }
 
@@ -27,9 +26,7 @@ public class EnemyControl : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
         if(transform.position.y < min.y)
         {
-            Debug.Log("ehehe entrei");
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
-            Debug.Log("+100 inimigo passou por mim");
             Destroy(gameObject);
         }
     }
@@ -41,7 +38,6 @@ public class EnemyControl : MonoBehaviour
         {
             PlayExplosion();
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
-            Debug.Log("+100 destrui inimigo");
             Destroy(gameObject);
         }
     }

@@ -1677,7 +1677,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950541782}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1815092f8a2f5704da9c5c42c50bbcd5, type: 3}
   m_Name: 
@@ -1721,7 +1721,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1950541782}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6ae8dc189ec200479e04e7fa60eb379, type: 3}
   m_Name: 
@@ -1770,8 +1770,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 283.55, y: -17.8}
-  m_SizeDelta: {x: 278.18, y: 109.4}
+  m_AnchoredPosition: {x: 249, y: -17.8}
+  m_SizeDelta: {x: 347.4, y: 109.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2029485243
 MonoBehaviour:
@@ -1796,9 +1796,9 @@ MonoBehaviour:
     m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 6
+    m_MinSize: 0
     m_MaxSize: 115
-    m_Alignment: 3
+    m_Alignment: 5
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

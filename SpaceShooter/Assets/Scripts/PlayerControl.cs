@@ -13,24 +13,13 @@ public class PlayerControl : MonoBehaviour
     public GameObject GameManagerGO; // game manager
 
     public Text LivesUIText;
-    const int MaxLives = 1;
+    const int MaxLives = 3;
     int lives = 4;
 
     public float speed;
 
     public void Init()
     {
-        //if(lives > MaxLives)
-        //{
-        //    lives = MaxLives;
-        //    LivesUIText.text = lives.ToString();
-        //}
-        //else
-        //{
-        //    LivesUIText.text = lives.ToString();
-        //}
-        //Debug.Log("vou fazer SetActive: ");
-        //gameObject.SetActive(true);
 
         // caso para o jogo apenas ter uma vida
         lives = MaxLives;

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class GameScore : MonoBehaviour
@@ -16,6 +14,7 @@ public class GameScore : MonoBehaviour
         }
         set{
             this.score = value;
+            UpdateScoreTextUI();
         }
     }
     // Start is called before the first frame update
@@ -27,7 +26,6 @@ public class GameScore : MonoBehaviour
     void UpdateScoreTextUI()
     {
         string scoreStr = string.Format("{0:0000000}", score);
-        Debug.Log("pontos: " + score);
         scoreTextUI.text = scoreStr;
     }
     
