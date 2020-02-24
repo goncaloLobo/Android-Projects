@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
 
-    public bool isPlaying = false;
     float currCountdownValue;
 
     public enum GameManagerState
@@ -37,7 +36,6 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
-                isPlaying = true;
                 //Reset ao score
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
@@ -110,7 +108,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-                isPlaying = false;
 
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();

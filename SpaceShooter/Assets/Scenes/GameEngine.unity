@@ -139,7 +139,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 5af97ecdcbc22a44f89f46a486a4d1b3, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f80b3663b0272f34cbafebae3ea77cbf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
@@ -1096,7 +1096,6 @@ MonoBehaviour:
   enemySpawner3: {fileID: 799812678}
   GameOverGO: {fileID: 1336017725}
   scoreUITextGO: {fileID: 2029485241}
-  isPlaying: 0
 --- !u!1 &1724136390
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1563,7 @@ MonoBehaviour:
   ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
     type: 3}
   swipeSound: {fileID: 1103498879}
-  hitWallSound: {fileID: 0}
+  hitWallSound: {fileID: 132808716}
   LivesUIText: {fileID: 840643950}
 --- !u!50 &1950541789
 Rigidbody2D:
