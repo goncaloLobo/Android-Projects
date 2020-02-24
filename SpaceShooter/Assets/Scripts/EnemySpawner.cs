@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject EnemyGO;
 
     float maxSpawnRateInSeconds = 5f;
+    float inicialSpawnRate = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
     // começar o enemy spawner
     public void ScheduleEnemySpawner()
     {
-        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
+        Invoke("SpawnEnemy", inicialSpawnRate);
 
         //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }

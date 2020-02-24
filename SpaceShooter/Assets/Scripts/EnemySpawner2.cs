@@ -7,6 +7,7 @@ public class EnemySpawner2 : MonoBehaviour
     public GameObject EnemyGO1;
 
     float maxSpawnRateInSeconds = 5f;
+    float inicialSpawnRate = 2f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +39,7 @@ public class EnemySpawner2 : MonoBehaviour
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>1 e <5)
             spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
         }
         else
@@ -59,7 +61,7 @@ public class EnemySpawner2 : MonoBehaviour
     // começar o enemy spawner
     public void ScheduleEnemySpawner()
     {
-        Invoke("SpawnEnemy", maxSpawnRateInSeconds);
+        Invoke("SpawnEnemy", inicialSpawnRate);
 
         //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }
