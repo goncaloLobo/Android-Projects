@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject playButton;
+    public GameObject instrucoesButton;
     public GameObject playerShip;
     public GameObject enemySpawner;
     public GameObject enemySpawner2;
@@ -34,12 +35,14 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
+                instrucoesButton.SetActive(true);
                 break;
             case GameManagerState.Gameplay:
                 //Reset ao score
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
                 playButton.SetActive(false);
+                instrucoesButton.SetActive(false);
                 //playerShip.GetComponent<PlayerControlSwipe>().Init();
                 playerShip.GetComponent<PlayerControl>().Init();
 
