@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -13,7 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
 
-    float currCountdownValue;
+    public float currCountdownValue;
+    public float increaseSpeedTimer;
 
     public enum GameManagerState
     {
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
     }
-    
+
     void UpdateGameManagerState()
     {
         switch (GMState)
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 instrucoesButton.SetActive(true);
+
                 break;
             case GameManagerState.Gameplay:
                 //Reset ao score
@@ -47,6 +48,9 @@ public class GameManager : MonoBehaviour
                 playerShip.GetComponent<PlayerControl>().Init();
 
                 enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+
+                // countdown para a velocidade
+                StartCoroutine(StartCountdownSpeed());
 
                 /*
                 //iniciar o enemy spawner
@@ -114,7 +118,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
                 enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
@@ -152,6 +155,28 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
+        }
+    }
+
+    //countdown para aumentar a velocidade
+    public IEnumerator StartCountdownSpeed(float countdownValue = 20)
+    {
+        float speed = EnemyControl.getSpeed();
+        increaseSpeedTimer = countdownValue;
+        while (increaseSpeedTimer >= 0)
+        {
+            Debug.Log("Countdown: " + increaseSpeedTimer);
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                speed+=0.3f;
+                EnemyControl.setSpeed(speed);
+
+                //countdown para aumentar a velocidade
+                StartCoroutine(StartCountdownSpeed());
+            }
         }
     }
 }

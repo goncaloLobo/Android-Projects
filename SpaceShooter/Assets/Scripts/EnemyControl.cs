@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyControl : MonoBehaviour
 {
     public GameObject ExplosionGO;
     GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
-    public float speed;
+
+    public static float speed = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        speed = 2f;
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
     }
 
@@ -19,12 +17,13 @@ public class EnemyControl : MonoBehaviour
     void Update()
     {
         Vector2 position = transform.position;
+        Debug.Log("Speed no update: " + speed);
         position = new Vector2(position.x, position.y - speed * Time.deltaTime);
 
         transform.position = position;
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        if(transform.position.y < min.y)
+        if (transform.position.y < min.y)
         {
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
             Destroy(gameObject);
@@ -47,4 +46,15 @@ public class EnemyControl : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
+
+    public static float getSpeed()
+    {
+        return speed;
+    }
+
+    public static void setSpeed(float sp)
+    {
+        speed = sp;
+    }
+
 }
