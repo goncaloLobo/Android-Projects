@@ -39,22 +39,22 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-                //Reset ao score
-                scoreUITextGO.GetComponent<GameScore>().Score = 0;
 
+                //Reset ao score, botao play e instrucoes
+                scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
                 instrucoesButton.SetActive(false);
+
+                // tipo de controlo
                 //playerShip.GetComponent<PlayerControlSwipe>().Init();
                 playerShip.GetComponent<PlayerControl>().Init();
-
-                enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
 
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());
 
-                /*
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
+                Debug.Log("roll: " + roll);
                 switch (roll)
                 {
                     case 3:
@@ -114,18 +114,22 @@ public class GameManager : MonoBehaviour
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                         }
                         break;
-                }*/
+                }
 
                 break;
             case GameManagerState.GameOver:
+
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
                 enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
                 enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
+
                 //display game over
                 GameOverGO.SetActive(true);
+
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 8f);
+
                 break;
         }
     }
@@ -165,7 +169,6 @@ public class GameManager : MonoBehaviour
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
         {
-            Debug.Log("Countdown: " + increaseSpeedTimer);
             yield return new WaitForSeconds(1.0f);
             increaseSpeedTimer--;
 

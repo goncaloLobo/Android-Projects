@@ -17,7 +17,6 @@ public class EnemyControl : MonoBehaviour
     void Update()
     {
         Vector2 position = transform.position;
-        Debug.Log("Speed no update: " + speed);
         position = new Vector2(position.x, position.y - speed * Time.deltaTime);
 
         transform.position = position;
