@@ -54,8 +54,7 @@ public class GameManager : MonoBehaviour
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
 
                 // tipo de controlo
-                // playerShip.GetComponent<PlayerControlSwipe>().Init();
-                playerShip.GetComponent<PlayerControl>().Init();
+                playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());

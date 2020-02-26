@@ -10,6 +10,7 @@ TagManager:
   - EnemyBulletTag
   - ScoreTextTag
   - MeteorTag
+  - Boost50Pts
   layers:
   - Default
   - TransparentFX

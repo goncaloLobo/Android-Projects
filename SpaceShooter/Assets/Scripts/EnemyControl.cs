@@ -31,14 +31,21 @@ public class EnemyControl : MonoBehaviour
         }
     }
 
-    // Colisao da nave inimiga ser com a nave do jogador ou com a bala disparada pelo jogador.
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.tag == "PlayerShipTag") || (collision.tag == "PlayerBulletTag"))
+        // jogador bater com a nave no inimigo
+        if (collision.tag == "PlayerShipTag")
         {
+            Debug.Log("ENTREI NESTA EXPLOSAO 3");
             PlayExplosion();
-            scoreUITextGO.GetComponent<GameScore>().Score += 100;
             Destroy(gameObject);
+        }
+
+        // disparar sobre o inimigo -> + 100 pontos (200 na realidade)
+        else if (collision.tag == "PlayerBulletTag")
+        {
+            Debug.Log("DISPAREI SOBRE O INIMIGO, 100 PTS");
+            scoreUITextGO.GetComponent<GameScore>().Score += 100;
         }
     }
 
