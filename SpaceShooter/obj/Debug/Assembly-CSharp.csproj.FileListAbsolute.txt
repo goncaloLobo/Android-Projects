@@ -232,9 +232,9 @@ C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.UnityWebRequestAudio
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.VideoModule.xml
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.XRModule.xml
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\nunit.framework.xml
-C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.pdb
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

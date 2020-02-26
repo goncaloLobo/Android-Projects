@@ -17,6 +17,7 @@ public class GameScore : MonoBehaviour
             UpdateScoreTextUI();
         }
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +28,5 @@ public class GameScore : MonoBehaviour
     {
         string scoreStr = string.Format("{0:00000}", score);
         scoreTextUI.text = scoreStr;
-    }
-
-    public int GetFinalScore()
-    {
-        return score;
-    }
-    
+    }  
 }

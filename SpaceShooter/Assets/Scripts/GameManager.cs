@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
 
-    public float currCountdownValue;
-    public float increaseSpeedTimer;
+    private float currCountdownValue;
+    private float increaseSpeedTimer;
+    private float countdownForFinalState;
 
     private int enemiesAvoided; // enemies that reached the end of the screen
     private int finalScore; // final score
@@ -49,11 +50,11 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 instrucoesButton.SetActive(false);
 
-                // iniciar o contador de tempo
+                // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
 
                 // tipo de controlo
-                //playerShip.GetComponent<PlayerControlSwipe>().Init();
+                // playerShip.GetComponent<PlayerControlSwipe>().Init();
                 playerShip.GetComponent<PlayerControl>().Init();
 
                 // countdown para a velocidade
@@ -122,12 +123,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.GameOver:
 
-                // terminar o contador de tempo, tempo final
+                // terminar o contador de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
-
-                // obter pontuacao final
-                finalScore = scoreUITextGO.GetComponent<GameScore>().Score;
-                enemiesAvoided = EnemyControl.GetEnemiesAvoided();
 
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
