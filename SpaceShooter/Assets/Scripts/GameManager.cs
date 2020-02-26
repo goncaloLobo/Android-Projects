@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public float currCountdownValue;
     public float increaseSpeedTimer;
 
+    private int enemiesAvoided; // enemies that reached the end of the screen
+    private int finalScore; // final score
+
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver
@@ -62,19 +65,16 @@ public class GameManager : MonoBehaviour
                 switch (roll)
                 {
                     case 3:
-                        Debug.Log("entrei caso 3.");
                         enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
                         StartCoroutine(StartCountdown());
                         if(Random.value < 0.5f)
                         {
-                            Debug.Log("entreiiii1");
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
                             StartCoroutine(StartCountdown());
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                         }
                         else
                         {
-                            Debug.Log("entreiiii2");
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                             StartCoroutine(StartCountdown());
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
@@ -82,7 +82,6 @@ public class GameManager : MonoBehaviour
                         
                         break;
                     case 2:
-                        Debug.Log("entrei caso 2.");
                         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                         StartCoroutine(StartCountdown());
 
@@ -101,7 +100,6 @@ public class GameManager : MonoBehaviour
 
                         break;
                     case 1:
-                        Debug.Log("entrei caso 1.");
                         enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
                         StartCoroutine(StartCountdown());
 
@@ -117,14 +115,19 @@ public class GameManager : MonoBehaviour
                             StartCoroutine(StartCountdown());
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
                         }
+
                         break;
                 }
 
                 break;
             case GameManagerState.GameOver:
 
-                // terminar o contador de tempo
+                // terminar o contador de tempo, tempo final
                 timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
+
+                // obter pontuacao final
+                finalScore = scoreUITextGO.GetComponent<GameScore>().Score;
+                enemiesAvoided = EnemyControl.GetEnemiesAvoided();
 
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
@@ -172,7 +175,7 @@ public class GameManager : MonoBehaviour
     //countdown para aumentar a velocidade
     public IEnumerator StartCountdownSpeed(float countdownValue = 15)
     {
-        float speed = EnemyControl.getSpeed();
+        float speed = EnemyControl.GetSpeed();
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
         {
@@ -182,7 +185,7 @@ public class GameManager : MonoBehaviour
             if (increaseSpeedTimer == 0)
             {
                 speed+=0.3f;
-                EnemyControl.setSpeed(speed);
+                EnemyControl.SetSpeed(speed);
 
                 //countdown para aumentar a velocidade
                 StartCoroutine(StartCountdownSpeed());

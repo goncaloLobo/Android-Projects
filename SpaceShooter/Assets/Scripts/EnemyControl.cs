@@ -6,6 +6,7 @@ public class EnemyControl : MonoBehaviour
     GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
 
     public static float speed = 1f;
+    private static int enemiesAvoided = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,8 @@ public class EnemyControl : MonoBehaviour
         if (transform.position.y < min.y)
         {
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
+            enemiesAvoided++;
+
             Destroy(gameObject);
         }
     }
@@ -46,14 +49,22 @@ public class EnemyControl : MonoBehaviour
         explosion.transform.position = transform.position;
     }
 
-    public static float getSpeed()
+    // gets the speed
+    public static float GetSpeed()
     {
         return speed;
     }
 
-    public static void setSpeed(float sp)
+    // sets the speed
+    public static void SetSpeed(float sp)
     {
         speed = sp;
+    }
+
+    // get enemies avoided (enemies that got to the end of the screen)
+    public static int GetEnemiesAvoided()
+    {
+        return enemiesAvoided;
     }
 
 }

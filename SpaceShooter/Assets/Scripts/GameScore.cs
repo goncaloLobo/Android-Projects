@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class GameScore : MonoBehaviour
 {
 
-    Text scoreTextUI;
-    int score;
+    public Text scoreTextUI;
+    public int score;
 
     public int Score
     {
@@ -23,10 +23,15 @@ public class GameScore : MonoBehaviour
         scoreTextUI = GetComponent<Text>();
     }
 
-    void UpdateScoreTextUI()
+    public void UpdateScoreTextUI()
     {
-        string scoreStr = string.Format("{0:0000000}", score);
+        string scoreStr = string.Format("{0:00000}", score);
         scoreTextUI.text = scoreStr;
+    }
+
+    public int GetFinalScore()
+    {
+        return score;
     }
     
 }
