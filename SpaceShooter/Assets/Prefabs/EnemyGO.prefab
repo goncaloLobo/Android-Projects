@@ -163,7 +163,6 @@ MonoBehaviour:
   ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
     type: 3}
   scoreUITextGO: {fileID: 0}
-  speed: 0
 --- !u!61 &423467371
 BoxCollider2D:
   m_ObjectHideFlags: 0

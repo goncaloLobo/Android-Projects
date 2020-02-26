@@ -3,10 +3,9 @@
 public class EnemyControl : MonoBehaviour
 {
     public GameObject ExplosionGO;
-    GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
+    public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
 
     public static float speed = 1f;
-    private static int enemiesAvoided = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -23,16 +22,16 @@ public class EnemyControl : MonoBehaviour
         transform.position = position;
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+
+        // dar 100 pontos a qualquer objeto (meteorito ou nave) que atravesse o ecra
         if (transform.position.y < min.y)
         {
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
-            enemiesAvoided++;
-
             Destroy(gameObject);
         }
     }
 
-    // Deteta colisao entre bala do jogador que vem da nave do jogador
+    // Colisao da nave inimiga ser com a nave do jogador ou com a bala disparada pelo jogador.
     void OnTriggerEnter2D(Collider2D collision)
     {
         if ((collision.tag == "PlayerShipTag") || (collision.tag == "PlayerBulletTag"))
@@ -60,11 +59,4 @@ public class EnemyControl : MonoBehaviour
     {
         speed = sp;
     }
-
-    // get enemies avoided (enemies that got to the end of the screen)
-    public static int GetEnemiesAvoided()
-    {
-        return enemiesAvoided;
-    }
-
 }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
@@ -77,9 +75,10 @@ public class PlayerControl : MonoBehaviour
         transform.position = pos;
     }
 
+    // colisão entre a nave do jogador e a nave inimiga ou a bala inimiga.
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
+        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag") || (collision.tag == "MeteorTag"))
         {
             PlayExplosion();
             lives--;

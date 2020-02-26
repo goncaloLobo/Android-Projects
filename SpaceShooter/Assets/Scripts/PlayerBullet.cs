@@ -28,7 +28,7 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
-    // colisao entre a bala e a nave do inimigo
+    // colisao entre a bala do jogador e a nave inimiga
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "EnemyShipTag")

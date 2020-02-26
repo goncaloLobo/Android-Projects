@@ -845,6 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyGO2: {fileID: 1501506873366405532, guid: f12aa49648240134397fc788b8b56651,
     type: 3}
+  MeteorGO2: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff,
+    type: 3}
 --- !u!4 &799812680
 Transform:
   m_ObjectHideFlags: 0
@@ -1549,6 +1551,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyGO1: {fileID: 1501506873366405532, guid: 6f817f6f2b526d741bb0d45e7e165891,
     type: 3}
+  MeteorGO1: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff,
+    type: 3}
 --- !u!4 &1724136392
 Transform:
   m_ObjectHideFlags: 0
@@ -1680,6 +1684,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyGO: {fileID: 1501506873366405532, guid: 0d5c0e23cf7c40d45a35e41acc033b50, type: 3}
+  MeteorGO: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff, type: 3}
 --- !u!1 &1770039755
 GameObject:
   m_ObjectHideFlags: 0

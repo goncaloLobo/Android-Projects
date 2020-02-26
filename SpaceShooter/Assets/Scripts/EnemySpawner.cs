@@ -3,6 +3,7 @@
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject EnemyGO;
+    public GameObject MeteorGO;
 
     float maxSpawnRateInSeconds = 5f;
     float inicialSpawnRate = 2f;
@@ -25,8 +26,16 @@ public class EnemySpawner : MonoBehaviour
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
         // objetos em posicoes random no x do lado esq do ecra ate 1/3 do ecra
-        GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
-        anEnemy.transform.position = new Vector2(((min.x + max.x)/2) - 1.2f, max.y);
+        if(Random.value < 0.5f)
+        {
+            GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
+            anEnemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+        } else
+        {
+            GameObject anMeteor = (GameObject)Instantiate(MeteorGO);
+            anMeteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+        }
+
         //Schedule when to spawn next enemy
         ScheduleNextEnemySpawn();
     }

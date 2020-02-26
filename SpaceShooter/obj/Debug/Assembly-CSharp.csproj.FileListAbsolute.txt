@@ -237,4 +237,3 @@ C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.pdb
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
-C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
