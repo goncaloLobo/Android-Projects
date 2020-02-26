@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemySpawner3;
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
+    public GameObject timeCounterGO;
 
     public float currCountdownValue;
     public float increaseSpeedTimer;
@@ -44,6 +45,9 @@ public class GameManager : MonoBehaviour
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
                 instrucoesButton.SetActive(false);
+
+                // iniciar o contador de tempo
+                timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
 
                 // tipo de controlo
                 //playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -119,6 +123,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.GameOver:
 
+                // terminar o contador de tempo
+                timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
+
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
                 enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
@@ -163,7 +170,7 @@ public class GameManager : MonoBehaviour
     }
 
     //countdown para aumentar a velocidade
-    public IEnumerator StartCountdownSpeed(float countdownValue = 20)
+    public IEnumerator StartCountdownSpeed(float countdownValue = 15)
     {
         float speed = EnemyControl.getSpeed();
         increaseSpeedTimer = countdownValue;

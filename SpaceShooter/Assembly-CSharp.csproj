@@ -72,6 +72,7 @@
     <Compile Include="Assets\Scripts\PlayerBullet.cs" />
     <Compile Include="Assets\Scripts\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\PlayerControlSwipe.cs" />
+    <Compile Include="Assets\Scripts\TimeCounter.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Android-Projects/SpaceShooter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
