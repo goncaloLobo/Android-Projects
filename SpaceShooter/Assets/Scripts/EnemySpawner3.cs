@@ -4,9 +4,14 @@ public class EnemySpawner3 : MonoBehaviour
 {
     public GameObject EnemyGO2;
     public GameObject MeteorGO2;
+    public GameObject PointBoost50;
 
     float maxSpawnRateInSeconds = 5f;
     float inicialSpawnRate = 2f;
+
+    // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
+    // 3 se o bonus for do 3º inimigo e direita
+    private static int checkIfBonus = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -25,16 +30,28 @@ public class EnemySpawner3 : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
-        // objetos em posicoes random no x do lado esq do ecra ate 1/3 do ecra
-        if (Random.value < 0.5f)
+        // random entre 3 opcoes
+        int enemyRoll = Random.Range(1, 4);
+        //int enemyRoll = 3;
+        Debug.Log("roll: " + enemyRoll);
+        switch (enemyRoll)
         {
-            GameObject anEnemy = (GameObject)Instantiate(EnemyGO2);
-            anEnemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
-        }
-        else
-        {
-            GameObject anMeteor = (GameObject)Instantiate(MeteorGO2);
-            anMeteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+            case 1:
+                GameObject anEnemy = (GameObject)Instantiate(EnemyGO2);
+                anEnemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+
+                break;
+            case 2:
+                GameObject anMeteor = (GameObject)Instantiate(MeteorGO2);
+                anMeteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+
+                break;
+            case 3:
+                GameObject anBoost = (GameObject)Instantiate(PointBoost50);
+                anBoost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                checkIfBonus = 3;
+
+                break;
         }
 
         //Schedule when to spawn next enemy
@@ -78,5 +95,10 @@ public class EnemySpawner3 : MonoBehaviour
     {
         CancelInvoke("SpawnEnemy");
         CancelInvoke("IncreaseSpawnRate");
+    }
+
+    public static int GetBonus()
+    {
+        return checkIfBonus;
     }
 }

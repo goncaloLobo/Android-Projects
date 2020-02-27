@@ -59,8 +59,8 @@ public class GameManager : MonoBehaviour
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());
 
-                enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                /*
+                //enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
                 Debug.Log("roll: " + roll);
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
 
                         break;
                 }
-                */
+                
 
                 break;
             case GameManagerState.GameOver:

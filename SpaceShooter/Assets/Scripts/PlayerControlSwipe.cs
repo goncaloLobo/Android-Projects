@@ -18,8 +18,11 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
 
     public AudioSource swipeSound;
-    public AudioSource hitWallSoundRight;
-    public AudioSource hitWallSoundLeft;
+    public AudioSource hitWallSoundRight; // som de bater no limite dir do ecra
+    public AudioSource hitWallSoundLeft; // som de bater no limite esq do ecra
+    public AudioSource bonusLeft; // som bonus esq
+    public AudioSource bonusMid; // som bonus esq
+    public AudioSource bonusRight; // som bonus esq
 
     public Text LivesUIText;
     const int MaxLives = 3;
@@ -43,6 +46,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     }
 
+    
     // Update is called once per frame
     void Update()
     {
@@ -114,8 +118,21 @@ public class PlayerControlSwipe : MonoBehaviour
         // o jogador bate com a nave no boost de 50 pontos
         if (collision.tag == "Boost50Pts")
         {
-            Debug.Log("50 PONTOOOOOOS Swipe");
-            scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            if (EnemySpawner.GetBonus() == 1)
+            {
+                bonusLeft.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
+            else if (EnemySpawner2.GetBonus() == 2)
+            {
+                bonusMid.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
+            else if (EnemySpawner3.GetBonus() == 3)
+            {
+                bonusRight.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
         }
     }
 
@@ -124,6 +141,7 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
+    
 
     //A PARTIR DAQUI É O CONTROLO POR TECLAS DO PC
     /*
@@ -173,6 +191,7 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag") || (collision.tag == "MeteorTag"))
         {
+            Debug.Log("ENTRANDO");
             PlayExplosion();
             lives--;
             LivesUIText.text = lives.ToString();
@@ -187,8 +206,21 @@ public class PlayerControlSwipe : MonoBehaviour
         // o jogador bate com a nave no boost de 50 pontos
         if (collision.tag == "Boost50Pts")
         {
-            Debug.Log("50 PONTOOOOOOS Teclas");
-            scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            if (EnemySpawner.GetBonus() == 1)
+            {
+                bonusLeft.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
+            else if (EnemySpawner2.GetBonus() == 2)
+            {
+                bonusMid.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
+            else if (EnemySpawner3.GetBonus() == 3)
+            {
+                bonusRight.Play();
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+            }
         }
     }
 

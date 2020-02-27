@@ -36,9 +36,19 @@ public class EnemyControl : MonoBehaviour
         // jogador bater com a nave no inimigo
         if (collision.tag == "PlayerShipTag")
         {
-            Debug.Log("ENTREI NESTA EXPLOSAO 3");
-            PlayExplosion();
-            Destroy(gameObject);
+            /*
+            if(EnemySpawner.GetBonus() == 1)
+            {
+                Debug.Log("entrei aqui crl -> + 50 pontos!!!");
+                scoreUITextGO.GetComponent<GameScore>().Score += 50;
+                Destroy(gameObject);
+            } else
+            {
+                Debug.Log("ENTREI NESTA EXPLOSAO 3");
+                PlayExplosion();
+                Destroy(gameObject);
+            } 
+            */           
         }
 
         // disparar sobre o inimigo -> + 100 pontos (200 na realidade)
