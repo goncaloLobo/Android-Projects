@@ -6,7 +6,7 @@ public class EnemySpawner2 : MonoBehaviour
     public GameObject MeteorGO1;
     public GameObject PointBoost50;
 
-    float maxSpawnRateInSeconds = 5f;
+    float maxSpawnRateInSeconds = 10f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -31,7 +31,7 @@ public class EnemySpawner2 : MonoBehaviour
 
         // random entre 3 opcoes
         //int enemyRoll = Random.Range(1, 4);
-        int enemyRoll = 2;
+        int enemyRoll = 3;
         switch (enemyRoll)
         {
             case 1:
@@ -53,10 +53,10 @@ public class EnemySpawner2 : MonoBehaviour
         }
 
         //Produzir novos inimigos em tempo aleatorio
-        //ScheduleNextEnemySpawn();
+        ScheduleNextEnemySpawnRandom();
 
         //Produzir novos inimigos de 4 em 4 segundos
-        ScheduleNextEnemySpawnFourSeconds();
+        //ScheduleNextEnemySpawnFourSeconds();
     }
 
     // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria
@@ -77,7 +77,7 @@ public class EnemySpawner2 : MonoBehaviour
     // produz novo inimigo a cada 4 segundos
     void ScheduleNextEnemySpawnFourSeconds()
     {
-        Invoke("SpawnEnemy", 4f);
+        Invoke("SpawnEnemy", 3f);
     }
 
     // aumenta a velocidade com que faz spawn

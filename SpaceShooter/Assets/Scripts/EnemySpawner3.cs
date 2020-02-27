@@ -6,7 +6,7 @@ public class EnemySpawner3 : MonoBehaviour
     public GameObject MeteorGO2;
     public GameObject PointBoost50;
 
-    float maxSpawnRateInSeconds = 5f;
+    float maxSpawnRateInSeconds = 10f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -31,7 +31,7 @@ public class EnemySpawner3 : MonoBehaviour
 
         // random entre 3 opcoes
         //int enemyRoll = Random.Range(1, 4);
-        int enemyRoll = 3;
+        int enemyRoll = 2;
         switch (enemyRoll)
         {
             case 1:

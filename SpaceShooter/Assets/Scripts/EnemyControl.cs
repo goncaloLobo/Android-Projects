@@ -30,17 +30,23 @@ public class EnemyControl : MonoBehaviour
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
         // dar 100 pontos a uma nave ou asteroide que atravesse o ecra
-        if (transform.position.y < min.y && (EnemyGO || Meteor))
+        if (transform.position.y < min.y && EnemyGO)
         {
-            Debug.Log("Vou dar 100 pts");
+            Debug.Log("Inimigo passou, 100 pontos: INIMIGO");
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
             Destroy(gameObject);
         }
 
-        // apenas destroi o objeto boost 50pts
-        else if (transform.position.y < min.y && Boost50Points)
+        if  (transform.position.y < min.y && Meteor)
         {
-            Debug.Log("VOU DAR PONTOS DO BOOOOOOOST. NAO DEVIA.");
+            Debug.Log("Inimigo passou, 100 pontos: ASTEROID");
+            Destroy(gameObject);
+        }
+
+        // apenas destroi o objeto boost 50pts
+        if (transform.position.y < min.y && Boost50Points)
+        {
+            Debug.Log("Perdeu os pontos bónus. É pena!");
             Destroy(gameObject);
         }
     }
