@@ -54,11 +54,15 @@ public class EnemySpawner3 : MonoBehaviour
                 break;
         }
 
-        //Schedule when to spawn next enemy
-        ScheduleNextEnemySpawn();
+        //Produzir novos inimigos em tempo aleatorio
+        //ScheduleNextEnemySpawn();
+
+        //Produzir novos inimigos de 3 em 3 segundos
+        ScheduleNextEnemySpawnThreeSeconds();
     }
 
-    void ScheduleNextEnemySpawn()
+    // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria
+    void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
@@ -70,6 +74,12 @@ public class EnemySpawner3 : MonoBehaviour
             spawnInNSeconds = 1f;
 
         Invoke("SpawnEnemy", spawnInNSeconds);
+    }
+
+    // produz novo inimigo a cada 3 segundos
+    void ScheduleNextEnemySpawnThreeSeconds()
+    {
+        Invoke("SpawnEnemy", 3f);
     }
 
     // aumenta a velocidade com que faz spawn
