@@ -74,8 +74,8 @@ public class EnemySpawner : MonoBehaviour
         Invoke("SpawnEnemy", spawnInNSeconds);
     }
 
-    // produz novo inimigo a cada 3 segundos
-    void ScheduleNextEnemySpawnThreeSeconds()
+    // produz novo inimigo a cada 4 segundos
+    void ScheduleNextEnemySpawnFourSeconds()
     {
         Invoke("SpawnEnemy", 4f);
     }
