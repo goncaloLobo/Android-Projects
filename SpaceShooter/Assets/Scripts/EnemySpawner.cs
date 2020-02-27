@@ -31,8 +31,8 @@ public class EnemySpawner : MonoBehaviour
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
         // random entre 3 opcoes
-        int enemyRoll = Random.Range(1, 4);
-        //int enemyRoll = 3;
+        //int enemyRoll = Random.Range(1, 4);
+        int enemyRoll = 3;
         Debug.Log("roll: " + enemyRoll);
         switch (enemyRoll)
         {

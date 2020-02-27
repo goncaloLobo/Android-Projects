@@ -46,7 +46,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     }
 
-    
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -122,16 +122,19 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 bonusLeft.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 50;
+                Destroy(gameObject);
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
                 bonusMid.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 50;
+                Destroy(gameObject);
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 50;
+                Destroy(gameObject);
             }
         }
     }
@@ -141,10 +144,9 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
-    
+    */
 
     //A PARTIR DAQUI É O CONTROLO POR TECLAS DO PC
-    /*
     void Update()
     {
         if (Input.GetKeyDown("space"))
@@ -229,5 +231,4 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
-    */
 }
