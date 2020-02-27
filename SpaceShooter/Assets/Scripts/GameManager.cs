@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float countdownForFinalState;
+    private float initialSpawnRate;
 
     private int enemiesAvoided; // enemies that reached the end of the screen
     private int finalScore; // final score
@@ -59,68 +60,77 @@ public class GameManager : MonoBehaviour
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());
 
-                enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
-                /*
+                // float aleatorio que corresponde ao tempo inicial de espera (pode ser 2, 3 ou 4)
+                //initialSpawnRate = CreateRandomFloat();
+                //enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
+
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
-                Debug.Log("roll: " + roll);
+                //int roll = 3;
+                Debug.Log("ROLL INICIAL: " + roll);
                 switch (roll)
                 {
                     case 3:
-                        enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
-                        StartCoroutine(StartCountdown());
+                        // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
+                        enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(2);
                         if(Random.value < 0.5f)
                         {
-                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         
                         break;
                     case 2:
-                        enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
-                        StartCoroutine(StartCountdown());
+                        Debug.Log("entrei caso 2");
+                        // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
+                        enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(2);
 
                         if (Random.value < 0.5f)
                         {
-                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
                         break;
                     case 1:
-                        enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner();
-                        StartCoroutine(StartCountdown());
+                        // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
+                        enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(2);
 
                         if (Random.value < 0.5f)
                         {
-                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner();
-                            StartCoroutine(StartCountdown());
-                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner();
+                            initialSpawnRate = CreateRandomFloat(3, 10);
+                            enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
+                            initialSpawnRate = CreateRandomFloat(initialSpawnRate, 10);
+                            enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
                         break;
                 }
-                */
 
                 break;
             case GameManagerState.GameOver:
@@ -161,16 +171,6 @@ public class GameManager : MonoBehaviour
         SetGameManagerState(GameManagerState.Opening);
     }
 
-    public IEnumerator StartCountdown(float countdownvalue = 20)
-    {
-        currCountdownValue = countdownvalue;
-        while (currCountdownValue > 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            currCountdownValue--;
-        }
-    }
-
     //countdown para aumentar a velocidade
     public IEnumerator StartCountdownSpeed(float countdownValue = 15)
     {
@@ -190,5 +190,13 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed());
             }
         }
+    }
+
+    // calcula float aleatorio para o 2º e 3º enemy spawner de cada caso
+    // o float está ]2, 10]
+    public float CreateRandomFloat(float firstValue, float secondValue)
+    {
+        float froll = Random.Range(firstValue, secondValue);
+        return froll;
     }
 }

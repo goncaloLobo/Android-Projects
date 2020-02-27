@@ -7,7 +7,6 @@ public class EnemySpawner3 : MonoBehaviour
     public GameObject PointBoost50;
 
     float maxSpawnRateInSeconds = 5f;
-    float inicialSpawnRate = 2f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -93,9 +92,10 @@ public class EnemySpawner3 : MonoBehaviour
     }
 
     // começar o enemy spawner
-    public void ScheduleEnemySpawner()
+    public void ScheduleEnemySpawner(float initialSpawnRate)
     {
-        Invoke("SpawnEnemy", inicialSpawnRate);
+        Debug.Log("float recebido EnemySpanwer3: " + initialSpawnRate);
+        Invoke("SpawnEnemy", initialSpawnRate);
 
         //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }
