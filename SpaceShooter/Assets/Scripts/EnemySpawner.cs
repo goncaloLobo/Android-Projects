@@ -6,6 +6,10 @@ public class EnemySpawner : MonoBehaviour
     public GameObject MeteorGO;
     public GameObject PointBoost50;
 
+    private GameObject Enemy;
+    private GameObject Meteor;
+    private GameObject Boost;
+
     float maxSpawnRateInSeconds = 10f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
@@ -35,20 +39,20 @@ public class EnemySpawner : MonoBehaviour
         switch (enemyRoll)
         {
             case 1:
-                GameObject anEnemy = (GameObject)Instantiate(EnemyGO);
-                anEnemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
-
+                Enemy = (GameObject)Instantiate(EnemyGO);
+                Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                
                 break;
             case 2:
-                GameObject anMeteor = (GameObject)Instantiate(MeteorGO);
-                anMeteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                Meteor = (GameObject)Instantiate(MeteorGO);
+                Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
 
                 break;
             case 3:
-                GameObject anBoost = (GameObject)Instantiate(PointBoost50);
-                anBoost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                Boost = (GameObject)Instantiate(PointBoost50);
+                Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
                 checkIfBonus = 1;
-
+                
                 break;
         }
 

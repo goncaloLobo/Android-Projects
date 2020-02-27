@@ -90,7 +90,6 @@ public class GameManager : MonoBehaviour
                         
                         break;
                     case 2:
-                        Debug.Log("entrei caso 2");
                         // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
                         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(2);
 
