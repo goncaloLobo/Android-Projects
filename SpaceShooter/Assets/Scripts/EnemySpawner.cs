@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
 
         // random entre 3 opcoes
         //int enemyRoll = Random.Range(1, 4);
-        int enemyRoll = 3;
+        int enemyRoll = 1;
         switch (enemyRoll)
         {
             case 1:
@@ -55,8 +55,8 @@ public class EnemySpawner : MonoBehaviour
         //Produzir novos inimigos em tempo aleatorio
         //ScheduleNextEnemySpawn();
 
-        //Produzir novos inimigos de 3 em 3 segundos
-        ScheduleNextEnemySpawnThreeSeconds();
+        //Produzir novos inimigos de 4 em 4 segundos
+        ScheduleNextEnemySpawnFourSeconds();
     }
 
     // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria

@@ -30,9 +30,8 @@ public class EnemySpawner3 : MonoBehaviour
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
         // random entre 3 opcoes
-        int enemyRoll = Random.Range(1, 4);
-        //int enemyRoll = 3;
-        Debug.Log("roll: " + enemyRoll);
+        //int enemyRoll = Random.Range(1, 4);
+        int enemyRoll = 3;
         switch (enemyRoll)
         {
             case 1:
@@ -56,8 +55,8 @@ public class EnemySpawner3 : MonoBehaviour
         //Produzir novos inimigos em tempo aleatorio
         //ScheduleNextEnemySpawn();
 
-        //Produzir novos inimigos de 3 em 3 segundos
-        ScheduleNextEnemySpawnThreeSeconds();
+        //Produzir novos inimigos de 4 em 4segundos
+        ScheduleNextEnemySpawnFourSeconds();
     }
 
     // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria

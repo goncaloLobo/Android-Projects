@@ -4,6 +4,9 @@ public class EnemyControl : MonoBehaviour
 {
     public GameObject ExplosionGO;
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
+    public GameObject Boost50Points;
+    public GameObject EnemyGO;
+    public GameObject Meteor;
 
     public static float speed = 1f;
 
@@ -11,6 +14,9 @@ public class EnemyControl : MonoBehaviour
     void Start()
     {
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
+        Boost50Points = GameObject.FindGameObjectWithTag("Boost50Pts");
+        EnemyGO = GameObject.FindGameObjectWithTag("EnemyShipTag");
+        Meteor = GameObject.FindGameObjectWithTag("MeteorTag");
     }
 
     // Update is called once per frame
@@ -23,10 +29,18 @@ public class EnemyControl : MonoBehaviour
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
-        // dar 100 pontos a qualquer objeto (meteorito ou nave) que atravesse o ecra
-        if (transform.position.y < min.y)
+        // dar 100 pontos a uma nave ou asteroide que atravesse o ecra
+        if (transform.position.y < min.y && (EnemyGO || Meteor))
         {
+            Debug.Log("Vou dar 100 pts");
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
+            Destroy(gameObject);
+        }
+
+        // apenas destroi o objeto boost 50pts
+        else if (transform.position.y < min.y && Boost50Points)
+        {
+            Debug.Log("VOU DAR PONTOS DO BOOOOOOOST. NAO DEVIA.");
             Destroy(gameObject);
         }
     }

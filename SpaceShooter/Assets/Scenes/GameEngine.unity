@@ -2357,7 +2357,7 @@ MonoBehaviour:
   bonusMid: {fileID: 1124864200}
   bonusRight: {fileID: 1270261390}
   LivesUIText: {fileID: 840643950}
-  speed: 1
+  speed: 5
 --- !u!61 &1950541787
 BoxCollider2D:
   m_ObjectHideFlags: 0
