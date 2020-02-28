@@ -3,9 +3,9 @@
 public class EnemySpawner3 : MonoBehaviour
 {
     public GameObject EnemyGO2;
-    public GameObject MeteorGO2;
-    public GameObject MeteorGreyGO;
-    public GameObject PointBoost100;
+    public GameObject MeteorRightGO;
+    public GameObject MeteorGreyRightGO;
+    public GameObject Boost100Right;
 
     float maxSpawnRateInSeconds = 10f;
 
@@ -36,7 +36,7 @@ public class EnemySpawner3 : MonoBehaviour
 
         // random entre 3 opcoes
         //int enemyRoll = Random.Range(1, 4);
-        int enemyRoll = 2;
+        int enemyRoll = 3;
         switch (enemyRoll)
         {
             case 1:
@@ -45,22 +45,19 @@ public class EnemySpawner3 : MonoBehaviour
 
                 break;
             case 2:
-                Debug.Log("caso 2!!!");
                 if (Random.value < 0.5f)
                 {
-                    Debug.Log("oi!");
-                    Meteor = (GameObject)Instantiate(MeteorGO2);
+                    Meteor = (GameObject)Instantiate(MeteorRightGO);
                 }
                 else
                 {
-                    Debug.Log("ola!");
-                    Meteor = (GameObject)Instantiate(MeteorGreyGO);
+                    Meteor = (GameObject)Instantiate(MeteorGreyRightGO);
                 }
                 Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
 
                 break;
             case 3:
-                Boost = (GameObject)Instantiate(PointBoost100);
+                Boost = (GameObject)Instantiate(Boost100Right);
                 Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
                 checkIfBonus = 3;
 

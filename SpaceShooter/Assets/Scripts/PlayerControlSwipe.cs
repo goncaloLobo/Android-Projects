@@ -116,25 +116,22 @@ public class PlayerControlSwipe : MonoBehaviour
         }
 
         // o jogador bate com a nave no boost de 50 pontos
-        if (collision.tag == "Boost50Pts")
+        if (collision.tag == "Boost100Pts")
         {
             if (EnemySpawner.GetBonus() == 1)
             {
                 bonusLeft.Play();
-                scoreUITextGO.GetComponent<GameScore>().Score += 50;
-                Destroy(gameObject);
+                scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
                 bonusMid.Play();
-                scoreUITextGO.GetComponent<GameScore>().Score += 50;
-                Destroy(gameObject);
+                scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
                 bonusRight.Play();
-                scoreUITextGO.GetComponent<GameScore>().Score += 50;
-                Destroy(gameObject);
+                scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
         }
     }

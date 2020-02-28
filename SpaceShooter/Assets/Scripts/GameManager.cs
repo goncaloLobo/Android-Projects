@@ -61,8 +61,7 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed());
 
                 // float aleatorio que corresponde ao tempo inicial de espera (pode ser 2, 3 ou 4)
-                //initialSpawnRate = CreateRandomFloat();
-                //enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
+                //enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(2);
 
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
