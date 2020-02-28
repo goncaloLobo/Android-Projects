@@ -18,9 +18,6 @@ public class GameManager : MonoBehaviour
     private float countdownForFinalState;
     private float initialSpawnRate;
 
-    private int enemiesAvoided; // enemies that reached the end of the screen
-    private int finalScore; // final score
-
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver
@@ -60,12 +57,9 @@ public class GameManager : MonoBehaviour
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());
 
-                // float aleatorio que corresponde ao tempo inicial de espera (pode ser 2, 3 ou 4)
-                //enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(2);
-
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
-                //int roll = 3;
+                //int roll = 1;
                 Debug.Log("ROLL INICIAL: " + roll);
                 switch (roll)
                 {

@@ -188,7 +188,7 @@ public class PlayerControlSwipe : MonoBehaviour
     // colisão entre a nave do jogador e a nave inimiga ou a bala inimiga.
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag") || (collision.tag == "MeteorTag"))
+        if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
         {
             Debug.Log("ENTRANDO");
             PlayExplosion();
@@ -219,6 +219,19 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
+            }
+        }
+
+        if(collision.tag == "MeteorTag")
+        {
+            PlayExplosion();
+            lives--;
+            LivesUIText.text = lives.ToString();
+            if (lives == 0)
+            {
+                // mudar o estado para gameover
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
+                gameObject.SetActive(false); // esconder o objecto
             }
         }
     }
