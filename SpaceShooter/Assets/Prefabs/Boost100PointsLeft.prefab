@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 82908353824374196}
   m_Layer: 0
   m_Name: Boost100PointsLeft
-  m_TagString: Boost100Pts
+  m_TagString: Boost100PointsLeft
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,7 +133,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8570675921546493167}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c2b8cf38426194044823428d96ffa5c4, type: 3}

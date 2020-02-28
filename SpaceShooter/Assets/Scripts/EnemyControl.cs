@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class EnemyControl : MonoBehaviour
 {
-    public GameObject ExplosionGO;
+    public GameObject ExplosionGO; // referencia para o objeto de explosao
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
-    public GameObject Boost100Points;
-    public GameObject EnemyGO;
-    public GameObject Meteor;
+    public GameObject EnemyGO; // referencia para o objeto de inimigo
+    public GameObject Meteor; // referencia para o objeto de meteorito
+    public GameObject Boost100PointsLeft; // referencia para o objeto de som a anunciar um boost à esquerda
+    public GameObject Boost100PointsMid; // referencia para o objeto de som a anunciar um boost à esquerda
+    public GameObject Boost100PointsRight; // referencia para o objeto de som a anunciar um boost à esquerda
 
     public static float speed = 1f;
 
@@ -14,7 +17,9 @@ public class EnemyControl : MonoBehaviour
     void Start()
     {
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
-        Boost100Points = GameObject.FindGameObjectWithTag("Boost100Pts");
+        Boost100PointsLeft = GameObject.FindGameObjectWithTag("Boost100PointsLeft");
+        Boost100PointsMid = GameObject.FindGameObjectWithTag("Boost100PointsMid");
+        Boost100PointsRight = GameObject.FindGameObjectWithTag("Boost100PointsRight");
         EnemyGO = GameObject.FindGameObjectWithTag("EnemyShipTag");
         Meteor = GameObject.FindGameObjectWithTag("MeteorTag");
     }
@@ -28,11 +33,27 @@ public class EnemyControl : MonoBehaviour
         transform.position = position;
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+        
+        /*
+        Dictionary<int, GameObject> teste = EnemySpawner.GetDictionary();
+        GameObject EnemyGO;
+
+        if (teste.TryGetValue(1, out EnemyGO) && GameObject.FindGameObjectWithTag("Boost100PointsLeft").transform.position.y > min.y)
+        {
+            Debug.Log("entrei no if");
+            EnemySpawner.SetSliderValue();
+        }
+        // detetar um objeto em particular no ecra pela tag
+        if (GameObject.FindGameObjectWithTag("Boost100PointsLeft").transform.position.y < min.y)
+        {
+            Debug.Log("FINAAAAAL");
+        }
+        */
 
         // destruir os objetos que passem o limite inferior do ecra
         if (transform.position.y < min.y)
         {
-            if (gameObject.CompareTag("Boost100Pts"))
+            if (gameObject.CompareTag("Boost100PointsLeft"))
             {
                 Destroy(gameObject);
             }
