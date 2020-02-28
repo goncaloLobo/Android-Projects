@@ -4,7 +4,7 @@ public class EnemyControl : MonoBehaviour
 {
     public GameObject ExplosionGO;
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
-    public GameObject Boost50Points;
+    public GameObject Boost100Points;
     public GameObject EnemyGO;
     public GameObject Meteor;
 
@@ -14,7 +14,7 @@ public class EnemyControl : MonoBehaviour
     void Start()
     {
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
-        Boost50Points = GameObject.FindGameObjectWithTag("Boost50Pts");
+        Boost100Points = GameObject.FindGameObjectWithTag("Boost100Pts");
         EnemyGO = GameObject.FindGameObjectWithTag("EnemyShipTag");
         Meteor = GameObject.FindGameObjectWithTag("MeteorTag");
     }
@@ -32,22 +32,19 @@ public class EnemyControl : MonoBehaviour
         // destruir os objetos que passem o limite inferior do ecra
         if (transform.position.y < min.y)
         {
-            if (gameObject.CompareTag("Boost50Pts"))
+            if (gameObject.CompareTag("Boost100Pts"))
             {
-                Debug.Log("VOU APENAS DESTRUIR");
                 Destroy(gameObject);
             }
 
             if (gameObject.CompareTag("MeteorTag"))
             {
-                Debug.Log("VOU DAR 100 PONTOS -> ASTEROIDE");
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
                 Destroy(gameObject);
             }
 
             if (gameObject.CompareTag("EnemyShipTag"))
             {
-                Debug.Log("VOU DAR 100 PONTOS -> NAVE");
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
                 Destroy(gameObject);
             }
@@ -66,7 +63,6 @@ public class EnemyControl : MonoBehaviour
         // disparar sobre o inimigo -> + 100 pontos (200 na realidade)
         else if (collision.tag == "PlayerBulletTag")
         {
-            Debug.Log("DISPAREI SOBRE O INIMIGO, 100 PTS");
             scoreUITextGO.GetComponent<GameScore>().Score += 100;
         }
     }

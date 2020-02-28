@@ -4,7 +4,12 @@ public class EnemySpawner2 : MonoBehaviour
 {
     public GameObject EnemyGO1;
     public GameObject MeteorGO1;
-    public GameObject PointBoost50;
+    public GameObject MeteorGreyGO;
+    public GameObject PointBoost100;
+
+    private GameObject Enemy;
+    private GameObject Meteor;
+    private GameObject Boost;
 
     float maxSpawnRateInSeconds = 10f;
 
@@ -31,22 +36,32 @@ public class EnemySpawner2 : MonoBehaviour
 
         // random entre 3 opcoes
         //int enemyRoll = Random.Range(1, 4);
-        int enemyRoll = 3;
+        int enemyRoll = 2;
         switch (enemyRoll)
         {
             case 1:
-                GameObject anEnemy = (GameObject)Instantiate(EnemyGO1);
-                anEnemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                Enemy = (GameObject)Instantiate(EnemyGO1);
+                Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
 
                 break;
             case 2:
-                GameObject anMeteor = (GameObject)Instantiate(MeteorGO1);
-                anMeteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                Debug.Log("caso 2!!!");
+                if (Random.value < 0.5f)
+                {
+                    Debug.Log("oi!");
+                    Meteor = (GameObject)Instantiate(MeteorGO1);
+                }
+                else
+                {
+                    Debug.Log("ola!");
+                    Meteor = (GameObject)Instantiate(MeteorGreyGO);
+                }
+                Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
 
                 break;
             case 3:
-                GameObject anBoost = (GameObject)Instantiate(PointBoost50);
-                anBoost.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                Boost = (GameObject)Instantiate(PointBoost100);
+                Boost.transform.position = new Vector2((min.x + max.x) / 2, max.y);
                 checkIfBonus = 2;
 
                 break;

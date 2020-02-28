@@ -4,9 +4,14 @@ public class EnemySpawner3 : MonoBehaviour
 {
     public GameObject EnemyGO2;
     public GameObject MeteorGO2;
-    public GameObject PointBoost50;
+    public GameObject MeteorGreyGO;
+    public GameObject PointBoost100;
 
     float maxSpawnRateInSeconds = 10f;
+
+    private GameObject Enemy;
+    private GameObject Meteor;
+    private GameObject Boost;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -35,18 +40,28 @@ public class EnemySpawner3 : MonoBehaviour
         switch (enemyRoll)
         {
             case 1:
-                GameObject anEnemy = (GameObject)Instantiate(EnemyGO2);
-                anEnemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                Enemy = (GameObject)Instantiate(EnemyGO2);
+                Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
 
                 break;
             case 2:
-                GameObject anMeteor = (GameObject)Instantiate(MeteorGO2);
-                anMeteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                Debug.Log("caso 2!!!");
+                if (Random.value < 0.5f)
+                {
+                    Debug.Log("oi!");
+                    Meteor = (GameObject)Instantiate(MeteorGO2);
+                }
+                else
+                {
+                    Debug.Log("ola!");
+                    Meteor = (GameObject)Instantiate(MeteorGreyGO);
+                }
+                Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
 
                 break;
             case 3:
-                GameObject anBoost = (GameObject)Instantiate(PointBoost50);
-                anBoost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                Boost = (GameObject)Instantiate(PointBoost100);
+                Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
                 checkIfBonus = 3;
 
                 break;

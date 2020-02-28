@@ -974,7 +974,9 @@ MonoBehaviour:
     type: 3}
   MeteorGO2: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff,
     type: 3}
-  PointBoost50: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
+  MeteorGreyGO: {fileID: 924809420599843082, guid: 62888718d2c63504aab707cb89a5f38f,
+    type: 3}
+  PointBoost100: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
     type: 3}
 --- !u!4 &799812680
 Transform:
@@ -1936,7 +1938,9 @@ MonoBehaviour:
     type: 3}
   MeteorGO1: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff,
     type: 3}
-  PointBoost50: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
+  MeteorGreyGO: {fileID: 924809420599843082, guid: 62888718d2c63504aab707cb89a5f38f,
+    type: 3}
+  PointBoost100: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
     type: 3}
 --- !u!4 &1724136392
 Transform:
@@ -2070,7 +2074,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyGO: {fileID: 1501506873366405532, guid: 0d5c0e23cf7c40d45a35e41acc033b50, type: 3}
   MeteorGO: {fileID: 924809420599843082, guid: 19f337bdb7a2cdc418fd2c402e80e8ff, type: 3}
-  PointBoost50: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
+  MeteorGreyGO: {fileID: 924809420599843082, guid: 62888718d2c63504aab707cb89a5f38f,
+    type: 3}
+  PointBoost100: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
     type: 3}
 --- !u!1 &1770039755
 GameObject:
