@@ -123,9 +123,11 @@ MonoBehaviour:
   ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
     type: 3}
   scoreUITextGO: {fileID: 0}
-  Boost100Points: {fileID: 0}
   EnemyGO: {fileID: 0}
   Meteor: {fileID: 0}
+  Boost100PointsLeft: {fileID: 0}
+  Boost100PointsMid: {fileID: 0}
+  Boost100PointsRight: {fileID: 0}
 --- !u!82 &82908353824374196
 AudioSource:
   m_ObjectHideFlags: 0
@@ -133,7 +135,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8570675921546493167}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c2b8cf38426194044823428d96ffa5c4, type: 3}

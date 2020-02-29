@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -8,19 +7,11 @@ public class EnemySpawner : MonoBehaviour
     public GameObject MeteorGreyLeftGO;
     public GameObject Boost100Left;
 
-    // som do boost do lado esquerdo, que queremos aumentar consoante o y chegar à parte debaixo do ecra
-    public static AudioSource Boost100LeftSound;
-    //Value from the slider, and it converts to volume level
-    private static float m_MySliderValue = 0.5f;
-
     private GameObject Enemy;
     private GameObject Meteor;
     private GameObject Boost;
 
     float maxSpawnRateInSeconds = 10f;
-
-    private int IdEnemy = 0;
-    private static Dictionary<int, GameObject> dictionary;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -29,10 +20,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dictionary = new Dictionary<int, GameObject>();
-
-        //Fetch the AudioSource from the GameObject
-        Boost100LeftSound = GetComponent<AudioSource>();
+        
     }
 
     // Update is called once per frame
@@ -54,8 +42,6 @@ public class EnemySpawner : MonoBehaviour
             case 1:
                 Enemy = (GameObject)Instantiate(EnemyGO);
                 Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
-                IdEnemy++;
-                dictionary.Add(IdEnemy, Enemy);
 
                 break;
             case 2:
@@ -67,17 +53,18 @@ public class EnemySpawner : MonoBehaviour
                     Meteor = (GameObject)Instantiate(MeteorGreyLeftGO);
                 }
                 Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
-                IdEnemy++;
-                dictionary.Add(IdEnemy, Meteor);
 
                 break;
             case 3:
-                Boost = (GameObject)Instantiate(Boost100Left);
-                Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
-                IdEnemy++;
-                dictionary.Add(IdEnemy, Boost);
-                checkIfBonus = 1;
-                
+
+                // 80/20 entre escolher o boost ou não escolher inimigo nenhum
+                if(Random.value > 0.2)
+                {
+                    Boost = (GameObject)Instantiate(Boost100Left);
+                    Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                    checkIfBonus = 1;
+                }
+
                 break;
         }
 
@@ -137,10 +124,5 @@ public class EnemySpawner : MonoBehaviour
     public static int GetBonus()
     {
         return checkIfBonus;
-    }
-
-    public static Dictionary<int, GameObject> GetDictionary()
-    {
-        return dictionary;
     }
 }

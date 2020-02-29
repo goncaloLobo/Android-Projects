@@ -57,9 +57,13 @@ public class EnemySpawner3 : MonoBehaviour
 
                 break;
             case 3:
-                Boost = (GameObject)Instantiate(Boost100Right);
-                Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
-                checkIfBonus = 3;
+                // 50/50 entre escolher o boost ou não escolher inimigo nenhum
+                if (Random.value > 0.2)
+                {
+                    Boost = (GameObject)Instantiate(Boost100Right);
+                    Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                    checkIfBonus = 3;
+                }
 
                 break;
         }

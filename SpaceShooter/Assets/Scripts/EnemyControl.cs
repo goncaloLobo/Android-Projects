@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class EnemyControl : MonoBehaviour
 {
@@ -33,22 +32,6 @@ public class EnemyControl : MonoBehaviour
         transform.position = position;
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
-        
-        /*
-        Dictionary<int, GameObject> teste = EnemySpawner.GetDictionary();
-        GameObject EnemyGO;
-
-        if (teste.TryGetValue(1, out EnemyGO) && GameObject.FindGameObjectWithTag("Boost100PointsLeft").transform.position.y > min.y)
-        {
-            Debug.Log("entrei no if");
-            EnemySpawner.SetSliderValue();
-        }
-        // detetar um objeto em particular no ecra pela tag
-        if (GameObject.FindGameObjectWithTag("Boost100PointsLeft").transform.position.y < min.y)
-        {
-            Debug.Log("FINAAAAAL");
-        }
-        */
 
         // destruir os objetos que passem o limite inferior do ecra
         if (transform.position.y < min.y)

@@ -203,7 +203,7 @@ public class PlayerControlSwipe : MonoBehaviour
         }
 
         // o jogador bate com a nave no boost de 50 pontos
-        if (collision.tag == "Boost100Pts")
+        if (collision.tag == "Boost100PointsLeft" || collision.tag == "Boost100PointsMid" || collision.tag == "Boost100PointsRight")
         {
             if (EnemySpawner.GetBonus() == 1)
             {
