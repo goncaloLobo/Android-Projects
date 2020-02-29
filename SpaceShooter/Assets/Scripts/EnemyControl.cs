@@ -41,6 +41,16 @@ public class EnemyControl : MonoBehaviour
                 Destroy(gameObject);
             }
 
+            if (gameObject.CompareTag("Boost100PointsRight"))
+            {
+                Destroy(gameObject);
+            }
+
+            if (gameObject.CompareTag("Boost100PointsMid"))
+            {
+                Destroy(gameObject);
+            }
+
             if (gameObject.CompareTag("MeteorTag"))
             {
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;

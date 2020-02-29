@@ -190,7 +190,6 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag"))
         {
-            Debug.Log("ENTRANDO");
             PlayExplosion();
             lives--;
             LivesUIText.text = lives.ToString();
@@ -202,7 +201,7 @@ public class PlayerControlSwipe : MonoBehaviour
             }
         }
 
-        // o jogador bate com a nave no boost de 50 pontos
+        // o jogador bate com a nave no boost de 100 pontos e recebe-os
         if (collision.tag == "Boost100PointsLeft" || collision.tag == "Boost100PointsMid" || collision.tag == "Boost100PointsRight")
         {
             if (EnemySpawner.GetBonus() == 1)
