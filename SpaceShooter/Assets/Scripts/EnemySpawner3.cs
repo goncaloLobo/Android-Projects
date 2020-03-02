@@ -81,8 +81,8 @@ public class EnemySpawner3 : MonoBehaviour
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
-            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>1 e <5)
-            spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <5)
+            spawnInNSeconds = Random.Range(3f, maxSpawnRateInSeconds);
         }
         else
             spawnInNSeconds = 1f;

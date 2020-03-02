@@ -75,14 +75,14 @@ public class EnemySpawner2 : MonoBehaviour
         //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 1 a 10s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 3 a 10s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
-            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>1 e <5)
-            spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <5)
+            spawnInNSeconds = Random.Range(3f, maxSpawnRateInSeconds);
         }
         else
             spawnInNSeconds = 1f;
