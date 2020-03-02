@@ -885,7 +885,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 900937cda623ab645b6e921f74be17d5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.2
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1491,7 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerGO: {fileID: 1693170702}
-  ManJumping: {fileID: 1148044712}
+  ManJumping: {fileID: 758161735}
 --- !u!1 &2029485241
 GameObject:
   m_ObjectHideFlags: 0
