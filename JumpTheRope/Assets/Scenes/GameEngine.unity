@@ -275,24 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 469e70427f0af424dab3b2659d75001a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  m_Name: 
-  timeUI: {fileID: 0}
-  startTime: 0
-  ellapsedTime: 0
-  startCounter: 0
-  minutes: 0
-  seconds: 0
 --- !u!1 &213852912
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +486,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 39f490ac6985d3d4ea4e3ec64d6ab987, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -705,7 +687,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 203
+  Priority: 128
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1509,7 +1491,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerGO: {fileID: 1693170702}
-  ManJumping: {fileID: 758161735}
+  ManJumping: {fileID: 1148044712}
 --- !u!1 &2029485241
 GameObject:
   m_ObjectHideFlags: 0

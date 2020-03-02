@@ -29,15 +29,11 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-
-                //Reset ao score, botao play e instrucoes
-                //scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 backgroundNoise.Play();
                 playButton.SetActive(false);
 
                 break;
             case GameManagerState.GameOver:
-
                 //display game over
                 GameOverGO.SetActive(true);
 
