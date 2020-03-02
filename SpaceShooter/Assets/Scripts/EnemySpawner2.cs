@@ -57,7 +57,7 @@ public class EnemySpawner2 : MonoBehaviour
 
                 break;
             case 3:
-                // 50/50 entre escolher o boost ou não escolher inimigo nenhum
+                // 80/20 entre escolher o boost ou não escolher inimigo nenhum
                 if (Random.value > 0.2)
                 {
                     Boost = (GameObject)Instantiate(Boost100Mid);
@@ -75,7 +75,7 @@ public class EnemySpawner2 : MonoBehaviour
         //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 1 a 10s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;

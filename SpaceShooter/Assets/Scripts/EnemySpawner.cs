@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject Boost;
 
     float maxSpawnRateInSeconds = 10f;
+    public static float speed = 1f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -26,7 +27,6 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     void SpawnEnemy()
@@ -75,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
         //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 1 a 10s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;

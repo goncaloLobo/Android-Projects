@@ -29,6 +29,7 @@ public class PlayerControlSwipe : MonoBehaviour
     int lives = 0;
 
     public float speed = 1f;
+    Vector2 shipsPosition;
 
     public void Init()
     {
@@ -46,7 +47,6 @@ public class PlayerControlSwipe : MonoBehaviour
 
     }
 
-    /*
     // Update is called once per frame
     void Update()
     {
@@ -141,8 +141,8 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
-    */
 
+    /*
     //A PARTIR DAQUI É O CONTROLO POR TECLAS DO PC
     void Update()
     {
@@ -240,4 +240,10 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
+
+    void UpdateShipsPosition()
+    {
+
+    }
+    */
 }

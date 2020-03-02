@@ -4,7 +4,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject playButton;
-    public GameObject instrucoesButton;
     public GameObject playerShip;
     public GameObject enemySpawner;
     public GameObject enemySpawner2;
@@ -38,7 +37,6 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
-                instrucoesButton.SetActive(true);
 
                 break;
             case GameManagerState.Gameplay:
@@ -46,7 +44,6 @@ public class GameManager : MonoBehaviour
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
-                instrucoesButton.SetActive(false);
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
@@ -56,8 +53,6 @@ public class GameManager : MonoBehaviour
 
                 // countdown para a velocidade
                 StartCoroutine(StartCountdownSpeed());
-
-                //enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(2);
 
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);

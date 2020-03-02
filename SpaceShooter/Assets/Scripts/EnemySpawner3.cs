@@ -75,7 +75,7 @@ public class EnemySpawner3 : MonoBehaviour
         //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 1 a 5s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 1 a 10s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
