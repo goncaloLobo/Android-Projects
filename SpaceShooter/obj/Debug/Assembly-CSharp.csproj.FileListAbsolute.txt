@@ -116,15 +116,11 @@ C:\Android-Projects\SpaceShooter\Temp\bin\Debug\System.Xml.XmlDocument.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\System.Xml.XmlSerializer.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\System.Xml.XPath.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\System.Xml.XPath.XDocument.dll
-C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Analytics.DataPrivacy.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Analytics.Editor.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Analytics.StandardEvents.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Analytics.Tracker.dll
-C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Locator.dll
-C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.TextMeshPro.dll
-C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEditor.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.AccessibilityModule.dll
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.AIModule.dll
@@ -238,3 +234,7 @@ C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.pdb
 C:\Android-Projects\SpaceShooter\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
 C:\Android-Projects\SpaceShooter\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.Analytics.DataPrivacy.dll
+C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
+C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
+C:\Android-Projects\SpaceShooter\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll

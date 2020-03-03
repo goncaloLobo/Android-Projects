@@ -29,10 +29,14 @@ public class PlayerControlSwipe : MonoBehaviour
     int lives = 0;
 
     public float speed = 1f;
-    Vector2 shipsPosition;
+
+    public float minSwipeDistY;
+    public float minSwipeDistX;
+    private Vector2 startPos;
 
     public void Init()
     {
+        Input.multiTouchEnabled = false;
         lives = MaxLives;
         LivesUIText.text = lives.ToString();
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
@@ -47,58 +51,83 @@ public class PlayerControlSwipe : MonoBehaviour
 
     }
 
-    /*
     // Update is called once per frame
     void Update()
     {
         Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
         Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
 
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if(Input.touchCount == 1)
         {
-            startTouchPosition = Input.GetTouch(0).position;
-        }            
-
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-            endTouchPosition = Input.GetTouch(0).position;
-
-            if ((endTouchPosition.x < startTouchPosition.x) && transform.position.x > -1.75f)
+            Touch touch = Input.touches[0];
+            switch (touch.phase)
             {
-                flytime = 0f;
-                startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x - 1.2f, transform.position.y, transform.position.z);
-                if (endRocketPosition.x > border.x)
-                {
-                    while (flytime < flightDuration)
-                    {
-                        swipeSound.Play();
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                    }
-                }
-                else
-                    hitWallSoundLeft.Play();
-            }
+                case TouchPhase.Began:
 
-            if ((endTouchPosition.x > startTouchPosition.x) && transform.position.x < 1.75f)
-            {
-                flytime = 0f;
-                startRocketPosition = transform.position;
-                endRocketPosition = new Vector3(startRocketPosition.x + 1.2f, transform.position.y, transform.position.z);
-                if (endRocketPosition.x < border2.x)
-                {
-                    while (flytime < flightDuration)
+                    startPos = touch.position;
+                    break;
+                case TouchPhase.Ended:
+                    float swipeDistVertical = (new Vector3(0, touch.position.y, 0) - new Vector3(0, startPos.y, 0)).magnitude;
+                    if (swipeDistVertical > minSwipeDistY)
                     {
-                        swipeSound.Play();
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                        float swipeValue = Mathf.Sign(touch.position.y - startPos.y);
+                        if (swipeValue > 0)
+                        {
+                            //up swipe
+                            //Jump ();
+                        }
+                        else if (swipeValue < 0)
+                        {
+                            //down swipe
+                            //Shrink ();
+                        }
                     }
-                }
-                else
-                    hitWallSoundRight.Play();
+
+                    float swipeDistHorizontal = (new Vector3(touch.position.x, 0, 0) - new Vector3(startPos.x, 0, 0)).magnitude;
+                    if (swipeDistHorizontal > minSwipeDistX)
+                    {
+                        float swipeValue = Mathf.Sign(touch.position.x - startPos.x);
+                        if (swipeValue > 0) // right swipe
+                        {
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);
+                            if (endRocketPosition.x < border2.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    swipeSound.Play();
+                                    flytime += Time.deltaTime;
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                }
+                            }
+                            else
+                                hitWallSoundRight.Play();
+                        }
+                        else if (swipeValue < 0) // left swipe
+                        {
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
+                            if (endRocketPosition.x > border.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    swipeSound.Play();
+                                    flytime += Time.deltaTime;
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                }
+                            }
+                            else
+                            {
+                                hitWallSoundLeft.Play();
+                            }
+                        }
+                    }
+                    break;
             }
         }
+
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -142,8 +171,8 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
-    */
 
+    /*
     //A PARTIR DAQUI É O CONTROLO POR TECLAS DO PC
     void Update()
     {
@@ -241,9 +270,5 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
-
-    void UpdateShipsPosition()
-    {
-
-    }
+    */
 }
