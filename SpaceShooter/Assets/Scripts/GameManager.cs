@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(true);
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 8f);
+                Invoke("ChangeToOpeningState", 1f);
 
                 break;
         }

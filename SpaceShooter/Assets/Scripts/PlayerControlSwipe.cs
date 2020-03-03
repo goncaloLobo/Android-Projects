@@ -47,6 +47,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     }
 
+    /*
     // Update is called once per frame
     void Update()
     {
@@ -120,19 +121,16 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (EnemySpawner.GetBonus() == 1)
             {
-                Debug.Log("Bati boost 100 pts esquerda");
                 bonusLeft.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
-                Debug.Log("Bati boost 100 pts meio");
                 bonusMid.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
-                Debug.Log("Bati boost 100 pts direita");
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
@@ -144,8 +142,8 @@ public class PlayerControlSwipe : MonoBehaviour
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
+    */
 
-    /*
     //A PARTIR DAQUI É O CONTROLO POR TECLAS DO PC
     void Update()
     {
@@ -209,19 +207,16 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (EnemySpawner.GetBonus() == 1)
             {
-                Debug.Log("Bati boost 100 pts esquerda");
                 bonusLeft.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
-                Debug.Log("Bati boost 100 pts meio");
                 bonusMid.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
-                Debug.Log("Bati boost 100 pts direita");
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
@@ -251,5 +246,4 @@ public class PlayerControlSwipe : MonoBehaviour
     {
 
     }
-    */
 }
