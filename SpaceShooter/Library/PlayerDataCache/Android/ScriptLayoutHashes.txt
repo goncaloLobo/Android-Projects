@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Android-Projects/SpaceShooter/SpaceShooter.apk
+C:/Users/lilia/Documents/GitHub/Android-Projects/SpaceShooter/SpaceShooter.apk
 SceneListBegin?
 Assets/Scenes/GameEngine.unity
 SceneListEnd?

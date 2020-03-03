@@ -115,21 +115,24 @@ public class PlayerControlSwipe : MonoBehaviour
             }
         }
 
-        // o jogador bate com a nave no boost de 50 pontos
-        if (collision.tag == "Boost100Pts")
+        // o jogador bate com a nave no boost de 100 pontos e recebe-os
+        if (collision.tag == "Boost100PointsLeft" || collision.tag == "Boost100PointsMid" || collision.tag == "Boost100PointsRight")
         {
             if (EnemySpawner.GetBonus() == 1)
             {
+                Debug.Log("Bati boost 100 pts esquerda");
                 bonusLeft.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
+                Debug.Log("Bati boost 100 pts meio");
                 bonusMid.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
+                Debug.Log("Bati boost 100 pts direita");
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
@@ -206,16 +209,19 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (EnemySpawner.GetBonus() == 1)
             {
+                Debug.Log("Bati boost 100 pts esquerda");
                 bonusLeft.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
+                Debug.Log("Bati boost 100 pts meio");
                 bonusMid.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
+                Debug.Log("Bati boost 100 pts direita");
                 bonusRight.Play();
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
