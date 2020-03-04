@@ -14,6 +14,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject bulletPosition02;
 
     public GameObject ExplosionGO;
+    public GameObject AsteroidExplosion;
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
 
     public AudioSource swipeSound;
@@ -269,6 +270,12 @@ public class PlayerControlSwipe : MonoBehaviour
     void PlayExplosion()
     {
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
+        explosion.transform.position = transform.position;
+    }
+
+    void PlayAsteroidExplosion()
+    {
+        GameObject explosion = (GameObject)Instantiate(AsteroidExplosion);
         explosion.transform.position = transform.position;
     }
 }

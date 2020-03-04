@@ -2358,6 +2358,8 @@ MonoBehaviour:
   bulletPosition02: {fileID: 445422684}
   ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
     type: 3}
+  AsteroidExplosion: {fileID: 924631389938428739, guid: 19a5dcb21f64d4e4e856e830dfa9eb1f,
+    type: 3}
   scoreUITextGO: {fileID: 2029485241}
   swipeSound: {fileID: 1103498879}
   hitWallSoundRight: {fileID: 132808716}
