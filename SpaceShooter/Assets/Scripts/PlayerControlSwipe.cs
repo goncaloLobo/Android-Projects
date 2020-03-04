@@ -29,7 +29,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public float speed = 1f;
 
-    private bool tap, doubleTap, swipeLeft, swipeRight, swipeUp, swipeDown;
+    private bool tap, doubleTap, swipeUp, swipeDown;
     private Vector2 swipeDelta, stTouch;
     private float lastTap;
     private float sqrDeadzone;
@@ -39,10 +39,6 @@ public class PlayerControlSwipe : MonoBehaviour
     public bool Tap { get { return tap;  } }
     public bool DoubleTap { get { return doubleTap; } }
     public Vector2 SwipeDelta { get { return swipeDelta; } }
-    public bool SwipeLeft { get { return swipeLeft; } }
-    public bool SwipeRight { get { return swipeRight; } }
-    public bool SwipeUp { get { return swipeUp; } }
-    public bool SwipeDown { get { return swipeDown; } }
 
     public void Init()
     {
@@ -63,7 +59,7 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tap = doubleTap = swipeLeft = swipeRight = swipeUp = swipeDown = false;
+        tap = doubleTap = swipeUp = swipeDown = false;
 
 #if UNITY_EDITOR
         UpdateStandalone();
@@ -91,6 +87,11 @@ public class PlayerControlSwipe : MonoBehaviour
             stTouch = swipeDelta = Vector2.zero;
         }
 
+        if (doubleTap)
+        {
+            Debug.Log("AI AI AI");
+        }
+
         swipeDelta = Vector2.zero;
 
         if (stTouch != Vector2.zero && Input.GetMouseButton(0))
@@ -104,7 +105,6 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 if (x < 0)
                 {
-                    swipeLeft = true;
                     flytime = 0f;
                     startRocketPosition = transform.position;
                     endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
@@ -123,7 +123,6 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
                 }
                 else{
-                    swipeRight = true;
                     flytime = 0f;
                     startRocketPosition = transform.position;
                     endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);
@@ -190,7 +189,6 @@ public class PlayerControlSwipe : MonoBehaviour
                 {
                     if (x < 0)
                     {
-                        swipeLeft = true;
                         flytime = 0f;
                         startRocketPosition = transform.position;
                         endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
@@ -209,7 +207,6 @@ public class PlayerControlSwipe : MonoBehaviour
                         }
                     }
                     else{
-                        swipeRight = true;
                         flytime = 0f;
                         startRocketPosition = transform.position;
                         endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);

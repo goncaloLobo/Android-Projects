@@ -81,7 +81,6 @@ public class EnemySpawner3 : MonoBehaviour
         {
             // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <5)
             spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
-            Debug.Log("ES3 next in " + spawnInNSeconds);
         }
         else
             spawnInNSeconds = 1f;

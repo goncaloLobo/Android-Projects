@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,8 +15,16 @@ public class GameManager : MonoBehaviour
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
-    private float countdownForFinalState;
     private float initialSpawnRate;
+
+    private float firstClickTime, timeBetweenClicks;
+    private bool coroutineAllowed;
+    private int clickCounter;
+
+    private bool tap, doubleTap;
+    private Vector2 stTouch;
+    private float lastTap;
+    private float doubleTapDelta = 1f;
 
     public enum GameManagerState
     {
@@ -27,6 +36,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        firstClickTime = 0f;
+        timeBetweenClicks = 0.2f;
+        clickCounter = 0;
+        coroutineAllowed = true;
+        tap = doubleTap = false;
         GMState = GameManagerState.Opening;
     }
 
@@ -67,14 +81,14 @@ public class GameManager : MonoBehaviour
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         
@@ -87,14 +101,14 @@ public class GameManager : MonoBehaviour
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
@@ -107,14 +121,14 @@ public class GameManager : MonoBehaviour
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
                             initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
+                            initialSpawnRate = CreateRandomFloat(5, 8);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
@@ -153,7 +167,54 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Gameplay;
         UpdateGameManagerState();
-    }
+        /*
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("aqui1");
+            tap = true;
+            stTouch = Input.mousePosition;
+            doubleTap = Time.time - lastTap < doubleTapDelta;
+            Debug.Log("doubletap: " + doubleTap);
+            lastTap = Time.time;
+            Debug.Log("lastTap: " + lastTap);
+        }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("ai ai ai ai ai");
+            stTouch = Vector2.zero;
+        }
+
+        if (doubleTap)
+        {
+            GMState = GameManagerState.Gameplay;
+            UpdateGameManagerState();
+        }
+        */
+
+        /*
+        if (Input.touches.Length != 0)
+        {
+            if (Input.touches[0].phase == TouchPhase.Began)
+            {
+                tap = true;
+                stTouch = Input.touches[0].position;
+                doubleTap = Time.time - lastTap < doubleTapDelta;
+                lastTap = Time.time;
+            }
+            else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
+            {
+                stTouch = Vector2.zero;
+            }
+        }
+
+        if (doubleTap)
+        {
+            GMState = GameManagerState.Gameplay;
+            UpdateGameManagerState();
+        }
+        */
+
+        }
 
     public void ChangeToOpeningState()
     {
