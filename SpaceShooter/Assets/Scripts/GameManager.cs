@@ -65,16 +65,16 @@ public class GameManager : MonoBehaviour
                         enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(2);
                         if(Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         
@@ -85,16 +85,16 @@ public class GameManager : MonoBehaviour
 
                         if (Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
@@ -105,16 +105,16 @@ public class GameManager : MonoBehaviour
 
                         if (Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(3, 6);
+                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(6, 9);
+                            initialSpawnRate = CreateRandomFloat(5.5f, 8);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
@@ -160,8 +160,9 @@ public class GameManager : MonoBehaviour
         SetGameManagerState(GameManagerState.Opening);
     }
 
-    //countdown para aumentar a velocidade
-    public IEnumerator StartCountdownSpeed(float countdownValue = 15)
+    // countdown para aumentar a velocidade
+    // de 8 em 8s aumenta a velocidade em 0.5
+    public IEnumerator StartCountdownSpeed(float countdownValue = 7)
     {
         float speed = EnemyControl.GetSpeed();
         increaseSpeedTimer = countdownValue;
@@ -174,6 +175,14 @@ public class GameManager : MonoBehaviour
             {
                 speed+=0.3f;
                 EnemyControl.SetSpeed(speed);
+                if (EnemySpawner.GetMaxSpawnRate() > 3.0f)
+                {
+                    float sp = EnemySpawner.GetMaxSpawnRate();
+                    float nsp = sp - 0.3f;
+                    EnemySpawner.UpdateMaxSpawnRate(nsp);
+                    EnemySpawner2.UpdateMaxSpawnRate(nsp);
+                    EnemySpawner3.UpdateMaxSpawnRate(nsp);
+                }
 
                 //countdown para aumentar a velocidade
                 StartCoroutine(StartCountdownSpeed());
@@ -182,7 +191,8 @@ public class GameManager : MonoBehaviour
     }
 
     // calcula float aleatorio para o 2º e 3º enemy spawner de cada caso
-    // o float está ]2, 10]
+    // para o 2º inimigo é entre 3 e 5
+    // para o 3º inimigo é entre 5 e 8
     public float CreateRandomFloat(float firstValue, float secondValue)
     {
         float froll = Random.Range(firstValue, secondValue);

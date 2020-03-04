@@ -11,8 +11,7 @@ public class EnemySpawner : MonoBehaviour
     private GameObject Meteor;
     private GameObject Boost;
 
-    float maxSpawnRateInSeconds = 10f;
-    public static float speed = 1f;
+    public static float maxSpawnRateInSeconds = 8.1f;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -21,7 +20,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -57,8 +55,8 @@ public class EnemySpawner : MonoBehaviour
                 break;
             case 3:
 
-                // 80/20 entre escolher o boost ou não escolher inimigo nenhum
-                if(Random.value > 0.2)
+                // 70/30 entre escolher o boost ou não escolher inimigo nenhum
+                if(Random.value > 0.7)
                 {
                     Boost = (GameObject)Instantiate(Boost100Left);
                     Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
@@ -75,14 +73,15 @@ public class EnemySpawner : MonoBehaviour
         //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 3 a 10s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 3 a 8.9s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
-            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <5)
-            spawnInNSeconds = Random.Range(3f, maxSpawnRateInSeconds);
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <9)
+            spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
+            Debug.Log("ES1 next in " + spawnInNSeconds);
         }
         else
             spawnInNSeconds = 1f;
@@ -93,7 +92,7 @@ public class EnemySpawner : MonoBehaviour
     // produz novo inimigo a cada 4 segundos
     void ScheduleNextEnemySpawnFourSeconds()
     {
-        Invoke("SpawnEnemy", 2f);
+        Invoke("SpawnEnemy", 4f);
     }
 
     // aumenta a velocidade com que faz spawn
@@ -110,8 +109,6 @@ public class EnemySpawner : MonoBehaviour
     public void ScheduleEnemySpawner(float initialSpawnRate)
     {
         Invoke("SpawnEnemy", initialSpawnRate);
-
-        //InvokeRepeating("IncreaseSpawnRate", 0f, 30f);
     }
 
     // parar o enemy spawner
@@ -124,5 +121,15 @@ public class EnemySpawner : MonoBehaviour
     public static int GetBonus()
     {
         return checkIfBonus;
+    }
+
+    public static void UpdateMaxSpawnRate(float updatedSpawnRate)
+    {
+        maxSpawnRateInSeconds = updatedSpawnRate;
+    }
+
+    public static float GetMaxSpawnRate()
+    {
+        return maxSpawnRateInSeconds;
     }
 }
