@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,14 +16,11 @@ public class GameManager : MonoBehaviour
     private float increaseSpeedTimer;
     private float initialSpawnRate;
 
-    private float firstClickTime, timeBetweenClicks;
-    private bool coroutineAllowed;
-    private int clickCounter;
+    float clicked = 0;
+    float clicktime = 0;
+    float clickdelay = 0.5f;
 
-    private bool tap, doubleTap;
-    private Vector2 stTouch;
-    private float lastTap;
-    private float doubleTapDelta = 1f;
+    //public Button pButton;
 
     public enum GameManagerState
     {
@@ -36,11 +32,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        firstClickTime = 0f;
-        timeBetweenClicks = 0.2f;
-        clickCounter = 0;
-        coroutineAllowed = true;
-        tap = doubleTap = false;
         GMState = GameManagerState.Opening;
     }
 
@@ -165,56 +156,25 @@ public class GameManager : MonoBehaviour
     // botao play ira chamar esta funcao
     public void StartGamePlay()
     {
-        GMState = GameManagerState.Gameplay;
-        UpdateGameManagerState();
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("aqui1");
-            tap = true;
-            stTouch = Input.mousePosition;
-            doubleTap = Time.time - lastTap < doubleTapDelta;
-            Debug.Log("doubletap: " + doubleTap);
-            lastTap = Time.time;
-            Debug.Log("lastTap: " + lastTap);
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            Debug.Log("ai ai ai ai ai");
-            stTouch = Vector2.zero;
-        }
+        // Detecting double click
+        clicked++;
 
-        if (doubleTap)
+        if (clicked == 1)
+            clicktime = Time.time;
+
+        if (clicked > 1 && Time.time - clicktime < clickdelay)
         {
+            // Double click detected
+            clicked = 0;
+            clicktime = 0;
+            Debug.Log("Double Click GM: ");
             GMState = GameManagerState.Gameplay;
             UpdateGameManagerState();
         }
-        */
+        else if (clicked > 2 || Time.time - clicktime > 1)
+            clicked = 0;
 
-        /*
-        if (Input.touches.Length != 0)
-        {
-            if (Input.touches[0].phase == TouchPhase.Began)
-            {
-                tap = true;
-                stTouch = Input.touches[0].position;
-                doubleTap = Time.time - lastTap < doubleTapDelta;
-                lastTap = Time.time;
-            }
-            else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
-            {
-                stTouch = Vector2.zero;
-            }
-        }
-
-        if (doubleTap)
-        {
-            GMState = GameManagerState.Gameplay;
-            UpdateGameManagerState();
-        }
-        */
-
-        }
+    }
 
     public void ChangeToOpeningState()
     {

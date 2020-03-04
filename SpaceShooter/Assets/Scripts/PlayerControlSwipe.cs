@@ -29,15 +29,13 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public float speed = 1f;
 
-    private bool tap, doubleTap, swipeUp, swipeDown;
+    private bool tap;
     private Vector2 swipeDelta, stTouch;
     private float lastTap;
     private float sqrDeadzone;
     private float deadzone = 100.0f;
-    private float doubleTapDelta = 0.5f;
 
     public bool Tap { get { return tap;  } }
-    public bool DoubleTap { get { return doubleTap; } }
     public Vector2 SwipeDelta { get { return swipeDelta; } }
 
     public void Init()
@@ -59,7 +57,7 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tap = doubleTap = swipeUp = swipeDown = false;
+        tap = false;
 
 #if UNITY_EDITOR
         UpdateStandalone();
@@ -79,17 +77,11 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             tap = true;
             stTouch = Input.mousePosition;
-            doubleTap = Time.time - lastTap < doubleTapDelta;
             lastTap = Time.time;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             stTouch = swipeDelta = Vector2.zero;
-        }
-
-        if (doubleTap)
-        {
-            Debug.Log("AI AI AI");
         }
 
         swipeDelta = Vector2.zero;
@@ -143,10 +135,10 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 if (y < 0)
                 {
-                    swipeDown = true;
+                    Debug.Log("swipe down");
                 }
                 else{
-                    swipeUp = true;
+                    Debug.Log("swipe up");
                 }
                     
             }
@@ -166,7 +158,6 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 tap = true;
                 stTouch = Input.touches[0].position;
-                doubleTap = Time.time - lastTap < doubleTapDelta;
                 lastTap = Time.time;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
@@ -226,9 +217,13 @@ public class PlayerControlSwipe : MonoBehaviour
                 else
                 {
                     if (y < 0)
-                        swipeDown = true;
+                    {
+                        Debug.Log("swipe down");
+                    }
                     else
-                        swipeUp = true;
+                    {
+                        Debug.Log("swipe up");
+                    }
                 }
                 stTouch = swipeDelta = Vector2.zero;
             }
