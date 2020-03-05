@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class GameManager : MonoBehaviour
     float clickdelay = 0.5f;
 
     private static bool started;
+    private float currCountdownValue;
+    private float increaseSpeedTimer;
+    private float initialSpawnRate;
 
     public enum GameManagerState
     {
@@ -44,6 +48,9 @@ public class GameManager : MonoBehaviour
                 started = true;
                 audioData.Play();
                 audioData.loop = true;
+
+                // countdown para a velocidade
+                StartCoroutine(StartCountdownSpeed());
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -99,5 +106,46 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
+    }
+
+    public IEnumerator StartCountdownSpeed(float countdownValue = 7)
+    {
+        increaseSpeedTimer = countdownValue;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (Random.value > 0.5f)
+                {
+                    //aumenta o pitch
+                    if ((audioData.pitch + 0.2f) > 1.2f)
+                    {
+                        audioData.pitch = 1.2f;
+                    }
+                    else
+                    {
+                        audioData.pitch += 0.1f;
+                    }
+                }
+                else
+                {
+                    // diminui o pitch
+                    if ((audioData.pitch - 0.2f) < 0.5f)
+                    {
+                        audioData.pitch = 0.5f;
+                    }
+                    else
+                    {
+                        audioData.pitch -= 0.1f;
+                    }
+                }
+
+                // cria outro temporizador de 3s para aumentar/diminuir a velocidade
+                StartCoroutine(StartCountdownSpeed());
+            }
+        }
     }
 }
