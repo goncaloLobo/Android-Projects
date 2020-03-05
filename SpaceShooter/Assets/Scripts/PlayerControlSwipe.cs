@@ -27,6 +27,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public Text LivesUIText;
     const int MaxLives = 3;
     int lives = 0;
+    private static float finalScore = 0f;
 
     public float speed = 1f;
 
@@ -243,6 +244,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 // mudar o estado para gameover
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
                 gameObject.SetActive(false); // esconder o objecto
+                finalScore = scoreUITextGO.GetComponent<GameScore>().Score;
             }
         }
 
@@ -277,5 +279,10 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         GameObject explosion = (GameObject)Instantiate(AsteroidExplosion);
         explosion.transform.position = transform.position;
+    }
+
+    public static int GetFinalScore()
+    {
+        return (int) finalScore;
     }
 }

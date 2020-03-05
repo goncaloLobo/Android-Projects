@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
 
+    public GameObject shipImage;
+    public GameObject enemyImage;
+    public GameObject swipeDescription;
+
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float initialSpawnRate;
@@ -23,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver
+        Opening, Gameplay, GameOver, Instructions
     }
 
     GameManagerState GMState;
@@ -45,6 +49,10 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
+
+                swipeDescription.SetActive(false);
+                shipImage.SetActive(false);
+                enemyImage.SetActive(false);
 
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
@@ -145,6 +153,16 @@ public class GameManager : MonoBehaviour
                 Invoke("ChangeToOpeningState", 1f);
 
                 break;
+            case GameManagerState.Instructions:
+                GameOverGO.SetActive(false);
+                playButton.SetActive(true);
+                howToButton.SetActive(false);
+
+                swipeDescription.SetActive(true);
+                shipImage.SetActive(true);
+                enemyImage.SetActive(true);
+
+                break;
         }
     }
 
@@ -174,6 +192,26 @@ public class GameManager : MonoBehaviour
         else if (clicked > 2 || Time.time - clicktime > 1)
             clicked = 0;
 
+    }
+
+    public void StartGameInstructions()
+    {
+        // Detecting double click
+        clicked++;
+
+        if (clicked == 1)
+            clicktime = Time.time;
+
+        if (clicked > 1 && Time.time - clicktime < clickdelay)
+        {
+            // Double click detected
+            clicked = 0;
+            clicktime = 0;
+            GMState = GameManagerState.Instructions;
+            UpdateGameManagerState();
+        }
+        else if (clicked > 2 || Time.time - clicktime > 1)
+            clicked = 0;
     }
 
     public void ChangeToOpeningState()
