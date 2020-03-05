@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject playButton;
+    public GameObject howToButton;
     public GameObject playerShip;
     public GameObject enemySpawner;
     public GameObject enemySpawner2;
@@ -19,8 +20,6 @@ public class GameManager : MonoBehaviour
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
-
-    private bool perdeu = false;
 
     public enum GameManagerState
     {
@@ -42,6 +41,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
+                howToButton.SetActive(true);
 
                 break;
             case GameManagerState.Gameplay:
@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
+                howToButton.SetActive(false);
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
