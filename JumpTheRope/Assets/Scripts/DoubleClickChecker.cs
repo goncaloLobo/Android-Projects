@@ -7,13 +7,12 @@ public class DoubleClickChecker : MonoBehaviour
     private float doubleTapDelta = 0.5f;
     private float lastTap;
 
-    public AudioSource audioData;
+    public AudioSource audioData; // ManJumping
 
     // Start is called before the first frame update
     void Start()
     {
-        audioData = GetComponent<AudioSource>();
-        audioData.Play();
+        audioData = GetComponent<AudioSource>();        
     }
 
     void Update()
@@ -43,9 +42,12 @@ public class DoubleClickChecker : MonoBehaviour
 
         if (tap)
             Debug.Log("tap!!");
-
-        if (doubleTap)
+        
+        if (doubleTap && GameManager.GetStarted())
+        {
             Debug.Log("doubletap!!");
+            audioData.Play();
+        }            
     }
 
     private void Update_Mobile()

@@ -9,10 +9,6 @@ public class PlayerControlSwipe : MonoBehaviour
     private float flytime;
     private float flightDuration = 0.1f;
 
-    public GameObject PlayerBulletGO;
-    public GameObject bulletPosition01;
-    public GameObject bulletPosition02;
-
     public float speed = 1f;
 
     private bool tap;
