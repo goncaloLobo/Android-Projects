@@ -13,6 +13,7 @@ TagManager:
   - Boost100PointsLeft
   - Boost100PointsMid
   - Boost100PointsRight
+  - FinalScoreTextTag
   layers:
   - Default
   - TransparentFX

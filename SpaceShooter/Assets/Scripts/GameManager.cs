@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     float clicktime = 0;
     float clickdelay = 0.5f;
 
-    //public Button pButton;
+    private bool perdeu = false;
 
     public enum GameManagerState
     {
@@ -167,7 +167,6 @@ public class GameManager : MonoBehaviour
             // Double click detected
             clicked = 0;
             clicktime = 0;
-            Debug.Log("Double Click GM: ");
             GMState = GameManagerState.Gameplay;
             UpdateGameManagerState();
         }
