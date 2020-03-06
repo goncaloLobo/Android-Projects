@@ -4,7 +4,7 @@ public class DoubleClickChecker : MonoBehaviour
 {
     private bool tap, doubleTap;
     private Vector2 startTouch;
-    private float doubleTapDelta = 0.5f;
+    private float doubleTapDelta = 0.2f;
     private float lastTap;
 
     public AudioSource audioData; // ManJumping
@@ -69,8 +69,11 @@ public class DoubleClickChecker : MonoBehaviour
             if (tap)
                 Debug.Log("tap!!");
 
-            if (doubleTap)
+            if (doubleTap && GameManager.GetStarted())
+            {
                 Debug.Log("doubletap!!");
+                audioData.Play();
+            }
         }
     }
 

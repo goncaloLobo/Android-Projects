@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     private static bool started;
     private float currCountdownValue;
     private float increaseSpeedTimer;
-    private float initialSpawnRate;
 
     public enum GameManagerState
     {
@@ -108,7 +107,7 @@ public class GameManager : MonoBehaviour
         return started;
     }
 
-    public IEnumerator StartCountdownSpeed(float countdownValue = 7)
+    public IEnumerator StartCountdownSpeed(float countdownValue = 10)
     {
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
@@ -120,10 +119,11 @@ public class GameManager : MonoBehaviour
             {
                 if (Random.value > 0.5f)
                 {
+                    //pitch inicia a 0.8
                     //aumenta o pitch
-                    if ((audioData.pitch + 0.2f) > 1.2f)
+                    if ((audioData.pitch + 0.1f) > 1.0f)
                     {
-                        audioData.pitch = 1.2f;
+                        audioData.pitch = 1.0f;
                     }
                     else
                     {
@@ -133,9 +133,9 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     // diminui o pitch
-                    if ((audioData.pitch - 0.2f) < 0.5f)
+                    if ((audioData.pitch - 0.1f) < 0.7f)
                     {
-                        audioData.pitch = 0.5f;
+                        audioData.pitch = 0.7f;
                     }
                     else
                     {
