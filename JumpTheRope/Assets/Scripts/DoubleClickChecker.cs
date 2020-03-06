@@ -9,6 +9,9 @@ public class DoubleClickChecker : MonoBehaviour
 
     public AudioSource audioData; // ManJumping
 
+    public bool Tap { get { return tap; } }
+    public bool DoubleTap { get { return doubleTap; } }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,8 +44,8 @@ public class DoubleClickChecker : MonoBehaviour
         }
 
         if (tap)
-            Debug.Log("tap!!");
-        
+            Debug.Log("tap aqui!!");
+
         if (doubleTap && GameManager.GetStarted())
         {
             Debug.Log("doubletap!!");
@@ -71,14 +74,8 @@ public class DoubleClickChecker : MonoBehaviour
 
             if (doubleTap && GameManager.GetStarted())
             {
-                Debug.Log("doubletap!!");
                 audioData.Play();
             }
         }
-    }
-
-    private void Reset()
-    {
-        startTouch = Vector2.zero;
     }
 }

@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         }
         else if (clicked > 2 || Time.time - clicktime > 1)
             clicked = 0;
-
     }
 
     public void SetGameManagerState(GameManagerState state)
@@ -119,27 +118,27 @@ public class GameManager : MonoBehaviour
             {
                 if (Random.value > 0.5f)
                 {
-                    //pitch inicia a 0.8
+                    //pitch inicia a 0.9
                     //aumenta o pitch
-                    if ((audioData.pitch + 0.1f) > 1.0f)
+                    if ((audioData.pitch + 0.05f) > 1.1f)
                     {
-                        audioData.pitch = 1.0f;
+                        audioData.pitch = 1.1f;
                     }
                     else
                     {
-                        audioData.pitch += 0.1f;
+                        audioData.pitch += 0.05f;
                     }
                 }
                 else
                 {
                     // diminui o pitch
-                    if ((audioData.pitch - 0.1f) < 0.7f)
+                    if ((audioData.pitch - 0.05f) < 0.9f)
                     {
-                        audioData.pitch = 0.7f;
+                        audioData.pitch = 0.9f;
                     }
                     else
                     {
-                        audioData.pitch -= 0.1f;
+                        audioData.pitch -= 0.05f;
                     }
                 }
 
