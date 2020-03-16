@@ -106,7 +106,8 @@ public class GameManager : MonoBehaviour
         return started;
     }
 
-    public IEnumerator StartCountdownSpeed(float countdownValue = 10)
+    // aumenta ou diminui o pitch a cada 15s
+    public IEnumerator StartCountdownSpeed(float countdownValue = 15)
     {
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
