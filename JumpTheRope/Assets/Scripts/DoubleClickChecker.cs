@@ -1,9 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private bool tap, doubleTap, notDoubleTap;
+    private bool tap, doubleTap;
     private Vector2 startTouch;
     private float doubleTapDelta = 0.5f;
     private float lastTap;
@@ -27,7 +26,7 @@ public class DoubleClickChecker : MonoBehaviour
 
     void Update()
     {
-        tap = doubleTap = notDoubleTap = false;
+        tap = doubleTap = false;
 
 #if UNITY_EDITOR
         Update_Standalone();
@@ -49,15 +48,6 @@ public class DoubleClickChecker : MonoBehaviour
         if (doubleTap && GameManager.GetStarted())
         {
             manJumping.Play();
-            Debug.Log("iiia.");
-        }
-
-        // se não for um duplo toque bem feito, então o homem tropeça.
-        if (!doubleTap && GameManager.GetStarted() && tap)
-        {
-            //manJumping.Play();
-            buzzer.Play();
-            Debug.Log("doubletap: " + doubleTap + " tap: " + tap);
         }
     }
 
@@ -74,12 +64,6 @@ public class DoubleClickChecker : MonoBehaviour
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
             {
 
-            }
-
-            // se for tap deve meter um som de bzzzt
-            if (tap)
-            {
-                buzzer.Play();
             }
 
             if (doubleTap && GameManager.GetStarted())
