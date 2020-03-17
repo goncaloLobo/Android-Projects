@@ -8,6 +8,7 @@ public class EnemySpawner3 : MonoBehaviour
     public GameObject Boost100Right;
 
     public static float maxSpawnRateInSeconds = 8.1f;
+    public static float minSpawnRateInSeconds = 1f;
 
     private GameObject Enemy;
     private GameObject Meteor;
@@ -68,30 +69,21 @@ public class EnemySpawner3 : MonoBehaviour
 
         //Produzir novos inimigos em tempo aleatorio
         ScheduleNextEnemySpawnRandom();
-
-        //Produzir novos inimigos de 4 em 4segundos
-        //ScheduleNextEnemySpawnFourSeconds();
     }
 
-    // produz cada inimigo entre 3 a 8.9s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 1 a 8.1s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
-            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds) depois (>3 e <5)
-            spawnInNSeconds = Random.Range(1f, maxSpawnRateInSeconds);
+            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds)
+            spawnInNSeconds = Random.Range(minSpawnRateInSeconds, maxSpawnRateInSeconds);
         }
         else
             spawnInNSeconds = 1f;
 
         Invoke("SpawnEnemy", spawnInNSeconds);
-    }
-
-    // produz novo inimigo a cada 4 segundos
-    void ScheduleNextEnemySpawnFourSeconds()
-    {
-        Invoke("SpawnEnemy", 4f);
     }
 
     // aumenta a velocidade com que faz spawn
@@ -122,13 +114,30 @@ public class EnemySpawner3 : MonoBehaviour
         return checkIfBonus;
     }
 
+    // faz update do valor maxSpawnRateInSeconds
     public static void UpdateMaxSpawnRate(float updatedSpawnRate)
     {
         maxSpawnRateInSeconds = updatedSpawnRate;
     }
 
+    // faz update do valor minSpawnRateInSeconds
+    public static void UpdateMinSpawnRate(float updatedMinSpawnRate)
+    {
+        if (minSpawnRateInSeconds > 0f)
+        {
+            minSpawnRateInSeconds = updatedMinSpawnRate;
+        }
+    }
+
+    //obtem o maxSpawnRateInSeconds
     public static float GetMaxSpawnRate()
     {
         return maxSpawnRateInSeconds;
+    }
+
+    //obtem o minSpawnRateInSeconds
+    public static float GetMinSpawnRate()
+    {
+        return minSpawnRateInSeconds;
     }
 }

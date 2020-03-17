@@ -220,7 +220,8 @@ public class GameManager : MonoBehaviour
     }
 
     // countdown para aumentar a velocidade
-    // de 8 em 8s aumenta a velocidade em 0.5
+    // de 7 em 7s aumenta a velocidade em 0.3
+    // de 7 em 7s diminui o intervalo de tempo de spawn dos inimigos [curr - 0.3,curr - 0.3]
     public IEnumerator StartCountdownSpeed(float countdownValue = 7)
     {
         float speed = EnemyControl.GetSpeed();
@@ -237,10 +238,19 @@ public class GameManager : MonoBehaviour
                 if (EnemySpawner.GetMaxSpawnRate() > 3.0f)
                 {
                     float sp = EnemySpawner.GetMaxSpawnRate();
+                    float minsp = EnemySpawner.GetMinSpawnRate();
+
                     float nsp = sp - 0.3f;
+                    float nminsp = minsp - 0.1f;
+
                     EnemySpawner.UpdateMaxSpawnRate(nsp);
+                    EnemySpawner.UpdateMinSpawnRate(nminsp);
+
                     EnemySpawner2.UpdateMaxSpawnRate(nsp);
+                    EnemySpawner2.UpdateMinSpawnRate(minsp);
+
                     EnemySpawner3.UpdateMaxSpawnRate(nsp);
+                    EnemySpawner3.UpdateMinSpawnRate(minsp);
                 }
 
                 //countdown para aumentar a velocidade
