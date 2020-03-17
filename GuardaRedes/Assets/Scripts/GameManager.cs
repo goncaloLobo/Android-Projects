@@ -97,9 +97,6 @@ public class GameManager : MonoBehaviour
                 textGameModes.SetActive(false);
                 startedDirection = 1;
 
-                //countdown para os remates
-                StartCoroutine(StartCountdownToKick());
-
                 break;
 
             case GameManagerState.SwipeLeft:
@@ -112,8 +109,13 @@ public class GameManager : MonoBehaviour
                 textGameModes.SetActive(false);
                 startedDirection = 2;
 
+                // tipo de controlo
+                playerShip.GetComponent<PlayerControlSwipe>().Init();
+
                 // countdown para o apito (2s)
-                StartCoroutine(StartCountDownToApito());
+                //StartCoroutine(StartCountDownToApito());
+                Invoke("Apitar", 2f);
+
                 break;
 
             case GameManagerState.SwipeRight:
@@ -126,6 +128,9 @@ public class GameManager : MonoBehaviour
                 textGameModes.SetActive(false);
                 startedDirection = 3;
 
+                // tipo de controlo
+                playerShip.GetComponent<PlayerControlSwipe>().Init();
+
                 break;
 
             case GameManagerState.SwipeUp:
@@ -137,6 +142,9 @@ public class GameManager : MonoBehaviour
                 defenderDireita.SetActive(false);
                 textGameModes.SetActive(false);
                 startedDirection = 4;
+
+                // tipo de controlo
+                playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 break;
         }
@@ -282,57 +290,34 @@ public class GameManager : MonoBehaviour
         return started;
     }
 
-    // countdown para, dps de iniciar o modo, contar 2s ate ao apito
-    // que marca o inicio do jogo
-    public IEnumerator StartCountDownToApito(float countdownValue = 2)
+    public void Apitar()
     {
-        increaseSpeedTimer = countdownValue;
-        while (increaseSpeedTimer >= 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            increaseSpeedTimer--;
+        Debug.Log("vou apitar!");
+        apitoParaChutar.Play();
 
-            if (increaseSpeedTimer == 0)
-            {
-                Debug.Log("vou apitar!");
-                apitoParaChutar.Play();
-                StartCoroutine(StartCountdownToKick());
-            }
-        }
+        // chama repetitivamente a funcao rematar
+        // 2.5s apos o inicio do apito e de 3 em 3s
+        InvokeRepeating("Rematar", 2.5f, 3.0f);
     }
 
-    // remata a cada 3s
-    public IEnumerator StartCountdownToKick(float countdownValue = 3)
+    public void Rematar()
     {
-        increaseSpeedTimer = countdownValue;
-        while (increaseSpeedTimer >= 0)
+        // 1 - baixo
+        // 2 - esquerda
+        // 3 - direita
+        // 4 - cima
+        switch (startedDirection)
         {
-            yield return new WaitForSeconds(1.0f);
-            Debug.Log("faltam... " + increaseSpeedTimer + " s");
-            increaseSpeedTimer--;
-
-            if (increaseSpeedTimer == 0)
-            {
-                // 1 - baixo
-                // 2 - esquerda
-                // 3 - direita
-                // 4 - cima
-                switch (startedDirection)
-                {
-                    case 1:
-                        break;
-                    case 2:
-                        Debug.Log("vou rematar!");
-                        chutoEsquerda.Play();
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                }
-                // cria outro temporizador de 5s para chutar
-                StartCoroutine(StartCountdownToKick());
-            }
+            case 1:
+                break;
+            case 2:
+                Debug.Log("vou rematar!");
+                chutoEsquerda.Play();
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
         }
     }
 }

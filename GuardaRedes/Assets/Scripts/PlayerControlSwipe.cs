@@ -83,6 +83,9 @@ public class PlayerControlSwipe : MonoBehaviour
                             flytime += Time.deltaTime;
                             transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                         }
+
+                        // roda as luvas.
+
                     }
                     else
                     {
