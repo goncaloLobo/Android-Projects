@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerControlSwipe : MonoBehaviour
 {
@@ -13,19 +12,17 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public float speed = 1f;
 
-    private bool tap;
     private Vector2 swipeDelta, stTouch;
     private float lastTap;
     private float sqrDeadzone;
     private float deadzone = 100.0f;
 
-    public bool Tap { get { return tap;  } }
     public Vector2 SwipeDelta { get { return swipeDelta; } }
 
     public void Init()
     {
 
-        //mostra a nave do jogador no ecra
+        //mostra as luvas do gr no ecra
         gameObject.SetActive(true);
     }
 
@@ -38,7 +35,6 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tap = false;
 
 #if UNITY_EDITOR
         UpdateStandalone();
@@ -56,7 +52,6 @@ public class PlayerControlSwipe : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            tap = true;
             stTouch = Input.mousePosition;
             lastTap = Time.time;
         }
@@ -167,7 +162,6 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
-                tap = true;
                 stTouch = Input.touches[0].position;
                 lastTap = Time.time;
             }

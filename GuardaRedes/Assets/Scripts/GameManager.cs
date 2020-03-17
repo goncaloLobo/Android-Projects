@@ -13,11 +13,16 @@ public class GameManager : MonoBehaviour
     public GameObject defenderEsquerda;
     public GameObject textGameModes;
 
+    public AudioSource [] sounds; // array para os varios sons
+    public AudioSource apitoParaChutar; // primeiro som [0]
+    public AudioSource chutoEsquerda; // segundo som [1]
+
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
 
     private static bool started;
+    private static int startedDirection;
     private float currCountdownValue;
     private float increaseSpeedTimer;
 
@@ -33,6 +38,10 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         started = false;
+        startedDirection = 0;
+        sounds = GetComponents<AudioSource>();
+        apitoParaChutar = sounds[0];
+        chutoEsquerda = sounds[1];
     }
 
     void UpdateGameManagerState()
@@ -52,8 +61,7 @@ public class GameManager : MonoBehaviour
                 textGameModes.SetActive(false);
                 started = true;
 
-                // countdown para a velocidade
-                StartCoroutine(StartCountdownSpeed());
+                //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -81,50 +89,54 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameManagerState.SwipeDown:
-                // caso para ensinar remates para baixo
-
+                // caso para ensinar remates para baixo (1)
                 defenderBaixo.SetActive(false);
                 defenderCima.SetActive(false);
                 defenderEsquerda.SetActive(false);
                 defenderDireita.SetActive(false);
                 textGameModes.SetActive(false);
-                started = true;
+                startedDirection = 1;
+
+                //countdown para os remates
+                StartCoroutine(StartCountdownToKick());
 
                 break;
 
             case GameManagerState.SwipeLeft:
-                // caso para ensinar remates para esquerda
-
+                // caso para ensinar remates para esquerda (2)
+                // unico caso funcional, por agora.
                 defenderBaixo.SetActive(false);
                 defenderCima.SetActive(false);
                 defenderEsquerda.SetActive(false);
                 defenderDireita.SetActive(false);
                 textGameModes.SetActive(false);
-                started = true;
+                startedDirection = 2;
 
+                // countdown para o apito (2s)
+                StartCoroutine(StartCountDownToApito());
                 break;
 
             case GameManagerState.SwipeRight:
-                // caso para ensinar remates para direita
+                // caso para ensinar remates para direita (3)
 
                 defenderBaixo.SetActive(false);
                 defenderCima.SetActive(false);
                 defenderEsquerda.SetActive(false);
                 defenderDireita.SetActive(false);
                 textGameModes.SetActive(false);
-                started = true;
+                startedDirection = 3;
 
                 break;
 
             case GameManagerState.SwipeUp:
-                // caso para ensinar remates para baixo
+                // caso para ensinar remates para baixo (4)
 
                 defenderBaixo.SetActive(false);
                 defenderCima.SetActive(false);
                 defenderEsquerda.SetActive(false);
                 defenderDireita.SetActive(false);
                 textGameModes.SetActive(false);
-                started = true;
+                startedDirection = 4;
 
                 break;
         }
@@ -270,8 +282,9 @@ public class GameManager : MonoBehaviour
         return started;
     }
 
-    // aumenta ou diminui o pitch a cada 15s
-    public IEnumerator StartCountdownSpeed(float countdownValue = 15)
+    // countdown para, dps de iniciar o modo, contar 2s ate ao apito
+    // que marca o inicio do jogo
+    public IEnumerator StartCountDownToApito(float countdownValue = 2)
     {
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
@@ -281,6 +294,44 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
+                Debug.Log("vou apitar!");
+                apitoParaChutar.Play();
+                StartCoroutine(StartCountdownToKick());
+            }
+        }
+    }
+
+    // remata a cada 3s
+    public IEnumerator StartCountdownToKick(float countdownValue = 3)
+    {
+        increaseSpeedTimer = countdownValue;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            Debug.Log("faltam... " + increaseSpeedTimer + " s");
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                // 1 - baixo
+                // 2 - esquerda
+                // 3 - direita
+                // 4 - cima
+                switch (startedDirection)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        Debug.Log("vou rematar!");
+                        chutoEsquerda.Play();
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                }
+                // cria outro temporizador de 5s para chutar
+                StartCoroutine(StartCountdownToKick());
             }
         }
     }
