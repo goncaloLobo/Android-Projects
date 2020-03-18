@@ -45,14 +45,12 @@ public class DoubleClickChecker : MonoBehaviour
         {
             tap = true;
             doubleTap = Time.time - lastTap < doubleTapDelta;
-            Debug.Log("doubletap: " + doubleTap);
             lastTap = Time.time;
         }
 
         // se for duplo toque então o homem salta.
         if (doubleTap && GameManager.GetStarted())
         {
-            Debug.Log((doubleTap && GameManager.GetStarted()) + "saltei corretamente.");
             n_saltos++;
             manJumping.Play();
         }
@@ -62,29 +60,12 @@ public class DoubleClickChecker : MonoBehaviour
             Debug.Log("doubletap: " + doubleTap + " tap: " + tap);
         }
 
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            float deltaTime = Time.time - lastTimeClicked;
-            if(deltaTime < maxTime)
-            {
-                Debug.Log("Double");
-            }
-            else
-            {
-                Debug.Log("Single!");
-            }
-
-            lastTimeClicked = Time.time;
-        }
-        */
     }
 
     private void Update_Mobile()
     {
         if (Input.touches.Length != 0)
         {
-            /*
             if (Input.touches[0].phase == TouchPhase.Began)
             {
                 tap = true;
@@ -99,17 +80,6 @@ public class DoubleClickChecker : MonoBehaviour
             if (doubleTap && GameManager.GetStarted())
             {
                 n_saltos++;
-                manJumping.Play();
-            }
-            */
-
-            if(Input.touchCount == 1 && (doubleTap == false))
-            {
-                buzzer.Play();
-            }
-            else if(Input.touchCount == 2)
-            {
-                doubleTap = true;
                 manJumping.Play();
             }
         }

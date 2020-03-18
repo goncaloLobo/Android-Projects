@@ -99,6 +99,7 @@ Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar eh
 
 Próxima reunião: Quarta 25 11h.
 -> Não existe nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
+-> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (diminui mais vezes).
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
