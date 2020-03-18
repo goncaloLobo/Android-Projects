@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
 
     float clicked = 0;
     float clicktime = 0;
-    float clickdelay = 0.5f;
+    float clickdelay = 0.2f;
 
     private static bool started;
     private float currCountdownValue;
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-                // cria outro temporizador de 3s para aumentar/diminuir a velocidade
+                // cria outro temporizador de 15s para aumentar/diminuir a velocidade
                 StartCoroutine(StartCountdownSpeed());
             }
         }

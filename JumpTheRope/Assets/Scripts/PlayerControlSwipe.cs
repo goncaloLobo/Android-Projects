@@ -76,37 +76,10 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 if (x < 0)
                 {
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
-                    if (endRocketPosition.x > border.x)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        }
-                    }
-                    else
-                    {
-                    }
+                    Debug.Log("swipe left");
                 }
                 else{
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);
-                    if (endRocketPosition.x < border2.x)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        }
-                    }
-                    else
-                    {
-
-                    }
+                    Debug.Log("swipe right");
                 }
             }
             else

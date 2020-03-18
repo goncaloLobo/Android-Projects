@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Android-Projects/JumpTheRope/JumpTheRope.apk
+C:/Users/lilia/Documents/GitHub/Android-Projects/JumpTheRope/JumpTheRope.apk
 SceneListBegin?
 Assets/Scenes/GameEngine.unity
 SceneListEnd?
