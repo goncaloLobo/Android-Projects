@@ -111,7 +111,6 @@ public class GameManager : MonoBehaviour
     // vai diminuir este intervalo de 3 em 3s (até 1s)
     public IEnumerator StartCountdownSpeed(float countdownValue)
     {
-        Debug.Log("entrei: " + baseCountdown);
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
         {
@@ -162,5 +161,33 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown -= 2.0f));
         }        
+    }
+
+    public void CreateNewCoroutineRandom()
+    {
+        if (Random.value > 0.3f) // diminui
+        {
+            Debug.Log("a diminuir");
+            if (baseCountdown - 2.0f < 1.0f)
+            {
+                StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
+            }
+            else
+            {
+                StartCoroutine(StartCountdownSpeed(baseCountdown -= 2.0f));
+            }
+        }
+        else
+        { // aumentar
+            Debug.Log("a aumentar");
+            if (baseCountdown + 2.0f > 15.0f)
+            {
+                StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
+            }
+            else
+            {
+                StartCoroutine(StartCountdownSpeed(baseCountdown += 2.0f));
+            }
+        }
     }
 }
