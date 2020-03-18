@@ -1,0 +1,106 @@
+Jogo 1 - Labirinto
+
+	-> Gestos de swipe para a esquerda ou swipe para a direita para o boneco alterar a direção.
+	-> Gesto de swipe para cima para o boneco andar uma casa ou então o boneco anda sozinho.
+	-> Quanto mais próxima a distância à parede, mais beeps faz e mais agudos
+		(supondo: a 3 passos da parede para a qual está virado faz 1 beep, 
+		a 2 passos faz 2 beeps + agudos e a 1 passo faz 3 beeps ++ agudos)
+
+	-> Em vez de swipe right para mudar de direção, swipe right em L para ir para a direita.
+		O mesmo aplicável à esquerda.
+	-> Para o boneco rodar 180º pode ser usado um gesto swipe-up, swipe-down para virar.
+		O mesmo aplicável para o boneco rodar de baixo para cima, gesto swipe-down, swipe-up.
+   
+Jogo 2 - Simon Says
+	-> Ecrã seria dividido em 4, as 4 cores: verde no canto superior esquerdo, vermelho no canto superior
+		direito, amarelo no canto inferior esquerdo e azul no canto superior direito.
+	-> Cada parte do ecrã teria um efeito sonoro diferente: sons no topo seriam mais agudos e sons em baixo
+		seriam mais graves. Para além disto, som do lado esquerdo só sai do lado esquerdo e o mesmo para o
+		lado direito.
+	-> Os gestos a ensinar seriam transmitidos por som. O utilizador primeiro ouvia o som correspondente
+		ao gesto que vai efetuar e depois deve imitar, traçando com o dedo o percurso que acha pelas cores.
+   
+Jogo 3 - Jogo da Memória
+
+	-> Ideia será o utilizador deslizar o dedo pelo ecrã à medida que vai ouvindo as cartas.
+		Quando quiser selecionar uma carta, carrega duas vezes quando a ouve.
+		Depois de selecionar uma carta, continua a arrastar o dedo pelo ecrã para encontrar a carta que combina.
+		Quando a encontra, carrega duas vezes. Se forem iguais, um som de confirmação será ouvido. Se não forem vice-versa.
+	-> Permite desenvolver o gesto de arrastar o dedo pelo ecrã para ouvir as cartas, como o TalkBack faz para ouvir as opções no ecrã.
+	-> Permite desenvolver o duplo toque para selecionar uma opção.
+
+Jogo 4 - Toupeiras Feira
+
+	-> Ideia será o utilizador deslizar o dedo pelo ecrã até ouvir o barulho que denuncia a posição da toupeira.
+		Quando achar que está na posição da toupeira, faz duplo clique e se for correto ouve-se um som.
+   
+Jogo 5 - Simon Gestos
+
+	-> Ideia será o jogo pedir um conjunto de gestos para a pessoa fazer.
+	-> Os gestos devem corresponder a gameplay (exemplo: gesto para a direita -> varrer o chao)
+	-> No final de completar a tarefa, o gesto pode ser explicado como fazer uma tarefa.
+
+Jogo 6 -> Cadet Rocket
+
+	-> Desviar dos asteroides que vêm de cima com swipes para a esquerda e para a direita. 
+	-> Jogo em modo portrait.
+	Sugestão: arranjar forma de ter vários níveis no jogo. Cada nível tem a mesma posição, velocidade, etc dos asteroides.
+		-> Cada novo nível aumenta a dificuldade.
+		-> Possível de ter um ficheiro exterior de forma a apenas ser possível modificar valores dos vários atributos para a criação dos níveis.
+		
+Jogo 7 -> Saltar à corda
+	
+	-> Cada toque correspondente a uma perna. Duplo toque para saltarem as duas pernas.
+	-> Se saltar apenas com uma perna, gameover.
+	-> Introduzir sons exteriores de forma a abafar o som de saltar à corda para "obrigar" a ensinar um padrão.
+	   (o tempo entre os vários duplos toques que corresponde ao tempo entre os saltos)
+	   
+Jogo 8 -> Balanço
+
+	-> Jogador equilibrado numa corda. Arrastar o dedo para a esquerda e para a direita para equilibrar o jogador - ou duplo toque.
+	-> Manter o dedo muito num dos lados faz com que o jogador fique cada vez mais inclinado nesse lado.
+	   Opção 2: som do vento vem da direita e o jogador deve arrastar o dedo para o lado do vento, contrabalançando o jogador.
+	-> Em vez de ser o jogador equilibrado numa corda, pode ser o jogador a equilibrar um conjunto de objetos (uns mais fáceis que outros).
+
+REUNIÃO 03/03 11h:
+Jogo 9 -> Guarda Redes
+
+	-> Jogador faz de guarda redes com swipe para a direita, swipe para a esquerda, swipe para cima ou swipe para baixo.
+	-> Defesas mais complicadas, como defender nos cantos superiores ou inferiores, seria com gestos mais complexos: swipe right then up (canto superior direito),
+	   por aí em diante.
+	Gameplay - ideia 1: o jogo toca 3 sons sendo que cada som simboliza a bola próxima do jogador.
+	Por exemplo, o jogo faz "3..2..1" e depois de ouvir o "1" significa que o jogador tem de fazer o swipe para o lado de onde vem o som.
+	Gameplay - ideia 2: o jogo faz "3..2..1" para simular o início do remate. Este "3..2..1" é feito numa posição no ecrã (p.e, direita).
+	Depois disso, é feito o remate (ouve-se o som do remate) e o jogador tem de fazer o gesto para defender no sítio onde ouviu o som a vir.
+
+	Níveis: cada nível serviria para ensinar a pessoa a fazer o gesto para defender a bola (ex.: nível 1 - defender para a direita -> fazer swipe para a direita).
+	Os níveis vão aumentando os swipes que podem ser feitos, mas podem ser escolhidos em separado para treinar um swipe em particular.
+	Nível "normal" com todos os gestos.
+	
+	
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Reunião:
+Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
+Pesquisar reconhecedor de duplo toque do unity (default de unity, se existir.)
+	Condição de terminar o jogo -> Primeira vez 15s, vezes seguintes menos tempo (encurtar tempos entre aleatório -> Variar tempos de aceleração após 15s).
+	Após vários intervalos de 15s, em vez de aumentar 0.05 aumentar outros valores (0.1 ou 0.2).
+	Contar número de vezes corretas de saltar à corda (nº de saltos perfeitos + pontos, nº de saltos não perfeitos - pontos).
+	
+	https://aws.amazon.com/pt/polly/ -> para criar sons para todos os botões.
+	Provavelmente as sessões irão ser atrasadas. Possivelmente para Junho / Julho.
+	
+Guarda Redes:
+	Reconhecedor de gestos semelhante ao Android (ver como é feito e fazer igual ou ver reconhecedor do unity).
+	
+Rocket: Estatísticas final de jogo. Estatísticas de highscore. (inimigos desviados, tempo, pontos finais -> highscore)
+Som de bater na parede -> Menos som de errado, mais de "BOOM".
+Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar ehehehe).
+
+Próxima reunião: Quarta 25 11h.
+-> Não existe nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
+
+NAO APAGAR ISTO.

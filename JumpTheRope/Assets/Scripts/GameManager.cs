@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     private static bool started;
     private float currCountdownValue;
     private float increaseSpeedTimer;
+    private float baseCountdown = 15.0f;
 
     public enum GameManagerState
     {
@@ -48,8 +49,8 @@ public class GameManager : MonoBehaviour
                 audioData.Play();
                 audioData.loop = true;
 
-                // countdown para a velocidade
-                StartCoroutine(StartCountdownSpeed());
+                // countdown para alterar a velocidade do som
+                StartCoroutine(StartCountdownSpeed(15));
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -107,8 +108,10 @@ public class GameManager : MonoBehaviour
     }
 
     // aumenta ou diminui o pitch a cada 15s
-    public IEnumerator StartCountdownSpeed(float countdownValue = 15)
+    // vai diminuir este intervalo de 3 em 3s (até 1s)
+    public IEnumerator StartCountdownSpeed(float countdownValue)
     {
+        Debug.Log("entrei: " + baseCountdown);
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
         {
@@ -117,6 +120,7 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
+                Debug.Log("cheguei ao fim.");
                 if (Random.value > 0.5f)
                 {
                     //pitch inicia a 0.9
@@ -142,10 +146,23 @@ public class GameManager : MonoBehaviour
                         audioData.pitch -= 0.05f;
                     }
                 }
-
-                // cria outro temporizador de 15s para aumentar/diminuir a velocidade
-                StartCoroutine(StartCountdownSpeed());
+                Invoke("CreateNewCoroutine", 0.0f);
+                yield break;
             }
         }
+    }
+
+    public void CreateNewCoroutine()
+    {
+        if (baseCountdown - 3.0f < 1.0f)
+        {
+            Debug.Log("entrei 1s");
+            StartCoroutine(StartCountdownSpeed(baseCountdown =1.0f));
+        }
+        else
+        {
+            Debug.Log("entrei normalmente");
+            StartCoroutine(StartCountdownSpeed(baseCountdown -= 3.0f));
+        }        
     }
 }
