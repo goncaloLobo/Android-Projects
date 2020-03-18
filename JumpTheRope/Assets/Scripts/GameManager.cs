@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
-                Debug.Log("cheguei ao fim.");
                 if (Random.value > 0.5f)
                 {
                     //pitch inicia a 0.9
@@ -146,7 +145,8 @@ public class GameManager : MonoBehaviour
                         audioData.pitch -= 0.05f;
                     }
                 }
-                Invoke("CreateNewCoroutine", 0.0f);
+                //Invoke("CreateNewCoroutine", 0.0f);
+                Invoke("CreateNewCoroutineRandom", 0.0f);
                 yield break;
             }
         }
@@ -154,15 +154,13 @@ public class GameManager : MonoBehaviour
 
     public void CreateNewCoroutine()
     {
-        if (baseCountdown - 3.0f < 1.0f)
+        if (baseCountdown - 2.0f < 1.0f)
         {
-            Debug.Log("entrei 1s");
-            StartCoroutine(StartCountdownSpeed(baseCountdown =1.0f));
+            StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
         }
         else
         {
-            Debug.Log("entrei normalmente");
-            StartCoroutine(StartCountdownSpeed(baseCountdown -= 3.0f));
+            StartCoroutine(StartCountdownSpeed(baseCountdown -= 2.0f));
         }        
     }
 }
