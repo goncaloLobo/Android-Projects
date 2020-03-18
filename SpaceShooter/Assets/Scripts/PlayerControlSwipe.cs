@@ -242,9 +242,9 @@ public class PlayerControlSwipe : MonoBehaviour
             if (lives == 0)
             {
                 // mudar o estado para gameover
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
                 gameObject.SetActive(false); // esconder o objecto
                 finalScore = scoreUITextGO.GetComponent<GameScore>().Score;
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.GameOver);
             }
         }
 

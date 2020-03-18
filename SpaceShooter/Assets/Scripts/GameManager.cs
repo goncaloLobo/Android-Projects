@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
 
+    //imagens
     public GameObject shipImage;
     public GameObject enemyImage;
     public GameObject swipeDescription;
@@ -21,10 +23,12 @@ public class GameManager : MonoBehaviour
     private float increaseSpeedTimer;
     private float initialSpawnRate;
 
-    float clicked = 0;
-    float clicktime = 0;
-    float clickdelay = 0.5f;
+    private float clicked = 0;
+    private float clicktime = 0;
+    private float clickdelay = 0.5f;
 
+    private int finalScore; // pontuacao final (pontos)
+        
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver, Instructions
@@ -36,6 +40,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GMState = GameManagerState.Opening;
+        finalScore = 0;
     }
 
     void UpdateGameManagerState()
@@ -138,7 +143,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.GameOver:
 
-                // terminar o contador de tempo
+                // terminar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 
                 // parar o enemy spawner
@@ -146,8 +151,11 @@ public class GameManager : MonoBehaviour
                 enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
                 enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
 
-                //display game over
-                GameOverGO.SetActive(true);
+                //display game over e o tempo final
+                GameOverGO.SetActive(true);                
+
+                // resultado final
+                finalScore = PlayerControlSwipe.GetFinalScore();
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 1f);

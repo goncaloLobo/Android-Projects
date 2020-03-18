@@ -8,6 +8,7 @@ public class TimeCounter : MonoBehaviour
     public float startTime; // tempo quando o utilizador clica no jogar
     public float ellapsedTime; // tempo depois de o utilizador carregar no jogar
     public bool startCounter; // boolean para iniciar o contador
+    public bool finishTime; // tempo final qdo o utilizador perde
 
     int minutes;
     int seconds;

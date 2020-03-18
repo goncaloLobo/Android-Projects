@@ -533,6 +533,7 @@ MonoBehaviour:
   startTime: 0
   ellapsedTime: 0
   startCounter: 0
+  finishTime: 0
 --- !u!1 &213852912
 GameObject:
   m_ObjectHideFlags: 0

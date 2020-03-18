@@ -28,5 +28,5 @@ public class GameScore : MonoBehaviour
     {
         string scoreStr = string.Format("{0:00000}", score);
         scoreTextUI.text = scoreStr;
-    }  
+    }
 }
