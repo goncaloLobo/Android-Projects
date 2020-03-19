@@ -10,7 +10,6 @@ public class DoubleClickChecker : MonoBehaviour
     Touch touch;
     private int n_saltos = 0;
 
-    private float maxTime = 0.5f;
     private float lastTimeClicked;
 
     public AudioSource[] sounds;
@@ -44,6 +43,8 @@ public class DoubleClickChecker : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             tap = true;
+            startTouch = Input.mousePosition;
+            // true qdo a diferença entre o ultimo e o primeiro toque < doubletapDelta
             doubleTap = Time.time - lastTap < doubleTapDelta;
             lastTap = Time.time;
         }
@@ -57,7 +58,7 @@ public class DoubleClickChecker : MonoBehaviour
 
         if(!doubleTap && GameManager.GetStarted() && tap)
         {
-            Debug.Log("doubletap: " + doubleTap + " tap: " + tap);
+            Debug.Log("entrei");
         }
 
     }
@@ -69,6 +70,7 @@ public class DoubleClickChecker : MonoBehaviour
             if (Input.touches[0].phase == TouchPhase.Began)
             {
                 tap = true;
+                startTouch = Input.touches[0].position;
                 doubleTap = Time.time - lastTap < doubleTapDelta;
                 lastTap = Time.time;
             }

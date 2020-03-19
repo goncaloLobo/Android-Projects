@@ -83,7 +83,6 @@ Jogo 9 -> Guarda Redes
 Reunião:
 Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
 Pesquisar reconhecedor de duplo toque do unity (default de unity, se existir.)
-	Condição de terminar o jogo -> Primeira vez 15s, vezes seguintes menos tempo (encurtar tempos entre aleatório -> Variar tempos de aceleração após 15s).
 	Após vários intervalos de 15s, em vez de aumentar 0.05 aumentar outros valores (0.1 ou 0.2).
 	Contar número de vezes corretas de saltar à corda (nº de saltos perfeitos + pontos, nº de saltos não perfeitos - pontos).
 	
@@ -99,7 +98,7 @@ Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar eh
 
 Próxima reunião: Quarta 25 11h.
 -> Não existe nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
--> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (diminui mais vezes).
+-> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.

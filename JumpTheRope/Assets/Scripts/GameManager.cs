@@ -144,8 +144,8 @@ public class GameManager : MonoBehaviour
                         audioData.pitch -= 0.05f;
                     }
                 }
-                //Invoke("CreateNewCoroutine", 0.0f);
-                Invoke("CreateNewCoroutineRandom", 0.0f);
+                Invoke("CreateNewCoroutine", 0.0f);
+                //Invoke("CreateNewCoroutineRandom", 0.0f);
                 yield break;
             }
         }
