@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,10 +17,6 @@ public class GameManager : MonoBehaviour
     public AudioSource [] sounds; // array para os varios sons
     public AudioSource apitoParaChutar; // primeiro som [0]
     public AudioSource chutoEsquerda; // segundo som [1]
-
-    float clicked = 0;
-    float clicktime = 0;
-    float clickdelay = 0.5f;
 
     private static bool started;
     private static int startedDirection;
@@ -57,8 +52,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-
-                Debug.Log("entrei gameplay");
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 textGameModes.SetActive(false);
@@ -154,130 +147,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGamePlay()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.Gameplay;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
-    public void StartGameInstructions()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.Instructions;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
-    //funcao que vai ser chamada qdo o botao defender para cima é carregado
-    public void StartDefenderCima()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.SwipeUp;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
-    //funcao que vai ser chamada qdo o botao defender para baixo é carregado
-    public void StartDefenderBaixo()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.SwipeDown;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
-    //funcao que vai ser chamada qdo o botao defender para direita é carregado
-    public void StartDefenderDireita()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.SwipeRight;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
-    //funcao que vai ser chamada qdo o botao defender para esquerda é carregado
-    public void StartDefenderEsquerda()
-    {
-        // Detecting double click
-        clicked++;
-
-        if (clicked == 1)
-            clicktime = Time.time;
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            // Double click detected
-            clicked = 0;
-            clicktime = 0;
-            GMState = GameManagerState.SwipeLeft;
-            UpdateGameManagerState();
-        }
-        else if (clicked > 2 || Time.time - clicktime > 1)
-            clicked = 0;
-    }
-
     public void SetGameManagerState(GameManagerState state)
     {
         GMState = state;
@@ -296,9 +165,7 @@ public class GameManager : MonoBehaviour
 
     public void Apitar()
     {
-        Debug.Log("vou apitar!");
         apitoParaChutar.Play();
-
         // chama repetitivamente a funcao rematar
         // 2.5s apos o inicio do apito e de 3 em 3s
         InvokeRepeating("Rematar", 2.5f, 3.0f);
