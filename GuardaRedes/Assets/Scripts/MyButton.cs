@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
  
-public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
     public bool buttonPressed;
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
-    public AudioSource instrucoes;
+    public AudioSource jogar;
 
     public GameObject GameManagerGO;
 
     void Start()
     {
-        instrucoes = GetComponent<AudioSource>();
+        jogar = GetComponent<AudioSource>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -22,7 +22,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (clicked == 1) {
             clicktime = Time.time;
             buttonPressed = true;
-            instrucoes.Play();
+            jogar.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)
@@ -37,5 +37,10 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonPressed = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        jogar.Play();
     }
 }

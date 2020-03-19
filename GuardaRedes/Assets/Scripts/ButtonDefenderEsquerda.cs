@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonDefenderEsquerda : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class ButtonDefenderEsquerda : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
     public bool buttonPressed;
     float clicked = 0;
@@ -38,5 +38,10 @@ public class ButtonDefenderEsquerda : MonoBehaviour, IPointerDownHandler, IPoint
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonPressed = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        defenderParaEsquerda.Play();
     }
 }

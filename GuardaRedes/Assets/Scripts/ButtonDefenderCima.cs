@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
     public bool buttonPressed;
     float clicked = 0;
@@ -38,5 +38,10 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUp
     public void OnPointerUp(PointerEventData eventData)
     {
         buttonPressed = false;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        defenderParaCima.Play();
     }
 }
