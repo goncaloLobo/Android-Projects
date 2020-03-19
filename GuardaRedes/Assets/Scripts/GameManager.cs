@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.Gameplay:
 
+                Debug.Log("entrei gameplay");
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 textGameModes.SetActive(false);
