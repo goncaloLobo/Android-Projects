@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject defenderDireita;
     public GameObject defenderEsquerda;
     public GameObject textGameModes;
+    public GameObject panelHolder;
+    public GameObject panelDefenderBaixo;
 
     public AudioSource [] sounds; // array para os varios sons
     public AudioSource apitoParaChutar; // primeiro som [0]
@@ -80,6 +82,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 textGameModes.SetActive(true);
+                //panelHolder.SetActive(true);
 
                 defenderBaixo.SetActive(true);
                 defenderCima.SetActive(true);

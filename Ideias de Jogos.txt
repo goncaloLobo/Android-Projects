@@ -99,7 +99,18 @@ Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar eh
 Próxima reunião: Quarta 25 11h.
 -> Não existe nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
 -> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
+-> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo.
 
+
+
+TODO:
+
+-> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
+   quando troca lê os modos.
+-> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
+-> Mudar botão "COMO JOGAR" para "INSTRUÇÕES".
+-> Alterar layout dos botões (para bolas de futebol com o texto no interior).
+-> Quando um botão é clicado duas vezes, alterar o modo de jogo (espero que seja possível na classe mybutton tho).
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
