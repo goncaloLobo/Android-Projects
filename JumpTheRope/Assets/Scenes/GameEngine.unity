@@ -149,7 +149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 840.5, y: 3300.8}
+  m_AnchoredPosition: {x: 794, y: 3263}
   m_SizeDelta: {x: 239, y: 225}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &95557985
@@ -1586,18 +1586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1815092f8a2f5704da9c5c42c50bbcd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManagerGO: {fileID: 1693170702}
-  startRocketPosition: {x: 0, y: 0, z: 0}
-  endRocketPosition: {x: 0, y: 0, z: 0}
-  flytime: 0
-  flightDuration: 0.1
-  speed: 5
-  tap: 0
-  swipeDelta: {x: 0, y: 0}
-  stTouch: {x: 0, y: 0}
-  lastTap: 0
-  sqrDeadzone: 0
-  deadzone: 100
 --- !u!61 &1950541787
 BoxCollider2D:
   m_ObjectHideFlags: 0

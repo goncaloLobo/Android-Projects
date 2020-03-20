@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
 
+    private int finalScore;
+    private int n_saltos_perfeitos;
+    private int n_saltos_normais;
+
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver, Instructions
@@ -54,6 +58,11 @@ public class GameManager : MonoBehaviour
             case GameManagerState.GameOver:
                 //display game over
                 GameOverGO.SetActive(true);
+
+                //obtem estatísticas do final do jogo
+                finalScore = DoubleClickChecker.GetPontuacao();
+                n_saltos_perfeitos = DoubleClickChecker.GetSaltosPerfeitos();
+                n_saltos_normais = DoubleClickChecker.GetSaltosNormais();
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 1f);
@@ -97,7 +106,7 @@ public class GameManager : MonoBehaviour
                 audioData.pitch = 0.9f;
                 if (Random.value > 0.5f)
                 {
-                    //pitch inicia a 0.8
+                    //pitch inicia a 0.8 (aqui passa a 0.9)
                     //aumenta o pitch
                     if ((audioData.pitch + 0.05f) > 1.1f)
                     {

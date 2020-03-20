@@ -1,4 +1,4 @@
-Jogo 1 - Labirinto
+﻿Jogo 1 - Labirinto
 
 	-> Gestos de swipe para a esquerda ou swipe para a direita para o boneco alterar a direção.
 	-> Gesto de swipe para cima para o boneco andar uma casa ou então o boneco anda sozinho.
@@ -97,7 +97,7 @@ Som de bater na parede -> Menos som de errado, mais de "BOOM".
 Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar ehehehe).
 
 Próxima reunião: Quarta 25 11h.
--> Não existe nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
+-> Não encontrei (pretty sure que não existe) nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
 -> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
 -> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo.
 
