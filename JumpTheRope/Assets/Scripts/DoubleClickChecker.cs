@@ -15,8 +15,6 @@ public class DoubleClickChecker : MonoBehaviour
     private const int perfectJump = 100;
     private const int normalJump = 25;
 
-    private float lastTimeClicked;
-
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
     public AudioSource buzzer; // Buzzer
