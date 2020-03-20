@@ -8,10 +8,11 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
 
     public AudioSource audioData; // som da corda
-    private static bool started;
+    private static bool started, toFinish;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
+    private float timerToEnd = 3.0f;
 
     private int finalScore;
     private int n_saltos_perfeitos;
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
 
         //valor inicial do pitch para a pessoa se habituar aos sons.
         audioData.pitch = 0.8f;
-        started = false;
+        started = toFinish = false;
     }
 
     void UpdateGameManagerState()
@@ -86,6 +87,11 @@ public class GameManager : MonoBehaviour
         SetGameManagerState(GameManagerState.Opening);
     }
 
+    public void ChangeToGameOverState()
+    {
+        SetGameManagerState(GameManagerState.GameOver);
+    }
+
     public static bool GetStarted()
     {
         return started;
@@ -129,8 +135,39 @@ public class GameManager : MonoBehaviour
                         audioData.pitch -= 0.05f;
                     }
                 }
-                Invoke("CreateNewCoroutine", 0.0f);
-                //Invoke("CreateNewCoroutineRandom", 0.0f);
+                if (toFinish) // o jogo vai terminar
+                {
+                    Invoke("CallEndCoroutine", 0.0f);
+                    yield break;
+                }
+                else
+                {
+                    Invoke("CreateNewCoroutine", 0.0f);
+                    //Invoke("CreateNewCoroutineRandom", 0.0f);
+                    yield break;
+                }                
+            }
+        }
+    }
+
+    // chama a coroutine de final de jogo
+    public void CallEndCoroutine()
+    {
+        StartCoroutine(EndCoroutine(timerToEnd));
+    }
+
+    // coroutine de final de jogo
+    public IEnumerator EndCoroutine(float countdownValue)
+    {
+        increaseSpeedTimer = countdownValue;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0) //chegou ao final dos 3 segundos
+            {
+                Invoke("ChangeToGameOverState", 1f);
                 yield break;
             }
         }
@@ -141,6 +178,7 @@ public class GameManager : MonoBehaviour
         if (baseCountdown - 2.0f < 1.0f)
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
+            toFinish = true;
         }
         else
         {

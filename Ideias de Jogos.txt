@@ -81,12 +81,7 @@ Jogo 9 -> Guarda Redes
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Reunião:
-Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
-Pesquisar reconhecedor de duplo toque do unity (default de unity, se existir.)
 	Após vários intervalos de 15s, em vez de aumentar 0.05 aumentar outros valores (0.1 ou 0.2).
-	Contar número de vezes corretas de saltar à corda (nº de saltos perfeitos + pontos, nº de saltos não perfeitos - pontos).
-	
-	https://aws.amazon.com/pt/polly/ -> para criar sons para todos os botões.
 	Provavelmente as sessões irão ser atrasadas. Possivelmente para Junho / Julho.
 	
 Guarda Redes:
@@ -100,7 +95,8 @@ Próxima reunião: Quarta 25 11h.
 -> Não encontrei (pretty sure que não existe) nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
 -> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
 -> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo.
-
+-> (Corda) Determina saltos perfeitos e saltos normais.
+-> (Corda) Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
 
 
 TODO:
@@ -109,7 +105,6 @@ TODO:
    quando troca lê os modos.
 -> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
 -> Alterar layout dos botões (para bolas de futebol com o texto no interior).
--> Quando um botão é clicado duas vezes, alterar o modo de jogo (espero que seja possível na classe mybutton tho).
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
