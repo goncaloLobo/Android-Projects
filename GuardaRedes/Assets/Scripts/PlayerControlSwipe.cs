@@ -5,6 +5,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject GameManagerGO; // game manager
     public AudioSource hitWallSoundRight; // som de bater no limite dir do ecra
     public AudioSource hitWallSoundLeft; // som de bater no limite esq do ecra
+    public AudioSource hitCenter; // som de bater no topo ou em baixo
 
     private Vector3 startGlovePosition, endGlovePosition;
     private float flytime;
@@ -18,6 +19,8 @@ public class PlayerControlSwipe : MonoBehaviour
     private float deadzone = 100.0f;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
+    public Vector2 StartTouch { get { return stTouch; } }
+    public float LastTap { get { return lastTap; } }
 
     public void Init()
     {
@@ -84,7 +87,7 @@ public class PlayerControlSwipe : MonoBehaviour
                             transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                         }
 
-                        // roda as luvas.
+                        // roda as luvas para a esquerda
 
                     }
                     else
@@ -104,6 +107,8 @@ public class PlayerControlSwipe : MonoBehaviour
                             flytime += Time.deltaTime;
                             transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                         }
+                        
+                        // roda as luvas para a direita
                     }
                     else
                     {
@@ -130,6 +135,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     else
                     {
                         // som de bater na parede em baixo
+                        hitCenter.Play();
                     }
                 }
                 else{
@@ -147,6 +153,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     else
                     {
                         // som de bater na parede em cima
+                        hitCenter.Play();
                     }
                 }
                     
@@ -198,6 +205,8 @@ public class PlayerControlSwipe : MonoBehaviour
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                             }
+
+                            // roda as luvas para a esquerda
                         }
                         else
                         {
@@ -217,6 +226,8 @@ public class PlayerControlSwipe : MonoBehaviour
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                             }
+
+                            // roda as luvas para a direita
                         }
                         else
                         {
@@ -243,6 +254,7 @@ public class PlayerControlSwipe : MonoBehaviour
                         else
                         {
                             // som de bater na parede em baixo
+                            hitCenter.Play();
                         }
                     }
                     else
@@ -261,6 +273,7 @@ public class PlayerControlSwipe : MonoBehaviour
                         else
                         {
                             // som de bater na parede em cima
+                            hitCenter.Play();
                         }
                     }
                 }

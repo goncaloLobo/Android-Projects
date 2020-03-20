@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public AudioSource [] sounds; // array para os varios sons
     public AudioSource apitoParaChutar; // primeiro som [0]
     public AudioSource chutoEsquerda; // segundo som [1]
+    public AudioSource apito3x; // terceiro som [2]
 
     private static bool started;
     private static int startedDirection;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
         chutoEsquerda = sounds[1];
+        apito3x = sounds[2];
     }
 
     void UpdateGameManagerState()
@@ -57,15 +59,16 @@ public class GameManager : MonoBehaviour
                 textGameModes.SetActive(false);
                 started = true;
 
-                //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
-
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
+
+                //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
 
                 break;
             case GameManagerState.GameOver:
                 //display game over
                 GameOverGO.SetActive(true);
+                apito3x.Play();
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 1f);
