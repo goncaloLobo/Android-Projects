@@ -133,17 +133,6 @@ public class PlayerControlSwipe : MonoBehaviour
                         hitWallSoundRight.Play();
                 }
             }
-            else
-            {
-                if (y < 0)
-                {
-                    Debug.Log("swipe down");
-                }
-                else{
-                    Debug.Log("swipe up");
-                }
-                    
-            }
             stTouch = swipeDelta = Vector2.zero;
         }
     }
@@ -214,17 +203,6 @@ public class PlayerControlSwipe : MonoBehaviour
                         }
                         else
                             hitWallSoundRight.Play();
-                    }
-                }
-                else
-                {
-                    if (y < 0)
-                    {
-                        Debug.Log("swipe down");
-                    }
-                    else
-                    {
-                        Debug.Log("swipe up");
                     }
                 }
                 stTouch = swipeDelta = Vector2.zero;
