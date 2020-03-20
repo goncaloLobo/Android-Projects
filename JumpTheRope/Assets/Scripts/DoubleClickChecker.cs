@@ -2,12 +2,11 @@
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private bool tap, doubleTap;
+    private bool tap, doubleTap, biggerDoubleTap;
     private Vector2 startTouch;
     private float doubleTapDelta = 0.5f;
+    private float doubleTapDeltaBigger = 1.0f;
     private float lastTap;
-    float touchDuration;
-    Touch touch;
     private int n_saltos = 0;
 
     private float lastTimeClicked;
@@ -15,9 +14,11 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
     public AudioSource buzzer; // Buzzer
+    public AudioSource oneFootJumping; // tap
 
     public bool Tap { get { return tap; } }
     public bool DoubleTap { get { return doubleTap; } }
+    public bool BiggerDoubleTap { get { return biggerDoubleTap; } }
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +26,12 @@ public class DoubleClickChecker : MonoBehaviour
         sounds = GetComponents<AudioSource>();
         manJumping = sounds[0];
         buzzer = sounds[1];
+        oneFootJumping = sounds[2];
     }
 
     void Update()
     {
-        tap = doubleTap = false;
+        tap = doubleTap = biggerDoubleTap = false;
 
 #if UNITY_EDITOR
         Update_Standalone();
@@ -47,6 +49,7 @@ public class DoubleClickChecker : MonoBehaviour
             // true qdo a diferença entre o ultimo e o primeiro toque < doubletapDelta
             doubleTap = Time.time - lastTap < doubleTapDelta;
             lastTap = Time.time;
+            oneFootJumping.Play();
         }
 
         // se for duplo toque então o homem salta.

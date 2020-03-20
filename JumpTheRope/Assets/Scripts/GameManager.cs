@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         audioData = GetComponent<AudioSource>();
+
+        //valor inicial do pitch para a pessoa se habituar aos sons.
+        audioData.pitch = 0.8f;
         started = false;
     }
 
@@ -46,9 +49,6 @@ public class GameManager : MonoBehaviour
 
                 // countdown para alterar a velocidade do som
                 StartCoroutine(StartCountdownSpeed(15));
-
-                // tipo de controlo
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 break;
             case GameManagerState.GameOver:
@@ -94,9 +94,10 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
+                audioData.pitch = 0.9f;
                 if (Random.value > 0.5f)
                 {
-                    //pitch inicia a 0.9
+                    //pitch inicia a 0.8
                     //aumenta o pitch
                     if ((audioData.pitch + 0.05f) > 1.1f)
                     {
