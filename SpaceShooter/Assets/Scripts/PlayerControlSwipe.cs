@@ -26,7 +26,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public Text LivesUIText;
     const int MaxLives = 3;
-    int lives = 0;
+    private static int lives = 0;
     private static float finalScore = 0f;
 
     public float speed = 1f;
@@ -262,5 +262,10 @@ public class PlayerControlSwipe : MonoBehaviour
     public static int GetFinalScore()
     {
         return (int) finalScore;
+    }
+
+    public static int GetCurrentNumberOfLives()
+    {
+        return lives;
     }
 }

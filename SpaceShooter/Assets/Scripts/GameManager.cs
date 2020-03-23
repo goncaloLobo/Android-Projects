@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         Opening, Gameplay, GameOver, Instructions
     }
 
-    GameManagerState GMState;
+    public static GameManagerState GMState;
 
     // Start is called before the first frame update
     void Start()
@@ -179,6 +179,11 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public static GameManagerState GetCurrentState()
+    {
+        return GMState;
     }
 
     // countdown para aumentar a velocidade
