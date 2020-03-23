@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
-    private float timerToEnd = 3.0f;
 
     private int finalScore;
     private int n_saltos_perfeitos;
@@ -66,7 +65,7 @@ public class GameManager : MonoBehaviour
                 n_saltos_normais = DoubleClickChecker.GetSaltosNormais();
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 1f);
+                Invoke("ChangeToOpeningState", 5f);
 
                 break;
             case GameManagerState.Instructions:
@@ -109,10 +108,16 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
-                audioData.pitch = 0.9f;
+                Debug.Log("pitch inicial: " + audioData.pitch);
+                // aumenta o pitch para 0.9
+                if(audioData.pitch == 0.8f)
+                {
+                    audioData.pitch = 0.9f;
+                }
+
+                // pitch aqui = 0.9f
                 if (Random.value > 0.5f)
                 {
-                    //pitch inicia a 0.8 (aqui passa a 0.9)
                     //aumenta o pitch
                     if ((audioData.pitch + 0.05f) > 1.1f)
                     {
@@ -137,7 +142,7 @@ public class GameManager : MonoBehaviour
                 }
                 if (toFinish) // o jogo vai terminar
                 {
-                    Invoke("CallEndCoroutine", 0.0f);
+                    Invoke("ChangeToGameOverState", 1f);
                     yield break;
                 }
                 else
@@ -150,35 +155,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // chama a coroutine de final de jogo
-    public void CallEndCoroutine()
-    {
-        StartCoroutine(EndCoroutine(timerToEnd));
-    }
-
-    // coroutine de final de jogo
-    public IEnumerator EndCoroutine(float countdownValue)
-    {
-        increaseSpeedTimer = countdownValue;
-        while (increaseSpeedTimer >= 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            increaseSpeedTimer--;
-
-            if (increaseSpeedTimer == 0) //chegou ao final dos 3 segundos
-            {
-                Invoke("ChangeToGameOverState", 1f);
-                yield break;
-            }
-        }
-    }
-
     public void CreateNewCoroutine()
     {
         if (baseCountdown - 2.0f < 1.0f)
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
-            toFinish = true;
+            if (IsGameOver())
+            {
+                // jogo vai terminar
+                toFinish = true;
+            }
+            else
+            {
+                // vai chamar outra coroutine (neste caso, de 1s) para
+                // verificar novamente se o jogo irá terminar ou não
+                StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
+            }
         }
         else
         {
@@ -212,5 +204,16 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(baseCountdown += 2.0f));
             }
         }
+    }
+
+    // se a % de saltos perfeitos no total de saltos for menor que 70% entao termina o jogo
+    private bool IsGameOver()
+    {
+        if((float) DoubleClickChecker.GetSaltosPerfeitos() / (float)DoubleClickChecker.GetTotalSaltos() < 0.7f)
+        {
+            Debug.Log("GameOver");
+            return true;
+        }
+        return false;
     }
 }

@@ -8,6 +8,7 @@ public class DoubleClickChecker : MonoBehaviour
     private float doubleTapDeltaBigger = 1.0f;
     private float lastTap;
 
+    private static int n_saltos_total;
     private static int n_saltos_perfeitos;
     private static int n_saltos_normais;
     private static int pontuacaoTotal;
@@ -17,7 +18,6 @@ public class DoubleClickChecker : MonoBehaviour
 
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
-    public AudioSource buzzer; // Buzzer
     public AudioSource oneFootJumping; // tap
 
     public bool Tap { get { return tap; } }
@@ -29,10 +29,9 @@ public class DoubleClickChecker : MonoBehaviour
     {
         sounds = GetComponents<AudioSource>();
         manJumping = sounds[0];
-        buzzer = sounds[1];
-        oneFootJumping = sounds[2];
+        oneFootJumping = sounds[1];
 
-        n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
+        n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = n_saltos_total = 0;
     }
 
     void Update()
@@ -65,6 +64,7 @@ public class DoubleClickChecker : MonoBehaviour
         // se for duplo toque então o homem salta (SALTO PERFEITO).
         if (doubleTap && GameManager.GetStarted())
         {
+            n_saltos_total++;
             n_saltos_perfeitos++;
             manJumping.Play();
             pontuacaoTotal += perfectJump;
@@ -78,6 +78,7 @@ public class DoubleClickChecker : MonoBehaviour
         // duplo toque "mal feito", não deve fazer nada (SALTO NÃO PERFEITO).
         if (biggerDoubleTap && GameManager.GetStarted())
         {
+            n_saltos_total++;
             n_saltos_normais++;
             pontuacaoTotal += normalJump;
         }
@@ -107,6 +108,7 @@ public class DoubleClickChecker : MonoBehaviour
 
             if (doubleTap && GameManager.GetStarted())
             {
+                n_saltos_total++;
                 n_saltos_perfeitos++;
                 manJumping.Play();
                 pontuacaoTotal += perfectJump;
@@ -115,6 +117,7 @@ public class DoubleClickChecker : MonoBehaviour
             // duplo toque "mal feito", não deve fazer nada (SALTO NÃO PERFEITO).
             if (biggerDoubleTap && GameManager.GetStarted())
             {
+                n_saltos_total++;
                 n_saltos_normais++;
                 pontuacaoTotal += normalJump;
             }
@@ -137,5 +140,10 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetPontuacao()
     {
         return pontuacaoTotal;
+    }
+
+    public static int GetTotalSaltos()
+    {
+        return n_saltos_total;
     }
 }
