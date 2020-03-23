@@ -79,11 +79,6 @@ Jogo 9 -> Guarda Redes
 	
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-
-Reunião:
-	Após vários intervalos de 15s, em vez de aumentar 0.05 aumentar outros valores (0.1 ou 0.2).
-	Provavelmente as sessões irão ser atrasadas. Possivelmente para Junho / Julho.
-	
 Guarda Redes:
 	Reconhecedor de gestos semelhante ao Android (ver como é feito e fazer igual ou ver reconhecedor do unity).
 	
@@ -97,14 +92,13 @@ Próxima reunião: Quarta 25 11h.
 -> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo.
 -> (Corda) Determina saltos perfeitos e saltos normais.
 -> (Corda) Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
-
+-> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
 
 TODO:
 
 -> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
    quando troca lê os modos.
 -> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
--> Alterar layout dos botões (para bolas de futebol com o texto no interior).
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
