@@ -2,7 +2,7 @@
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private bool tap, doubleTap, biggerDoubleTap;
+    private bool doubleTap, biggerDoubleTap;
     private Vector2 startTouch;
     private float doubleTapDelta = 0.5f;
     private float doubleTapDeltaBigger = 1.0f;
@@ -20,7 +20,6 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource manJumping; // ManJumping
     public AudioSource oneFootJumping; // tap
 
-    public bool Tap { get { return tap; } }
     public bool DoubleTap { get { return doubleTap; } }
     public bool BiggerDoubleTap { get { return biggerDoubleTap; } }
 
@@ -36,7 +35,7 @@ public class DoubleClickChecker : MonoBehaviour
 
     void Update()
     {
-        tap = doubleTap = biggerDoubleTap = false;
+        doubleTap = biggerDoubleTap = false;
 
 #if UNITY_EDITOR
         Update_Standalone();
@@ -49,7 +48,6 @@ public class DoubleClickChecker : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && GameManager.GetStarted())
         {
-            tap = true;
             startTouch = Input.mousePosition;
 
             // doubletap = true qdo a diferença entre os taps < 0.5f
@@ -70,11 +68,6 @@ public class DoubleClickChecker : MonoBehaviour
             pontuacaoTotal += perfectJump;
         }
 
-        if(!doubleTap && GameManager.GetStarted() && tap)
-        {
-            //Debug.Log("entrei");
-        }
-
         // duplo toque "mal feito", não deve fazer nada (SALTO NÃO PERFEITO).
         if (biggerDoubleTap && GameManager.GetStarted())
         {
@@ -91,7 +84,6 @@ public class DoubleClickChecker : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
-                tap = true;
                 startTouch = Input.touches[0].position;
                 // doubletap = true qdo a diferença entre os taps < 0.5f
                 doubleTap = Time.time - lastTap < doubleTapDelta;

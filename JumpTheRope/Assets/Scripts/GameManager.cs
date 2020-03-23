@@ -19,10 +19,10 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions
+        Opening, Gameplay, GameOver
     }
 
-    GameManagerState GMState;
+    public static GameManagerState GMState;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
+                audioData.Stop();
 
                 break;
             case GameManagerState.Gameplay:
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.GameOver:
                 //display game over
                 GameOverGO.SetActive(true);
+                audioData.Stop();
 
                 //obtem estatísticas do final do jogo
                 finalScore = DoubleClickChecker.GetPontuacao();
@@ -66,10 +68,6 @@ public class GameManager : MonoBehaviour
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 5f);
-
-                break;
-            case GameManagerState.Instructions:
-                GameOverGO.SetActive(false);
 
                 break;
         }
@@ -89,6 +87,12 @@ public class GameManager : MonoBehaviour
     public void ChangeToGameOverState()
     {
         SetGameManagerState(GameManagerState.GameOver);
+    }
+
+    //obtem o estado atual do jogo
+    public static GameManagerState GetCurrentState()
+    {
+        return GMState;
     }
 
     public static bool GetStarted()
