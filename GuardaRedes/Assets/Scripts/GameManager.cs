@@ -24,12 +24,15 @@ public class GameManager : MonoBehaviour
     private float currCountdownValue;
     private float increaseSpeedTimer;
 
+    private float highscoreStored;
+    private int defesasStored;
+
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown
     }
 
-    GameManagerState GMState;
+    public static GameManagerState GMState;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,10 @@ public class GameManager : MonoBehaviour
         apitoParaChutar = sounds[0];
         chutoEsquerda = sounds[1];
         apito3x = sounds[2];
+
+        // vai buscar o highscore
+        // aqui no start para quando o jogo é iniciado
+        GetCurrentHighScores();
     }
 
     void UpdateGameManagerState()
@@ -48,15 +55,25 @@ public class GameManager : MonoBehaviour
         switch (GMState)
         {
             case GameManagerState.Opening:
+                playerShip.SetActive(false);
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
+                // ou seja, todas as vezes que o jogador perde
+                GetCurrentHighScores();
 
                 break;
             case GameManagerState.Gameplay:
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
-                textGameModes.SetActive(false);
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
                 started = true;
 
                 // tipo de controlo
@@ -70,6 +87,14 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(true);
                 apito3x.Play();
 
+                // se for novo highscore, vai regista-lo
+                // assim como o tempo e o numero de inimigos desviados associado
+                //if (finalScore > highscoreStored)
+                //{
+                    //new highscore
+                //    GameScore.SetHighScore(finalScore, defesas);
+                //}
+
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 1f);
 
@@ -78,36 +103,27 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
-                textGameModes.SetActive(true);
                 //panelHolder.SetActive(true);
 
-                defenderBaixo.SetActive(true);
-                defenderCima.SetActive(true);
-                defenderEsquerda.SetActive(true);
-                defenderDireita.SetActive(true);
+                // mete os varios defenderes a true
+                ActivateDefenderes();
 
                 break;
-
             case GameManagerState.SwipeDown:
                 // caso para ensinar remates para baixo (1)
-                defenderBaixo.SetActive(false);
-                defenderCima.SetActive(false);
-                defenderEsquerda.SetActive(false);
-                defenderDireita.SetActive(false);
-                textGameModes.SetActive(false);
                 startedDirection = 1;
 
-                break;
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
 
+                break;
             case GameManagerState.SwipeLeft:
                 // caso para ensinar remates para esquerda (2)
                 // unico caso funcional, por agora.
-                defenderBaixo.SetActive(false);
-                defenderCima.SetActive(false);
-                defenderEsquerda.SetActive(false);
-                defenderDireita.SetActive(false);
-                textGameModes.SetActive(false);
                 startedDirection = 2;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -117,31 +133,23 @@ public class GameManager : MonoBehaviour
                 Invoke("Apitar", 2f);
 
                 break;
-
             case GameManagerState.SwipeRight:
                 // caso para ensinar remates para direita (3)
-
-                defenderBaixo.SetActive(false);
-                defenderCima.SetActive(false);
-                defenderEsquerda.SetActive(false);
-                defenderDireita.SetActive(false);
-                textGameModes.SetActive(false);
                 startedDirection = 3;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 break;
-
             case GameManagerState.SwipeUp:
                 // caso para ensinar remates para baixo (4)
-
-                defenderBaixo.SetActive(false);
-                defenderCima.SetActive(false);
-                defenderEsquerda.SetActive(false);
-                defenderDireita.SetActive(false);
-                textGameModes.SetActive(false);
                 startedDirection = 4;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
 
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
@@ -159,6 +167,11 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public static GameManagerState GetCurrentState()
+    {
+        return GMState;
     }
 
     public static bool GetStarted()
@@ -193,5 +206,30 @@ public class GameManager : MonoBehaviour
             case 4:
                 break;
         }
+    }
+
+    //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
+    private void GetCurrentHighScores()
+    {
+        highscoreStored = PlayerPrefs.GetFloat("highscore", 0);
+        defesasStored = PlayerPrefs.GetInt("defesas", 0);
+    }
+
+    private void DeactivateDefenderes()
+    {
+        defenderBaixo.SetActive(false);
+        defenderCima.SetActive(false);
+        defenderEsquerda.SetActive(false);
+        defenderDireita.SetActive(false);
+        textGameModes.SetActive(false);
+    }
+
+    private void ActivateDefenderes()
+    {
+        textGameModes.SetActive(true);
+        defenderBaixo.SetActive(true);
+        defenderCima.SetActive(true);
+        defenderEsquerda.SetActive(true);
+        defenderDireita.SetActive(true);
     }
 }

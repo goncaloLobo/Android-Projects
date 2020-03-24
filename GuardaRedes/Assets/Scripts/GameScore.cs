@@ -28,5 +28,14 @@ public class GameScore : MonoBehaviour
     {
         string scoreStr = string.Format("{0:00000}", score);
         scoreTextUI.text = scoreStr;
-    }  
+    }
+
+    // guarda os valores associados a um novo highscore
+    public static void SetHighScore(float highscore, int defesas)
+    {
+        PlayerPrefs.SetFloat("highscore", highscore);
+        PlayerPrefs.SetInt("defesas", defesas);
+        Debug.Log("highscore: " + highscore);
+        Debug.Log("defesas: " + defesas);
+    }
 }

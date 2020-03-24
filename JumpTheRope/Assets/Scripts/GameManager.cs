@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
     private int n_saltos_perfeitos;
     private int n_saltos_normais;
 
+    private float highscoreStored;
+    private float saltosPerfeitosStored;
+    private float saltosNormaisStored;
+    private float totalSaltosStored;
+
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver
@@ -33,6 +38,10 @@ public class GameManager : MonoBehaviour
         //valor inicial do pitch para a pessoa se habituar aos sons.
         audioData.pitch = 0.8f;
         started = toFinish = false;
+
+        // vai buscar o highscore
+        // aqui no start para quando o jogo é iniciado
+        GetCurrentHighScores();
     }
 
     void UpdateGameManagerState()
@@ -43,6 +52,10 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 audioData.Stop();
+
+                // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
+                // ou seja, todas as vezes que o jogador perde
+                GetCurrentHighScores();
 
                 break;
             case GameManagerState.Gameplay:
@@ -66,10 +79,17 @@ public class GameManager : MonoBehaviour
                 n_saltos_perfeitos = DoubleClickChecker.GetSaltosPerfeitos();
                 n_saltos_normais = DoubleClickChecker.GetSaltosNormais();
 
+                // se for novo highscore, vai regista-lo
+                if (finalScore > highscoreStored)
+                {
+                    //new highscore
+                    GameScore.SetHighScore(finalScore, n_saltos_perfeitos, n_saltos_normais);
+                }
+
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 5f);
-
                 break;
+
         }
     }
 
@@ -219,5 +239,14 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
+    private void GetCurrentHighScores()
+    {
+        highscoreStored = PlayerPrefs.GetFloat("highscore", 0);
+        saltosPerfeitosStored = PlayerPrefs.GetFloat("perfeitos", 0);
+        saltosNormaisStored = PlayerPrefs.GetInt("normais", 0);
+        totalSaltosStored = PlayerPrefs.GetInt("total", 0);
     }
 }

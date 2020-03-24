@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
@@ -22,7 +21,6 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (clicked == 1)
         {
             clicktime = Time.time;
-            buttonPressed = true;
             sair.Play();
         }
 
@@ -42,7 +40,7 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        buttonPressed = false;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

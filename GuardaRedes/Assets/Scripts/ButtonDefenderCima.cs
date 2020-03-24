@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
@@ -22,7 +21,6 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUp
         if (clicked == 1)
         {
             clicktime = Time.time;
-            buttonPressed = true;
             defenderParaCima.Play();
         }
 
@@ -37,7 +35,7 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerDownHandler, IPointerUp
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        buttonPressed = false;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
