@@ -3,12 +3,10 @@ using UnityEngine.EventSystems;
 
 public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
     public AudioSource comoJogar;
-
     public GameObject GameManagerGO;
 
     void Start()
@@ -22,7 +20,6 @@ public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (clicked == 1)
         {
             clicktime = Time.time;
-            buttonPressed = true;
             comoJogar.Play();
         }
 
@@ -37,7 +34,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        buttonPressed = false;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 
 public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
     float clicked = 0;
     public AudioSource [] sounds;
     public AudioSource vidas; //sounds[0]
@@ -29,7 +28,6 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if(GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
-                buttonPressed = true;
                 vidas.Play();
             }
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
@@ -53,7 +51,7 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        buttonPressed = false;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -16,8 +16,8 @@ public class GameManager : MonoBehaviour
 
     //imagens
     public GameObject shipImage;
-    public GameObject enemyImage;
-    public GameObject swipeDescription;
+    public GameObject enemyImage1;
+    public GameObject enemyImage2;
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -50,10 +50,9 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-
-                swipeDescription.SetActive(false);
                 shipImage.SetActive(false);
-                enemyImage.SetActive(false);
+                enemyImage1.SetActive(false);
+                enemyImage2.SetActive(false);
 
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
@@ -162,9 +161,9 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(false);
 
-                swipeDescription.SetActive(true);
                 shipImage.SetActive(true);
-                enemyImage.SetActive(true);
+                enemyImage1.SetActive(true);
+                enemyImage2.SetActive(true);
 
                 break;
         }
