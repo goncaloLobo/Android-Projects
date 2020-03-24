@@ -21,8 +21,9 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource hitWallSoundRight; // som de bater no limite dir do ecra
     public AudioSource hitWallSoundLeft; // som de bater no limite esq do ecra
     public AudioSource bonusLeft; // som bonus esq
-    public AudioSource bonusMid; // som bonus esq
-    public AudioSource bonusRight; // som bonus esq
+    public AudioSource bonusMid; // som bonus mid
+    public AudioSource bonusRight; // som bonus dir
+    public AudioSource bonus100; // som a dizer "100 pontos"
 
     public Text LivesUIText;
     const int MaxLives = 3;
@@ -232,28 +233,31 @@ public class PlayerControlSwipe : MonoBehaviour
             if (EnemySpawner.GetBonus() == 1)
             {
                 bonusLeft.Play();
+                bonus100.PlayDelayed(bonusLeft.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
                 bonusMid.Play();
+                bonus100.PlayDelayed(bonusMid.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
                 bonusRight.Play();
+                bonus100.PlayDelayed(bonusRight.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
         }
     }
 
-    void PlayExplosion()
+    public void PlayExplosion()
     {
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
     }
 
-    void PlayAsteroidExplosion()
+    public void PlayAsteroidExplosion()
     {
         GameObject explosion = (GameObject)Instantiate(AsteroidExplosion);
         explosion.transform.position = transform.position;
