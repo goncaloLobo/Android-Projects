@@ -28,9 +28,10 @@ public class TimeCounter : MonoBehaviour
     }
 
     // funcao para terminar o contador
-    public void StopTimeCounter()
+    public float StopTimeCounter()
     {
         startCounter = false;
+        return ellapsedTime;
     }
 
     // Update is called once per frame

@@ -23,7 +23,13 @@ public class GameManager : MonoBehaviour
     private float increaseSpeedTimer;
     private float initialSpawnRate;
 
+    private float highscoreStored;
+    private float timeStored;
+    private float enemiesStored;
+
+    private float currentTime;
     private int finalScore; // pontuacao final (pontos)
+    private int enemiesAvoided; // inimigos desviados com sucesso
         
     public enum GameManagerState
     {
@@ -37,6 +43,10 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         finalScore = 0;
+
+        // vai buscar o highscore
+        // aqui no start para quando o jogo é iniciado
+        GetCurrentHighScores();
     }
 
     void UpdateGameManagerState()
@@ -47,6 +57,10 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
+
+                // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
+                // ou seja, todas as vezes que o jogador perde
+                GetCurrentHighScores();
 
                 break;
             case GameManagerState.Gameplay:
@@ -139,7 +153,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.GameOver:
 
                 // terminar os contadores de tempo
-                timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
+                currentTime = timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 
                 // parar o enemy spawner
                 enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
@@ -151,6 +165,15 @@ public class GameManager : MonoBehaviour
 
                 // resultado final
                 finalScore = PlayerControlSwipe.GetFinalScore();
+                enemiesAvoided = EnemyControl.GetEnemiesAvoided();
+
+                // se for novo highscore, vai regista-lo
+                // assim como o tempo e o numero de inimigos desviados associado
+                if (finalScore > highscoreStored)
+                {
+                    //new highscore
+                    GameScore.SetHighScore(finalScore, currentTime, enemiesAvoided);
+                }
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 1f);
@@ -232,5 +255,13 @@ public class GameManager : MonoBehaviour
     {
         float froll = Random.Range(firstValue, secondValue);
         return froll;
+    }
+
+    //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
+    private void GetCurrentHighScores()
+    {
+        highscoreStored = PlayerPrefs.GetFloat("highscore", 0);
+        timeStored = PlayerPrefs.GetFloat("time", 0);
+        enemiesStored = PlayerPrefs.GetInt("enemies", 0);
     }
 }

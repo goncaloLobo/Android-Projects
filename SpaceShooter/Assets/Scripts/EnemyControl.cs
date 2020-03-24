@@ -12,6 +12,8 @@ public class EnemyControl : MonoBehaviour
 
     public static float speed = 1f;
 
+    private static int enemiesAvoided; // inimigos que chegam ao final do ecra (que o utilizador se desviou)
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,8 @@ public class EnemyControl : MonoBehaviour
         Boost100PointsRight = GameObject.FindGameObjectWithTag("Boost100PointsRight");
         EnemyGO = GameObject.FindGameObjectWithTag("EnemyShipTag");
         Meteor = GameObject.FindGameObjectWithTag("MeteorTag");
+
+        enemiesAvoided = 0;
     }
 
     // Update is called once per frame
@@ -36,6 +40,7 @@ public class EnemyControl : MonoBehaviour
         // destruir os objetos que passem o limite inferior do ecra
         if (transform.position.y < min.y)
         {
+            enemiesAvoided++;
             if (gameObject.CompareTag("Boost100PointsLeft"))
             {
                 Destroy(gameObject);
@@ -97,5 +102,11 @@ public class EnemyControl : MonoBehaviour
     public static void SetSpeed(float sp)
     {
         speed = sp;
+    }
+
+    // obtem os inimigos que o utilizador se desviou, no final do jogo
+    public static int GetEnemiesAvoided()
+    {
+        return enemiesAvoided;
     }
 }
