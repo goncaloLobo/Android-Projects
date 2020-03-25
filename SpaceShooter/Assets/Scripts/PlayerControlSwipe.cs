@@ -28,13 +28,13 @@ public class PlayerControlSwipe : MonoBehaviour
     private static int lives = 0;
     private static float finalScore = 0f;
 
-    private Vector2 swipeDelta, stTouch, startRocketPosition, endRocketPosition;
-    private float sqrDeadzone;
-    private float deadzone = 100.0f;
+    private Vector2 startRocketPosition, endRocketPosition, swipeDelta, stTouch, sndTouch;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Vector2 StartRocketPosition { get { return startRocketPosition; } }
     public Vector2 EndRocketPosition { get { return endRocketPosition; } }
+    public Vector2 StartTouch { get { return stTouch; } }
+    public Vector2 SecondTouch { get { return sndTouch; } }
 
     public void Init()
     {
@@ -49,7 +49,6 @@ public class PlayerControlSwipe : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sqrDeadzone = deadzone * deadzone;
     }
 
     // Update is called once per frame
@@ -71,61 +70,63 @@ public class PlayerControlSwipe : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            stTouch = Input.mousePosition;
-        }
-        else if (Input.GetMouseButtonUp(0))
-        {
-            stTouch = swipeDelta = Vector2.zero;
+            stTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
 
-        swipeDelta = Vector2.zero;
-
-        if (stTouch != Vector2.zero && Input.GetMouseButton(0))
-            swipeDelta = (Vector2)Input.mousePosition - stTouch;
-
-        if (swipeDelta.sqrMagnitude > sqrDeadzone)
+        if (Input.GetMouseButtonUp(0))
         {
-            float x = swipeDelta.x;
-            float y = swipeDelta.y;
-            if(Mathf.Abs(x) > Mathf.Abs(y))
+            sndTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
+
+            //normalize the 2d vector
+            swipeDelta.Normalize();
+
+            //swipe left
+            if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
             {
-                if (x < 0)
+                flytime = 0f;
+                startRocketPosition = transform.position;
+                endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
+                if (endRocketPosition.x > border.x)
                 {
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
-                    if (endRocketPosition.x > border.x)
+                    while (flytime < flightDuration)
                     {
-                        while (flytime < flightDuration)
-                        {
-                            swipeSound.Play();
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        }
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                     }
-                    else
-                    {
-                        hitWallSoundLeft.Play();
-                    }
+
+                    // roda as luvas para a esquerda
+
                 }
-                else{
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
-                    if (endRocketPosition.x < border2.x)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            swipeSound.Play();
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                        }
-                    }
-                    else
-                        hitWallSoundRight.Play();
+                else
+                {
+                    // som de bater na parede no lado esquerdo
+                    hitWallSoundLeft.Play();
                 }
             }
-            stTouch = swipeDelta = Vector2.zero;
+
+            //swipe right
+            if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+            {
+                flytime = 0f;
+                startRocketPosition = transform.position;
+                endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
+                if (endRocketPosition.x < border2.x)
+                {
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                    }
+
+                    // roda as luvas para a direita
+                }
+                else
+                {
+                    // som de bater na parede no lado direito
+                    hitWallSoundRight.Play();
+                }
+            }
         }
     }
 
@@ -139,63 +140,63 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
-                stTouch = Input.touches[0].position;
-            }
-            else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
-            {
-                stTouch = swipeDelta = Vector2.zero;
+                stTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
             }
 
-            swipeDelta = Vector2.zero;
-
-            if(stTouch != Vector2.zero && Input.touches.Length != 0)
+            if (Input.touches[0].phase == TouchPhase.Ended)
             {
-                swipeDelta = Input.touches[0].position - stTouch;
-            }
+                sndTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
+                swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
 
-            if (swipeDelta.sqrMagnitude > sqrDeadzone)
-            {
-                float x = swipeDelta.x;
-                float y = swipeDelta.y;
-                if (Mathf.Abs(x) > Mathf.Abs(y))
+                //normalize the 2d vector
+                swipeDelta.Normalize();
+
+                //swipe left
+                if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                 {
-                    if (x < 0)
+                    flytime = 0f;
+                    startRocketPosition = transform.position;
+                    endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
+                    if (endRocketPosition.x > border.x)
                     {
-                        flytime = 0f;
-                        startRocketPosition = transform.position;
-                        endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
-                        if (endRocketPosition.x > border.x)
+                        while (flytime < flightDuration)
                         {
-                            while (flytime < flightDuration)
-                            {
-                                swipeSound.Play();
-                                flytime += Time.deltaTime;
-                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                            }
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                         }
-                        else
-                        {
-                            hitWallSoundLeft.Play();
-                        }
+
+                        // roda as luvas para a esquerda
+
                     }
-                    else{
-                        flytime = 0f;
-                        startRocketPosition = transform.position;
-                        endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
-                        if (endRocketPosition.x < border2.x)
-                        {
-                            while (flytime < flightDuration)
-                            {
-                                swipeSound.Play();
-                                flytime += Time.deltaTime;
-                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                            }
-                        }
-                        else
-                            hitWallSoundRight.Play();
+                    else
+                    {
+                        // som de bater na parede no lado esquerdo
+                        hitWallSoundLeft.Play();
                     }
                 }
-                stTouch = swipeDelta = Vector2.zero;
+
+                //swipe right
+                if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                {
+                    flytime = 0f;
+                    startRocketPosition = transform.position;
+                    endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
+                    if (endRocketPosition.x < border2.x)
+                    {
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                        }
+
+                        // roda as luvas para a direita
+                    }
+                    else
+                    {
+                        // som de bater na parede no lado direito
+                        hitWallSoundRight.Play();
+                    }
+                }
             }
         }
     }
