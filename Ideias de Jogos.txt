@@ -80,7 +80,6 @@ Jogo 9 -> Guarda Redes
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Guarda Redes:
-	Reconhecedor de gestos semelhante ao Android (ver como é feito e fazer igual ou ver reconhecedor do unity).
 	
 Rocket: Estatísticas final de jogo. Estatísticas de highscore. (inimigos desviados, tempo, pontos finais -> highscore)
 Som de bater na parede -> Menos som de errado, mais de "BOOM".
@@ -88,8 +87,9 @@ Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar eh
 
 Próxima reunião: Quarta 25 11h.
 -> Não encontrei (pretty sure que não existe) nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
+-> Reconhecedor de gestos para unity não existe ou não encontrei. A implementação que fiz de reconhecimento de gestos penso ser o mais correto possível.
 -> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
--> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo.
+-> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo. (mas não deverá ficar como opção).
 -> (Corda) Determina saltos perfeitos e saltos normais.
 -> (Corda) Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
 -> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).

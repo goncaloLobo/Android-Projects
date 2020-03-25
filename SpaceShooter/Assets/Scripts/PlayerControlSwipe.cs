@@ -4,8 +4,6 @@ using UnityEngine.UI;
 public class PlayerControlSwipe : MonoBehaviour
 {
     public GameObject GameManagerGO; // game manager
-
-    private Vector3 startRocketPosition, endRocketPosition;
     private float flytime;
     private float flightDuration = 0.1f;
 
@@ -30,16 +28,13 @@ public class PlayerControlSwipe : MonoBehaviour
     private static int lives = 0;
     private static float finalScore = 0f;
 
-    public float speed = 1f;
-
-    private bool tap;
-    private Vector2 swipeDelta, stTouch;
-    private float lastTap;
+    private Vector2 swipeDelta, stTouch, startRocketPosition, endRocketPosition;
     private float sqrDeadzone;
     private float deadzone = 100.0f;
 
-    public bool Tap { get { return tap;  } }
     public Vector2 SwipeDelta { get { return swipeDelta; } }
+    public Vector2 StartRocketPosition { get { return startRocketPosition; } }
+    public Vector2 EndRocketPosition { get { return endRocketPosition; } }
 
     public void Init()
     {
@@ -60,8 +55,6 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        tap = false;
-
 #if UNITY_EDITOR
         UpdateStandalone();
 #else
@@ -78,9 +71,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            tap = true;
             stTouch = Input.mousePosition;
-            lastTap = Time.time;
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -102,7 +93,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 {
                     flytime = 0f;
                     startRocketPosition = transform.position;
-                    endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
+                    endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
                     if (endRocketPosition.x > border.x)
                     {
                         while (flytime < flightDuration)
@@ -120,7 +111,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 else{
                     flytime = 0f;
                     startRocketPosition = transform.position;
-                    endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);
+                    endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
                     if (endRocketPosition.x < border2.x)
                     {
                         while (flytime < flightDuration)
@@ -148,9 +139,7 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             if (Input.touches[0].phase == TouchPhase.Began)
             {
-                tap = true;
                 stTouch = Input.touches[0].position;
-                lastTap = Time.time;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
             {
@@ -174,7 +163,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         flytime = 0f;
                         startRocketPosition = transform.position;
-                        endRocketPosition = new Vector3(startRocketPosition.x - 1.3f, transform.position.y, transform.position.z);
+                        endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
                         if (endRocketPosition.x > border.x)
                         {
                             while (flytime < flightDuration)
@@ -192,7 +181,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     else{
                         flytime = 0f;
                         startRocketPosition = transform.position;
-                        endRocketPosition = new Vector3(startRocketPosition.x + 1.3f, transform.position.y, transform.position.z);
+                        endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
                         if (endRocketPosition.x < border2.x)
                         {
                             while (flytime < flightDuration)

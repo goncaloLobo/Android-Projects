@@ -5,26 +5,22 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject GameManagerGO; // game manager
     public AudioSource hitWallSoundRight; // som de bater no limite dir do ecra
     public AudioSource hitWallSoundLeft; // som de bater no limite esq do ecra
-    public AudioSource hitCenter; // som de bater no topo ou em baixo
+    public AudioSource hitCenterUp; // som de bater no topo
+    public AudioSource hitCenterDown; // som de bater em baixo
 
-    private Vector3 startGlovePosition, endGlovePosition;
+    private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch;
     private float flytime;
     private float flightDuration = 0.1f;
-
-    public float speed = 1f;
-
-    private Vector2 swipeDelta, stTouch;
-    private float lastTap;
     private float sqrDeadzone;
     private float deadzone = 100.0f;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
+    public Vector2 StartGlovePosition { get { return startGlovePosition; } }
+    public Vector2 EndGlovePosition { get { return endGlovePosition; } }
     public Vector2 StartTouch { get { return stTouch; } }
-    public float LastTap { get { return lastTap; } }
 
     public void Init()
     {
-
         //mostra as luvas do gr no ecra
         gameObject.SetActive(true);
     }
@@ -56,7 +52,6 @@ public class PlayerControlSwipe : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             stTouch = Input.mousePosition;
-            lastTap = Time.time;
         }
         else if (Input.GetMouseButtonUp(0))
         {
@@ -78,7 +73,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
-                    endGlovePosition = new Vector3(startGlovePosition.x - 1.3f, transform.position.y, transform.position.z);
+                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
                     if (endGlovePosition.x > border.x)
                     {
                         while (flytime < flightDuration)
@@ -99,7 +94,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 else{
                     flytime = 0f;
                     startGlovePosition = transform.position;
-                    endGlovePosition = new Vector3(startGlovePosition.x + 1.3f, transform.position.y, transform.position.z);
+                    endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
                     if (endGlovePosition.x < border2.x)
                     {
                         while (flytime < flightDuration)
@@ -123,7 +118,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
-                    endGlovePosition = new Vector3(transform.position.x, startGlovePosition.y - 2.3f, transform.position.z);
+                    endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y - 2.3f);
                     if (endGlovePosition.y > border.y)
                     {
                         while (flytime < flightDuration)
@@ -135,13 +130,13 @@ public class PlayerControlSwipe : MonoBehaviour
                     else
                     {
                         // som de bater na parede em baixo
-                        hitCenter.Play();
+                        hitCenterDown.Play();
                     }
                 }
                 else{
                     flytime = 0f;
                     startGlovePosition = transform.position;
-                    endGlovePosition = new Vector3(transform.position.x, startGlovePosition.y + 2.3f, transform.position.z);
+                    endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y + 2.3f);
                     if (endGlovePosition.y < border2.y)
                     {
                         while (flytime < flightDuration)
@@ -153,7 +148,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     else
                     {
                         // som de bater na parede em cima
-                        hitCenter.Play();
+                        hitCenterUp.Play();
                     }
                 }
                     
@@ -173,7 +168,6 @@ public class PlayerControlSwipe : MonoBehaviour
             if (Input.touches[0].phase == TouchPhase.Began)
             {
                 stTouch = Input.touches[0].position;
-                lastTap = Time.time;
             }
             else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
             {
@@ -197,7 +191,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         flytime = 0f;
                         startGlovePosition = transform.position;
-                        endGlovePosition = new Vector3(startGlovePosition.x - 1.3f, transform.position.y, transform.position.z);
+                        endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
                         if (endGlovePosition.x > border.x)
                         {
                             while (flytime < flightDuration)
@@ -218,7 +212,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         flytime = 0f;
                         startGlovePosition = transform.position;
-                        endGlovePosition = new Vector3(startGlovePosition.x + 1.3f, transform.position.y, transform.position.z);
+                        endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
                         if (endGlovePosition.x < border2.x)
                         {
                             while (flytime < flightDuration)
@@ -242,7 +236,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         flytime = 0f;
                         startGlovePosition = transform.position;
-                        endGlovePosition = new Vector3(transform.position.x, startGlovePosition.y - 2.3f, transform.position.z);
+                        endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y - 2.3f);
                         if (endGlovePosition.y > border.y)
                         {
                             while (flytime < flightDuration)
@@ -254,14 +248,14 @@ public class PlayerControlSwipe : MonoBehaviour
                         else
                         {
                             // som de bater na parede em baixo
-                            hitCenter.Play();
+                            hitCenterDown.Play();
                         }
                     }
                     else
                     {
                         flytime = 0f;
                         startGlovePosition = transform.position;
-                        endGlovePosition = new Vector3(transform.position.x, startGlovePosition.y + 2.3f, transform.position.z);
+                        endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y + 2.3f);
                         if (endGlovePosition.y < border2.y)
                         {
                             while (flytime < flightDuration)
@@ -273,7 +267,7 @@ public class PlayerControlSwipe : MonoBehaviour
                         else
                         {
                             // som de bater na parede em cima
-                            hitCenter.Play();
+                            hitCenterUp.Play();
                         }
                     }
                 }
