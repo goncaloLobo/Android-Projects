@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
  
 public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
     float clicked = 0;
     float clicktime = 0;
     float clickdelay = 0.5f;
@@ -21,7 +20,6 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
         clicked++;
         if (clicked == 1) {
             clicktime = Time.time;
-            buttonPressed = true;
             jogar.Play();
         }
 
@@ -36,7 +34,7 @@ public class MyButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, I
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        buttonPressed = false;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
