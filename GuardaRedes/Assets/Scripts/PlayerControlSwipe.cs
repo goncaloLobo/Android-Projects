@@ -8,7 +8,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource hitCenterUp; // som de bater no topo
     public AudioSource hitCenterDown; // som de bater em baixo
 
-    private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch, sndTouch;
+    private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch, sndTouch, turningPoint;
     private float flytime;
     private float flightDuration = 0.1f;
 
@@ -59,6 +59,9 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             sndTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
             swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
+            Debug.Log("stTouch: " + stTouch);
+            Debug.Log("sndTouch: " + sndTouch);
+            Debug.Log("swipe delta: " + swipeDelta);
 
             //normalize the 2d vector
             swipeDelta.Normalize();
@@ -108,27 +111,38 @@ public class PlayerControlSwipe : MonoBehaviour
             }
 
             //swipe left
-            if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+            if (swipeDelta.x < 0)
             {
                 swipeLeft = true;
                 flytime = 0f;
                 startGlovePosition = transform.position;
-                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
-                if (endGlovePosition.x > border.x)
-                {
+                if(swipeDelta.y > -0.5f && swipeDelta.y < 0.5f) { // apenas swipe para a esquerda
+                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
+                    if (endGlovePosition.x > border.x)
+                    {
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        }
+
+                        // roda as luvas para a esquerda
+                    }
+
+                    else
+                    {
+                        // som de bater na parede no lado esquerdo
+                        hitWallSoundLeft.Play();
+                    }
+                }
+                else if (swipeDelta.y > 0.5f)
+                { // swipe para a esquerda e para cima (gesto L esquerda e para cima)
+                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, startGlovePosition.y + 2.3f);
                     while (flytime < flightDuration)
                     {
                         flytime += Time.deltaTime;
                         transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                     }
-
-                    // roda as luvas para a esquerda
-
-                }
-                else
-                {
-                    // som de bater na parede no lado esquerdo
-                    hitWallSoundLeft.Play();
                 }
             }
 

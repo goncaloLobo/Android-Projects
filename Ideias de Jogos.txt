@@ -79,27 +79,22 @@ Jogo 9 -> Guarda Redes
 	
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Guarda Redes:
-	
-Rocket: Estatísticas final de jogo. Estatísticas de highscore. (inimigos desviados, tempo, pontos finais -> highscore)
-Som de bater na parede -> Menos som de errado, mais de "BOOM".
-Nota: Procurar jogos parecidos (no caso de não me estar a apetecer trabalhar ehehehe).
-
-Próxima reunião: Quarta 25 11h.
--> Não encontrei (pretty sure que não existe) nenhuma biblioteca para reconhecer duplos toques. Apenas a determinar o tempo entre os vários toques.
--> Reconhecedor de gestos para unity não existe ou não encontrei. A implementação que fiz de reconhecimento de gestos penso ser o mais correto possível.
--> (Corda) Primeira vez 15s, vezes seguintes pode diminuir ou aumentar 2s (neste momento apenas diminui).
--> (Guarda Redes) Permite fazer swipes laterais entre os vários modos de jogo. (mas não deverá ficar como opção).
--> (Corda) Determina saltos perfeitos e saltos normais.
--> (Corda) Cada toque ser acompanhado de um som. O segundo toque ter som também. Depois se for bem feito reproduzir duplo toque.
--> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
-
 TODO:
-
+-> (Rocket) Som de bater na parede -> Menos som de errado, mais de "BOOM".
+-> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
 -> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
    quando troca lê os modos.
 -> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
+
+-> (Instrucoes) ter botão que permita ouvir as instrucoes iniciais.
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
 NAO APAGAR ISTO.
+
+Reunião 26/03:
+Função nativa Android (ou do Unity)
+Unity - pedir tts default do serviço de acessibilidade
+Enviar os apk ao André (corda e space rocket)
+Criar aplicação de testes em android (duplo toque).
+Próxima reunião 01/04 11h.

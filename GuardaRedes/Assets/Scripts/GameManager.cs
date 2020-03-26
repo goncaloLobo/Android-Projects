@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public AudioSource apitoParaChutar; // primeiro som [0]
     public AudioSource chutoEsquerda; // segundo som [1]
     public AudioSource apito3x; // terceiro som [2]
+    public AudioSource introducao;
 
     private static bool started;
     private static int startedDirection;
@@ -48,6 +49,12 @@ public class GameManager : MonoBehaviour
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
         GetCurrentHighScores();
+
+        if(PlayerPrefs.GetInt("introducao") == 0)
+        {
+            introducao.Play();
+            PlayerPrefs.SetInt("introducao", 1);
+        }
     }
 
     void UpdateGameManagerState()

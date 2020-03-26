@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
 
     public AudioSource audioData; // som da corda
+    public AudioSource introducao;
     private static bool started, toFinish;
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -42,6 +43,12 @@ public class GameManager : MonoBehaviour
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
         GetCurrentHighScores();
+
+        if (PlayerPrefs.GetInt("introducao") == 0)
+        {
+            introducao.Play();
+            PlayerPrefs.SetInt("introducao", 1);
+        }
     }
 
     void UpdateGameManagerState()

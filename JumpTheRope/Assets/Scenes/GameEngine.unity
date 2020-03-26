@@ -260,7 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54a52aa136dd73e46a3f864d8636ad95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPressed: 0
   sair: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
 --- !u!114 &95557987
@@ -1147,6 +1146,7 @@ MonoBehaviour:
   playButton: {fileID: 1770039755}
   GameOverGO: {fileID: 1336017725}
   audioData: {fileID: 0}
+  introducao: {fileID: 1748443282}
 --- !u!82 &1693170705
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1271,7 +1271,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 601b47a74d0185141b8d7566f28a2a74, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1498,7 +1498,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9477fb3f1e6d64499053e054f353b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPressed: 0
   jogar: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
 --- !u!82 &1770039761

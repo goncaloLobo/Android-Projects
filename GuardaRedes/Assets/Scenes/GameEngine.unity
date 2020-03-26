@@ -2540,7 +2540,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a66c4fe7d2a01db4687987a69a099488, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2689,7 +2689,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a5a18825da6dd5345a1d5826b378c3fb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a9bc714b7cdf1b04eb62190a483221e8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -3050,9 +3050,9 @@ MonoBehaviour:
   panelDefenderBaixo: {fileID: 1078682906}
   sounds: []
   apitoParaChutar: {fileID: 0}
-  chutoEsquerda: {fileID: 8570675921546493167, guid: 5dcee94b2d00d7847b5183b26846fa91,
-    type: 3}
+  chutoEsquerda: {fileID: 0}
   apito3x: {fileID: 0}
+  introducao: {fileID: 1431538476}
 --- !u!82 &1693170705
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3790,7 +3790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087909ee0bdfcaa4b9369a9308baad2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPressed: 0
   jogar: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
 --- !u!1 &1950541782

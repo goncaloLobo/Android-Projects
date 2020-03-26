@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
+
+    public AudioSource introducao;
 
     //imagens
     public GameObject shipImage;
@@ -47,6 +48,12 @@ public class GameManager : MonoBehaviour
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
         GetCurrentHighScores();
+
+        if (PlayerPrefs.GetInt("introducao") == 0)
+        {
+            introducao.Play();
+            PlayerPrefs.SetInt("introducao", 1);
+        }
     }
 
     void UpdateGameManagerState()
