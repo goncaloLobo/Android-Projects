@@ -86,7 +86,8 @@ TODO:
    quando troca lê os modos.
 -> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
 
--> (Instrucoes) ter botão que permita ouvir as instrucoes iniciais.
+Próxima Reunião 01/04 11h:
+-> (Instrucoes) ouvir apenas a 1x as instrucoes, ouvir os vários sons ("escolher" os vários sons).
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
@@ -97,4 +98,3 @@ Função nativa Android (ou do Unity)
 Unity - pedir tts default do serviço de acessibilidade
 Enviar os apk ao André (corda e space rocket)
 Criar aplicação de testes em android (duplo toque).
-Próxima reunião 01/04 11h.
