@@ -85,6 +85,7 @@ TODO:
 -> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
    quando troca lê os modos.
 -> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
+-> Mudar os botões para apenas os símbolos, tirar as bolas de trás ranhosas.
 
 Próxima Reunião 01/04 11h:
 -> (Instrucoes) ouvir apenas a 1x as instrucoes, ouvir os vários sons ("escolher" os vários sons).

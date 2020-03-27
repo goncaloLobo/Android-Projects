@@ -2,12 +2,8 @@
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private bool doubleTap, biggerDoubleTap;
-    private Vector2 startTouch;
-    private float doubleTapDelta = 0.5f;
+    private float doubleTapDelta = 0.3f;
     private float doubleTapDeltaBigger = 1.0f;
-    private float lastTap;
-
     private static int n_saltos_total;
     private static int n_saltos_perfeitos;
     private static int n_saltos_normais;
@@ -15,13 +11,23 @@ public class DoubleClickChecker : MonoBehaviour
 
     private const int perfectJump = 100;
     private const int normalJump = 25;
+    private const int doubleTapRadius = 100;
+
+    private Touch currentTouch;
+    private Touch previousTouch;
+    private float currentTapTime;
+    private float lastTapTime;
+    private int doubleTapCircle;
 
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
     public AudioSource oneFootJumping; // tap
 
-    public bool DoubleTap { get { return doubleTap; } }
-    public bool BiggerDoubleTap { get { return biggerDoubleTap; } }
+    public Touch CurrentTouch { get { return currentTouch; } }
+    public Touch PreviousTouch { get { return previousTouch; } }
+    public float CurrentTapTime { get { return currentTapTime; } }
+    public float LastTapTime { get { return lastTapTime; } }
+    public int DoubleTapCircle { get { return doubleTapCircle; } }
 
     // Start is called before the first frame update
     void Start()
@@ -31,89 +37,71 @@ public class DoubleClickChecker : MonoBehaviour
         oneFootJumping = sounds[1];
 
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = n_saltos_total = 0;
+        doubleTapCircle = doubleTapRadius * doubleTapRadius;
     }
 
     void Update()
     {
-        doubleTap = biggerDoubleTap = false;
-
-#if UNITY_EDITOR
-        Update_Standalone();
-#else
-        Update_Mobile();
-#endif
-    }
-
-    private void Update_Standalone()
-    {
-        if (Input.GetMouseButtonDown(0) && GameManager.GetStarted())
+        if (Input.touchCount > 0 && GameManager.GetStarted())
         {
-            startTouch = Input.mousePosition;
-
-            // doubletap = true qdo a diferença entre os taps < 0.5f
-            doubleTap = Time.time - lastTap < doubleTapDelta;
-
-            //biggerDoubleTap = true qdo a diferença entre os taps > 0.5f e < 1.0f
-            biggerDoubleTap = (Time.time - lastTap > doubleTapDelta) && (Time.time - lastTap < doubleTapDeltaBigger);
-            lastTap = Time.time;
-            oneFootJumping.Play();
-        }
-
-        // se for duplo toque então o homem salta (SALTO PERFEITO).
-        if (doubleTap && GameManager.GetStarted())
-        {
-            n_saltos_total++;
-            n_saltos_perfeitos++;
-            manJumping.Play();
-            pontuacaoTotal += perfectJump;
-        }
-
-        // duplo toque "mal feito", não deve fazer nada (SALTO NÃO PERFEITO).
-        if (biggerDoubleTap && GameManager.GetStarted())
-        {
-            n_saltos_total++;
-            n_saltos_normais++;
-            pontuacaoTotal += normalJump;
-        }
-
-    }
-
-    private void Update_Mobile()
-    {
-        if (Input.touches.Length != 0)
-        {
-            if (Input.touches[0].phase == TouchPhase.Began)
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
             {
-                startTouch = Input.touches[0].position;
-                // doubletap = true qdo a diferença entre os taps < 0.5f
-                doubleTap = Time.time - lastTap < doubleTapDelta;
-
-                //biggerDoubleTap = true qdo a diferença entre os taps > 0.5f e < 1.0f
-                biggerDoubleTap = (Time.time - lastTap > doubleTapDelta) && (Time.time - lastTap < doubleTapDeltaBigger);
-                lastTap = Time.time;
+                currentTouch = touch;
+                currentTapTime = Time.time;
                 oneFootJumping.Play();
+                if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                {
+                    n_saltos_total++;
+                    n_saltos_perfeitos++;
+                    manJumping.Play();
+                    pontuacaoTotal += perfectJump;
+                }
+                else if(CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1)
+                {
+                    n_saltos_total++;
+                    n_saltos_normais++;
+                    pontuacaoTotal += normalJump;
+                }
             }
-            else if (Input.touches[0].phase == TouchPhase.Ended || Input.touches[0].phase == TouchPhase.Canceled)
+            else if (touch.phase == TouchPhase.Moved)
             {
 
             }
-
-            if (doubleTap && GameManager.GetStarted())
+            else if (touch.phase == TouchPhase.Ended)
             {
-                n_saltos_total++;
-                n_saltos_perfeitos++;
-                manJumping.Play();
-                pontuacaoTotal += perfectJump;
+                previousTouch = currentTouch;
+                lastTapTime = currentTapTime;
             }
 
-            // duplo toque "mal feito", não deve fazer nada (SALTO NÃO PERFEITO).
-            if (biggerDoubleTap && GameManager.GetStarted())
-            {
-                n_saltos_total++;
-                n_saltos_normais++;
-                pontuacaoTotal += normalJump;
-            }
         }
+    }
+
+    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
+        {
+            return -1;
+        }
+
+        // se a diferença entre os toques for menor que 1s e maior que 300ms então é salto normal
+        if (currentTapTime - previousTapTime < doubleTapDeltaBigger && currentTapTime - previousTapTime > doubleTapDelta)
+        {
+            // se o duplo toque "normal" estiver dentro do circulo aceitavel, entao retorna 1
+            if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+                return 1;
+            else
+                return -1;
+        }
+
+        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+            return 0;
+        return -1;
     }
 
     //numero de saltos perfeitos no final
