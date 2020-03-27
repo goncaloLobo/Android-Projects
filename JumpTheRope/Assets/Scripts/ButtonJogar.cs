@@ -21,7 +21,6 @@ public class ButtonJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (clicked == 1)
         {
             clicktime = Time.time;
-            jogar.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)

@@ -1698,6 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerShip: {fileID: 0}
   playButton: {fileID: 1770039755}
+  closeButton: {fileID: 95557983}
   GameOverGO: {fileID: 1336017725}
   sounds: []
   audioData: {fileID: 0}

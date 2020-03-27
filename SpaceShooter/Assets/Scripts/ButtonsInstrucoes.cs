@@ -6,7 +6,6 @@ public class ButtonsInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpH
     private float clicked = 0;
     public AudioSource[] sounds;
     public AudioSource enemyShipSound; // sounds[0]
-    public GameObject GameManagerGO;
 
     void Start()
     {

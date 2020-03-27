@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject playButton;
     public GameObject howToButton;
+    public GameObject introducaoButton;
     public GameObject playerShip;
     public GameObject enemySpawner;
     public GameObject enemySpawner2;
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
+                introducaoButton.SetActive(true);
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -82,14 +84,11 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-                //shipImage.SetActive(false);
-                //enemyImage1.SetActive(false);
-                //enemyImage2.SetActive(false);
-
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
+                introducaoButton.SetActive(false);
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();

@@ -76,7 +76,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-
                 playButton.SetActive(false);
                 started = true;
                 audioData.Play();
@@ -163,7 +162,6 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
-                Debug.Log("pitch inicial: " + audioData.pitch);
                 // aumenta o pitch para 0.9
                 if(audioData.pitch == 0.8f)
                 {

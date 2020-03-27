@@ -9,7 +9,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerDownHandler, IPointerUpHa
     public AudioSource[] sounds;
     public AudioSource introducao; // sounds[0]
     public AudioSource intro; // sounds[1]
-    public GameObject GameManagerGO;
 
     void Start()
     {
@@ -24,7 +23,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (clicked == 1)
         {
             clicktime = Time.time;
-            intro.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)

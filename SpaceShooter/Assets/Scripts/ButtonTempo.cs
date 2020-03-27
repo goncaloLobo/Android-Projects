@@ -5,7 +5,6 @@ public class ButtonTempo : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     float clicked = 0;
     public AudioSource tempo;
-    public GameObject GameManagerGO;
 
     void Start()
     {

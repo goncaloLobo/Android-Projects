@@ -20,7 +20,6 @@ public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         if (clicked == 1)
         {
             clicktime = Time.time;
-            comoJogar.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)
@@ -29,7 +28,6 @@ public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHan
             clicktime = 0;
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
         }
-        else if (clicked > 2 || Time.time - clicktime > 1) clicked = 0;
     }
 
     public void OnPointerUp(PointerEventData eventData)

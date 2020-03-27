@@ -21,7 +21,6 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         if (clicked == 1)
         {
             clicktime = Time.time;
-            sair.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)

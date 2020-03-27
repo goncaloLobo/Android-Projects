@@ -21,7 +21,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (clicked == 1)
         {
             clicktime = Time.time;
-            instrucoes.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)

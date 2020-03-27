@@ -23,7 +23,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         if (clicked == 1)
         {
             clicktime = Time.time;
-            intro.Play();
         }
 
         if (clicked > 1 && Time.time - clicktime < clickdelay)
