@@ -63,10 +63,10 @@ public class DoubleClickChecker : MonoBehaviour
                     n_saltos_normais++;
                     pontuacaoTotal += normalJump;
                 }
+
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-
             }
             else if (touch.phase == TouchPhase.Ended)
             {

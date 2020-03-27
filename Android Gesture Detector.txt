@@ -1,0 +1,22 @@
+A abordagem usada para o jogo da Corda em relação à deteção do duplo toque foi feita com base com detetor de gestos do Android (Android GestureDetector).
+
+Este oferece um conjunto de funções que permitem detetar diferentes tipos de toques, como o toque a pressionar, o toque normal ou neste caso, o doubletap.
+Por esta solução ter sido desenvolvida no Unity, com recurso ao c#, a solução passou por ser desenvolvida o mais possível como é realizado o reconhecimento
+do duplo toque, no caso deste jogo.
+
+O reconhecedor de duplo toque no Android funciona da seguinte maneira:
+-> Quando o utilizador coloca o dedo no ecrã, despoleta o evento ACTION_DOWN que guarda a timestamp deste evento e verifica se este toque é um duplo toque,
+   comparando com a timestamp do evento anterior.
+-> Quando o utilizador tira o dedo do ecrã, despoleta o evento ACTION_UP que guarda a timestamp deste evento e permite ao evento seguinte calcular a diferença
+   entre os tempos e verificar se essa diferença corresponde a um duplo toque.
+-> O tempo que o Android utiliza para considerar duplo toque corresponde a 300ms, definido por uma constante presente na configuração.
+-> Quando ocorre o segundo toque, o detetor de gestos sabendo o timestamp de quando o utilizador largou o dedo e o timestamp de quando o utilizador pressionou o ecrã
+   pela 2ª vez consegue calcular 1) se a diferença em tempo entre os toques é menor que a diferença aceitável para um duplo toque; 2) se a diferença em distância
+   entre os dois toques é menor que a distância aceitável para duplo toque. Se respeitar as duas condições, estamos perante um duplo toque.
+   
+A solução apresentada funciona da mesma maneira:
+-> Quando o utilizador coloca o dedo no ecrã, despoleta o evento Touchphase.Began que determina o tempo inicial do toque e permite guardar informações como as coordenadas 
+   e o timestamp desse toque.
+-> Quando o utilizador tira o dedo do ecrã, despoleta o evento Touchphase.Ended que permite definir o timestamp desse momento, o timestamp de quando o utilizador levantou o dedo.
+-> Para o toque seguinte, é usado o timestamp de quando o utilizador levantou o dedo do ecrã e o timestamp do 2º toque, verificando 1) se a diferença entre ambos não é superior ao valor
+   correspondente a um duplo toque; 2) se a diferença corresponde a um salto normal e 3) se a diferença de distância entre os toques é menor que a distância aceitável para duplo toque.

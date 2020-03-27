@@ -28,6 +28,11 @@ public class PlayerControlSwipe : MonoBehaviour
     private static int lives = 0;
     private static float finalScore = 0f;
 
+    private Touch currentTouch;
+    private Touch previousTouch;
+    private float currentTapTime;
+    private float lastTapTime;
+
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta, stTouch, sndTouch;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
@@ -54,12 +59,30 @@ public class PlayerControlSwipe : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
 #if UNITY_EDITOR
         UpdateStandalone();
 #else
         UpdateMobile();
 #endif
+*/
 
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                currentTouch = touch;
+                currentTapTime = Time.time;
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+            }
+        }
     }
 
     // controlador para fazer swipes no pc
