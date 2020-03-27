@@ -7,7 +7,12 @@ public class GameManager : MonoBehaviour
     public GameObject playButton;
     public GameObject GameOverGO;
 
-    public AudioSource audioData; // som da corda
+    public AudioSource[] sounds;
+    public AudioSource audioData; // som da corda sounds[0]
+    public AudioSource instrucoesPt1; // sounds[1]
+    public AudioSource oneJump; // sounds[2]
+    public AudioSource instrucoespt2; // sounds[3]
+    public AudioSource correctJump; // sounds[4]
     public AudioSource introducao;
     private static bool started, toFinish;
     private float currCountdownValue;
@@ -25,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver
+        Opening, Gameplay, GameOver, Instrucoes
     }
 
     public static GameManagerState GMState;
@@ -34,7 +39,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         GMState = GameManagerState.Opening;
-        audioData = GetComponent<AudioSource>();
+        sounds = GetComponents<AudioSource>();
+        audioData = sounds[0];
+        instrucoesPt1 = sounds[1];
+        oneJump = sounds[2];
+        instrucoespt2 = sounds[3];
+        correctJump = sounds[4];
 
         //valor inicial do pitch para a pessoa se habituar aos sons.
         audioData.pitch = 0.8f;
@@ -95,6 +105,20 @@ public class GameManager : MonoBehaviour
 
                 //mudar o estado do gamemanagerstate
                 Invoke("ChangeToOpeningState", 5f);
+                break;
+            case GameManagerState.Instrucoes:
+                float delay = 0f;
+                instrucoesPt1.Play();
+
+                delay += instrucoesPt1.clip.length;
+                oneJump.PlayDelayed(delay);
+
+                delay += oneJump.clip.length;
+                instrucoespt2.PlayDelayed(delay);
+
+                delay += instrucoespt2.clip.length;
+                correctJump.PlayDelayed(delay);
+
                 break;
 
         }

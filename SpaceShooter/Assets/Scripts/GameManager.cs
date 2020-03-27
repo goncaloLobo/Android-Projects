@@ -15,10 +15,17 @@ public class GameManager : MonoBehaviour
 
     public AudioSource introducao;
 
-    //imagens
-    public GameObject shipImage;
-    public GameObject enemyImage1;
-    public GameObject enemyImage2;
+    public AudioSource[] sounds;
+    public AudioSource instrucoespt1; // sounds[0]
+    public AudioSource naveInimiga; // sounds[1]
+    public AudioSource instrucoespt2; // sounds[2]
+    public AudioSource asteroide; // sounds[3]
+    public AudioSource instrucoespt3; // sounds[4]
+    public AudioSource bonus; // sounds[5]
+    public AudioSource instrucoespt4; // sounds[6]
+    public AudioSource swipeSound; // sounds [7]
+    public AudioSource instrucoespt5; // sounds[8]
+    public AudioSource hitWallSound; // sounds[9]
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -44,6 +51,10 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         finalScore = 0;
+
+        //inicializa os sons das instrucoes
+        sounds = GetComponents<AudioSource>();
+        InitiateSounds(sounds);
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -71,9 +82,9 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
-                shipImage.SetActive(false);
-                enemyImage1.SetActive(false);
-                enemyImage2.SetActive(false);
+                //shipImage.SetActive(false);
+                //enemyImage1.SetActive(false);
+                //enemyImage2.SetActive(false);
 
                 //Reset ao score, botao play e instrucoes
                 scoreUITextGO.GetComponent<GameScore>().Score = 0;
@@ -91,7 +102,6 @@ public class GameManager : MonoBehaviour
 
                 //iniciar o enemy spawner
                 int roll = Random.Range(1, 4);
-                //int roll = 1;
                 Debug.Log("ROLL INICIAL: " + roll);
                 switch (roll)
                 {
@@ -189,12 +199,37 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Instructions:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
-                howToButton.SetActive(false);
+                howToButton.SetActive(true);
 
-                shipImage.SetActive(true);
-                enemyImage1.SetActive(true);
-                enemyImage2.SetActive(true);
+                float delay = 0f;
+                instrucoespt1.Play();
+                delay += instrucoespt1.clip.length;
 
+                naveInimiga.PlayDelayed(delay);
+                delay += naveInimiga.clip.length;
+
+                instrucoespt2.PlayDelayed(delay);
+                delay += instrucoespt2.clip.length;
+
+                asteroide.PlayDelayed(delay);
+                delay += asteroide.clip.length;
+
+                instrucoespt3.PlayDelayed(delay);
+                delay += instrucoespt3.clip.length;
+
+                bonus.PlayDelayed(delay);
+                delay += bonus.clip.length;
+
+                instrucoespt4.PlayDelayed(delay);
+                delay += instrucoespt4.clip.length;
+
+                swipeSound.PlayDelayed(delay);
+                delay += swipeSound.clip.length;
+
+                instrucoespt5.PlayDelayed(delay);
+                delay += instrucoespt5.clip.length;
+
+                hitWallSound.PlayDelayed(delay);
                 break;
         }
     }
@@ -270,5 +305,20 @@ public class GameManager : MonoBehaviour
         highscoreStored = PlayerPrefs.GetFloat("highscore", 0);
         timeStored = PlayerPrefs.GetFloat("time", 0);
         enemiesStored = PlayerPrefs.GetInt("enemies", 0);
+    }
+
+    // inicializa os sons das instrucoes
+    private void InitiateSounds(AudioSource[] sounds)
+    {
+        instrucoespt1 = sounds[0];
+        naveInimiga = sounds[1];
+        instrucoespt2 = sounds[2];
+        asteroide = sounds[3];
+        instrucoespt3 = sounds[4];
+        bonus = sounds[5];
+        instrucoespt4 = sounds[6];
+        swipeSound = sounds[7];
+        instrucoespt5 = sounds[8];
+        hitWallSound = sounds[9];
     }
 }

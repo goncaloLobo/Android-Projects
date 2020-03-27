@@ -35,7 +35,6 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             }
             
         }
-        else if (clicked > 2 || Time.time - clicktime > 1) clicked = 0;
     }
 
     public void OnPointerUp(PointerEventData eventData)

@@ -6,14 +6,12 @@ public class ButtonsInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpH
     private float clicked = 0;
     public AudioSource[] sounds;
     public AudioSource enemyShipSound; // sounds[0]
-    public AudioSource descriptionSound; // sounds[1]
     public GameObject GameManagerGO;
 
     void Start()
     {
         sounds = GetComponents<AudioSource>();
         enemyShipSound = sounds[0];
-        descriptionSound = sounds[1];
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -22,7 +20,6 @@ public class ButtonsInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpH
         if (clicked == 1)
         {
             enemyShipSound.Play();
-            descriptionSound.PlayDelayed(enemyShipSound.clip.length);
         }
     }
 
@@ -34,6 +31,5 @@ public class ButtonsInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnPointerEnter(PointerEventData eventData)
     {
         enemyShipSound.Play();
-        descriptionSound.PlayDelayed(enemyShipSound.clip.length);
     }
 }

@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ButtonClose.cs" />
+    <Compile Include="Assets\Scripts\ButtonInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonIntroducao.cs" />
     <Compile Include="Assets\Scripts\ButtonJogar.cs" />
     <Compile Include="Assets\Scripts\DoubleClickChecker.cs" />
