@@ -360,11 +360,8 @@ C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Analytics.DataPrivacy.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Analytics.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Analytics.StandardEvents.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Analytics.Tracker.dll
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Locator.dll
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.dll
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEditor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.AccessibilityModule.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.AIModule.dll
@@ -478,3 +475,6 @@ C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CoreCompileInpu
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.pdb
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll

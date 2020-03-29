@@ -18,6 +18,7 @@ public class DoubleClickChecker : MonoBehaviour
     private float currentTapTime;
     private float lastTapTime;
     private int doubleTapCircle;
+    public static bool mainScreen;
 
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
@@ -29,12 +30,12 @@ public class DoubleClickChecker : MonoBehaviour
     public float LastTapTime { get { return lastTapTime; } }
     public int DoubleTapCircle { get { return doubleTapCircle; } }
 
-    // Start is called before the first frame update
     void Start()
     {
         sounds = GetComponents<AudioSource>();
         manJumping = sounds[0];
         oneFootJumping = sounds[1];
+        mainScreen = true;
 
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = n_saltos_total = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
@@ -44,20 +45,21 @@ public class DoubleClickChecker : MonoBehaviour
     {
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
+            mainScreen = false;
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
+                oneFootJumping.Play();
                 currentTouch = touch;
                 currentTapTime = Time.time;
-                oneFootJumping.Play();
                 if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
+                    manJumping.Play();
                     n_saltos_total++;
                     n_saltos_perfeitos++;
-                    manJumping.Play();
                     pontuacaoTotal += perfectJump;
                 }
-                else if(CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1)
+                else if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1)
                 {
                     n_saltos_total++;
                     n_saltos_normais++;
@@ -73,7 +75,6 @@ public class DoubleClickChecker : MonoBehaviour
                 previousTouch = currentTouch;
                 lastTapTime = currentTapTime;
             }
-
         }
     }
 
@@ -122,8 +123,14 @@ public class DoubleClickChecker : MonoBehaviour
         return pontuacaoTotal;
     }
 
+    //obtem o total de saltos feitos pelo utilizador
     public static int GetTotalSaltos()
     {
         return n_saltos_total;
+    }
+
+    public static void SetMainScreen(bool value)
+    {
+        mainScreen = value;
     }
 }

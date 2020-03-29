@@ -149,8 +149,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 817, y: 3372}
-  m_SizeDelta: {x: 82.227, y: 73.2}
+  m_AnchoredPosition: {x: 828, y: 3367}
+  m_SizeDelta: {x: 66.5, y: 61.7}
   m_Pivot: {x: 0.5000005, y: 1.0000006}
 --- !u!82 &95557985
 AudioSource:
@@ -758,7 +758,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 139816beee72816409d4a394079f6c46, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1698,7 +1698,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerShip: {fileID: 0}
   playButton: {fileID: 1770039755}
-  closeButton: {fileID: 95557983}
   GameOverGO: {fileID: 1336017725}
   sounds: []
   audioData: {fileID: 0}
@@ -2394,7 +2393,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1770039758}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1770039760}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1770039758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2443,6 +2453,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jogar: {fileID: 0}
+  currentTapTime: 0
+  lastTapTime: 0
   GameManagerGO: {fileID: 1693170702}
 --- !u!82 &1770039761
 AudioSource:

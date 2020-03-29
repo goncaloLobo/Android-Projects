@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     public static GameManagerState GMState;
 
-    // Start is called before the first frame update
     void Start()
     {
         GMState = GameManagerState.Opening;
@@ -46,12 +45,11 @@ public class GameManager : MonoBehaviour
         instrucoespt2 = sounds[3];
         correctJump = sounds[4];
 
-        //valor inicial do pitch para a pessoa se habituar aos sons.
+        //valor inicial do pitch
         audioData.pitch = 0.8f;
         started = toFinish = false;
 
-        // vai buscar o highscore
-        // aqui no start para quando o jogo é iniciado
+        // vai buscar o highscore no start para quando o jogo é iniciado
         GetCurrentHighScores();
 
         if (PlayerPrefs.GetInt("introducao") == 0)
@@ -80,6 +78,7 @@ public class GameManager : MonoBehaviour
                 started = true;
                 audioData.Play();
                 audioData.loop = true;
+                DoubleClickChecker.SetMainScreen(false);
 
                 // countdown para alterar a velocidade do som
                 StartCoroutine(StartCountdownSpeed(15));
@@ -89,6 +88,8 @@ public class GameManager : MonoBehaviour
                 //display game over
                 GameOverGO.SetActive(true);
                 audioData.Stop();
+                started = false;
+                DoubleClickChecker.SetMainScreen(true);
 
                 //obtem estatísticas do final do jogo
                 finalScore = DoubleClickChecker.GetPontuacao();
@@ -98,12 +99,11 @@ public class GameManager : MonoBehaviour
                 // se for novo highscore, vai regista-lo
                 if (finalScore > highscoreStored)
                 {
-                    //new highscore
                     GameScore.SetHighScore(finalScore, n_saltos_perfeitos, n_saltos_normais);
                 }
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 5f);
+                Invoke("ChangeToOpeningState", 3f);
                 break;
             case GameManagerState.Instrucoes:
                 float delay = 0f;
@@ -148,6 +148,11 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
+    }
+
+    public static void SetStarted()
+    {
+        started = true;
     }
 
     // aumenta ou diminui o pitch a cada 15s

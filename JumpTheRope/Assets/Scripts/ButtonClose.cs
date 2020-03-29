@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    float clicked = 0;
-    float clicktime = 0;
-    float clickdelay = 0.5f;
+    private float clickdelay = 0.5f;
     public AudioSource sair;
+    private float currentTapTime;
+    private float lastTapTime;
 
     public GameObject GameManagerGO;
 
@@ -15,30 +15,29 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         sair = GetComponent<AudioSource>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        clicked++;
-        if (clicked == 1)
-        {
-            clicktime = Time.time;
-        }
 
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
+        currentTapTime = Time.time;
+        sair.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            clicked = 0;
-            clicktime = 0;
-            // qdo pressiona o botao de sair, muda para o estado inicial.
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+                DoubleClickChecker.SetMainScreen(true);
             }
-            
         }
+        lastTapTime = currentTapTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
     {
-
+        if (currentTapTime - previousTapTime < clickdelay)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
