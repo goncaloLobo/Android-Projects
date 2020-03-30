@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public AudioSource oneJump; // sounds[2]
     public AudioSource instrucoespt2; // sounds[3]
     public AudioSource correctJump; // sounds[4]
+    public AudioSource backgroundLoop;
     public AudioSource introducao;
     private static bool started, toFinish;
     private float currCountdownValue;
@@ -44,6 +45,9 @@ public class GameManager : MonoBehaviour
         oneJump = sounds[2];
         instrucoespt2 = sounds[3];
         correctJump = sounds[4];
+        backgroundLoop = sounds[5];
+        backgroundLoop.Play();
+        backgroundLoop.loop = true;
 
         //valor inicial do pitch
         audioData.pitch = 0.8f;
