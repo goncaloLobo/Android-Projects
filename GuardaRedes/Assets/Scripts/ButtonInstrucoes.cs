@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    public bool buttonPressed;
-    float clicked = 0;
-    float clicktime = 0;
     float clickdelay = 0.5f;
     public AudioSource instrucoes;
+    private float currentTapTime;
+    private float lastTapTime;
 
     public GameObject GameManagerGO;
 
@@ -16,28 +15,24 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         instrucoes = GetComponent<AudioSource>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        clicked++;
-        if (clicked == 1)
+        currentTapTime = Time.time;
+        instrucoes.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            clicktime = Time.time;
-            buttonPressed = true;
-            instrucoes.Play();
-        }
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            clicked = 0;
-            clicktime = 0;
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
         }
-        else if (clicked > 2 || Time.time - clicktime > 1) clicked = 0;
+        lastTapTime = currentTapTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
     {
-        buttonPressed = false;
+        if (currentTapTime - previousTapTime < clickdelay)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

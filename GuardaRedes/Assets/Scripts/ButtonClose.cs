@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    float clicked = 0;
-    float clicktime = 0;
     float clickdelay = 0.5f;
     public AudioSource sair;
+    private float currentTapTime;
+    private float lastTapTime;
 
     public GameObject GameManagerGO;
 
@@ -15,20 +15,13 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         sair = GetComponent<AudioSource>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        clicked++;
-        if (clicked == 1)
+        currentTapTime = Time.time;
+        sair.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            clicktime = Time.time;
-            sair.Play();
-        }
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            clicked = 0;
-            clicktime = 0;
-            // qdo pressiona o botao de sair, muda para o estado inicial.
+            // qdo pressiona o botao de sair, muda para o estado inicial
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay || GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
@@ -37,14 +30,17 @@ public class ButtonClose : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
             }
-
         }
-        else if (clicked > 2 || Time.time - clicktime > 1) clicked = 0;
+        lastTapTime = currentTapTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
     {
-
+        if (currentTapTime - previousTapTime < clickdelay)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
