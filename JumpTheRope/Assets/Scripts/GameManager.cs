@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerShip;
     public GameObject playButton;
     public GameObject GameOverGO;
+    public GameObject introducaoButton;
+    public GameObject instrucoesButton;
 
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
@@ -71,6 +73,8 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 audioData.Stop();
+                introducaoButton.SetActive(true);
+                instrucoesButton.SetActive(true);
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -83,6 +87,8 @@ public class GameManager : MonoBehaviour
                 audioData.Play();
                 audioData.loop = true;
                 DoubleClickChecker.SetMainScreen(false);
+                introducaoButton.SetActive(false);
+                instrucoesButton.SetActive(false);
 
                 // countdown para alterar a velocidade do som
                 StartCoroutine(StartCountdownSpeed(15));

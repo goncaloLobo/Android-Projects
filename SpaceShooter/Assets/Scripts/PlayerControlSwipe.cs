@@ -32,6 +32,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private Touch previousTouch;
     private float currentTapTime;
     private float lastTapTime;
+    private static bool mainScreen;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta, stTouch, sndTouch;
 
@@ -49,14 +50,14 @@ public class PlayerControlSwipe : MonoBehaviour
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
+        mainScreen = true;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
+
     }
 
-    // Update is called once per frame
     void Update()
     {
         /*
@@ -69,6 +70,7 @@ public class PlayerControlSwipe : MonoBehaviour
 
         if (Input.touchCount > 0)
         {
+            mainScreen = false;
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -81,6 +83,8 @@ public class PlayerControlSwipe : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+                previousTouch = currentTouch;
+                lastTapTime = currentTapTime;
             }
         }
     }
@@ -286,5 +290,10 @@ public class PlayerControlSwipe : MonoBehaviour
     public static int GetCurrentNumberOfLives()
     {
         return lives;
+    }
+
+    public static void SetMainScreen(bool value)
+    {
+        mainScreen = value;
     }
 }

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonIntroducao : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    float clicked = 0;
-    float clicktime = 0;
     float clickdelay = 0.5f;
     public AudioSource[] sounds;
     public AudioSource introducao; // sounds[0]
     public AudioSource intro; // sounds[1]
+    private float currentTapTime;
+    private float lastTapTime;
 
     void Start()
     {
@@ -17,25 +17,24 @@ public class ButtonIntroducao : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         intro = sounds[1];
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        clicked++;
-        if (clicked == 1)
+        currentTapTime = Time.time;
+        intro.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            clicktime = Time.time;
-        }
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            clicked = 0;
-            clicktime = 0;
             introducao.Play();
         }
+        lastTapTime = currentTapTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
     {
-
+        if (currentTapTime - previousTapTime < clickdelay)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

@@ -1573,6 +1573,8 @@ MonoBehaviour:
   playerShip: {fileID: 0}
   playButton: {fileID: 1770039755}
   GameOverGO: {fileID: 1336017725}
+  introducaoButton: {fileID: 924196887}
+  instrucoesButton: {fileID: 980060336}
   sounds: []
   audioData: {fileID: 0}
   instrucoesPt1: {fileID: 0}

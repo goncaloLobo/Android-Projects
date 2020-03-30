@@ -1,38 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ButtonComoJogar : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
-    float clicked = 0;
-    float clicktime = 0;
     float clickdelay = 0.5f;
     public AudioSource comoJogar;
     public GameObject GameManagerGO;
+    private float currentTapTime;
+    private float lastTapTime;
 
     void Start()
     {
         comoJogar = GetComponent<AudioSource>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
-        clicked++;
-        if (clicked == 1)
+        currentTapTime = Time.time;
+        comoJogar.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            clicktime = Time.time;
-        }
-
-        if (clicked > 1 && Time.time - clicktime < clickdelay)
-        {
-            clicked = 0;
-            clicktime = 0;
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
         }
+        lastTapTime = currentTapTime;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
     {
-
+        if (currentTapTime - previousTapTime < clickdelay)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void OnPointerEnter(PointerEventData eventData)

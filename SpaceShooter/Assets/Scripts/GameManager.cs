@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
                 introducaoButton.SetActive(true);
+                PlayerControlSwipe.SetMainScreen(true);
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 introducaoButton.SetActive(false);
+                PlayerControlSwipe.SetMainScreen(false);
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
@@ -168,6 +170,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.GameOver:
 
+                PlayerControlSwipe.SetMainScreen(false);
                 // terminar os contadores de tempo
                 currentTime = timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 
@@ -192,10 +195,11 @@ public class GameManager : MonoBehaviour
                 }
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 1f);
+                Invoke("ChangeToOpeningState", 2f);
 
                 break;
             case GameManagerState.Instructions:
+                PlayerControlSwipe.SetMainScreen(false);
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
