@@ -24,23 +24,25 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonus100; // som a dizer "100 pontos"
 
     public Text LivesUIText;
-    const int MaxLives = 3;
+    private const int MaxLives = 3;
     private static int lives = 0;
     private static float finalScore = 0f;
 
-    private Touch currentTouch;
-    private Touch previousTouch;
-    private float currentTapTime;
-    private float lastTapTime;
-    private static bool mainScreen;
+    private Touch startTouch;
+    private Touch endTouch;
+    private float startTouchTime;
+    private float endTouchTime;
+    private const int MINIMUM_FLING_VELOCITY = 50;
 
-    private Vector2 startRocketPosition, endRocketPosition, swipeDelta, stTouch, sndTouch;
+    private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Vector2 StartRocketPosition { get { return startRocketPosition; } }
     public Vector2 EndRocketPosition { get { return endRocketPosition; } }
-    public Vector2 StartTouch { get { return stTouch; } }
-    public Vector2 SecondTouch { get { return sndTouch; } }
+    public Touch StartTouch { get { return startTouch; } }
+    public Touch EndTouch { get { return endTouch; } }
+    public float StartTouchTime { get { return startTouchTime; } }
+    public float EndTouchTime { get { return endTouchTime; } }
 
     public void Init()
     {
@@ -50,7 +52,6 @@ public class PlayerControlSwipe : MonoBehaviour
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
-        mainScreen = true;
     }
 
     void Start()
@@ -60,22 +61,16 @@ public class PlayerControlSwipe : MonoBehaviour
 
     void Update()
     {
-        /*
-#if UNITY_EDITOR
-        UpdateStandalone();
-#else
-        UpdateMobile();
-#endif
-*/
+        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
+        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
 
         if (Input.touchCount > 0)
         {
-            mainScreen = false;
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
-                currentTouch = touch;
-                currentTapTime = Time.time;
+                startTouch = touch;
+                startTouchTime = Time.time;
             }
             else if (touch.phase == TouchPhase.Moved)
             {
@@ -83,145 +78,62 @@ public class PlayerControlSwipe : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                previousTouch = currentTouch;
-                lastTapTime = currentTapTime;
-            }
-        }
-    }
+                endTouch = touch;
+                endTouchTime = Time.time;
+                int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
+                int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
-    // controlador para fazer swipes no pc
-    private void UpdateStandalone()
-    {
-        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
-        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            stTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            sndTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
-
-            //normalize the 2d vector
-            swipeDelta.Normalize();
-
-            //swipe left
-            if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-            {
-                flytime = 0f;
-                startRocketPosition = transform.position;
-                endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
-                if (endRocketPosition.x > border.x)
+                float difference = endTouchTime - startTouchTime;
+                if ((Mathf.Abs(deltaX / difference) > MINIMUM_FLING_VELOCITY) | (Mathf.Abs(deltaY / difference) > MINIMUM_FLING_VELOCITY))
                 {
-                    while (flytime < flightDuration)
+                    // swipe!!!
+                    swipeDelta = new Vector2(deltaX, deltaY);
+
+                    //normalize the 2d vector
+                    swipeDelta.Normalize();
+
+                    //swipe left
+                    if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                     {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                    }
-
-                    // roda as luvas para a esquerda
-
-                }
-                else
-                {
-                    // som de bater na parede no lado esquerdo
-                    hitWallSoundLeft.Play();
-                }
-            }
-
-            //swipe right
-            if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-            {
-                flytime = 0f;
-                startRocketPosition = transform.position;
-                endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
-                if (endRocketPosition.x < border2.x)
-                {
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                    }
-
-                    // roda as luvas para a direita
-                }
-                else
-                {
-                    // som de bater na parede no lado direito
-                    hitWallSoundRight.Play();
-                }
-            }
-        }
-    }
-
-    // controlador para fazer swipes no telemóvel
-    private void UpdateMobile()
-    {
-        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
-        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
-
-        if (Input.touches.Length != 0)
-        {
-            if (Input.touches[0].phase == TouchPhase.Began)
-            {
-                stTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
-            }
-
-            if (Input.touches[0].phase == TouchPhase.Ended)
-            {
-                sndTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
-                swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
-
-                //normalize the 2d vector
-                swipeDelta.Normalize();
-
-                //swipe left
-                if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                {
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
-                    if (endRocketPosition.x > border.x)
-                    {
-                        while (flytime < flightDuration)
+                        flytime = 0f;
+                        startRocketPosition = transform.position;
+                        endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
+                        if (endRocketPosition.x > border.x)
                         {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                            while (flytime < flightDuration)
+                            {
+                                flytime += Time.deltaTime;
+                                swipeSound.Play();
+                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                            }
                         }
-
-                        // roda as luvas para a esquerda
-
-                    }
-                    else
-                    {
-                        // som de bater na parede no lado esquerdo
-                        hitWallSoundLeft.Play();
-                    }
-                }
-
-                //swipe right
-                if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                {
-                    flytime = 0f;
-                    startRocketPosition = transform.position;
-                    endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
-                    if (endRocketPosition.x < border2.x)
-                    {
-                        while (flytime < flightDuration)
+                        else
                         {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                            // som de bater na parede no lado esquerdo
+                            hitWallSoundLeft.Play();
                         }
-
-                        // roda as luvas para a direita
                     }
-                    else
+
+                    //swipe right
+                    if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                     {
-                        // som de bater na parede no lado direito
-                        hitWallSoundRight.Play();
+                        flytime = 0f;
+                        startRocketPosition = transform.position;
+                        endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
+                        if (endRocketPosition.x < border2.x)
+                        {
+                            while (flytime < flightDuration)
+                            {
+                                flytime += Time.deltaTime;
+                                swipeSound.Play();
+                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                            }
+                        }
+                        else
+                        {
+                            // som de bater na parede no lado direito
+                            hitWallSoundRight.Play();
+                        }
                     }
                 }
             }
@@ -290,10 +202,5 @@ public class PlayerControlSwipe : MonoBehaviour
     public static int GetCurrentNumberOfLives()
     {
         return lives;
-    }
-
-    public static void SetMainScreen(bool value)
-    {
-        mainScreen = value;
     }
 }
