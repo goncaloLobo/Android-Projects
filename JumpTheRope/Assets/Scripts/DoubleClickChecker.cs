@@ -18,7 +18,6 @@ public class DoubleClickChecker : MonoBehaviour
     private float currentTapTime;
     private float lastTapTime;
     private int doubleTapCircle;
-    public static bool mainScreen;
 
     public AudioSource[] sounds;
     public AudioSource manJumping; // ManJumping
@@ -35,7 +34,6 @@ public class DoubleClickChecker : MonoBehaviour
         sounds = GetComponents<AudioSource>();
         manJumping = sounds[0];
         oneFootJumping = sounds[1];
-        mainScreen = true;
 
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = n_saltos_total = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
@@ -45,7 +43,6 @@ public class DoubleClickChecker : MonoBehaviour
     {
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
-            mainScreen = false;
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -75,6 +72,11 @@ public class DoubleClickChecker : MonoBehaviour
                 previousTouch = currentTouch;
                 lastTapTime = currentTapTime;
             }
+        }
+
+        if(Input.touchCount > 0 && !GameManager.GetStarted())
+        {
+            
         }
     }
 
@@ -127,10 +129,5 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetTotalSaltos()
     {
         return n_saltos_total;
-    }
-
-    public static void SetMainScreen(bool value)
-    {
-        mainScreen = value;
     }
 }

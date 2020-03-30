@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
                 audioData.Stop();
                 introducaoButton.SetActive(true);
                 instrucoesButton.SetActive(true);
+                started = false;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -86,7 +87,6 @@ public class GameManager : MonoBehaviour
                 started = true;
                 audioData.Play();
                 audioData.loop = true;
-                DoubleClickChecker.SetMainScreen(false);
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
 
@@ -99,7 +99,6 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(true);
                 audioData.Stop();
                 started = false;
-                DoubleClickChecker.SetMainScreen(true);
 
                 //obtem estatísticas do final do jogo
                 finalScore = DoubleClickChecker.GetPontuacao();
@@ -129,7 +128,6 @@ public class GameManager : MonoBehaviour
                 correctJump.PlayDelayed(delay);
 
                 break;
-
         }
     }
 

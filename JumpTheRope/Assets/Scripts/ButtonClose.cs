@@ -17,7 +17,6 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-
         currentTapTime = Time.time;
         sair.Play();
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
@@ -25,7 +24,6 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
-                DoubleClickChecker.SetMainScreen(true);
             }
         }
         lastTapTime = currentTapTime;
