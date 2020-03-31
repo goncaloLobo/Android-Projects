@@ -24,7 +24,6 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonus100; // som a dizer "100 pontos"
 
     public Text LivesUIText;
-    private const int MaxLives = 3;
     private static int lives = 0;
     private static float finalScore = 0f;
 
@@ -32,7 +31,11 @@ public class PlayerControlSwipe : MonoBehaviour
     private Touch endTouch;
     private float startTouchTime;
     private float endTouchTime;
-    private const int MINIMUM_FLING_VELOCITY = 50;
+    private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
+    private float doubleTapDelta = Configuration.DoubleTapDelta();
+    private int doubleTapRadius = Configuration.DoubleTapRadius();
+    private int doubleTapCircle;
+    private bool isDoubleTap;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
 
@@ -46,12 +49,14 @@ public class PlayerControlSwipe : MonoBehaviour
 
     public void Init()
     {
-        lives = MaxLives;
+        lives = Configuration.MaxLives();
         LivesUIText.text = lives.ToString();
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
+        doubleTapCircle = doubleTapRadius * doubleTapRadius;
+        isDoubleTap = false;
     }
 
     void Start()
@@ -64,17 +69,22 @@ public class PlayerControlSwipe : MonoBehaviour
         Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
         Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
 
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && GameManager.GetStarted())
         {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
                 startTouch = touch;
                 startTouchTime = Time.time;
+                if (CheckForDoubleTap(startTouchTime, endTouchTime, startTouch, endTouch) == 0)
+                {
+                    isDoubleTap = true;
+                }
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-
+                if (isDoubleTap) { }
+                // fazer alguma coisa, doubletap.
             }
             else if (touch.phase == TouchPhase.Ended)
             {
@@ -84,7 +94,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
                 float difference = endTouchTime - startTouchTime;
-                if ((Mathf.Abs(deltaX / difference) > MINIMUM_FLING_VELOCITY) | (Mathf.Abs(deltaY / difference) > MINIMUM_FLING_VELOCITY))
+                if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                 {
                     // swipe!!!
                     swipeDelta = new Vector2(deltaX, deltaY);
@@ -138,6 +148,29 @@ public class PlayerControlSwipe : MonoBehaviour
                 }
             }
         }
+
+        if (Input.touchCount > 0 && !GameManager.GetStarted())
+        {
+            // nao faz nada, usado apenas para não fazer sons
+            // no menu principal depois de perder.
+        }
+    }
+
+    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDelta)
+        {
+            return -1;
+        }
+
+        // se o duplo toque estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+            return 0;
+        return -1;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

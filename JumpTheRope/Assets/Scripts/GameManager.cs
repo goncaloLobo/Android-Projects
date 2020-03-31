@@ -115,6 +115,7 @@ public class GameManager : MonoBehaviour
                 Invoke("ChangeToOpeningState", 3f);
                 break;
             case GameManagerState.Instrucoes:
+                started = false;
                 float delay = 0f;
                 instrucoesPt1.Play();
 
@@ -156,11 +157,6 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
-    }
-
-    public static void SetStarted()
-    {
-        started = true;
     }
 
     // aumenta ou diminui o pitch a cada 15s

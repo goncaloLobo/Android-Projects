@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject timeCounterGO;
 
     public AudioSource introducao;
+    private static bool started;
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         finalScore = 0;
+        started = false;
 
         //inicializa os sons das instrucoes
         sounds = GetComponents<AudioSource>();
@@ -77,6 +79,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
                 introducaoButton.SetActive(true);
+                started = false;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 introducaoButton.SetActive(false);
+                started = true;
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
@@ -167,6 +171,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
+                started = false;
                 // terminar os contadores de tempo
                 currentTime = timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 
@@ -198,6 +203,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
+                started = false;
 
                 float delay = 0f;
                 instrucoespt1.Play();
@@ -246,6 +252,11 @@ public class GameManager : MonoBehaviour
     public static GameManagerState GetCurrentState()
     {
         return GMState;
+    }
+
+    public static bool GetStarted()
+    {
+        return started;
     }
 
     // countdown para aumentar a velocidade

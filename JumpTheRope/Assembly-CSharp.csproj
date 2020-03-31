@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\ButtonInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonIntroducao.cs" />
     <Compile Include="Assets\Scripts\ButtonJogar.cs" />
+    <Compile Include="Assets\Scripts\Configuration.cs" />
     <Compile Include="Assets\Scripts\DoubleClickChecker.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameScore.cs" />

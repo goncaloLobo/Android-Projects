@@ -2,16 +2,15 @@
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private float doubleTapDelta = 0.3f;
-    private float doubleTapDeltaBigger = 1.0f;
-    private static int n_saltos_total;
     private static int n_saltos_perfeitos;
     private static int n_saltos_normais;
     private static int pontuacaoTotal;
 
-    private const int perfectJump = 100;
-    private const int normalJump = 25;
-    private const int doubleTapRadius = 100;
+    private float doubleTapDeltaBigger = Configuration.DoubleTapDeltaBigger();
+    private float doubleTapDelta = Configuration.DoubleTapDelta();
+    private int perfectJump = Configuration.PerfectJump();
+    private int normalJump = Configuration.NormalJump();
+    private int doubleTapRadius = Configuration.DoubleTapRadius();
 
     private Touch currentTouch;
     private Touch previousTouch;
@@ -35,7 +34,7 @@ public class DoubleClickChecker : MonoBehaviour
         manJumping = sounds[0];
         oneFootJumping = sounds[1];
 
-        n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = n_saltos_total = 0;
+        n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
     }
 
@@ -52,13 +51,11 @@ public class DoubleClickChecker : MonoBehaviour
                 if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     manJumping.Play();
-                    n_saltos_total++;
                     n_saltos_perfeitos++;
                     pontuacaoTotal += perfectJump;
                 }
                 else if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1)
                 {
-                    n_saltos_total++;
                     n_saltos_normais++;
                     pontuacaoTotal += normalJump;
                 }
@@ -66,6 +63,7 @@ public class DoubleClickChecker : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Moved)
             {
+
             }
             else if (touch.phase == TouchPhase.Ended)
             {
@@ -76,7 +74,8 @@ public class DoubleClickChecker : MonoBehaviour
 
         if(Input.touchCount > 0 && !GameManager.GetStarted())
         {
-            
+            // nao faz nada, usado apenas para não fazer sons
+            // no menu principal depois de perder.
         }
     }
 
@@ -128,6 +127,6 @@ public class DoubleClickChecker : MonoBehaviour
     //obtem o total de saltos feitos pelo utilizador
     public static int GetTotalSaltos()
     {
-        return n_saltos_total;
+        return n_saltos_normais + n_saltos_perfeitos;
     }
 }
