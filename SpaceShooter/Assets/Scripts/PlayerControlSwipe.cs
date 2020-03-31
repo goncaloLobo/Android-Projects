@@ -6,13 +6,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public GameObject GameManagerGO; // game manager
     private float flytime;
     private float flightDuration = 0.1f;
-
-    public GameObject PlayerBulletGO;
-    public GameObject bulletPosition01;
-    public GameObject bulletPosition02;
-
     public GameObject ExplosionGO;
-    public GameObject AsteroidExplosion;
     public GameObject scoreUITextGO; // referencia para o objeto do jogo UI do score
 
     public AudioSource swipeSound;
@@ -27,10 +21,8 @@ public class PlayerControlSwipe : MonoBehaviour
     private static int lives = 0;
     private static float finalScore = 0f;
 
-    private Touch startTouch;
-    private Touch endTouch;
-    private float startTouchTime;
-    private float endTouchTime;
+    private Touch startTouch, endTouch;
+    private float startTouchTime, endTouchTime;
     private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
     private float doubleTapDelta = Configuration.DoubleTapDelta();
     private int doubleTapRadius = Configuration.DoubleTapRadius();
@@ -218,12 +210,6 @@ public class PlayerControlSwipe : MonoBehaviour
     public void PlayExplosion()
     {
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
-        explosion.transform.position = transform.position;
-    }
-
-    public void PlayAsteroidExplosion()
-    {
-        GameObject explosion = (GameObject)Instantiate(AsteroidExplosion);
         explosion.transform.position = transform.position;
     }
 

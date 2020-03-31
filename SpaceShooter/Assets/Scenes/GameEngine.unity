@@ -731,7 +731,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7dc661a4d48b554e96b057591bcbd8d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.15
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -4846,13 +4846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameManagerGO: {fileID: 1693170702}
-  PlayerBulletGO: {fileID: 8517303521056164614, guid: 79ccaf85f4d92c74f9b5c5f1f7178929,
-    type: 3}
-  bulletPosition01: {fileID: 0}
-  bulletPosition02: {fileID: 0}
   ExplosionGO: {fileID: 924631389938428739, guid: 38fc9aefc2e3ece4ba34886f37c5a159,
-    type: 3}
-  AsteroidExplosion: {fileID: 924631389938428739, guid: 19a5dcb21f64d4e4e856e830dfa9eb1f,
     type: 3}
   scoreUITextGO: {fileID: 2029485241}
   swipeSound: {fileID: 1103498879}
