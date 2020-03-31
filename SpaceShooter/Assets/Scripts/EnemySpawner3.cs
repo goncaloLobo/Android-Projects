@@ -18,14 +18,14 @@ public class EnemySpawner3 : MonoBehaviour
     // 3 se o bonus for do 3º inimigo e direita
     private static int checkIfBonus = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
+
     }
 
-    // Update is called once per frame
     void Update()
     {
+
     }
 
     void SpawnEnemy()
@@ -56,12 +56,31 @@ public class EnemySpawner3 : MonoBehaviour
 
                 break;
             case 3:
-                // 50/50 entre escolher o boost ou não escolher inimigo nenhum
-                if (Random.value > 0.7)
+                if (Random.value < 0.2f)
                 {
                     Boost = (GameObject)Instantiate(Boost100Right);
                     Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
-                    checkIfBonus = 3;
+                    checkIfBonus = 2;
+                }
+                else
+                {
+                    if (Random.value < 0.5f)
+                    {
+                        Enemy = (GameObject)Instantiate(EnemyGO2);
+                        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                    }
+                    else
+                    {
+                        if (Random.value < 0.5f)
+                        {
+                            Meteor = (GameObject)Instantiate(MeteorRightGO);
+                        }
+                        else
+                        {
+                            Meteor = (GameObject)Instantiate(MeteorGreyRightGO);
+                        }
+                        Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                    }
                 }
 
                 break;
