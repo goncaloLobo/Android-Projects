@@ -13,6 +13,7 @@ public class EnemySpawner2 : MonoBehaviour
 
     public static float maxSpawnRateInSeconds = 8.1f;
     public static float minSpawnRateInSeconds = 1f;
+    public float r;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -55,7 +56,7 @@ public class EnemySpawner2 : MonoBehaviour
 
                 break;
             case 3:
-                if (Random.value < 0.2f)
+                if (Random.value < 0.1f)
                 {
                     Boost = (GameObject)Instantiate(Boost100Mid);
                     Boost.transform.position = new Vector2((min.x + max.x) / 2, max.y);
@@ -63,12 +64,13 @@ public class EnemySpawner2 : MonoBehaviour
                 }
                 else
                 {
-                    if (Random.value < 0.5f)
+                    r = Random.value;
+                    if (r < 0.5f)
                     {
                         Enemy = (GameObject)Instantiate(EnemyGO1);
                         Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
                     }
-                    else
+                    else if (r > 0.5f && r < 0.8f)
                     {
                         if (Random.value < 0.5f)
                         {

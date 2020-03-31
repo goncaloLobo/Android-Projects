@@ -75,8 +75,7 @@ public class PlayerControlSwipe : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Moved)
             {
-                if (isDoubleTap) { }
-                // fazer alguma coisa, doubletap.
+
             }
             else if (touch.phase == TouchPhase.Ended)
             {
@@ -85,59 +84,62 @@ public class PlayerControlSwipe : MonoBehaviour
                 int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
+                if (!isDoubleTap) {
                 float difference = endTouchTime - startTouchTime;
-                if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
-                {
-                    // swipe!!!
-                    swipeDelta = new Vector2(deltaX, deltaY);
-
-                    //normalize the 2d vector
-                    swipeDelta.Normalize();
-
-                    //swipe left
-                    if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {
-                        flytime = 0f;
-                        startRocketPosition = transform.position;
-                        endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
-                        if (endRocketPosition.x > border.x)
+                        // swipe!!!
+                        swipeDelta = new Vector2(deltaX, deltaY);
+
+                        //normalize the 2d vector
+                        swipeDelta.Normalize();
+
+                        //swipe left
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            while (flytime < flightDuration)
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
+                            if (endRocketPosition.x > border.x)
                             {
-                                flytime += Time.deltaTime;
-                                swipeSound.Play();
-                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    swipeSound.Play();
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                }
+                            }
+                            else
+                            {
+                                // som de bater na parede no lado esquerdo
+                                hitWallSoundLeft.Play();
                             }
                         }
-                        else
-                        {
-                            // som de bater na parede no lado esquerdo
-                            hitWallSoundLeft.Play();
-                        }
-                    }
 
-                    //swipe right
-                    if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                    {
-                        flytime = 0f;
-                        startRocketPosition = transform.position;
-                        endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
-                        if (endRocketPosition.x < border2.x)
+                        //swipe right
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            while (flytime < flightDuration)
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
+                            if (endRocketPosition.x < border2.x)
                             {
-                                flytime += Time.deltaTime;
-                                swipeSound.Play();
-                                transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    swipeSound.Play();
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                }
                             }
-                        }
-                        else
-                        {
-                            // som de bater na parede no lado direito
-                            hitWallSoundRight.Play();
+                            else
+                            {
+                                // som de bater na parede no lado direito
+                                hitWallSoundRight.Play();
+                            }
                         }
                     }
                 }
+                isDoubleTap = false;
             }
         }
 

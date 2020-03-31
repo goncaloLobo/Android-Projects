@@ -9,6 +9,7 @@ public class EnemySpawner3 : MonoBehaviour
 
     public static float maxSpawnRateInSeconds = 8.1f;
     public static float minSpawnRateInSeconds = 1f;
+    public float r;
 
     private GameObject Enemy;
     private GameObject Meteor;
@@ -64,12 +65,13 @@ public class EnemySpawner3 : MonoBehaviour
                 }
                 else
                 {
-                    if (Random.value < 0.5f)
+                    r = Random.value;
+                    if (r < 0.5f)
                     {
                         Enemy = (GameObject)Instantiate(EnemyGO2);
                         Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
                     }
-                    else
+                    else if(r > 0.5f && r < 0.8f)
                     {
                         if (Random.value < 0.5f)
                         {
