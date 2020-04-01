@@ -5,15 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - PlayerShipTag
-  - EnemyShipTag
-  - PlayerBulletTag
-  - EnemyBulletTag
   - ScoreTextTag
-  - MeteorTag
-  - Boost100PointsLeft
-  - Boost100PointsMid
-  - Boost100PointsRight
   - FinalScoreTextTag
+  - GameOverGO
   layers:
   - Default
   - TransparentFX

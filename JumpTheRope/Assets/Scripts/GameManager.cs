@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,7 +17,9 @@ public class GameManager : MonoBehaviour
     public AudioSource instrucoespt2; // sounds[3]
     public AudioSource correctJump; // sounds[4]
     public AudioSource backgroundLoop;
+    public AudioSource pontos; // sounds [6]
     public AudioSource introducao;
+    public AudioSource textToSpeech;
     private static bool started, toFinish;
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
         instrucoespt2 = sounds[3];
         correctJump = sounds[4];
         backgroundLoop = sounds[5];
+        pontos = sounds[6];
         backgroundLoop.Play();
         backgroundLoop.loop = true;
 
@@ -104,6 +108,7 @@ public class GameManager : MonoBehaviour
                 finalScore = DoubleClickChecker.GetPontuacao();
                 n_saltos_perfeitos = DoubleClickChecker.GetSaltosPerfeitos();
                 n_saltos_normais = DoubleClickChecker.GetSaltosNormais();
+                StartCoroutine(DownloadAudio(finalScore, n_saltos_normais, n_saltos_perfeitos));
 
                 // se for novo highscore, vai regista-lo
                 if (finalScore > highscoreStored)
@@ -286,5 +291,28 @@ public class GameManager : MonoBehaviour
         saltosPerfeitosStored = PlayerPrefs.GetFloat("perfeitos", 0);
         saltosNormaisStored = PlayerPrefs.GetInt("normais", 0);
         totalSaltosStored = PlayerPrefs.GetInt("total", 0);
+    }
+
+    IEnumerator DownloadAudio(int finalScore, int saltosNormais, int saltosPerfeitos)
+    {
+        // "%20pontos%20"
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + finalScore + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                AudioSource source1 = GameObject.FindGameObjectWithTag("GameOverGO").GetComponent<AudioSource>();
+                textToSpeech.PlayDelayed(source1.clip.length);
+                pontos.PlayDelayed(source1.clip.length + textToSpeech.clip.length);
+            }
+        }
     }
 }

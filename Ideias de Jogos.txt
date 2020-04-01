@@ -80,12 +80,9 @@ Jogo 9 -> Guarda Redes
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 TODO:
--> (Rocket) Som de bater na parede -> Menos som de errado, mais de "BOOM".
 -> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
 -> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
    quando troca lê os modos.
--> Acrescentar modos de defender em L para esquerda-cima, direita-cima, esquerda-baixo, direita-baixo.
--> Mudar os botões para apenas os símbolos, tirar as bolas de trás ranhosas.
 
 Próxima Reunião 01/04 11h:
 -> (Instrucoes) ouvir apenas a 1x as instrucoes, ouvir os vários sons ("escolher" os vários sons).
@@ -97,5 +94,4 @@ NAO APAGAR ISTO.
 Reunião 26/03:
 Função nativa Android (ou do Unity)
 Unity - pedir tts default do serviço de acessibilidade
-Enviar os apk ao André (corda e space rocket)
 Criar aplicação de testes em android (duplo toque).
