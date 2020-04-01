@@ -28,6 +28,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private int doubleTapRadius = Configuration.DoubleTapRadius();
     private int doubleTapCircle;
     private bool isDoubleTap;
+    private float screenDPI;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
 
@@ -49,6 +50,7 @@ public class PlayerControlSwipe : MonoBehaviour
         gameObject.SetActive(true);
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
         isDoubleTap = false;
+        screenDPI = Screen.dpi;
     }
 
     void Start()
@@ -68,6 +70,7 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 startTouch = touch;
                 startTouchTime = Time.time;
+
                 if (CheckForDoubleTap(startTouchTime, endTouchTime, startTouch, endTouch) == 0)
                 {
                     isDoubleTap = true;
@@ -84,7 +87,8 @@ public class PlayerControlSwipe : MonoBehaviour
                 int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
-                if (!isDoubleTap) {
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+                if (distance > (16.0f*screenDPI*0.5f) && !isDoubleTap) {
                 float difference = endTouchTime - startTouchTime;
                     if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {

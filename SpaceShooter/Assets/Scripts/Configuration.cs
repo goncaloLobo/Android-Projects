@@ -11,6 +11,7 @@ public class Configuration : MonoBehaviour
     // distancia máxima do circulo de doubletap possivel à volta de um tap
     private const int DOUBLE_TAP_RADIUS = 100;
 
+    // vidas máximas
     private const int MAX_LIVES = 3;
 
     public static float DoubleTapDelta()
