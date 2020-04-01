@@ -20,3 +20,24 @@ A solução apresentada funciona da mesma maneira:
 -> Quando o utilizador tira o dedo do ecrã, despoleta o evento Touchphase.Ended que permite definir o timestamp desse momento, o timestamp de quando o utilizador levantou o dedo.
 -> Para o toque seguinte, é usado o timestamp de quando o utilizador levantou o dedo do ecrã e o timestamp do 2º toque, verificando 1) se a diferença entre ambos não é superior ao valor
    correspondente a um duplo toque; 2) se a diferença corresponde a um salto normal e 3) se a diferença de distância entre os toques é menor que a distância aceitável para duplo toque.
+
+
+A abordagem usada para o jogo do Rocket em relação à deteção dos swipes (flings) foi feita com base no detetor de gestos do Android (Android GestureDetector).
+
+O GestureDetector usa uma abordagem baseada nos dpis do ecrã. Este define que um gesto tem de ter como threshold mínimo de comprimento 16.0f * dpi do ecra + 0.5f. 
+-> 16.0f corresponde a uma threshold definida pelo Android
+-> os dpis do ecra permitem ajustar esta medida a ecrãs de vários tamanhos
+-> 0.5f para converter a distância calculada em pixels.
+
+Para além disso, um fling também tem de ter associada uma velocidade mínima para ser considerado um fling. São estas as condições que o Gesture Detector usa para definir um fling.
+A velocidade mínima é um parâmetro de valor de 50, que significa que o utilizador com o gesto andou pelo metros 50 dpi por segundo.
+Assim, o Gesture Detector consegue distinguir entre um scroll e um fling: um scroll é um movimento com mais de 8dpi de tamanho e com uma velocidade inferior à velocidade mínima
+e um fling é um gesto que percorre mais de 8dpi e com uma velocidade superior à velocidade mínima.
+
+São estes critérios também usados na solução produzida no Unity:
+-> Quando o utilizador coloca o dedo no ecrã, despoleta o evento Touchphase.Began que termina o tempo inicial do toque e permite guardar informações como as coordenadas e o timestamp desse toque.
+   Para além disso, neste evento é verificado se o toque feito corresponde a duplo toque com outro feito anteriormente. Se for duplo toque, não será um fling.
+-> Quando o utilizador tira o dedo do ecrã, depois de o movimentar para o lado que quiser e fazer o gesto do swipe, despoleta o evento Touchphase.Ended que permite
+   definir o timestamp desse momento e fazer as verificações mencionadas acima: com a diferença dos toques permite calcular a distância entre os toques, verificar se essa distância é superior ao
+   valor mínimo calculado e verificar se o swipe teve a velocidade mínima. Respeitando todas as condições, estamos perante um swipe para uma direção.
+   

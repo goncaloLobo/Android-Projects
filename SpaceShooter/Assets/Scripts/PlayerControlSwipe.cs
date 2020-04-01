@@ -88,7 +88,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
                 int distance = (deltaX * deltaX) + (deltaY * deltaY);
-                if (distance > (16.0f*screenDPI*0.5f) && !isDoubleTap) {
+                if (distance > (16.0f*screenDPI+0.5f) && !isDoubleTap) {
                 float difference = endTouchTime - startTouchTime;
                     if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {
