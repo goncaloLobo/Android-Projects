@@ -16,7 +16,8 @@ public class ButtonTempo : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         clicked++;
         if (clicked == 1)
         {
-            tempo.Play();
+            if(!tempo.isPlaying)
+                tempo.Play();
         }
     }
 
@@ -27,6 +28,7 @@ public class ButtonTempo : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tempo.Play();
+        if(!tempo.isPlaying)
+            tempo.Play();
     }
 }

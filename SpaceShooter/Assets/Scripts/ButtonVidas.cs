@@ -28,20 +28,24 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         {
             if(GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
-                vidas.Play();
+                if(!vidas.isPlaying)
+                    vidas.Play();
             }
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
             {
                 switch (PlayerControlSwipe.GetCurrentNumberOfLives())
                 {
                     case 3:
-                        vidas3.Play();
+                        if(!vidas3.isPlaying)
+                            vidas3.Play();
                         break;
                     case 2:
-                        vidas2.Play();
+                        if (!vidas2.isPlaying)
+                            vidas2.Play();
                         break;
                     case 1:
-                        vidas1.Play();
+                        if (!vidas1.isPlaying)
+                            vidas1.Play();
                         break;
                 }
             }
@@ -58,20 +62,24 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
         {
-            vidas.Play();
+            if (!vidas.isPlaying)
+                vidas.Play();
         }
         if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
         {
             switch (PlayerControlSwipe.GetCurrentNumberOfLives())
             {
                 case 3:
-                    vidas3.Play();
+                    if (!vidas3.isPlaying)
+                        vidas3.Play();
                     break;
                 case 2:
-                    vidas2.Play();
+                    if (!vidas2.isPlaying)
+                        vidas2.Play();
                     break;
                 case 1:
-                    vidas1.Play();
+                    if (!vidas1.isPlaying)
+                        vidas1.Play();
                     break;
             }
         }

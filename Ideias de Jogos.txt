@@ -100,8 +100,6 @@ Corda:
 -> Condição de terminar o jogo: se forem falhados muitos saltos, termina o jogo (falhar 5 saltos dos ultimos 10, por exemplo).
 
 Rocket:
--> Depois de carregar no botao das instrucoes, não é possível carregar no botão de jogar.
--> Mudar posição dos botões para baixo no ecrã.
 -> Instruções mais pormenorizadas e introduzir mecânicas do jogo com exemplos (vem um asteroid à esquerda e a sua nave está à esquerda, desvie-se agora ->> e faz o desvio).
 -> Depois de desenhar os tutoriais, enviar os textos para o André (varrer em vez de deslizar, por exemplo).
 -> Bug de cada vez que começa começa com a velocidade antiga.

@@ -17,7 +17,9 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        comoJogar.Play();
+        if(!comoJogar.isPlaying)
+            comoJogar.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
@@ -36,6 +38,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        comoJogar.Play();
+        if(!comoJogar.isPlaying)
+            comoJogar.Play();
     }
 }

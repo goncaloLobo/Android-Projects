@@ -18,10 +18,16 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        jogar.Play();
+        if(!jogar.isPlaying)
+            jogar.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+            }
+            else if(GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
             }
@@ -40,6 +46,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        jogar.Play();
+        if(!jogar.isPlaying)
+            jogar.Play();
     }
 }

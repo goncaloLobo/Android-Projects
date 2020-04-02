@@ -20,10 +20,13 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        intro.Play();
+        if(!intro.isPlaying)
+            intro.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            introducao.Play();
+            if(!introducao.isPlaying)
+                introducao.Play();
         }
         lastTapTime = currentTapTime;
     }
@@ -39,6 +42,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        intro.Play();
+        if(!intro.isPlaying)
+            intro.Play();
     }
 }

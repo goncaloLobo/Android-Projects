@@ -17,7 +17,8 @@ public class ButtonPontos : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         clicked++;
         if (clicked == 1)
         {
-            pontos.Play();
+            if(!pontos.isPlaying)
+                pontos.Play();
         }
     }
 
@@ -28,6 +29,7 @@ public class ButtonPontos : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        pontos.Play();
+        if(!pontos.isPlaying)
+            pontos.Play();
     }
 }
