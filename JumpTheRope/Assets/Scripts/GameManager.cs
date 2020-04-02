@@ -20,7 +20,8 @@ public class GameManager : MonoBehaviour
     public AudioSource pontos; // sounds [6]
     public AudioSource introducao;
     public AudioSource textToSpeech;
-    private static bool started, toFinish;
+    public AudioSource paraIniciarJogo;
+    private static bool started, toFinish, preGameplay;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
@@ -36,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instrucoes
+        Opening, Gameplay, GameOver, Instrucoes, PreGameplay
     }
 
     public static GameManagerState GMState;
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
 
         //valor inicial do pitch
         audioData.pitch = 0.8f;
-        started = toFinish = false;
+        started = toFinish = preGameplay = false;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
         GetCurrentHighScores();
@@ -86,13 +87,22 @@ public class GameManager : MonoBehaviour
                 GetCurrentHighScores();
 
                 break;
+            case GameManagerState.PreGameplay:
+                System.Diagnostics.Debug.WriteLine("entrei pregameplay");
+
+                preGameplay = true;
+                paraIniciarJogo.Play();
+
+                break;
             case GameManagerState.Gameplay:
+                preGameplay = false;
+                System.Diagnostics.Debug.WriteLine("entrei gameplay");
                 playButton.SetActive(false);
+                introducaoButton.SetActive(false);
+                instrucoesButton.SetActive(false);
                 started = true;
                 audioData.Play();
                 audioData.loop = true;
-                introducaoButton.SetActive(false);
-                instrucoesButton.SetActive(false);
 
                 // countdown para alterar a velocidade do som
                 StartCoroutine(StartCountdownSpeed(15));
@@ -162,6 +172,11 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
+    }
+
+    public static bool GetPreGameplay()
+    {
+        return preGameplay;
     }
 
     // aumenta ou diminui o pitch a cada 15s

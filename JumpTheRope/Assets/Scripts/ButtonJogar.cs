@@ -5,8 +5,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 {
     private float clickdelay = 0.5f;
     public AudioSource jogar;
-    public float currentTapTime;
-    public float lastTapTime;
+    private float currentTapTime;
+    private float lastTapTime;
 
     public GameObject GameManagerGO;
 
@@ -18,10 +18,13 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        jogar.Play();
+        if (!jogar.isPlaying)
+            jogar.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+            System.Diagnostics.Debug.WriteLine("doubletap no jogar, yeet");
+            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
         }
         lastTapTime = currentTapTime;
     }
@@ -37,6 +40,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        jogar.Play();
+        if (!jogar.isPlaying)
+            jogar.Play();
     }
 }

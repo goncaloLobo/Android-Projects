@@ -81,15 +81,12 @@ Jogo 9 -> Guarda Redes
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 TODO:
 -> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
--> Quando tiver o text to speech para os diferentes modos, não é necessário imagem, basta apenas uma imagem transparente que
-   quando troca lê os modos.
 
 Reunião 02/04:
 -> Procurar source code do talkback para swipes em L.
 -> https://assetstore.unity.com/packages/tools/gui/android-native-dialogs-and-functions-plugin-106497
 
 Corda:
--> Verificar audios: devem começar depois dos outros terminarem.
 -> Aproximar o jogo ao talkback - permitir focar num dos botões, carregar duas vezes para ir para a opção do foco.
 -> Substituir o x do topo para botão simples de voltar atrás do Android.
 -> Separar instruções: opção de ouvir sons individuais.
@@ -97,7 +94,7 @@ Corda:
 -> Carregar 1x no ecrã para começar o jogo, em vez do som da corda ser logo depois de carregar 2x no jogar.
 -> Som de quando o duplo salto é bem feito ou quando é normal (por ex, dizer "perfeito").
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
--> Os sons de bater da corda, som contínuo de velocidade.
+-> Depois dos sons de bater da corda, som contínuo de velocidade.
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
 -> Condição de terminar o jogo: se forem falhados muitos saltos, termina o jogo (falhar 5 saltos dos ultimos 10, por exemplo).
@@ -113,6 +110,10 @@ Rocket:
 -> Possivelmente ter som dos inimigos mais contínuo.
 -> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
+
+Coisas para testar:
+Testar se o som da corda começa depois de um toque inicial depois de dar o duplo toque no jogar.
+Verificar que quando se dá um salto perfeito se ouve "salto perfeito".
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 

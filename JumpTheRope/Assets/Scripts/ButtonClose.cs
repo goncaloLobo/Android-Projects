@@ -8,6 +8,8 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private float currentTapTime;
     private float lastTapTime;
 
+    private float delay = 0f;
+
     public GameObject GameManagerGO;
 
     void Start()
@@ -18,7 +20,8 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        sair.Play();
+        sair.PlayDelayed(delay);
+        delay += sair.clip.length;
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
@@ -40,6 +43,7 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        sair.Play();
+        sair.PlayDelayed(delay);
+        delay += sair.clip.length;       
     }
 }

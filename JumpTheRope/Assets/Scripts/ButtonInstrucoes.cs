@@ -19,7 +19,9 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     {
 
         currentTapTime = Time.time;
-        instrucoes.Play();
+        if(!instrucoes.isPlaying)
+            instrucoes.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
@@ -41,6 +43,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        instrucoes.Play();
+        if (!instrucoes.isPlaying)
+            instrucoes.Play();
     }
 }
