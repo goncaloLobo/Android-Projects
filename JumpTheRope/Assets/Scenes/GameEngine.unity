@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &95557984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -709,8 +709,8 @@ MonoBehaviour:
   manJumping: {fileID: 1264022506}
   oneFootJumping: {fileID: 95548656}
   saltoPerfeito: {fileID: 151931611}
-  paraIniciarJogo: {fileID: 0}
   GameManagerGO: {fileID: 1693170704}
+  isGoingToTouch: 0
 --- !u!1 &297952884
 GameObject:
   m_ObjectHideFlags: 0
@@ -1892,6 +1892,7 @@ MonoBehaviour:
   GameOverGO: {fileID: 1336017725}
   introducaoButton: {fileID: 924196887}
   instrucoesButton: {fileID: 980060336}
+  closeButton: {fileID: 95557983}
   sounds: []
   audioData: {fileID: 0}
   instrucoesPt1: {fileID: 0}

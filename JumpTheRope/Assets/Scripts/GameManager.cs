@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject introducaoButton;
     public GameObject instrucoesButton;
+    public GameObject closeButton;
 
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
                 audioData.Stop();
                 introducaoButton.SetActive(true);
                 instrucoesButton.SetActive(true);
+                closeButton.SetActive(false);
                 started = false;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
@@ -100,6 +102,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
+                closeButton.SetActive(true);
                 started = true;
                 audioData.Play();
                 audioData.loop = true;
