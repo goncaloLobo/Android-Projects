@@ -8,6 +8,9 @@ TagManager:
   - ScoreTextTag
   - FinalScoreTextTag
   - GameOverGO
+  - PlayButtonTag
+  - InstructionsButtonTag
+  - IntroductionButtonTag
   layers:
   - Default
   - TransparentFX

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 {
@@ -10,11 +11,41 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float currentTapTime;
     private float lastTapTime;
 
+    private static int order = 1;
+    public Sprite normalSprite;
+    public Sprite spriteHighlighted;
+    private static Image mImage;
+    private static int highlighted;
+    private bool check;
+    private static bool jogarBackToNormal, instrucoesBackToNormal;
+
     void Start()
     {
         sounds = GetComponents<AudioSource>();
         introducao = sounds[0];
         intro = sounds[1];
+        highlighted = 0;
+        check = jogarBackToNormal = instrucoesBackToNormal = false;
+        mImage = GameObject.FindGameObjectWithTag("IntroductionButtonTag").GetComponent<Image>();
+    }
+
+    void Update()
+    {
+        if(ButtonJogar.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(ButtonInstrucoes.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -44,7 +75,45 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!intro.isPlaying)
+        if (ButtonJogar.CheckForHighlighted() == 1)
+        {
+            jogarBackToNormal = true;
+            JogarBackToNormal();
+        }
+
+        if(ButtonInstrucoes.CheckForHighlighted() == 1)
+        {
+            instrucoesBackToNormal = true;
+            InstrucoesBackToNormal();
+        }
+
+        if (highlighted == 0)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if (!intro.isPlaying)
             intro.Play();
+    }
+
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+
+    }
+
+    public static int CheckForHighlighted()
+    {
+        return highlighted;
+    }
+
+    public static bool JogarBackToNormal()
+    {
+        return jogarBackToNormal == true;
+    }
+
+    public static bool InstrucoesBackToNormal()
+    {
+        return instrucoesBackToNormal == true;
     }
 }

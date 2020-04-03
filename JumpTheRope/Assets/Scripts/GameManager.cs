@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
-    private static bool started, toFinish, preGameplay;
+    private static bool started, toFinish, preGameplay, opening;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         //valor inicial do pitch
         audioData.pitch = 0.8f;
         started = toFinish = preGameplay = false;
+        opening = true;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
         GetCurrentHighScores();
@@ -91,13 +92,14 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.PreGameplay:
                 System.Diagnostics.Debug.WriteLine("entrei pregameplay");
-
+                opening = false;
                 preGameplay = true;
                 paraIniciarJogo.Play();
 
                 break;
             case GameManagerState.Gameplay:
                 preGameplay = false;
+                opening = false;
                 System.Diagnostics.Debug.WriteLine("entrei gameplay");
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
@@ -116,6 +118,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(true);
                 audioData.Stop();
                 started = false;
+                opening = false;
 
                 //obtem estatísticas do final do jogo
                 finalScore = DoubleClickChecker.GetPontuacao();
@@ -180,6 +183,11 @@ public class GameManager : MonoBehaviour
     public static bool GetPreGameplay()
     {
         return preGameplay;
+    }
+
+    public static bool GetOpening()
+    {
+        return opening;
     }
 
     // aumenta ou diminui o pitch a cada 15s

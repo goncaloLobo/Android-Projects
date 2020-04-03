@@ -259,7 +259,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &95557984
 RectTransform:
   m_ObjectHideFlags: 0
@@ -276,8 +276,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 828, y: 3367}
-  m_SizeDelta: {x: 66.5, y: 61.7}
+  m_AnchoredPosition: {x: 803.3, y: 3367}
+  m_SizeDelta: {x: 85.5, y: 73.9}
   m_Pivot: {x: 0.5000005, y: 1.0000006}
 --- !u!82 &95557985
 AudioSource:
@@ -416,8 +416,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 990f66c32d6cf324eb9a2fccae5b53dc,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 990f66c32d6cf324eb9a2fccae5b53dc, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -710,7 +711,6 @@ MonoBehaviour:
   oneFootJumping: {fileID: 95548656}
   saltoPerfeito: {fileID: 151931611}
   GameManagerGO: {fileID: 1693170704}
-  isGoingToTouch: 0
 --- !u!1 &297952884
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +876,7 @@ GameObject:
   - component: {fileID: 924196894}
   m_Layer: 5
   m_Name: ButtonIntroducao
-  m_TagString: Untagged
+  m_TagString: IntroductionButtonTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -897,8 +897,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -762.8, y: 232.75}
-  m_SizeDelta: {x: 102.1, y: 114.6}
+  m_AnchoredPosition: {x: -743.7, y: 232.75}
+  m_SizeDelta: {x: 117.5, y: 121.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &924196889
 MonoBehaviour:
@@ -927,8 +927,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: bc8b901d1d9725f4e8d6c25b70a65dcf,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: bc8b901d1d9725f4e8d6c25b70a65dcf, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1182,6 +1183,8 @@ MonoBehaviour:
   sounds: []
   introducao: {fileID: 0}
   intro: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 01ecbaaa2a46cf04897dca5c170b1b3b, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: bc8b901d1d9725f4e8d6c25b70a65dcf, type: 3}
 --- !u!1 &980060336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,7 +1201,7 @@ GameObject:
   - component: {fileID: 980060339}
   m_Layer: 5
   m_Name: ButtonInstrucoes
-  m_TagString: Untagged
+  m_TagString: InstructionsButtonTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1219,8 +1222,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 760, y: 233.05005}
-  m_SizeDelta: {x: 147.2, y: 122.1}
+  m_AnchoredPosition: {x: 714.5499, y: 230.09998}
+  m_SizeDelta: {x: 160.4, y: 126.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &980060338
 MonoBehaviour:
@@ -1235,6 +1238,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   instrucoes: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 0a3a6660fb01c2646a86460e238d5b36, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 0f01afb7ed6e65846a6285fe76d399f2, type: 3}
   GameManagerGO: {fileID: 1693170702}
 --- !u!82 &980060339
 AudioSource:
@@ -1359,8 +1364,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 0f01afb7ed6e65846a6285fe76d399f2,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 0f01afb7ed6e65846a6285fe76d399f2, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2719,7 +2725,7 @@ GameObject:
   - component: {fileID: 1770039761}
   m_Layer: 5
   m_Name: ButtonPlay
-  m_TagString: Untagged
+  m_TagString: PlayButtonTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2740,7 +2746,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -13.7, y: 239}
+  m_AnchoredPosition: {x: -43, y: 232.75}
   m_SizeDelta: {x: 300.3, y: 110.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1770039757
@@ -2770,9 +2776,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 4179bab054b990349963804a1ac50f7b,
+    m_HighlightedSprite: {fileID: 21300000, guid: cd404730e1726294e9403af7d34568db,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 4179bab054b990349963804a1ac50f7b, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: cd404730e1726294e9403af7d34568db, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2843,6 +2849,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jogar: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: dda3f084a7d587848a3f3931511b41c1, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: cd404730e1726294e9403af7d34568db, type: 3}
   GameManagerGO: {fileID: 1693170702}
 --- !u!82 &1770039761
 AudioSource:

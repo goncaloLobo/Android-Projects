@@ -8,6 +8,9 @@ public class Configuration : MonoBehaviour
     // pontos para um salto normal
     private const int NORMAL_JUMP = 25;
 
+    // velocidade minima esperada para um swipe
+    private const int MINIMUM_FLING_VELOCITY = 50;
+
     // diferença de tempo máxima para ser considerado um doubletap perfeito
     private static float DOUBLE_TAP_DELTA = 0.3f;
 
@@ -20,6 +23,11 @@ public class Configuration : MonoBehaviour
     public static int PerfectJump()
     {
         return PERFECT_JUMP;
+    }
+
+    public static int MinimumFlingVelocity()
+    {
+        return MINIMUM_FLING_VELOCITY;
     }
 
     public static int NormalJump()
