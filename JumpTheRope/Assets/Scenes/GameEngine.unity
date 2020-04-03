@@ -710,7 +710,9 @@ MonoBehaviour:
   manJumping: {fileID: 1264022506}
   oneFootJumping: {fileID: 95548656}
   saltoPerfeito: {fileID: 151931611}
+  paraIniciarJogo: {fileID: 1856236751}
   GameManagerGO: {fileID: 1693170704}
+  buttonJogar: {fileID: 1770039755}
 --- !u!1 &297952884
 GameObject:
   m_ObjectHideFlags: 0

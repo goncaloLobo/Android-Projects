@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class DoubleClickChecker : MonoBehaviour
 {
@@ -22,11 +23,18 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource manJumping; // ManJumping
     public AudioSource oneFootJumping; // tap
     public AudioSource saltoPerfeito; // salto perfeito
+    public AudioSource paraIniciarJogo;
     public GameManager GameManagerGO;
 
-    private bool isDoubleTap, isGoingToTouch;
+    private bool isDoubleTap, isGoingToTouch, coroutineFinished, firstTime;
     private float screenDPI;
+    private float increaseSpeedTimer;
+
     private Vector2 swipeDelta;
+
+    private static bool buttonJogarBackToNormal, buttonIntroducaoToHighlight, buttonIntroducaoBackToNormal, buttonInstrucoesToHighlight, buttonInstrucoesBackToNormal;
+    private static bool buttonJogarToHighlight;
+    public GameObject buttonJogar;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Touch CurrentTouch { get { return currentTouch; } }
@@ -39,7 +47,10 @@ public class DoubleClickChecker : MonoBehaviour
     {
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
-        isGoingToTouch = isDoubleTap = false;
+        isGoingToTouch = isDoubleTap = buttonJogarBackToNormal = false;
+        buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
+        buttonJogarToHighlight = coroutineFinished = false;
+        firstTime = true;
         screenDPI = Screen.dpi;
     }
 
@@ -47,7 +58,6 @@ public class DoubleClickChecker : MonoBehaviour
     {
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
-            System.Diagnostics.Debug.WriteLine("entrei aqui, o jogo já começou.");
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -81,19 +91,26 @@ public class DoubleClickChecker : MonoBehaviour
 
         if(Input.touchCount > 0 && GameManager.GetPreGameplay())
         {
-            System.Diagnostics.Debug.WriteLine("pregameplay -> agora vou receber mais toques");
-            System.Diagnostics.Debug.WriteLine("entrei aqui, o jogo ainda nao comecou. Nº toques: " + Input.touchCount);
-            isGoingToTouch = true;
-            if (isGoingToTouch)
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Ended && firstTime)
             {
-                System.Diagnostics.Debug.WriteLine("yo");
+                paraIniciarJogo.Play();
+                StartCoroutine(WaitForTouch(paraIniciarJogo.clip.length));
+
+                if (coroutineFinished)
+                {
+                    if (Input.touchCount > 0)
+                    {
+                        firstTime = false;
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                        System.Diagnostics.Debug.WriteLine(GameManager.GetCurrentState());
+                    }
+                }
             }
-            isGoingToTouch = false;
-            // nao faz nada, usado apenas para não fazer sons
-            // no menu principal depois de perder.
-            // poderá ser usado para verificar quais os botões a ser pressionados?
+            
         }
 
+        /*
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
             System.Diagnostics.Debug.WriteLine("aqui1: " + Input.touchCount);
@@ -132,29 +149,45 @@ public class DoubleClickChecker : MonoBehaviour
                         //swipe left
                         if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            /*
-                            if (ButtonJogar.HasEntered())
+                            if (ButtonIntroducao.CheckForHighlighted() == 1)
                             {
-                                System.Diagnostics.Debug.WriteLine("vou fazer swipe para a esquerda -> botao introducao");
+                                buttonIntroducaoBackToNormal = true;
+                                ButtonIntroducaoBackToNormal();
+
+                                buttonInstrucoesToHighlight = true;
+                                ButtonInstrucoesToHighlight();
                             }
-                            */
+
+                            if (ButtonJogar.CheckForHighlighted() == 1)
+                            {
+                                buttonJogarBackToNormal = true;
+                                ButtonJogarBackToNormal();
+
+                                buttonIntroducaoToHighlight = true;
+                                ButtonIntroducaoToHighlight();
+                            }
+
+                            if(ButtonInstrucoes.CheckForHighlighted() == 1)
+                            {
+                                buttonInstrucoesBackToNormal = true;
+                                ButtonInstrucoesBackToNormal();
+
+                                buttonJogarToHighlight = true;
+                                ButtonJogarToHighlight();
+                            }
                         }
 
                         //swipe right
                         if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            /*
-                            if (ButtonJogar.HasEntered())
-                            {
-                                System.Diagnostics.Debug.WriteLine("vou fazer swipe para a direita -> botao instrucoes");
-                            }
-                            */
+                            
                         }
                     }
                     isDoubleTap = false;
                 }
             }
         }
+        */
             /*
             if (Input.touchCount > 0 && GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
@@ -274,8 +307,23 @@ public class DoubleClickChecker : MonoBehaviour
         return -1;
     }
 
-    //numero de saltos perfeitos no final
-    public static int GetSaltosPerfeitos()
+    public IEnumerator WaitForTouch(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(duration);
+            increaseSpeedTimer-=duration;
+            if (increaseSpeedTimer == 0)
+            {
+                coroutineFinished = true;
+                yield break;
+            }
+        }
+    }
+
+        //numero de saltos perfeitos no final
+        public static int GetSaltosPerfeitos()
     {
         return n_saltos_perfeitos;
     }
@@ -296,5 +344,35 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetTotalSaltos()
     {
         return n_saltos_normais + n_saltos_perfeitos;
+    }
+
+    public static bool ButtonJogarBackToNormal()
+    {
+        return buttonJogarBackToNormal == true;
+    }
+
+    public static bool ButtonIntroducaoToHighlight()
+    {
+        return buttonIntroducaoToHighlight == true;
+    }
+
+    public static bool ButtonIntroducaoBackToNormal()
+    {
+        return buttonIntroducaoBackToNormal == true;
+    }
+
+    public static bool ButtonInstrucoesToHighlight()
+    {
+        return buttonInstrucoesToHighlight == true;
+    }
+
+    public static bool ButtonInstrucoesBackToNormal()
+    {
+        return buttonInstrucoesBackToNormal == true;
+    }
+
+    public static bool ButtonJogarToHighlight()
+    {
+        return buttonJogarToHighlight == true;
     }
 }

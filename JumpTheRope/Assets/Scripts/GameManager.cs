@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
                 System.Diagnostics.Debug.WriteLine("entrei pregameplay");
                 opening = false;
                 preGameplay = true;
-                paraIniciarJogo.Play();
+                //paraIniciarJogo.Play();
 
                 break;
             case GameManagerState.Gameplay:
@@ -114,7 +114,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-                //display game over
                 GameOverGO.SetActive(true);
                 audioData.Stop();
                 started = false;

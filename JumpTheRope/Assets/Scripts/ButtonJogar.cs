@@ -81,7 +81,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             InstrucoesBackToNormal();
         }
 
-
         if(highlighted == 0)
         {
             mImage.sprite = spriteHighlighted;
