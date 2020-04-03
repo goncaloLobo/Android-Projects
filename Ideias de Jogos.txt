@@ -88,7 +88,6 @@ Reunião 02/04:
 
 Corda:
 -> Aproximar o jogo ao talkback - permitir focar num dos botões, carregar duas vezes para ir para a opção do foco.
--> Substituir o x do topo para botão simples de voltar atrás do Android.
 -> Separar instruções: opção de ouvir sons individuais.
 -> Tutorial para jogar o jogo. Opção de permitir fazer o tutorial novamente. O tutorial permite experimentar os sons ("Para levantar uma perna deve tocar 2x no ecrã: experimente. A pessoa faz e fica bem").
 -> Carregar 1x no ecrã para começar o jogo, em vez do som da corda ser logo depois de carregar 2x no jogar.
@@ -102,7 +101,6 @@ Corda:
 Rocket:
 -> Instruções mais pormenorizadas e introduzir mecânicas do jogo com exemplos (vem um asteroid à esquerda e a sua nave está à esquerda, desvie-se agora ->> e faz o desvio).
 -> Depois de desenhar os tutoriais, enviar os textos para o André (varrer em vez de deslizar, por exemplo).
--> Bug de cada vez que começa começa com a velocidade antiga.
 -> Depois de fazer as instruções não é possível jogar e começa a ficar lento.
 -> Não devem aparecer inimigos muito próximos: garantir sempre uma distância mínima entre inimigos.
 -> Possivelmente ter som dos inimigos mais contínuo.

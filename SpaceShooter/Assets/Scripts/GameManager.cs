@@ -266,35 +266,38 @@ public class GameManager : MonoBehaviour
     {
         float speed = EnemyControl.GetSpeed();
         increaseSpeedTimer = countdownValue;
-        while (increaseSpeedTimer >= 0)
-        {
-            yield return new WaitForSeconds(1.0f);
-            increaseSpeedTimer--;
-
-            if (increaseSpeedTimer == 0)
+        if (!(GameManager.GetCurrentState() == GameManagerState.GameOver)) {
+            while (increaseSpeedTimer >= 0)
             {
-                speed+=0.3f;
-                EnemyControl.SetSpeed(speed);
-                if (EnemySpawner.GetMaxSpawnRate() > 3.0f)
+                yield return new WaitForSeconds(1.0f);
+                increaseSpeedTimer--;
+
+                if (increaseSpeedTimer == 0)
                 {
-                    float sp = EnemySpawner.GetMaxSpawnRate();
-                    float minsp = EnemySpawner.GetMinSpawnRate();
+                    speed += 0.3f;
+                    EnemyControl.SetSpeed(speed);
+                    if (EnemySpawner.GetMaxSpawnRate() > 3.0f)
+                    {
+                        float sp = EnemySpawner.GetMaxSpawnRate();
+                        float minsp = EnemySpawner.GetMinSpawnRate();
 
-                    float nsp = sp - 0.3f;
-                    float nminsp = minsp - 0.1f;
+                        float nsp = sp - 0.3f;
+                        float nminsp = minsp - 0.1f;
 
-                    EnemySpawner.UpdateMaxSpawnRate(nsp);
-                    EnemySpawner.UpdateMinSpawnRate(nminsp);
+                        EnemySpawner.UpdateMaxSpawnRate(nsp);
+                        EnemySpawner.UpdateMinSpawnRate(nminsp);
 
-                    EnemySpawner2.UpdateMaxSpawnRate(nsp);
-                    EnemySpawner2.UpdateMinSpawnRate(minsp);
+                        EnemySpawner2.UpdateMaxSpawnRate(nsp);
+                        EnemySpawner2.UpdateMinSpawnRate(minsp);
 
-                    EnemySpawner3.UpdateMaxSpawnRate(nsp);
-                    EnemySpawner3.UpdateMinSpawnRate(minsp);
+                        EnemySpawner3.UpdateMaxSpawnRate(nsp);
+                        EnemySpawner3.UpdateMinSpawnRate(minsp);
+                    }
+
+                    //countdown para aumentar a velocidade
+                    StartCoroutine(StartCountdownSpeed());
+                    yield break;
                 }
-
-                //countdown para aumentar a velocidade
-                StartCoroutine(StartCountdownSpeed());
             }
         }
     }

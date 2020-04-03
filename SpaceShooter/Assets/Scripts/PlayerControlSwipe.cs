@@ -18,7 +18,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonus100; // som a dizer "100 pontos"
 
     public Text LivesUIText;
-    private static int lives = 0;
+    private static int lives;
     private static float finalScore = 0f;
 
     private Touch startTouch, endTouch;

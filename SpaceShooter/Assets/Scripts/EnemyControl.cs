@@ -14,7 +14,6 @@ public class EnemyControl : MonoBehaviour
 
     private static int enemiesAvoided; // inimigos que chegam ao final do ecra (que o utilizador se desviou)
 
-    // Start is called before the first frame update
     void Start()
     {
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
@@ -27,7 +26,6 @@ public class EnemyControl : MonoBehaviour
         enemiesAvoided = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Vector2 position = transform.position;
