@@ -91,20 +91,18 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.PreGameplay:
-                System.Diagnostics.Debug.WriteLine("entrei pregameplay");
                 opening = false;
                 preGameplay = true;
-                //paraIniciarJogo.Play();
 
                 break;
             case GameManagerState.Gameplay:
                 preGameplay = false;
                 opening = false;
-                System.Diagnostics.Debug.WriteLine("entrei gameplay");
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
                 closeButton.SetActive(true);
+
                 started = true;
                 audioData.Play();
                 audioData.loop = true;

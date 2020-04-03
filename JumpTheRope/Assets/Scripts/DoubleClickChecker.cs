@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class DoubleClickChecker : MonoBehaviour
 {
@@ -23,10 +24,11 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource manJumping; // ManJumping
     public AudioSource oneFootJumping; // tap
     public AudioSource saltoPerfeito; // salto perfeito
-    public AudioSource paraIniciarJogo;
+    public AudioSource inicioJogo;
     public GameManager GameManagerGO;
+    private int i = 0;
 
-    private bool isDoubleTap, isGoingToTouch, coroutineFinished, firstTime;
+    private bool isDoubleTap, isGoingToTouch;
     private float screenDPI;
     private float increaseSpeedTimer;
 
@@ -49,8 +51,7 @@ public class DoubleClickChecker : MonoBehaviour
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
         isGoingToTouch = isDoubleTap = buttonJogarBackToNormal = false;
         buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
-        buttonJogarToHighlight = coroutineFinished = false;
-        firstTime = true;
+        buttonJogarToHighlight = false;
         screenDPI = Screen.dpi;
     }
 
@@ -89,25 +90,11 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
-        if(Input.touchCount > 0 && GameManager.GetPreGameplay())
+        if(GameManager.GetPreGameplay() && i == 0)
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Ended && firstTime)
-            {
-                paraIniciarJogo.Play();
-                StartCoroutine(WaitForTouch(paraIniciarJogo.clip.length));
-
-                if (coroutineFinished)
-                {
-                    if (Input.touchCount > 0)
-                    {
-                        firstTime = false;
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
-                        System.Diagnostics.Debug.WriteLine(GameManager.GetCurrentState());
-                    }
-                }
-            }
-            
+            i++;
+            inicioJogo.Play();
+            StartCoroutine(WaitForTouch(inicioJogo.clip.length, DoAfter)); 
         }
 
         /*
@@ -263,6 +250,11 @@ public class DoubleClickChecker : MonoBehaviour
             */
     }
 
+    public void DoAfter()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+    }
+
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
     {
         int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
@@ -307,19 +299,10 @@ public class DoubleClickChecker : MonoBehaviour
         return -1;
     }
 
-    public IEnumerator WaitForTouch(float duration)
+    public IEnumerator WaitForTouch(float duration, Action DoAfter)
     {
-        increaseSpeedTimer = duration;
-        while (increaseSpeedTimer >= 0)
-        {
-            yield return new WaitForSeconds(duration);
-            increaseSpeedTimer-=duration;
-            if (increaseSpeedTimer == 0)
-            {
-                coroutineFinished = true;
-                yield break;
-            }
-        }
+        yield return new WaitForSeconds(duration);
+        DoAfter();
     }
 
         //numero de saltos perfeitos no final

@@ -90,8 +90,6 @@ Corda:
 -> Aproximar o jogo ao talkback - permitir focar num dos botões, carregar duas vezes para ir para a opção do foco.
 -> Separar instruções: opção de ouvir sons individuais.
 -> Tutorial para jogar o jogo. Opção de permitir fazer o tutorial novamente. O tutorial permite experimentar os sons ("Para levantar uma perna deve tocar 2x no ecrã: experimente. A pessoa faz e fica bem").
--> Carregar 1x no ecrã para começar o jogo, em vez do som da corda ser logo depois de carregar 2x no jogar.
--> Som de quando o duplo salto é bem feito ou quando é normal (por ex, dizer "perfeito").
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
 -> Depois dos sons de bater da corda, som contínuo de velocidade.
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
@@ -106,10 +104,6 @@ Rocket:
 -> Possivelmente ter som dos inimigos mais contínuo.
 -> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
-
-Coisas para testar:
-Testar se o som da corda começa depois de um toque inicial depois de dar o duplo toque no jogar.
-Verificar que quando se dá um salto perfeito se ouve "salto perfeito".
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 

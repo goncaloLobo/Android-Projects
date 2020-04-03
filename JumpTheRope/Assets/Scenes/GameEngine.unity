@@ -710,7 +710,7 @@ MonoBehaviour:
   manJumping: {fileID: 1264022506}
   oneFootJumping: {fileID: 95548656}
   saltoPerfeito: {fileID: 151931611}
-  paraIniciarJogo: {fileID: 1856236751}
+  inicioJogo: {fileID: 1856236751}
   GameManagerGO: {fileID: 1693170704}
   buttonJogar: {fileID: 1770039755}
 --- !u!1 &297952884
@@ -2961,7 +2961,7 @@ GameObject:
   - component: {fileID: 1856236752}
   - component: {fileID: 1856236751}
   m_Layer: 0
-  m_Name: ParaIniciarJogo
+  m_Name: InicioJogo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2977,7 +2977,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6ff38441baff67242914bb74585a8c97, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4f94712081f83bf41baf071f823d26ee, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
