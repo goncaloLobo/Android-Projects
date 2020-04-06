@@ -16,6 +16,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonusMid; // som bonus mid
     public AudioSource bonusRight; // som bonus dir
     public AudioSource bonus100; // som a dizer "100 pontos"
+    public AudioSource introducao; // som do button introducao
 
     public Text LivesUIText;
     private static int lives;
@@ -88,8 +89,9 @@ public class PlayerControlSwipe : MonoBehaviour
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
                 int distance = (deltaX * deltaX) + (deltaY * deltaY);
-                if (distance > (16.0f*screenDPI+0.5f) && !isDoubleTap) {
-                float difference = endTouchTime - startTouchTime;
+                if (distance > (16.0f * screenDPI + 0.5f) && !isDoubleTap)
+                {
+                    float difference = endTouchTime - startTouchTime;
                     if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {
                         // swipe!!!
@@ -151,6 +153,44 @@ public class PlayerControlSwipe : MonoBehaviour
         {
             // nao faz nada, usado apenas para não fazer sons
             // no menu principal depois de perder.
+        }
+
+        if (Input.touchCount > 0 && GameManager.GetOpening())
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouch = touch;
+                startTouchTime = Time.time;
+
+                if (CheckForDoubleTap(startTouchTime, endTouchTime, startTouch, endTouch) == 0)
+                {
+                    if(ButtonJogar.CheckForHighlighted() == 1)
+                    {
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                    }
+
+                    else if (ButtonComoJogar.CheckForHighlighted() == 1)
+                    {
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+                    }
+
+                    else if(ButtonIntroducao.CheckForHighlighted() == 1)
+                    {
+                        if (!introducao.isPlaying)
+                            introducao.Play();
+                    }
+                }
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                endTouch = touch;
+                endTouchTime = Time.time;
+            }
         }
     }
 

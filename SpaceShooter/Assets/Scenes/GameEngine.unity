@@ -4995,6 +4995,7 @@ MonoBehaviour:
   bonusMid: {fileID: 1124864200}
   bonusRight: {fileID: 1270261390}
   bonus100: {fileID: 1645092845}
+  introducao: {fileID: 450449765}
   LivesUIText: {fileID: 840643950}
 --- !u!61 &1950541787
 BoxCollider2D:

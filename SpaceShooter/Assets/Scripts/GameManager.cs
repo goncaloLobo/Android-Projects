@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject timeCounterGO;
 
     public AudioSource introducao;
-    private static bool started;
+    private static bool started, opening, instructions;
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -80,6 +80,8 @@ public class GameManager : MonoBehaviour
                 howToButton.SetActive(true);
                 introducaoButton.SetActive(true);
                 started = false;
+                opening = true;
+                instructions = false;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour
                 howToButton.SetActive(false);
                 introducaoButton.SetActive(false);
                 started = true;
+                opening = false;
+                instructions = false;
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
@@ -204,6 +208,8 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
                 started = false;
+                opening = false;
+                instructions = true;
 
                 float delay = 0f;
                 instrucoespt1.Play();
@@ -257,6 +263,16 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
+    }
+
+    public static bool GetOpening()
+    {
+        return opening;
+    }
+
+    public static bool GetInstructions()
+    {
+        return instructions;
     }
 
     // countdown para aumentar a velocidade
