@@ -441,9 +441,6 @@ C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CecilTools.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Cecil.Pdb.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Cecil.Mdb.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEditor.xml
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.Analytics.DataPrivacy.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.AnimationModule.xml
@@ -470,7 +467,6 @@ C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.VideoModule.xml
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.XRModule.xml
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\nunit.framework.xml
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\UnityEngine.ClusterInputModule.xml
-C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.dll
@@ -478,3 +474,7 @@ C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
+C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

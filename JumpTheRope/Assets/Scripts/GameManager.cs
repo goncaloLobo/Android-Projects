@@ -4,12 +4,20 @@ using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject playerShip;
     public GameObject playButton;
     public GameObject GameOverGO;
     public GameObject introducaoButton;
     public GameObject instrucoesButton;
     public GameObject closeButton;
+
+    // coisas para a pagina do tutorial
+    public GameObject tutorialButton;
+    public GameObject corda1;
+    public GameObject descricao1;
+    public GameObject corda2;
+    public GameObject descricao2;
+    public GameObject corda3;
+    public GameObject descricao3;
 
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
@@ -22,7 +30,7 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
-    private static bool started, toFinish, preGameplay, opening;
+    private static bool started, toFinish, preGameplay, opening, instrucoes, tutorial;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
@@ -38,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instrucoes, PreGameplay
+        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, Tutorial
     }
 
     public static GameManagerState GMState;
@@ -59,7 +67,7 @@ public class GameManager : MonoBehaviour
 
         //valor inicial do pitch
         audioData.pitch = 0.8f;
-        started = toFinish = preGameplay = false;
+        started = toFinish = preGameplay = tutorial = false;
         opening = true;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
@@ -77,13 +85,19 @@ public class GameManager : MonoBehaviour
         switch (GMState)
         {
             case GameManagerState.Opening:
+                started = false;
+                instrucoes = false;
+                tutorial = false;
+                opening = true;
+
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 audioData.Stop();
                 introducaoButton.SetActive(true);
                 instrucoesButton.SetActive(true);
                 closeButton.SetActive(false);
-                started = false;
+
+                TutorialButtonsToFalse();
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -93,17 +107,21 @@ public class GameManager : MonoBehaviour
             case GameManagerState.PreGameplay:
                 opening = false;
                 preGameplay = true;
+                tutorial = false;
+                started = false;
 
                 break;
             case GameManagerState.Gameplay:
                 preGameplay = false;
                 opening = false;
+                tutorial = false;
+                started = true;
+
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
                 closeButton.SetActive(true);
 
-                started = true;
                 audioData.Play();
                 audioData.loop = true;
 
@@ -111,11 +129,22 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(15));
 
                 break;
+
+            case GameManagerState.Tutorial:
+                preGameplay = false;
+                opening = false;
+                tutorial = true;
+                started = true;
+
+                break;
             case GameManagerState.GameOver:
+                preGameplay = false;
+                opening = false;
+                tutorial = false;
+                started = true;
+
                 GameOverGO.SetActive(true);
                 audioData.Stop();
-                started = false;
-                opening = false;
 
                 //obtem estatísticas do final do jogo
                 finalScore = DoubleClickChecker.GetPontuacao();
@@ -133,7 +162,20 @@ public class GameManager : MonoBehaviour
                 Invoke("ChangeToOpeningState", 3f);
                 break;
             case GameManagerState.Instrucoes:
+                preGameplay = false;
+                opening = false;
+                tutorial = false;
                 started = false;
+                instrucoes = true;
+
+                audioData.Stop();
+                playButton.SetActive(true);
+                introducaoButton.SetActive(false);
+                instrucoesButton.SetActive(false);
+
+                TutorialButtonsToTrue();
+
+                /*
                 float delay = 0f;
                 instrucoesPt1.Play();
 
@@ -145,6 +187,7 @@ public class GameManager : MonoBehaviour
 
                 delay += instrucoespt2.clip.length;
                 correctJump.PlayDelayed(delay);
+                */
 
                 break;
         }
@@ -185,6 +228,16 @@ public class GameManager : MonoBehaviour
     public static bool GetOpening()
     {
         return opening;
+    }
+
+    public static bool GetInstrucoes()
+    {
+        return instrucoes;
+    }
+
+    public static bool GetTutorial()
+    {
+        return tutorial;
     }
 
     // aumenta ou diminui o pitch a cada 15s
@@ -337,5 +390,27 @@ public class GameManager : MonoBehaviour
                 pontos.PlayDelayed(source1.clip.length + textToSpeech.clip.length);
             }
         }
+    }
+
+    private void TutorialButtonsToFalse()
+    {
+        tutorialButton.SetActive(false);
+        corda1.SetActive(false);
+        descricao1.SetActive(false);
+        corda2.SetActive(false);
+        descricao2.SetActive(false);
+        corda3.SetActive(false);
+        descricao3.SetActive(false);
+    }
+
+    private void TutorialButtonsToTrue()
+    {
+        tutorialButton.SetActive(true);
+        corda1.SetActive(true);
+        descricao1.SetActive(true);
+        corda2.SetActive(true);
+        descricao2.SetActive(true);
+        corda3.SetActive(true);
+        descricao3.SetActive(true);
     }
 }

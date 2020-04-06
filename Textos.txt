@@ -1,0 +1,8 @@
+Corda:
+Explicar som de saltar à corda -> "Este é o som de saltar à corda."
+Explicar som de uma perna a saltar -> "Um toque no ecrã corresponde a uma das pernas a saltar."
+Explicar som de duas pernas a saltar -> "Dois toques corresponde a um salto com as duas pernas."
+
+Space Shooter:
+
+Guarda-Redes:

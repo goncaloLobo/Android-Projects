@@ -28,6 +28,21 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
             }
+
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Tutorial)
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+            }
+
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Tutorial)
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+            }
+
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+            }
         }
         lastTapTime = currentTapTime;
     }

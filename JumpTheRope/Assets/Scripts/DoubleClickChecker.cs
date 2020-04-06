@@ -97,10 +97,9 @@ public class DoubleClickChecker : MonoBehaviour
             StartCoroutine(WaitForTouch(inicioJogo.clip.length, DoAfter)); 
         }
 
-        /*
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
-            System.Diagnostics.Debug.WriteLine("aqui1: " + Input.touchCount);
+            System.Diagnostics.Debug.WriteLine("aqui");
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -138,43 +137,47 @@ public class DoubleClickChecker : MonoBehaviour
                         {
                             if (ButtonIntroducao.CheckForHighlighted() == 1)
                             {
+                                System.Diagnostics.Debug.WriteLine("introducao highlighted");
+                                /*
                                 buttonIntroducaoBackToNormal = true;
                                 ButtonIntroducaoBackToNormal();
 
                                 buttonInstrucoesToHighlight = true;
                                 ButtonInstrucoesToHighlight();
+                                */
                             }
 
                             if (ButtonJogar.CheckForHighlighted() == 1)
                             {
                                 buttonJogarBackToNormal = true;
-                                ButtonJogarBackToNormal();
-
                                 buttonIntroducaoToHighlight = true;
-                                ButtonIntroducaoToHighlight();
                             }
 
                             if(ButtonInstrucoes.CheckForHighlighted() == 1)
                             {
-                                buttonInstrucoesBackToNormal = true;
-                                ButtonInstrucoesBackToNormal();
+                                System.Diagnostics.Debug.WriteLine("instrucoes highlighted");
+                                //buttonInstrucoesBackToNormal = true;
+                                //ButtonInstrucoesBackToNormal();
 
-                                buttonJogarToHighlight = true;
-                                ButtonJogarToHighlight();
+                                //buttonJogarToHighlight = true;
+                                //ButtonJogarToHighlight();
                             }
                         }
 
                         //swipe right
                         if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            
+                            if (ButtonIntroducao.CheckForHighlighted() == 1)
+                            {
+                                buttonIntroducaoBackToNormal = true;
+                                buttonJogarToHighlight = true;
+                            }
                         }
                     }
                     isDoubleTap = false;
                 }
             }
         }
-        */
             /*
             if (Input.touchCount > 0 && GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
@@ -331,31 +334,31 @@ public class DoubleClickChecker : MonoBehaviour
 
     public static bool ButtonJogarBackToNormal()
     {
-        return buttonJogarBackToNormal == true;
+        return buttonJogarBackToNormal;
     }
 
     public static bool ButtonIntroducaoToHighlight()
     {
-        return buttonIntroducaoToHighlight == true;
+        return buttonIntroducaoToHighlight;
     }
 
     public static bool ButtonIntroducaoBackToNormal()
     {
-        return buttonIntroducaoBackToNormal == true;
+        return buttonIntroducaoBackToNormal;
     }
 
     public static bool ButtonInstrucoesToHighlight()
     {
-        return buttonInstrucoesToHighlight == true;
+        return buttonInstrucoesToHighlight;
     }
 
     public static bool ButtonInstrucoesBackToNormal()
     {
-        return buttonInstrucoesBackToNormal == true;
+        return buttonInstrucoesBackToNormal;
     }
 
     public static bool ButtonJogarToHighlight()
     {
-        return buttonJogarToHighlight == true;
+        return buttonJogarToHighlight;
     }
 }

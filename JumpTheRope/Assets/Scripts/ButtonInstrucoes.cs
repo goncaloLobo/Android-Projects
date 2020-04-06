@@ -8,13 +8,12 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public AudioSource instrucoes;
     private float currentTapTime;
     private float lastTapTime;
-    private static int order = 3;
 
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
     private static int highlighted;
-    private static bool check, jogarBackToNormal, introducaoBackToNormal;
+    private static bool check, jogarBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
 
     public GameObject GameManagerGO;
 
@@ -22,12 +21,21 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     {
         instrucoes = GetComponent<AudioSource>();
         highlighted = 0;
-        check = jogarBackToNormal = introducaoBackToNormal = false;
+        check = false;
+        jogarBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("InstructionsButtonTag").GetComponent<Image>();
     }
 
     void Update()
     {
+
+        if(ButtonJogar.InstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
         if (ButtonIntroducao.InstrucoesBackToNormal() && !check)
         {
             check = true;
@@ -35,11 +43,47 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             highlighted = 0;
         }
 
-        if(ButtonJogar.InstrucoesBackToNormal() && !check)
+        if (ButtonCorda1.InstrucoesBackToNormal() && !check)
         {
             check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+        }
+
+        if (ButtonCorda2.InstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda3.InstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (Tutorial.InstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        // DOUBLE CLICK CHECKER
+        if (DoubleClickChecker.ButtonInstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(DoubleClickChecker.ButtonInstrucoesToHighlight() && !check)
+        {
+            check = true;
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
         }
 
         check = false;
@@ -75,13 +119,31 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
-            JogarBackToNormal();
         }
 
         if(ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
-            IntroducaoBackToNormal();
+        }
+
+        if(ButtonCorda1.CheckForHighlighted() == 1)
+        {
+            corda1BackToNormal = true;
+        }
+
+        if (ButtonCorda2.CheckForHighlighted() == 1)
+        {
+            corda2BackToNormal = true;
+        }
+
+        if (ButtonCorda3.CheckForHighlighted() == 1)
+        {
+            corda3BackToNormal = true;
+        }
+
+        if (Tutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -90,7 +152,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             highlighted = 1;
         }
 
-        mImage.sprite = spriteHighlighted;
         if (!instrucoes.isPlaying)
             instrucoes.Play();
     }
@@ -105,18 +166,33 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return highlighted;
     }
 
-    public static int GetOrder()
-    {
-        return order;
-    }
-
     public static bool JogarBackToNormal()
     {
-        return jogarBackToNormal == true;
+        return jogarBackToNormal;
     }
 
     public static bool IntroducaoBackToNormal()
     {
-        return introducaoBackToNormal == true;
+        return introducaoBackToNormal;
+    }
+
+    public static bool Corda1BackToNormal()
+    {
+        return corda1BackToNormal;
+    }
+
+    public static bool Corda2BackToNormal()
+    {
+        return corda2BackToNormal;
+    }
+
+    public static bool Corda3BackToNormal()
+    {
+        return corda3BackToNormal;
+    }
+
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
     }
 }

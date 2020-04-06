@@ -11,6 +11,11 @@ TagManager:
   - PlayButtonTag
   - InstructionsButtonTag
   - IntroductionButtonTag
+  - CordaButton1
+  - CordaButton2
+  - CordaButton3
+  - CordaButtonText1
+  - Tutorial
   layers:
   - Default
   - TransparentFX

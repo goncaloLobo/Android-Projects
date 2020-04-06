@@ -11,13 +11,12 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float currentTapTime;
     private float lastTapTime;
 
-    private static int order = 1;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private static Image mImage;
     private static int highlighted;
     private bool check;
-    private static bool jogarBackToNormal, instrucoesBackToNormal;
+    private static bool jogarBackToNormal, buttonCorda1BackToNormal, instrucoesBackToNormal, buttonCorda2BackToNormal, buttonCorda3BackToNormal, tutorialBackToNormal;
 
     void Start()
     {
@@ -25,12 +24,14 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         introducao = sounds[0];
         intro = sounds[1];
         highlighted = 0;
-        check = jogarBackToNormal = instrucoesBackToNormal = false;
+        check = false;
+        jogarBackToNormal = buttonCorda1BackToNormal = instrucoesBackToNormal = buttonCorda2BackToNormal = buttonCorda3BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroductionButtonTag").GetComponent<Image>();
     }
 
     void Update()
     {
+        // BACK TO NORMAL
         if(ButtonJogar.IntroducaoBackToNormal() && !check)
         {
             check = true;
@@ -43,6 +44,49 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+        }
+
+        if (ButtonCorda1.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(ButtonCorda2.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda3.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (Tutorial.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        // DOUBLE CLICK CHECKER
+        if (DoubleClickChecker.ButtonIntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(DoubleClickChecker.ButtonIntroducaoToHighlight() && !check)
+        {
+            check = true;
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
         }
 
         check = false;
@@ -78,13 +122,31 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
-            JogarBackToNormal();
+        }
+
+        if (ButtonCorda1.CheckForHighlighted() == 1)
+        {
+            buttonCorda1BackToNormal = true;
         }
 
         if(ButtonInstrucoes.CheckForHighlighted() == 1)
         {
             instrucoesBackToNormal = true;
-            InstrucoesBackToNormal();
+        }
+
+        if (ButtonCorda2.CheckForHighlighted() == 1)
+        {
+            buttonCorda2BackToNormal = true;
+        }
+
+        if (ButtonCorda3.CheckForHighlighted() == 1)
+        {
+            buttonCorda3BackToNormal = true;
+        }
+
+        if (Tutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -109,11 +171,31 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public static bool JogarBackToNormal()
     {
-        return jogarBackToNormal == true;
+        return jogarBackToNormal;
+    }
+
+    public static bool ButtonCorda1BackToNormal()
+    {
+        return buttonCorda1BackToNormal;
     }
 
     public static bool InstrucoesBackToNormal()
     {
-        return instrucoesBackToNormal == true;
+        return instrucoesBackToNormal;
+    }
+
+    public static bool ButtonCorda2BackToNormal()
+    {
+        return buttonCorda2BackToNormal;
+    }
+
+    public static bool ButtonCorda3BackToNormal()
+    {
+        return buttonCorda3BackToNormal;
+    }
+
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
     }
 }
