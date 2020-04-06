@@ -6,7 +6,6 @@ using System;
 
 public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public AudioSource[] sounds;
     public AudioSource corda;
     public AudioSource descricao;
 
@@ -20,10 +19,6 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     void Start()
     {
-        sounds = GetComponents<AudioSource>();
-        corda = sounds[0];
-        descricao = sounds[1];
-
         highlighted = 0;
         check = false;
         introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda2BackToNormal = tutorialBackToNormal = false;

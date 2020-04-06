@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public AudioSource[] sounds;
     public AudioSource saltar1perna;
     public AudioSource descricao;
 
@@ -17,10 +16,6 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     void Start()
     {
-        sounds = GetComponents<AudioSource>();
-        saltar1perna = sounds[0];
-        descricao = sounds[1];
-
         highlighted = 0;
         check = false;
         corda1BackToNormal = introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda3BackToNormal = tutorialBackToNormal = false;

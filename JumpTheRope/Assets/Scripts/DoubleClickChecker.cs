@@ -28,7 +28,15 @@ public class DoubleClickChecker : MonoBehaviour
     public GameManager GameManagerGO;
     private int i = 0;
 
-    private bool isDoubleTap, isGoingToTouch;
+    public AudioSource introducaoSound; // som do botao da introducao
+    public AudioSource cordaSound; // som da corda (usado no ButtonCorda1)
+    public AudioSource descricaoCordaSound; // descricao da corda (usado no ButtonCorda1)
+    public AudioSource umaPernaSound; // som de uma perna (usado no ButtonCorda2)
+    public AudioSource descricaoUmaPerna; // descricao do som (usado no ButtonCorda2)
+    public AudioSource duasPernasSound; // som de um salto com 2 pernas (usado no ButtonCorda3)
+    public AudioSource descricaoDuasPernas; // descricao do som (usado no ButtonCorda3)
+
+    private bool isDoubleTap;
     private float screenDPI;
     private float increaseSpeedTimer;
 
@@ -49,7 +57,7 @@ public class DoubleClickChecker : MonoBehaviour
     {
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
-        isGoingToTouch = isDoubleTap = buttonJogarBackToNormal = false;
+        isDoubleTap = buttonJogarBackToNormal = false;
         buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
         buttonJogarToHighlight = false;
         screenDPI = Screen.dpi;
@@ -90,16 +98,15 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
-        if(GameManager.GetPreGameplay() && i == 0)
+        if (GameManager.GetPreGameplay() && i == 0)
         {
             i++;
             inicioJogo.Play();
-            StartCoroutine(WaitForTouch(inicioJogo.clip.length, DoAfter)); 
+            StartCoroutine(WaitForTouch(inicioJogo.clip.length, DoAfter));
         }
 
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
-            System.Diagnostics.Debug.WriteLine("aqui");
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -108,7 +115,22 @@ public class DoubleClickChecker : MonoBehaviour
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     isDoubleTap = true;
-                    // se for doubletap e o botao jogar highlighted, entao faz jogar.
+                    // se o botao jogar estiver highlighted
+                    if (ButtonJogar.CheckForHighlighted() == 1)
+                    {
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                    }
+
+                    else if (ButtonIntroducao.CheckForHighlighted() == 1)
+                    {
+                        if(!introducaoSound.isPlaying)
+                            introducaoSound.Play();
+                    }
+
+                    else if (ButtonInstrucoes.CheckForHighlighted() == 1)
+                    {
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+                    }
                 }
             }
             else if (touch.phase == TouchPhase.Moved)
@@ -153,7 +175,7 @@ public class DoubleClickChecker : MonoBehaviour
                                 buttonIntroducaoToHighlight = true;
                             }
 
-                            if(ButtonInstrucoes.CheckForHighlighted() == 1)
+                            if (ButtonInstrucoes.CheckForHighlighted() == 1)
                             {
                                 System.Diagnostics.Debug.WriteLine("instrucoes highlighted");
                                 //buttonInstrucoesBackToNormal = true;
@@ -178,79 +200,91 @@ public class DoubleClickChecker : MonoBehaviour
                 }
             }
         }
-            /*
-            if (Input.touchCount > 0 && GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
+
+        if (Input.touchCount > 0 && GameManager.GetInstrucoes())
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
             {
-                if (ButtonJogar.HasEntered())
+                currentTouch = touch;
+                currentTapTime = Time.time;
+                if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("entrei buttonjogar.hasEntered");
-                    System.Diagnostics.Debug.WriteLine("Input.touchCount: " + Input.touchCount);
-                    System.Diagnostics.Debug.WriteLine("entrei no toque seguinte");
-                    Touch touch = Input.GetTouch(0);
-                    if (touch.phase == TouchPhase.Began)
+                    isDoubleTap = true;
+                    // se o botao jogar estiver highlighted
+                    if (Tutorial.CheckForHighlighted() == 1)
                     {
-                        currentTouch = touch;
-                        currentTapTime = Time.time;
-                        if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Tutorial);
+                    }
+
+                    else if (ButtonJogar.CheckForHighlighted() == 1)
+                    {
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                    }
+
+                    else if (ButtonCorda1.CheckForHighlighted() == 1)
+                    {
+                        if (!descricaoCordaSound.isPlaying)
                         {
-                            isDoubleTap = true;
-                            // se for doubletap e o botao jogar highlighted, entao faz jogar.
+                            descricaoCordaSound.Play();
+                            cordaSound.PlayDelayed(descricaoCordaSound.clip.length);
+                            StartCoroutine(WaitForEndSound(8, DoAfterDescricao));
                         }
                     }
-                    else if (touch.phase == TouchPhase.Moved)
+
+                    else if (ButtonCorda2.CheckForHighlighted() == 1)
                     {
-
-                    }
-                    else if (touch.phase == TouchPhase.Ended)
-                    {
-                        previousTouch = currentTouch;
-                        lastTapTime = currentTapTime;
-
-                        int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
-                        int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
-
-                        int distance = (deltaX * deltaX) + (deltaY * deltaY);
-                        if (distance > (16.0f * screenDPI + 0.5f) && !isDoubleTap)
+                        if (!descricaoUmaPerna.isPlaying)
                         {
-                            float difference = lastTapTime - currentTapTime;
-                            if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
-                            {
-                                // swipe!!!
-                                swipeDelta = new Vector2(deltaX, deltaY);
-                                swipeDelta.Normalize();
-
-                                //swipe left
-                                if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                                {
-                                    System.Diagnostics.Debug.WriteLine("entrei swipe esquerda");
-                                }
-
-                                //swipe right
-                                if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                                {
-                                    System.Diagnostics.Debug.WriteLine("entrei swipe direita");
-                                }
-                        }
-                        isDoubleTap = false;
+                            descricaoUmaPerna.Play();
+                            umaPernaSound.PlayDelayed(descricaoUmaPerna.clip.length);
                         }
                     }
-                    // se fizer swipe para a direita -> mudo para o botao de order 3 (instrucoes)
-                    // se fizer swipe para a esquerda -> mudo para o botao de order 1 (introducao)
-                }
 
-                if (ButtonIntroducao.HasEntered())
-                {
-                    // se fizer swipe para a direita -> mudo para o botao de order 2 (jogar)
-                    // se fizer swipe para a esquerda -> mudo para o botao de order 3 (instrucoes)
-                }
-
-                if (ButtonInstrucoes.HasEntered())
-                {
-                    // se fizer swipe para a direita -> mudo para o botao de order 1 (introducao)
-                    // se fizer swipe para a esquerda -> mudo para o botao de order 2 (jogar)
+                    else if (ButtonCorda3.CheckForHighlighted() == 1)
+                    {
+                        if (!descricaoDuasPernas.isPlaying)
+                        {
+                            descricaoDuasPernas.Play();
+                            duasPernasSound.PlayDelayed(descricaoDuasPernas.clip.length);
+                        }
+                    }
                 }
             }
-            */
+            else if (touch.phase == TouchPhase.Moved)
+            {
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                previousTouch = touch;
+                lastTapTime = currentTapTime;
+                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
+                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                if (distance > (16.0f * screenDPI + 0.5f))
+                {
+                    float difference = lastTapTime - currentTapTime;
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
+                    {
+                        swipeDelta = new Vector2(deltaX, deltaY);
+                        swipeDelta.Normalize();
+
+                        //swipe left
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+
+                        }
+
+                        //swipe right
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void DoAfter()
@@ -360,5 +394,16 @@ public class DoubleClickChecker : MonoBehaviour
     public static bool ButtonJogarToHighlight()
     {
         return buttonJogarToHighlight;
+    }
+
+    public IEnumerator WaitForEndSound(float duration, Action DoAfter)
+    {
+        yield return new WaitForSeconds(duration);
+        DoAfter();
+    }
+
+    public void DoAfterDescricao()
+    {
+        cordaSound.Stop();
     }
 }

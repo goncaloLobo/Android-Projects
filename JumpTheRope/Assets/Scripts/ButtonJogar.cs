@@ -97,7 +97,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            System.Diagnostics.Debug.WriteLine("doubletap no jogar, yeet");
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
         }
         lastTapTime = currentTapTime;
@@ -156,7 +155,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        jogar.Stop();
     }
 
     public static int CheckForHighlighted()
