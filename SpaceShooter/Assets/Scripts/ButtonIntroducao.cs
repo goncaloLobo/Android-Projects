@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     float clickdelay = 0.5f;
     public AudioSource[] sounds;
@@ -10,11 +11,63 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float currentTapTime;
     private float lastTapTime;
 
+    private static bool jogarBackToNormal, comoJogarBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private bool check;
+    private static int highlighted;
+    public Sprite normalSprite;
+    public Sprite spriteHighlighted;
+    private Image mImage;
+
     void Start()
     {
         sounds = GetComponents<AudioSource>();
         introducao = sounds[0];
         intro = sounds[1];
+
+        highlighted = 0;
+        check = false;
+        comoJogarBackToNormal = jogarBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
+        mImage = GameObject.FindGameObjectWithTag("IntroducaoButton").GetComponent<Image>();
+    }
+
+    void Update()
+    {
+        if (ButtonJogar.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonComoJogar.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonTempo.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonVidas.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontos.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -42,7 +95,73 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(!intro.isPlaying)
+        if (ButtonJogar.CheckForHighlighted() == 1)
+        {
+            jogarBackToNormal = true;
+        }
+
+        if (ButtonComoJogar.CheckForHighlighted() == 1)
+        {
+            comoJogarBackToNormal = true;
+        }
+
+        if (ButtonTempo.CheckForHighlighted() == 1)
+        {
+            tempoBackToNormal = true;
+        }
+
+        if (ButtonVidas.CheckForHighlighted() == 1)
+        {
+            vidasBackToNormal = true;
+        }
+
+        if (ButtonPontos.CheckForHighlighted() == 1)
+        {
+            pontosBackToNormal = true;
+        }
+
+        if (highlighted == 0)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if (!intro.isPlaying)
             intro.Play();
+    }
+
+    public static int CheckForHighlighted()
+    {
+        return highlighted;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        intro.Stop();
+    }
+
+    public static bool ComoJogarBackToNormal()
+    {
+        return comoJogarBackToNormal;
+    }
+
+    public static bool JogarBackToNormal()
+    {
+        return jogarBackToNormal;
+    }
+
+    public static bool TempoBackToNormal()
+    {
+        return tempoBackToNormal;
+    }
+
+    public static bool PontosBackToNormal()
+    {
+        return pontosBackToNormal;
+    }
+
+    public static bool VidasBackToNormal()
+    {
+        return vidasBackToNormal;
     }
 }

@@ -14,6 +14,12 @@ TagManager:
   - Boost100PointsMid
   - Boost100PointsRight
   - FinalScoreTextTag
+  - ButtonPlay
+  - ButtonComoJogar
+  - IntroducaoButton
+  - TimeTag
+  - ScoreTag
+  - LivesTag
   layers:
   - Default
   - TransparentFX

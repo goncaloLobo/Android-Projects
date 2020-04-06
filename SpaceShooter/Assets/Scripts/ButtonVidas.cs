@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler
+public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    float clicked = 0;
     public AudioSource [] sounds;
     public AudioSource vidas; //sounds[0]
     public AudioSource vidas1; //sounds[1]
@@ -11,6 +11,12 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public AudioSource vidas3; //sounds[3]
 
     public GameObject GameManagerGO;
+    private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal;
+    private bool check;
+    private static int highlighted;
+    public Sprite normalSprite;
+    public Sprite spriteHighlighted;
+    private Image mImage;
 
     void Start()
     {
@@ -19,52 +25,54 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         vidas1 = sounds[1];
         vidas2 = sounds[2];
         vidas3 = sounds[3];
+
+        highlighted = 0;
+        check = false;
+        comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = tempoBackToNormal = false;
+        mImage = GameObject.FindGameObjectWithTag("LivesTag").GetComponent<Image>();
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    void Update()
     {
-        clicked++;
-        if (clicked == 1)
+        if (ButtonComoJogar.VidasBackToNormal() && !check)
         {
-            if(GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
-            {
-                if(!vidas.isPlaying)
-                    vidas.Play();
-            }
-            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
-            {
-                switch (PlayerControlSwipe.GetCurrentNumberOfLives())
-                {
-                    case 3:
-                        if(!vidas3.isPlaying)
-                            vidas3.Play();
-                        break;
-                    case 2:
-                        if (!vidas2.isPlaying)
-                            vidas2.Play();
-                        break;
-                    case 1:
-                        if (!vidas1.isPlaying)
-                            vidas1.Play();
-                        break;
-                }
-            }
-            
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
         }
+
+        if (ButtonIntroducao.VidasBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonJogar.VidasBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonTempo.VidasBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        check = false;
     }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
         {
             if (!vidas.isPlaying)
                 vidas.Play();
         }
+
         if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
         {
             switch (PlayerControlSwipe.GetCurrentNumberOfLives())
@@ -83,5 +91,94 @@ public class ButtonVidas : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
                     break;
             }
         }
+    }
+
+    public static int CheckForHighlighted()
+    {
+        return highlighted;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        vidas.Stop();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (ButtonComoJogar.CheckForHighlighted() == 1)
+        {
+            comoJogarBackToNormal = true;
+        }
+
+        if (ButtonIntroducao.CheckForHighlighted() == 1)
+        {
+            introducaoBackToNormal = true;
+        }
+
+        if (ButtonJogar.CheckForHighlighted() == 1)
+        {
+            introducaoBackToNormal = true;
+        }
+
+        if(ButtonTempo.CheckForHighlighted() == 1)
+        {
+            tempoBackToNormal = true;
+        }
+
+        if (highlighted == 0)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
+        {
+            if (!vidas.isPlaying)
+                vidas.Play();
+        }
+
+        if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
+        {
+            switch (PlayerControlSwipe.GetCurrentNumberOfLives())
+            {
+                case 3:
+                    if (!vidas3.isPlaying)
+                        vidas3.Play();
+                    break;
+                case 2:
+                    if (!vidas2.isPlaying)
+                        vidas2.Play();
+                    break;
+                case 1:
+                    if (!vidas1.isPlaying)
+                        vidas1.Play();
+                    break;
+            }
+        }
+    }
+
+    public static bool IntroducaoBackToNormal()
+    {
+        return introducaoBackToNormal;
+    }
+
+    public static bool TempoBackToNormal()
+    {
+        return tempoBackToNormal;
+    }
+
+    public static bool JogarBackToNormal()
+    {
+        return jogarBackToNormal;
+    }
+
+    public static bool ComoJogarBackToNormal()
+    {
+        return comoJogarBackToNormal;
+    }
+
+    public static bool PontosBackToNormal()
+    {
+        return pontosBackToNormal;
     }
 }
