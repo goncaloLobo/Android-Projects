@@ -3,6 +3,17 @@ Explicar som de saltar à corda -> "Este é o som de saltar à corda."
 Explicar som de uma perna a saltar -> "Um toque no ecrã corresponde a uma das pernas a saltar."
 Explicar som de duas pernas a saltar -> "Dois toques corresponde a um salto com as duas pernas."
 
+	Tutorial:
+	Início: "Vamos dar início ao tutorial."
+	Explicar salto no ecra -> "Para levantar uma perna deve tocar uma vez no ecrã: experimente."
+	(faz o som de o salto de uma perna).
+	Explicar salto bem feito -> "Agora, para saltar à corda, deve fazer um duplo toque no ecrã: experimente."
+	(faz o som do salto normal).
+	Explicar o salto perfeito -> "Para saltar de forma perfeita, deve fazer um duplo toque no ecrã de forma mais rápida. Experimente."
+	(se for um duplo toque para salto perfeito, faz o salto perfeito. Se não for, repete a instrução).
+	Explicar o som da corda -> "Quando ouvir o som da corda, deve então tentar fazer um salto perfeito. Experimente."
+	(se nao fizer bem, repete a mensagem)
+	Final do tutorial -> "Chegou ao final do tutorial. Pode fazê-lo novamente, se quiser. Boa sorte."
 Space Shooter:
 
 Guarda-Redes:

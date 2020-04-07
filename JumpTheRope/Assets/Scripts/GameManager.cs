@@ -20,6 +20,14 @@ public class GameManager : MonoBehaviour
     public GameObject introducaoInicial;
     public GameObject descricao4;
 
+    // coisas para o tutorial
+    public AudioSource tut0;
+    public AudioSource tut1;
+    public AudioSource tut2;
+    public AudioSource tut3;
+    public AudioSource tut4;
+    public AudioSource tut5;
+
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
     public AudioSource instrucoesPt1; // sounds[1]
@@ -31,10 +39,12 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
-    private static bool started, toFinish, preGameplay, opening, instrucoes, tutorial;
+    private static bool started, toFinish, preGameplay, opening, instrucoes;
+    private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
+    private float delay = 0f;
 
     private int finalScore;
     private int n_saltos_perfeitos;
@@ -47,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, Tutorial
+        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5
     }
 
     public static GameManagerState GMState;
@@ -66,9 +76,16 @@ public class GameManager : MonoBehaviour
         backgroundLoop.Play();
         backgroundLoop.loop = true;
 
+        tut0 = sounds[7];
+        tut1 = sounds[8];
+        tut2 = sounds[9];
+        tut3 = sounds[10];
+        tut4 = sounds[11];
+        tut5 = sounds[12];
+
         //valor inicial do pitch
         audioData.pitch = 0.8f;
-        started = toFinish = preGameplay = tutorial = false;
+        started = toFinish = preGameplay = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
         opening = true;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
@@ -88,7 +105,11 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Opening:
                 started = false;
                 instrucoes = false;
-                tutorial = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
                 opening = true;
 
                 GameOverGO.SetActive(false);
@@ -107,14 +128,23 @@ public class GameManager : MonoBehaviour
             case GameManagerState.PreGameplay:
                 opening = false;
                 preGameplay = true;
-                tutorial = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
+                instrucoes = false;
                 started = false;
 
                 break;
             case GameManagerState.Gameplay:
                 preGameplay = false;
                 opening = false;
-                tutorial = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
                 started = true;
 
                 playButton.SetActive(false);
@@ -128,22 +158,96 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(15));
 
                 break;
-
-            case GameManagerState.Tutorial:
+            case GameManagerState.TutorialP1:
                 preGameplay = false;
                 opening = false;
-                tutorial = true;
-                started = true;
+                tutorialp1 = true;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
+                started = false;
 
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
+                TutorialButtonsToFalse();
+
+                // "Vamos dar início ao tutorial"
+                tut0.Play();
+                delay += tut0.clip.length;
+
+                // "Para levantar uma perna deve tocar uma vez no ecrã: experimente"
+                tut1.PlayDelayed(delay);
+
+                break;
+            case GameManagerState.TutorialP2:
+                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P2");
+                tutorialp1 = false;
+                tutorialp2 = true;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
+
+                // "Agora, para saltar à corda, deve fazer um duplo toque no ecrã: experimente."
+                tut2.Play();
+
+                break;
+            case GameManagerState.TutorialP3:
+                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P3");
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = true;
+                tutorialp4 = false;
+                tutorialp5 = false;
+
+                // "Para saltar de forma perfeita, deve fazer um duplo toque no ecrã de forma mais rápida. Experimente"
+                tut3.Play();
+
+                break;
+            case GameManagerState.TutorialP4:
+                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P4");
+                preGameplay = false;
+                opening = false;
+                instrucoes = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = true;
+                tutorialp5 = false;
+                started = false;
+
+                tut4.Play();
+                audioData.Play();
+
+                break;
+
+            case GameManagerState.TutorialP5:
+                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P5");
+                preGameplay = false;
+                opening = false;
+                instrucoes = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = true;
+                started = false;
+
+                tut5.Play();
+                audioData.Stop();
+
+                Invoke("ChangeToInstructionsState", 0f);
 
                 break;
             case GameManagerState.GameOver:
                 preGameplay = false;
                 opening = false;
-                tutorial = false;
-                started = true;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
+                tutorialp5 = false;
+                started = false;
 
                 GameOverGO.SetActive(true);
                 audioData.Stop();
@@ -166,7 +270,10 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Instrucoes:
                 preGameplay = false;
                 opening = false;
-                tutorial = false;
+                tutorialp1 = false;
+                tutorialp2 = false;
+                tutorialp3 = false;
+                tutorialp4 = false;
                 started = false;
                 instrucoes = true;
 
@@ -176,21 +283,6 @@ public class GameManager : MonoBehaviour
                 instrucoesButton.SetActive(false);
 
                 TutorialButtonsToTrue();
-
-                /*
-                float delay = 0f;
-                instrucoesPt1.Play();
-
-                delay += instrucoesPt1.clip.length;
-                oneJump.PlayDelayed(delay);
-
-                delay += oneJump.clip.length;
-                instrucoespt2.PlayDelayed(delay);
-
-                delay += instrucoespt2.clip.length;
-                correctJump.PlayDelayed(delay);
-                */
-
                 break;
         }
     }
@@ -204,6 +296,11 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public void ChangeToInstructionsState()
+    {
+        SetGameManagerState(GameManagerState.Instrucoes);
     }
 
     public void ChangeToGameOverState()
@@ -237,9 +334,29 @@ public class GameManager : MonoBehaviour
         return instrucoes;
     }
 
-    public static bool GetTutorial()
+    public static bool GetTutorialP1()
     {
-        return tutorial;
+        return tutorialp1;
+    }
+
+    public static bool GetTutorialP2()
+    {
+        return tutorialp2;
+    }
+
+    public static bool GetTutorialP3()
+    {
+        return tutorialp3;
+    }
+
+    public static bool GetTutorialP4()
+    {
+        return tutorialp4;
+    }
+
+    public static bool GetTutorialP5()
+    {
+        return tutorialp5;
     }
 
     // aumenta ou diminui o pitch a cada 15s

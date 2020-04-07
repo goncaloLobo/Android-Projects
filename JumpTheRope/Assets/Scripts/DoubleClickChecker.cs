@@ -36,14 +36,13 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource duasPernasSound; // som de um salto com 2 pernas (usado no ButtonCorda3)
     public AudioSource descricaoDuasPernas; // descricao do som (usado no ButtonCorda3)
 
-    private bool isDoubleTap;
     private float screenDPI;
     private float increaseSpeedTimer;
 
     private Vector2 swipeDelta;
 
     private static bool buttonJogarBackToNormal, buttonIntroducaoToHighlight, buttonIntroducaoBackToNormal, buttonInstrucoesToHighlight, buttonInstrucoesBackToNormal;
-    private static bool buttonJogarToHighlight;
+    private static bool buttonJogarToHighlight, tutorialBackToNormal;
     public GameObject buttonJogar;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
@@ -57,9 +56,9 @@ public class DoubleClickChecker : MonoBehaviour
     {
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
-        isDoubleTap = buttonJogarBackToNormal = false;
+        buttonJogarBackToNormal = false;
         buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
-        buttonJogarToHighlight = false;
+        buttonJogarToHighlight = tutorialBackToNormal = false;
         screenDPI = Screen.dpi;
     }
 
@@ -82,7 +81,7 @@ public class DoubleClickChecker : MonoBehaviour
             if (GameManager.GetInstrucoes())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
 
-            if(GameManager.GetTutorial())
+            if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
         }
 
@@ -135,11 +134,11 @@ public class DoubleClickChecker : MonoBehaviour
                 currentTapTime = Time.time;
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    isDoubleTap = true;
                     // se o botao jogar estiver highlighted
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                        buttonJogarBackToNormal = true;
                     }
 
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
@@ -151,6 +150,7 @@ public class DoubleClickChecker : MonoBehaviour
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+                        buttonInstrucoesBackToNormal = true;
                     }
                 }
             }
@@ -217,144 +217,185 @@ public class DoubleClickChecker : MonoBehaviour
                             }
                         }
                     }
-                    isDoubleTap = false;
                 }
             }
         }
 
-        if (Input.touchCount > 0 && GameManager.GetInstrucoes())
+        if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
+            if (GameManager.GetInstrucoes())
             {
-                currentTouch = touch;
-                currentTapTime = Time.time;
-                if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                Touch touch = Input.GetTouch(0);
+                if (touch.phase == TouchPhase.Began)
                 {
-                    isDoubleTap = true;
-                    // se o botao jogar estiver highlighted
-                    if (Tutorial.CheckForHighlighted() == 1)
+                    currentTouch = touch;
+                    currentTapTime = Time.time;
+                    if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                     {
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Tutorial);
-                    }
-
-                    else if (ButtonJogar.CheckForHighlighted() == 1)
-                    {
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
-                    }
-
-                    else if (ButtonCorda1.CheckForHighlighted() == 1)
-                    {
-                        if (!descricaoCordaSound.isPlaying)
+                        // se o botao jogar estiver highlighted
+                        if (Tutorial.CheckForHighlighted() == 1)
                         {
-                            descricaoCordaSound.Play();
-                            cordaSound.PlayDelayed(descricaoCordaSound.clip.length);
-                            StartCoroutine(WaitForEndSound(8, DoAfterDescricao));
+                            tutorialBackToNormal = true;
+                            Invoke("ChangeToTutorialP1State", 0.5f);
                         }
-                    }
 
-                    else if (ButtonCorda2.CheckForHighlighted() == 1)
-                    {
-                        if (!descricaoUmaPerna.isPlaying)
+                        else if (ButtonJogar.CheckForHighlighted() == 1)
                         {
-                            descricaoUmaPerna.Play();
-                            umaPernaSound.PlayDelayed(descricaoUmaPerna.clip.length);
+                            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                            buttonJogarBackToNormal = true;
                         }
-                    }
 
-                    else if (ButtonCorda3.CheckForHighlighted() == 1)
-                    {
-                        if (!descricaoDuasPernas.isPlaying)
+                        else if (ButtonCorda1.CheckForHighlighted() == 1)
                         {
-                            descricaoDuasPernas.Play();
-                            duasPernasSound.PlayDelayed(descricaoDuasPernas.clip.length);
+                            if (!descricaoCordaSound.isPlaying)
+                            {
+                                descricaoCordaSound.Play();
+                                cordaSound.PlayDelayed(descricaoCordaSound.clip.length);
+                                StartCoroutine(WaitForEndSound(8, DoAfterDescricao));
+                            }
+                        }
+
+                        else if (ButtonCorda2.CheckForHighlighted() == 1)
+                        {
+                            if (!descricaoUmaPerna.isPlaying)
+                            {
+                                descricaoUmaPerna.Play();
+                                umaPernaSound.PlayDelayed(descricaoUmaPerna.clip.length);
+                            }
+                        }
+
+                        else if (ButtonCorda3.CheckForHighlighted() == 1)
+                        {
+                            if (!descricaoDuasPernas.isPlaying)
+                            {
+                                descricaoDuasPernas.Play();
+                                duasPernasSound.PlayDelayed(descricaoDuasPernas.clip.length);
+                            }
                         }
                     }
                 }
-            }
-            else if (touch.phase == TouchPhase.Moved)
-            {
-
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                previousTouch = touch;
-                lastTapTime = currentTapTime;
-                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
-                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
-                int distance = (deltaX * deltaX) + (deltaY * deltaY);
-
-                if (distance > (16.0f * screenDPI + 0.5f))
+                else if (touch.phase == TouchPhase.Moved)
                 {
-                    float difference = lastTapTime - currentTapTime;
-                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
+
+                }
+                else if (touch.phase == TouchPhase.Ended)
+                {
+                    previousTouch = touch;
+                    lastTapTime = currentTapTime;
+                    int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
+                    int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
+                    int distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                    if (distance > (16.0f * screenDPI + 0.5f))
                     {
-                        swipeDelta = new Vector2(deltaX, deltaY);
-                        swipeDelta.Normalize();
-
-                        //swipe left
-                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        float difference = lastTapTime - currentTapTime;
+                        if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                         {
+                            swipeDelta = new Vector2(deltaX, deltaY);
+                            swipeDelta.Normalize();
 
-                        }
+                            //swipe left
+                            if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                            {
 
-                        //swipe right
-                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
+                            }
+
+                            //swipe right
+                            if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                            {
+                            }
                         }
                     }
+
+                }
+            }
+
+            if (GameManager.GetTutorialP1())
+            {
+                Touch touchp1 = Input.GetTouch(0);
+                if (touchp1.phase == TouchPhase.Began)
+                {
+                    currentTouch = touchp1;
+                    currentTapTime = Time.time;
+                    oneFootJumping.Play();
+                    Invoke("ChangeToTutorialP2State", 0.5f);
+                }
+                else if (touchp1.phase == TouchPhase.Ended)
+                {
+                    previousTouch = touchp1;
+                    lastTapTime = currentTapTime;
+                }
+            }
+
+            if (GameManager.GetTutorialP2())
+            {
+                Touch touchp2 = Input.GetTouch(0);
+                if (touchp2.phase == TouchPhase.Began)
+                {
+                    currentTouch = touchp2;
+                    currentTapTime = Time.time;
+                    oneFootJumping.Play();
+                    if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                    {
+                        manJumping.Play();
+                        Invoke("ChangeToTutorialP3State", 0.5f);
+                    }
+
+                }
+                else if (touchp2.phase == TouchPhase.Ended)
+                {
+                    previousTouch = touchp2;
+                    lastTapTime = currentTapTime;
+                }
+            }
+
+            if (GameManager.GetTutorialP3())
+            {
+                Touch touchp3 = Input.GetTouch(0);
+                if (touchp3.phase == TouchPhase.Began)
+                {
+                    currentTouch = touchp3;
+                    currentTapTime = Time.time;
+                    oneFootJumping.Play();
+                    if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                    {
+                        manJumping.Play();
+                        saltoPerfeito.PlayDelayed(manJumping.clip.length);
+                        Invoke("ChangeToTutorialP4State", 1.5f);
+                    }
+
+                }
+                else if (touchp3.phase == TouchPhase.Ended)
+                {
+                    previousTouch = touchp3;
+                    lastTapTime = currentTapTime;
+                }
+            }
+
+            if (GameManager.GetTutorialP4())
+            {
+                Touch touchp4 = Input.GetTouch(0);
+                if (touchp4.phase == TouchPhase.Began)
+                {
+                    currentTouch = touchp4;
+                    currentTapTime = Time.time;
+                    oneFootJumping.Play();
+                    if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                    {
+                        manJumping.Play();
+                        saltoPerfeito.PlayDelayed(manJumping.clip.length);
+
+                        Invoke("ChangeToTutorialP5State", 1.5f);
+                    }
+
+                }
+                else if (touchp4.phase == TouchPhase.Ended)
+                {
+                    previousTouch = touchp4;
+                    lastTapTime = currentTapTime;
                 }
             }
         }
-    }
-
-    public void DoAfter()
-    {
-        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
-    }
-
-    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
-    {
-        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
-        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
-
-        // diferença entre os toques superior a 1s
-        if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
-        {
-            return -1;
-        }
-
-        // se a diferença entre os toques for menor que 1s e maior que 300ms então é salto normal
-        if (currentTapTime - previousTapTime < doubleTapDeltaBigger && currentTapTime - previousTapTime > doubleTapDelta)
-        {
-            // se o duplo toque "normal" estiver dentro do circulo aceitavel, entao retorna 1
-            if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
-                return 1;
-            else
-                return -1;
-        }
-
-        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
-        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
-            return 0;
-        return -1;
-    }
-
-    private int CheckForDoubleTapOpening(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
-    {
-        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
-        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
-
-        // diferença entre os toques superior a 1s
-        if (currentTapTime - previousTapTime > doubleTapDelta)
-        {
-            return -1;
-        }
-
-        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
-        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
-            return 0;
-        return -1;
     }
 
     public IEnumerator WaitForTouch(float duration, Action DoAfter)
@@ -363,8 +404,13 @@ public class DoubleClickChecker : MonoBehaviour
         DoAfter();
     }
 
-        //numero de saltos perfeitos no final
-        public static int GetSaltosPerfeitos()
+    private void DoAfter()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+    }
+
+    //numero de saltos perfeitos no final
+    public static int GetSaltosPerfeitos()
     {
         return n_saltos_perfeitos;
     }
@@ -417,14 +463,88 @@ public class DoubleClickChecker : MonoBehaviour
         return buttonJogarToHighlight;
     }
 
-    public IEnumerator WaitForEndSound(float duration, Action DoAfter)
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
+    }
+
+    public IEnumerator WaitForEndSound(float duration, Action DoAfterDescricao)
     {
         yield return new WaitForSeconds(duration);
-        DoAfter();
+        DoAfterDescricao();
     }
 
     public void DoAfterDescricao()
     {
         cordaSound.Stop();
+    }
+
+    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
+        {
+            return -1;
+        }
+
+        // se a diferença entre os toques for menor que 1s e maior que 300ms então é salto normal
+        if (currentTapTime - previousTapTime < doubleTapDeltaBigger && currentTapTime - previousTapTime > doubleTapDelta)
+        {
+            // se o duplo toque "normal" estiver dentro do circulo aceitavel, entao retorna 1
+            if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+                return 1;
+            else
+                return -1;
+        }
+
+        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+            return 0;
+        return -1;
+    }
+
+    private int CheckForDoubleTapOpening(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDelta)
+        {
+            return -1;
+        }
+
+        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+            return 0;
+        return -1;
+    }
+
+    private void ChangeToTutorialP1State()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+    }
+
+    private void ChangeToTutorialP2State()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP2);
+    }
+
+    private void ChangeToTutorialP3State()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP3);
+    }
+
+    private void ChangeToTutorialP4State()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP4);
+    }
+
+    private void ChangeToTutorialP5State()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP5);
     }
 }

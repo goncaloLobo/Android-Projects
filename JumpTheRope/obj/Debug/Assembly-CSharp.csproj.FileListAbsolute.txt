@@ -474,4 +474,7 @@ C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
+C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

@@ -77,7 +77,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
         }
 
-        //TO HIGHLIGHT
+        //DOUBLE CLICK CHECKER
         if (DoubleClickChecker.ButtonJogarBackToNormal() && !check)
         {
             check = true;

@@ -78,6 +78,15 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             highlighted = 0;
         }
 
+        //DOUBLE CLICK CHECKER
+
+        if(DoubleClickChecker.TutorialBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
         check = false;
     }
 
@@ -91,7 +100,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Tutorial);
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
             }
         }
         lastTapTime = currentTapTime;
