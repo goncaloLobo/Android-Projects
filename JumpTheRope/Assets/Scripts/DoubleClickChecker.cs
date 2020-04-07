@@ -65,6 +65,27 @@ public class DoubleClickChecker : MonoBehaviour
 
     void Update()
     {
+        // accoes para o botao de voltar para trás do android
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.GetOpening())
+            {
+                if (introducaoSound.isPlaying)
+                    introducaoSound.Stop();
+                else
+                    Application.Quit();
+            }                
+
+            if(GameManager.GetStarted())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+
+            if (GameManager.GetInstrucoes())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+
+            if(GameManager.GetTutorial())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+        }
+
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
             Touch touch = Input.GetTouch(0);
@@ -123,7 +144,7 @@ public class DoubleClickChecker : MonoBehaviour
 
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
                     {
-                        if(!introducaoSound.isPlaying)
+                        if (!introducaoSound.isPlaying)
                             introducaoSound.Play();
                     }
 

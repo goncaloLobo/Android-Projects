@@ -471,9 +471,6 @@ C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CoreCompileInpu
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\JumpTheRope\obj\Debug\Assembly-CSharp.pdb
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.dll
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.dll
-C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.dll
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.TextMeshPro.Editor.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.PackageManagerUI.Editor.pdb
 C:\Android-Projects\JumpTheRope\Temp\bin\Debug\Unity.CollabProxy.Editor.pdb

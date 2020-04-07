@@ -12,13 +12,13 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private bool check;
-    private static bool corda1BackToNormal, introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal, corda3BackToNormal, tutorialBackToNormal;
+    private static bool corda1BackToNormal, introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     void Start()
     {
         highlighted = 0;
         check = false;
-        corda1BackToNormal = introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
+        corda1BackToNormal = introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("CordaButton2").GetComponent<Image>();
     }
 
@@ -32,6 +32,13 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         if (ButtonCorda3.Corda2BackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda4.Corda2BackToNormal() && !check)
         {
             check = true;
             mImage.sprite = normalSprite;
@@ -85,7 +92,17 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             corda1BackToNormal = true;
         }
 
-        if(ButtonIntroducao.CheckForHighlighted() == 1)
+        if (ButtonCorda3.CheckForHighlighted() == 1)
+        {
+            corda3BackToNormal = true;
+        }
+
+        if (ButtonCorda4.CheckForHighlighted() == 1)
+        {
+            corda4BackToNormal = true;
+        }
+
+        if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
         }
@@ -120,8 +137,7 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        descricao.Stop();
-        saltar1perna.Stop();
+
     }
 
     public static int CheckForHighlighted()
@@ -152,6 +168,11 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
+    }
+
+    public static bool Corda4BackToNormal()
+    {
+        return corda4BackToNormal;
     }
 
     public static bool TutorialBackToNormal()

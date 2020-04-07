@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject introducaoButton;
     public GameObject instrucoesButton;
-    public GameObject closeButton;
 
     // coisas para a pagina do tutorial
     public GameObject tutorialButton;
@@ -18,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject descricao2;
     public GameObject corda3;
     public GameObject descricao3;
+    public GameObject introducaoInicial;
+    public GameObject descricao4;
 
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
@@ -95,7 +96,6 @@ public class GameManager : MonoBehaviour
                 audioData.Stop();
                 introducaoButton.SetActive(true);
                 instrucoesButton.SetActive(true);
-                closeButton.SetActive(false);
 
                 TutorialButtonsToFalse();
 
@@ -120,7 +120,6 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
-                closeButton.SetActive(true);
 
                 audioData.Play();
                 audioData.loop = true;
@@ -135,6 +134,9 @@ public class GameManager : MonoBehaviour
                 opening = false;
                 tutorial = true;
                 started = true;
+
+                introducaoButton.SetActive(false);
+                instrucoesButton.SetActive(false);
 
                 break;
             case GameManagerState.GameOver:
@@ -401,6 +403,8 @@ public class GameManager : MonoBehaviour
         descricao2.SetActive(false);
         corda3.SetActive(false);
         descricao3.SetActive(false);
+        introducaoInicial.SetActive(false);
+        descricao4.SetActive(false);
     }
 
     private void TutorialButtonsToTrue()
@@ -412,5 +416,7 @@ public class GameManager : MonoBehaviour
         descricao2.SetActive(true);
         corda3.SetActive(true);
         descricao3.SetActive(true);
+        introducaoInicial.SetActive(true);
+        descricao4.SetActive(true);
     }
 }

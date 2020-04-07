@@ -10,7 +10,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private static int highlighted;
     private Image mImage;
     private bool check;
-    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal;
+    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject GameManagerGO;
 
     private float currentTapTime;
@@ -23,7 +23,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         highlighted = 0;
         check = false;
-        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = false;
+        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("Tutorial").GetComponent<Image>();
     }
 
@@ -44,6 +44,13 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         }
 
         if (ButtonCorda3.TutorialBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda4.TutorialBackToNormal() && !check)
         {
             check = true;
             mImage.sprite = normalSprite;
@@ -116,6 +123,11 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             corda3BackToNormal = true;
         }
 
+        if (ButtonCorda4.CheckForHighlighted() == 1)
+        {
+            corda4BackToNormal = true;
+        }
+
         if (ButtonInstrucoes.CheckForHighlighted() == 1)
         {
             instrucoesBackToNormal = true;
@@ -143,7 +155,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        tutorial.Play();
+        
     }
 
     public static int CheckForHighlighted()
@@ -179,5 +191,10 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
+    }
+
+    public static bool Corda4BackToNormal()
+    {
+        return corda4BackToNormal;
     }
 }

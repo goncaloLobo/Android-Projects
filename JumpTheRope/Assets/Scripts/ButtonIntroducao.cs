@@ -16,7 +16,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private static Image mImage;
     private static int highlighted;
     private bool check;
-    private static bool jogarBackToNormal, buttonCorda1BackToNormal, instrucoesBackToNormal, buttonCorda2BackToNormal, buttonCorda3BackToNormal, tutorialBackToNormal;
+    private static bool jogarBackToNormal, buttonCorda1BackToNormal, instrucoesBackToNormal, buttonCorda2BackToNormal, buttonCorda3BackToNormal, buttonCorda4BackToNormal, tutorialBackToNormal;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         intro = sounds[1];
         highlighted = 0;
         check = false;
-        jogarBackToNormal = buttonCorda1BackToNormal = instrucoesBackToNormal = buttonCorda2BackToNormal = buttonCorda3BackToNormal = tutorialBackToNormal = false;
+        jogarBackToNormal = buttonCorda1BackToNormal = instrucoesBackToNormal = buttonCorda2BackToNormal = buttonCorda3BackToNormal = buttonCorda4BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroductionButtonTag").GetComponent<Image>();
     }
 
@@ -67,6 +67,13 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             highlighted = 0;
         }
 
+        if (ButtonCorda4.IntroducaoBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
         if (Tutorial.IntroducaoBackToNormal() && !check)
         {
             check = true;
@@ -95,8 +102,8 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        if (!introducao.isPlaying)
-            introducao.Play();
+        if (!intro.isPlaying)
+            intro.Play();
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
@@ -142,6 +149,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (ButtonCorda3.CheckForHighlighted() == 1)
         {
             buttonCorda3BackToNormal = true;
+        }
+
+        if (ButtonCorda4.CheckForHighlighted() == 1)
+        {
+            buttonCorda4BackToNormal = true;
         }
 
         if (Tutorial.CheckForHighlighted() == 1)
@@ -192,6 +204,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool ButtonCorda3BackToNormal()
     {
         return buttonCorda3BackToNormal;
+    }
+
+    public static bool ButtonCorda4BackToNormal()
+    {
+        return buttonCorda4BackToNormal;
     }
 
     public static bool TutorialBackToNormal()

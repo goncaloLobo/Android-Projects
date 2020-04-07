@@ -13,7 +13,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public Sprite spriteHighlighted;
     private Image mImage;
     private static int highlighted;
-    private static bool check, jogarBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
+    private static bool check, jogarBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     public GameObject GameManagerGO;
 
@@ -22,7 +22,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         instrucoes = GetComponent<AudioSource>();
         highlighted = 0;
         check = false;
-        jogarBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
+        jogarBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("InstructionsButtonTag").GetComponent<Image>();
     }
 
@@ -58,6 +58,13 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         }
 
         if (ButtonCorda3.InstrucoesBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda4.InstrucoesBackToNormal() && !check)
         {
             check = true;
             mImage.sprite = normalSprite;
@@ -141,6 +148,11 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             corda3BackToNormal = true;
         }
 
+        if (ButtonCorda4.CheckForHighlighted() == 1)
+        {
+            corda4BackToNormal = true;
+        }
+
         if (Tutorial.CheckForHighlighted() == 1)
         {
             tutorialBackToNormal = true;
@@ -189,6 +201,11 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
+    }
+
+    public static bool Corda4BackToNormal()
+    {
+        return corda4BackToNormal;
     }
 
     public static bool TutorialBackToNormal()

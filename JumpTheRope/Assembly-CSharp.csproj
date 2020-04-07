@@ -60,10 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ButtonClose.cs" />
     <Compile Include="Assets\Scripts\ButtonCorda1.cs" />
     <Compile Include="Assets\Scripts\ButtonCorda2.cs" />
     <Compile Include="Assets\Scripts\ButtonCorda3.cs" />
+    <Compile Include="Assets\Scripts\ButtonCorda4.cs" />
     <Compile Include="Assets\Scripts\ButtonInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonIntroducao.cs" />
     <Compile Include="Assets\Scripts\ButtonJogar.cs" />

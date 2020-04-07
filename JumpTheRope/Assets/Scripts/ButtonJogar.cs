@@ -8,7 +8,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public AudioSource jogar;
     private float currentTapTime;
     private float lastTapTime;
-    private static bool introducaoBackToNormal, check, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
+    private static bool introducaoBackToNormal, check, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -21,7 +21,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         jogar = GetComponent<AudioSource>();
         check = false;
-        introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
+        introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("PlayButtonTag").GetComponent<Image>();
     }
 
@@ -57,6 +57,13 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         }
 
         if (ButtonCorda3.JogarBackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda4.JogarBackToNormal() && !check)
         {
             check = true;
             mImage.sprite = normalSprite;
@@ -138,6 +145,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             corda3BackToNormal = true;
         }
 
+        if (ButtonCorda4.CheckForHighlighted() == 1)
+        {
+            corda4BackToNormal = true;
+        }
+
         if (Tutorial.CheckForHighlighted() == 1)
         {
             tutorialBackToNormal = true;
@@ -155,7 +167,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        jogar.Stop();
+        
     }
 
     public static int CheckForHighlighted()
@@ -186,6 +198,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
+    }
+
+    public static bool Corda4BackToNormal()
+    {
+        return corda4BackToNormal;
     }
 
     public static bool TutorialBackToNormal()
