@@ -132,7 +132,7 @@ public class DoubleClickChecker : MonoBehaviour
         }
 
         if (Input.touchCount > 0 && GameManager.GetOpening())
-        {            
+        {
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -170,32 +170,6 @@ public class DoubleClickChecker : MonoBehaviour
             {
                 previousTouch = touch;
                 lastTapTime = currentTapTime;
-                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
-                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
-                int distance = (deltaX * deltaX) + (deltaY * deltaY);
-
-                if (distance > (16.0f * screenDPI + 0.5f))
-                {
-                    float difference = lastTapTime - currentTapTime;
-                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
-                    {
-                        // swipe!!!
-                        swipeDelta = new Vector2(deltaX, deltaY);
-                        swipeDelta.Normalize();
-
-                        //swipe left
-                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
-
-                        }
-
-                        //swipe right
-                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
-
-                        }
-                    }
-                }
             }
         }
 

@@ -9,18 +9,28 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private float currentTapTime;
     private float lastTapTime;
     private static bool introducaoBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
+    private static bool introducaoToHighlight, instrucoesToHighlight;
 
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private static int highlighted;
     private Image mImage;
-    private static bool spriteBool;
-
     public GameObject GameManagerGO;
+
+    private Touch currentTouch;
+    private Touch previousTouch;
+    private float screenDPI;
+    private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
+    private Vector2 swipeDelta;
+
+    private bool jogarToInstrucoes, jogarToIntroducao;
 
     void Start()
     {
         jogar = GetComponent<AudioSource>();
+        screenDPI = Screen.dpi;
+        introducaoToHighlight = instrucoesToHighlight = false;
+        jogarToInstrucoes = jogarToIntroducao = false;
         introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("PlayButtonTag").GetComponent<Image>();
     }
@@ -35,14 +45,14 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             ButtonIntroducao.JogarBackToNormalFalse();
         }
 
-        if(ButtonInstrucoes.JogarBackToNormal())
+        if (ButtonInstrucoes.JogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
             ButtonInstrucoes.JogarBackToNormalFalse();
         }
 
-        if(ButtonCorda1.JogarBackToNormal())
+        if (ButtonCorda1.JogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -72,17 +82,75 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
         }
 
-        //DOUBLE CLICK CHECKER
-        if (DoubleClickChecker.ButtonJogarBackToNormal())
-        {
-            mImage.sprite = normalSprite;
-            highlighted = 0;
-        }
- 
-        if(DoubleClickChecker.ButtonJogarToHighlight())
+        // TO HIGHLIGHT
+        if (ButtonIntroducao.JogarToHighlight())
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            ButtonIntroducao.JogarToHighlightFalse();
+        }
+
+        if (ButtonInstrucoes.JogarToHighlight())
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonInstrucoes.JogarToHighlightFalse();
+        }
+
+        // PARTE DOS SWIPES
+        if (Input.touchCount > 0 && GameManager.GetOpening())
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                currentTouch = touch;
+                currentTapTime = Time.time;
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                previousTouch = touch;
+                lastTapTime = currentTapTime;
+                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
+                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                if (distance > (16.0f * screenDPI + 0.5f))
+                {
+                    float difference = lastTapTime - currentTapTime;
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
+                    {
+                        // swipe!!!
+                        swipeDelta = new Vector2(deltaX, deltaY);
+                        swipeDelta.Normalize();
+
+                        //swipe left
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            if (jogarToIntroducao)
+                            {
+                                System.Diagnostics.Debug.WriteLine("swipe left jogar -> introducao");
+                                introducaoToHighlight = true;
+                                mImage.sprite = normalSprite;
+                                highlighted = 0;
+                                jogarToIntroducao = false;
+                            }
+                        }
+
+                        //swipe right
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            if (jogarToInstrucoes)
+                            {
+                                System.Diagnostics.Debug.WriteLine("swipe right jogar -> instrucoes");
+                                instrucoesToHighlight = true;
+                                mImage.sprite = normalSprite;
+                                highlighted = 0;
+                                jogarToInstrucoes = false;
+                            }                            
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -110,6 +178,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        jogarToIntroducao = true;
+        jogarToInstrucoes = true;
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
@@ -170,6 +240,16 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return introducaoBackToNormal;
     }
 
+    public static bool IntroducaoToHighlight()
+    {
+         return introducaoToHighlight;
+    }
+
+    public static void IntroducaoToHighlightFalse()
+    {
+        introducaoToHighlight = false;
+    }
+
     public static void IntroducaoBackToNormalFalse()
     {
         introducaoBackToNormal = false;
@@ -178,6 +258,16 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool InstrucoesBackToNormal()
     {
         return instrucoesBackToNormal;
+    }
+
+    public static bool InstrucoesToHighlight()
+    {
+        return instrucoesToHighlight;
+    }
+
+    public static void InstrucoesToHighlightFalse()
+    {
+        instrucoesToHighlight = false;
     }
 
     public static void InstrucoesBackToNormalFalse()
