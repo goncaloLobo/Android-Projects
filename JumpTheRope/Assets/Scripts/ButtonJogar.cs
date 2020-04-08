@@ -8,7 +8,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public AudioSource jogar;
     private float currentTapTime;
     private float lastTapTime;
-    private static bool introducaoBackToNormal, check, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
+    private static bool introducaoBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -21,7 +21,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     void Start()
     {
         jogar = GetComponent<AudioSource>();
-        check = false;
         introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("PlayButtonTag").GetComponent<Image>();
     }
@@ -43,52 +42,45 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             ButtonInstrucoes.JogarBackToNormalFalse();
         }
 
-        if(ButtonCorda1.JogarBackToNormal() && !check)
+        if(ButtonCorda1.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonCorda2.JogarBackToNormal() && !check)
+        if (ButtonCorda2.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonCorda3.JogarBackToNormal() && !check)
+        if (ButtonCorda3.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonCorda4.JogarBackToNormal() && !check)
+        if (ButtonCorda4.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (Tutorial.JogarBackToNormal() && !check)
+        if (Tutorial.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
         //DOUBLE CLICK CHECKER
-        if (DoubleClickChecker.ButtonJogarBackToNormal() && !check)
+        if (DoubleClickChecker.ButtonJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
  
-        if(DoubleClickChecker.ButtonJogarToHighlight() && !check)
+        if(DoubleClickChecker.ButtonJogarToHighlight())
         {
-            check = true;
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }

@@ -132,7 +132,7 @@ public class DoubleClickChecker : MonoBehaviour
         }
 
         if (Input.touchCount > 0 && GameManager.GetOpening())
-        {
+        {            
             Touch touch = Input.GetTouch(0);
             if (touch.phase == TouchPhase.Began)
             {
@@ -419,6 +419,11 @@ public class DoubleClickChecker : MonoBehaviour
     public static bool ButtonIntroducaoToHighlight()
     {
         return buttonIntroducaoToHighlight;
+    }
+
+    public static void ButtonIntroducaoToHighlightFalse()
+    {
+        buttonIntroducaoToHighlight = false;
     }
 
     public static bool ButtonIntroducaoBackToNormal()

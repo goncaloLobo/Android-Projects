@@ -16,6 +16,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private static Image mImage;
     private static int highlighted;
     private bool check;
+    private static bool entered;
     private static bool jogarBackToNormal, buttonCorda1BackToNormal, instrucoesBackToNormal, buttonCorda2BackToNormal, buttonCorda3BackToNormal, buttonCorda4BackToNormal, tutorialBackToNormal;
 
     void Start()
@@ -25,6 +26,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         intro = sounds[1];
         highlighted = 0;
         check = false;
+        entered = false;
         jogarBackToNormal = buttonCorda1BackToNormal = instrucoesBackToNormal = buttonCorda2BackToNormal = buttonCorda3BackToNormal = buttonCorda4BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroductionButtonTag").GetComponent<Image>();
     }
@@ -88,6 +90,13 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
+
+        if (DoubleClickChecker.ButtonIntroducaoToHighlight())
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.ButtonIntroducaoToHighlightFalse();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -117,6 +126,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        entered = true;
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
@@ -165,6 +175,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public void OnPointerExit(PointerEventData pointerEventData)
     {
 
+    }
+
+    public static bool GetEntered()
+    {
+        return entered;
     }
 
     public static int CheckForHighlighted()
