@@ -164,7 +164,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
-        
+
     }
 
     public static int CheckForHighlighted()

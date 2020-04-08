@@ -76,6 +76,14 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
         }
 
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.Corda1BackToNormal() && !check)
+        {
+            check = true;
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
         check = false;
     }
 

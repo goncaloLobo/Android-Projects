@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private float clickdelay = 0.5f;
     public AudioSource instrucoes;
@@ -28,19 +28,19 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     void Update()
     {
-
-        if(ButtonJogar.InstrucoesBackToNormal() && !check)
+        if (ButtonJogar.InstrucoesBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonJogar.InstrucoesBackToNormalFalse();
         }
 
-        if (ButtonIntroducao.InstrucoesBackToNormal() && !check)
+        if (ButtonIntroducao.InstrucoesBackToNormal())
         {
             check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.SetInstrucoesBackToNormalFalse();
         }
 
         if (ButtonCorda1.InstrucoesBackToNormal() && !check)
@@ -79,11 +79,11 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         }
 
         // DOUBLE CLICK CHECKER
-        if (DoubleClickChecker.ButtonInstrucoesBackToNormal() && !check)
+        if (DoubleClickChecker.ButtonInstrucoesBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            DoubleClickChecker.ButtonInstrucoesBackToNormalFalse();
         }
 
         if(DoubleClickChecker.ButtonInstrucoesToHighlight() && !check)
@@ -92,15 +92,13 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        if(!instrucoes.isPlaying)
-            instrucoes.Play();
+        if (!instrucoes.isPlaying)
+            instrucoes.Play();        
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
@@ -165,7 +163,9 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         }
 
         if (!instrucoes.isPlaying)
+        {
             instrucoes.Play();
+        }            
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -183,9 +183,19 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return jogarBackToNormal;
     }
 
+    public static void JogarBackToNormalFalse()
+    {
+        jogarBackToNormal = false;
+    }
+
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static void IntroducaoBackToNormalFalse()
+    {
+        introducaoBackToNormal = false;
     }
 
     public static bool Corda1BackToNormal()
@@ -212,4 +222,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     {
         return tutorialBackToNormal;
     }
+
+    
 }

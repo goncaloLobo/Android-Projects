@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private float clickdelay = 0.5f;
     public AudioSource [] sounds;
@@ -32,18 +32,18 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     void Update()
     {
         // BACK TO NORMAL
-        if(ButtonJogar.IntroducaoBackToNormal() && !check)
+        if(ButtonJogar.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonJogar.IntroducaoBackToNormalFalse();
         }
 
-        if(ButtonInstrucoes.IntroducaoBackToNormal() && !check)
+        if(ButtonInstrucoes.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonInstrucoes.IntroducaoBackToNormalFalse();
         }
 
         if (ButtonCorda1.IntroducaoBackToNormal() && !check)
@@ -88,15 +88,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-
-        if(DoubleClickChecker.ButtonIntroducaoToHighlight() && !check)
-        {
-            check = true;
-            mImage.sprite = spriteHighlighted;
-            highlighted = 1;
-        }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -186,6 +177,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return jogarBackToNormal;
     }
 
+    public static void JogarBackToNormalFalse()
+    {
+        jogarBackToNormal = false;
+    }
+
     public static bool ButtonCorda1BackToNormal()
     {
         return buttonCorda1BackToNormal;
@@ -194,6 +190,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool InstrucoesBackToNormal()
     {
         return instrucoesBackToNormal;
+    }
+
+    public static void SetInstrucoesBackToNormalFalse()
+    {
+        instrucoesBackToNormal = false;
     }
 
     public static bool ButtonCorda2BackToNormal()

@@ -42,7 +42,7 @@ public class DoubleClickChecker : MonoBehaviour
     private Vector2 swipeDelta;
 
     private static bool buttonJogarBackToNormal, buttonIntroducaoToHighlight, buttonIntroducaoBackToNormal, buttonInstrucoesToHighlight, buttonInstrucoesBackToNormal;
-    private static bool buttonJogarToHighlight, tutorialBackToNormal;
+    private static bool buttonJogarToHighlight, tutorialBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject buttonJogar;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
@@ -58,6 +58,7 @@ public class DoubleClickChecker : MonoBehaviour
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
         buttonJogarBackToNormal = false;
         buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
+        corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
         buttonJogarToHighlight = tutorialBackToNormal = false;
         screenDPI = Screen.dpi;
     }
@@ -81,8 +82,13 @@ public class DoubleClickChecker : MonoBehaviour
             if (GameManager.GetInstrucoes())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
 
-            if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3())
+            if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3() || GameManager.GetTutorialP4() || GameManager.GetTutorialP5())
+            {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+            }
+
+            if(GameManager.GetPreGameplay())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
         }
 
         if (Input.touchCount > 0 && GameManager.GetStarted())
@@ -134,6 +140,7 @@ public class DoubleClickChecker : MonoBehaviour
                 currentTapTime = Time.time;
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
+                    System.Diagnostics.Debug.WriteLine("OH PRA MIM AQUI NO DOUBLETAP");
                     // se o botao jogar estiver highlighted
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
@@ -145,6 +152,7 @@ public class DoubleClickChecker : MonoBehaviour
                     {
                         if (!introducaoSound.isPlaying)
                             introducaoSound.Play();
+                        buttonIntroducaoBackToNormal = true;
                     }
 
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
@@ -178,43 +186,13 @@ public class DoubleClickChecker : MonoBehaviour
                         //swipe left
                         if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            if (ButtonIntroducao.CheckForHighlighted() == 1)
-                            {
-                                System.Diagnostics.Debug.WriteLine("introducao highlighted");
-                                /*
-                                buttonIntroducaoBackToNormal = true;
-                                ButtonIntroducaoBackToNormal();
 
-                                buttonInstrucoesToHighlight = true;
-                                ButtonInstrucoesToHighlight();
-                                */
-                            }
-
-                            if (ButtonJogar.CheckForHighlighted() == 1)
-                            {
-                                buttonJogarBackToNormal = true;
-                                buttonIntroducaoToHighlight = true;
-                            }
-
-                            if (ButtonInstrucoes.CheckForHighlighted() == 1)
-                            {
-                                System.Diagnostics.Debug.WriteLine("instrucoes highlighted");
-                                //buttonInstrucoesBackToNormal = true;
-                                //ButtonInstrucoesBackToNormal();
-
-                                //buttonJogarToHighlight = true;
-                                //ButtonJogarToHighlight();
-                            }
                         }
 
                         //swipe right
                         if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            if (ButtonIntroducao.CheckForHighlighted() == 1)
-                            {
-                                buttonIntroducaoBackToNormal = true;
-                                buttonJogarToHighlight = true;
-                            }
+
                         }
                     }
                 }
@@ -458,6 +436,11 @@ public class DoubleClickChecker : MonoBehaviour
         return buttonInstrucoesBackToNormal;
     }
 
+    public static void ButtonInstrucoesBackToNormalFalse()
+    {
+        buttonInstrucoesBackToNormal = false;
+    }
+
     public static bool ButtonJogarToHighlight()
     {
         return buttonJogarToHighlight;
@@ -466,6 +449,26 @@ public class DoubleClickChecker : MonoBehaviour
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static bool Corda1BackToNormal()
+    {
+        return corda1BackToNormal;
+    }
+
+    public static bool Corda2BackToNormal()
+    {
+        return corda2BackToNormal;
+    }
+
+    public static bool Corda3BackToNormal()
+    {
+        return corda3BackToNormal;
+    }
+
+    public static bool Corda4BackToNormal()
+    {
+        return corda4BackToNormal;
     }
 
     public IEnumerator WaitForEndSound(float duration, Action DoAfterDescricao)

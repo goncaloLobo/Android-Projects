@@ -14,6 +14,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public Sprite spriteHighlighted;
     private static int highlighted;
     private Image mImage;
+    private static bool spriteBool;
 
     public GameObject GameManagerGO;
 
@@ -28,18 +29,18 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     void Update()
     {
         // BACK TO NORMAL
-        if (ButtonIntroducao.JogarBackToNormal() && !check)
+        if (ButtonIntroducao.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.JogarBackToNormalFalse();
         }
 
-        if(ButtonInstrucoes.JogarBackToNormal() && !check)
+        if(ButtonInstrucoes.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
+            ButtonInstrucoes.JogarBackToNormalFalse();
         }
 
         if(ButtonCorda1.JogarBackToNormal() && !check)
@@ -84,7 +85,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-
  
         if(DoubleClickChecker.ButtonJogarToHighlight() && !check)
         {
@@ -92,8 +92,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -167,7 +165,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+
     }
 
     public static int CheckForHighlighted()
@@ -180,9 +178,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return introducaoBackToNormal;
     }
 
+    public static void IntroducaoBackToNormalFalse()
+    {
+        introducaoBackToNormal = false;
+    }
+
     public static bool InstrucoesBackToNormal()
     {
         return instrucoesBackToNormal;
+    }
+
+    public static void InstrucoesBackToNormalFalse()
+    {
+        instrucoesBackToNormal = false;
     }
 
     public static bool Corda1BackToNormal()

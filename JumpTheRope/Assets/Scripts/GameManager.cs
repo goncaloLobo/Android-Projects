@@ -103,14 +103,7 @@ public class GameManager : MonoBehaviour
         switch (GMState)
         {
             case GameManagerState.Opening:
-                started = false;
-                instrucoes = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
-                opening = true;
+                SetOpeningBools();
 
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
@@ -125,27 +118,13 @@ public class GameManager : MonoBehaviour
                 GetCurrentHighScores();
 
                 break;
-            case GameManagerState.PreGameplay:
-                opening = false;
-                preGameplay = true;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
-                instrucoes = false;
-                started = false;
 
+            case GameManagerState.PreGameplay:
+                SetPregameplayBools();
                 break;
+
             case GameManagerState.Gameplay:
-                preGameplay = false;
-                opening = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
-                started = true;
+                SetGameplayBools();
 
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
@@ -158,18 +137,13 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(15));
 
                 break;
+
             case GameManagerState.TutorialP1:
-                preGameplay = false;
-                opening = false;
-                tutorialp1 = true;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
-                started = false;
+                SetTutorial1Bools();
 
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
+                playButton.SetActive(false);
                 TutorialButtonsToFalse();
 
                 // "Vamos dar início ao tutorial"
@@ -181,57 +155,28 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.TutorialP2:
-                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P2");
-                tutorialp1 = false;
-                tutorialp2 = true;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
+                SetTutorial2Bools();
 
                 // "Agora, para saltar à corda, deve fazer um duplo toque no ecrã: experimente."
                 tut2.Play();
 
                 break;
             case GameManagerState.TutorialP3:
-                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P3");
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = true;
-                tutorialp4 = false;
-                tutorialp5 = false;
+                SetTutorial3Bools();
 
                 // "Para saltar de forma perfeita, deve fazer um duplo toque no ecrã de forma mais rápida. Experimente"
                 tut3.Play();
-
                 break;
+
             case GameManagerState.TutorialP4:
-                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P4");
-                preGameplay = false;
-                opening = false;
-                instrucoes = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = true;
-                tutorialp5 = false;
-                started = false;
+                SetTutorial4Bools();
 
                 tut4.Play();
                 audioData.Play();
-
                 break;
 
             case GameManagerState.TutorialP5:
-                System.Diagnostics.Debug.WriteLine("ENTREI TUTORIAL P5");
-                preGameplay = false;
-                opening = false;
-                instrucoes = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = true;
-                started = false;
+                SetTutorial5Bools();
 
                 tut5.Play();
                 audioData.Stop();
@@ -240,14 +185,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-                preGameplay = false;
-                opening = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                tutorialp5 = false;
-                started = false;
+                SetGameoverBools();
 
                 GameOverGO.SetActive(true);
                 audioData.Stop();
@@ -268,14 +206,7 @@ public class GameManager : MonoBehaviour
                 Invoke("ChangeToOpeningState", 3f);
                 break;
             case GameManagerState.Instrucoes:
-                preGameplay = false;
-                opening = false;
-                tutorialp1 = false;
-                tutorialp2 = false;
-                tutorialp3 = false;
-                tutorialp4 = false;
-                started = false;
-                instrucoes = true;
+                SetInstructionsBools();
 
                 audioData.Stop();
                 playButton.SetActive(true);
@@ -535,5 +466,134 @@ public class GameManager : MonoBehaviour
         descricao3.SetActive(true);
         introducaoInicial.SetActive(true);
         descricao4.SetActive(true);
+    }
+
+    private void SetOpeningBools()
+    {
+        started = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        opening = true;
+    }
+
+    private void SetPregameplayBools()
+    {
+        opening = false;
+        preGameplay = true;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        instrucoes = false;
+        started = false;
+    }
+
+    private void SetGameplayBools()
+    {
+        preGameplay = false;
+        opening = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        instrucoes = false;
+        started = true;
+    }
+
+    private void SetTutorial1Bools()
+    {
+        preGameplay = false;
+        opening = false;
+        tutorialp1 = true;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        started = false;
+        instrucoes = false;
+    }
+
+    private void SetTutorial2Bools()
+    {
+        preGameplay = false;
+        opening = false;
+        started = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = true;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+    }
+
+    private void SetTutorial3Bools()
+    {
+        preGameplay = false;
+        opening = false;
+        started = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = true;
+        tutorialp4 = false;
+        tutorialp5 = false;
+    }
+
+    private void SetTutorial4Bools()
+    {
+        preGameplay = false;
+        opening = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = true;
+        tutorialp5 = false;
+        started = false;
+    }
+
+    private void SetTutorial5Bools()
+    {
+        preGameplay = false;
+        opening = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = true;
+        started = false;
+    }
+
+    private void SetGameoverBools()
+    {
+        preGameplay = false;
+        opening = false;
+        instrucoes = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        started = false;
+    }
+
+    private void SetInstructionsBools()
+    {
+        preGameplay = false;
+        opening = false;
+        tutorialp1 = false;
+        tutorialp2 = false;
+        tutorialp3 = false;
+        tutorialp4 = false;
+        tutorialp5 = false;
+        started = false;
+        instrucoes = true;
     }
 }
