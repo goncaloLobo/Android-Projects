@@ -19,6 +19,8 @@ public class DoubleClickChecker : MonoBehaviour
     private Touch currentTouch;
     private Touch previousTouch;
     private float currentTapTime;
+    private float timeBetweenTouches; // tempo entre os toques, para quanto maior mais alto salta (para qdo for implementar isto)
+    private float height; // altura a saltar que depende do tempo entre os toques (qto menor tempo, mais baixo o salto)
     private float lastTapTime;
     private int doubleTapCircle;
 
@@ -28,7 +30,7 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource inicioJogo;
     public GameManager GameManagerGO;
     private int i = 0;
-    private static int j = 0;
+    private static int j = 0; // para verificar que faz duplo salto no tutorial 3x
 
     public AudioSource introducaoSound; // som do botao da introducao
     public AudioSource cordaSound; // som da corda (usado no ButtonCorda1)
@@ -51,7 +53,9 @@ public class DoubleClickChecker : MonoBehaviour
     public Touch CurrentTouch { get { return currentTouch; } }
     public Touch PreviousTouch { get { return previousTouch; } }
     public float CurrentTapTime { get { return currentTapTime; } }
+    public float TimeBetweenTouches { get { return timeBetweenTouches; } }
     public float LastTapTime { get { return lastTapTime; } }
+    public float Height { get { return height; } }
     public int DoubleTapCircle { get { return doubleTapCircle; } }
 
     void Start()
@@ -63,6 +67,7 @@ public class DoubleClickChecker : MonoBehaviour
         corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
         buttonJogarToHighlight = tutorialBackToNormal = false;
         screenDPI = Screen.dpi;
+        height = 5; // altura padrão
     }
 
     void Update()
@@ -103,6 +108,8 @@ public class DoubleClickChecker : MonoBehaviour
                 currentTapTime = Time.time;
                 if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
+                    // salta sempre 5m x tempo entre os toques (mais tempo, mais alto)
+                    height *= timeBetweenTouches;
                     manJumping.Play();
                     n_saltos_perfeitos++;
                     pontuacaoTotal += perfectJump;
@@ -484,7 +491,7 @@ public class DoubleClickChecker : MonoBehaviour
     {
         int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
         int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
-
+        timeBetweenTouches = currentTapTime - previousTapTime;
         // diferença entre os toques superior a 1s
         if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
         {

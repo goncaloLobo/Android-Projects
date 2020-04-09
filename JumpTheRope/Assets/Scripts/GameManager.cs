@@ -357,7 +357,9 @@ public class GameManager : MonoBehaviour
         if (baseCountdown - 2.0f < 1.0f)
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
-            if(DoubleClickChecker.GetSaltosFalhados() > 5)
+
+            // se falhar mais do que 10 saltos, então vai terminar o jogo.
+            if(DoubleClickChecker.GetSaltosFalhados() > 10)
             {
                 toFinish = true;
             }

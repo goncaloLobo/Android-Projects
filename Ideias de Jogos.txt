@@ -87,12 +87,10 @@ Reunião 02/04:
 -> https://assetstore.unity.com/packages/tools/gui/android-native-dialogs-and-functions-plugin-106497
 
 Corda:
--> Tutorial para jogar o jogo. Opção de permitir fazer o tutorial novamente. O tutorial permite experimentar os sons ("Para levantar uma perna deve tocar 2x no ecrã: experimente. A pessoa faz e fica bem").
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
 -> Depois dos sons de bater da corda, som contínuo de velocidade.
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
--> Condição de terminar o jogo: se forem falhados muitos saltos, termina o jogo (falhar 5 saltos dos ultimos 10, por exemplo).
 
 Rocket:
 -> Instruções mais pormenorizadas e introduzir mecânicas do jogo com exemplos (vem um asteroid à esquerda e a sua nave está à esquerda, desvie-se agora ->> e faz o desvio).
