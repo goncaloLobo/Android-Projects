@@ -125,6 +125,7 @@ public class GameManager : MonoBehaviour
 
             case GameManagerState.Gameplay:
                 SetGameplayBools();
+                TutorialButtonsToFalse();
 
                 playButton.SetActive(false);
                 introducaoButton.SetActive(false);
@@ -452,6 +453,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // desativa os botoes e os sons do tutorial
     private void TutorialButtonsToFalse()
     {
         tutorialButton.SetActive(false);
@@ -465,6 +467,7 @@ public class GameManager : MonoBehaviour
         descricao4.SetActive(false);
     }
 
+    // ativa os botoes e os sons do tutorial
     private void TutorialButtonsToTrue()
     {
         tutorialButton.SetActive(true);
@@ -478,132 +481,72 @@ public class GameManager : MonoBehaviour
         descricao4.SetActive(true);
     }
 
+    // inicializa os bools para o estado opening
     private void SetOpeningBools()
     {
-        started = false;
-        instrucoes = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
         opening = true;
+        started = instrucoes = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = preGameplay = false;
     }
 
+    // inicializa os bools para o estado pregameplay
     private void SetPregameplayBools()
     {
-        opening = false;
         preGameplay = true;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
-        instrucoes = false;
-        started = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado gameplay
     private void SetGameplayBools()
     {
-        preGameplay = false;
-        opening = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
-        instrucoes = false;
         started = true;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = instrucoes = started = false;
     }
 
+    // inicializa os bools para o estado tutorialp1
     private void SetTutorial1Bools()
     {
-        preGameplay = false;
-        opening = false;
         tutorialp1 = true;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
-        started = false;
-        instrucoes = false;
+        preGameplay = opening = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado tutorialp2
     private void SetTutorial2Bools()
     {
-        preGameplay = false;
-        opening = false;
-        started = false;
-        instrucoes = false;
-        tutorialp1 = false;
         tutorialp2 = true;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
+        preGameplay = opening = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado tutorialp3
     private void SetTutorial3Bools()
     {
-        preGameplay = false;
-        opening = false;
-        started = false;
-        instrucoes = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
         tutorialp3 = true;
-        tutorialp4 = false;
-        tutorialp5 = false;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado tutorialp4
     private void SetTutorial4Bools()
     {
-        preGameplay = false;
-        opening = false;
-        instrucoes = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
         tutorialp4 = true;
-        tutorialp5 = false;
-        started = false;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado tutorialp5
     private void SetTutorial5Bools()
     {
-        preGameplay = false;
-        opening = false;
-        instrucoes = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
         tutorialp5 = true;
-        started = false;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado gameover
     private void SetGameoverBools()
     {
-        preGameplay = false;
-        opening = false;
-        instrucoes = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
-        started = false;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
+    // inicializa os bools para o estado instrucoes
     private void SetInstructionsBools()
     {
-        preGameplay = false;
-        opening = false;
-        tutorialp1 = false;
-        tutorialp2 = false;
-        tutorialp3 = false;
-        tutorialp4 = false;
-        tutorialp5 = false;
-        started = false;
         instrucoes = true;
+        preGameplay = opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 }
