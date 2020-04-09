@@ -14,6 +14,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private bool check;
+    private static int soundOn = 0;
     private static bool introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal;
     private static bool corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
@@ -84,6 +85,15 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
         }
 
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (corda.isPlaying)
+                corda.Stop();
+            if (descricao.isPlaying)
+                descricao.Stop();
+        }
+
         check = false;
     }
 
@@ -136,9 +146,57 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (!descricao.isPlaying)
         {
-            descricao.Play();
-            corda.PlayDelayed(descricao.clip.length);
-            StartCoroutine(WaitForTouch(8, DoAfter));
+            if (ButtonCorda2.GetSoundOn() == 1)
+            {
+                ButtonCorda2.SetSoundOn();
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 1)
+            {
+                ButtonCorda3.SetSoundOn();
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 1)
+            {
+                ButtonCorda4.SetSoundOn();
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
         }
 
         if (highlighted == 0)
@@ -169,6 +227,16 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static int CheckForHighlighted()
     {
         return highlighted;
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static bool IntroducaoBackToNormal()

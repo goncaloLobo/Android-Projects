@@ -12,6 +12,7 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private bool check;
+    private static int soundOn = 0;
     private static bool corda1BackToNormal, introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     void Start()
@@ -81,6 +82,15 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
         }
 
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (descricao.isPlaying)
+                descricao.Stop();
+            if (saltar1perna.isPlaying)
+                saltar1perna.Stop();
+        }
+
         check = false;
     }
 
@@ -138,14 +148,66 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (!descricao.isPlaying)
         {
-            descricao.Play();
-            saltar1perna.PlayDelayed(descricao.clip.length);
+            if (ButtonCorda1.GetSoundOn() == 1)
+            {
+                ButtonCorda1.SetSoundOn();
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda1.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 1)
+            {
+                ButtonCorda3.SetSoundOn();
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 1)
+            {
+                ButtonCorda4.SetSoundOn();
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
 
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()

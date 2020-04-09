@@ -28,6 +28,7 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource inicioJogo;
     public GameManager GameManagerGO;
     private int i = 0;
+    private static int j = 0;
 
     public AudioSource introducaoSound; // som do botao da introducao
     public AudioSource cordaSound; // som da corda (usado no ButtonCorda1)
@@ -339,8 +340,12 @@ public class DoubleClickChecker : MonoBehaviour
                     {
                         manJumping.Play();
                         saltoPerfeito.PlayDelayed(manJumping.clip.length);
+                        j++;
 
-                        Invoke("ChangeToTutorialP5State", 1.5f);
+                        if(j == 3)
+                        {
+                            Invoke("ChangeToTutorialP5State", 1.5f);
+                        }                        
                     }
 
                 }
@@ -351,6 +356,11 @@ public class DoubleClickChecker : MonoBehaviour
                 }
             }
         }
+    }
+
+    public static int GetJ()
+    {
+        return j;
     }
 
     public IEnumerator WaitForTouch(float duration, Action DoAfter)

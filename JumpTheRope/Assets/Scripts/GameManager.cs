@@ -172,7 +172,11 @@ public class GameManager : MonoBehaviour
                 SetTutorial4Bools();
 
                 tut4.Play();
-                audioData.Play();
+                audioData.PlayDelayed(tut4.clip.length);
+                if(DoubleClickChecker.GetJ() == 3)
+                {
+                    audioData.Stop();
+                }
                 break;
 
             case GameManagerState.TutorialP5:

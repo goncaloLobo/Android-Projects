@@ -13,6 +13,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private bool check;
+    private static int soundOn = 0;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     void Start()
@@ -82,6 +83,17 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
         }
 
+        // PARTE RELACIONADA COM OS SONS
+        if(soundOn == 0)
+        {
+            if (descricao.isPlaying)
+                descricao.Stop();
+            if (salto1perna.isPlaying)
+                salto1perna.Stop();
+            if (salto2pernas.isPlaying)
+                salto2pernas.Stop();
+        }
+
         check = false;
     }
 
@@ -139,15 +151,72 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (!descricao.isPlaying)
         {
-            descricao.Play();
-            salto1perna.PlayDelayed(descricao.clip.length);
-            salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+            if (ButtonCorda1.GetSoundOn() == 1)
+            {
+                ButtonCorda1.SetSoundOn();
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda1.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 1)
+            {
+                ButtonCorda2.SetSoundOn();
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 1)
+            {
+                ButtonCorda4.SetSoundOn();
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
         }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
         
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()
