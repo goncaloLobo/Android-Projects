@@ -353,7 +353,11 @@ public class GameManager : MonoBehaviour
         if (baseCountdown - 2.0f < 1.0f)
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
-            if (IsGameOver())
+            if(DoubleClickChecker.GetSaltosFalhados() > 5)
+            {
+                toFinish = true;
+            }
+            else if (IsGameOver())
             {
                 // jogo vai terminar
                 toFinish = true;

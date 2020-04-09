@@ -16,4 +16,8 @@ Explicar som de duas pernas a saltar -> "Dois toques corresponde a um salto com 
 	Final do tutorial -> "Chegou ao final do tutorial. Pode fazê-lo novamente, se quiser. Boa sorte."
 Space Shooter:
 
+	Tutorial:
+	Início: "Vamos dar início ao tutorial."
+
+
 Guarda-Redes:

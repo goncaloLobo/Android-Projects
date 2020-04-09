@@ -7,6 +7,7 @@ public class DoubleClickChecker : MonoBehaviour
     private static int n_saltos_perfeitos;
     private static int n_saltos_normais;
     private static int pontuacaoTotal;
+    private static int n_saltos_falhados;
 
     private float doubleTapDeltaBigger = Configuration.DoubleTapDeltaBigger();
     private float doubleTapDelta = Configuration.DoubleTapDelta();
@@ -111,6 +112,8 @@ public class DoubleClickChecker : MonoBehaviour
                     n_saltos_normais++;
                     pontuacaoTotal += normalJump;
                 }
+                else
+                    n_saltos_falhados++;
 
             }
             else if (touch.phase == TouchPhase.Moved)
@@ -140,7 +143,6 @@ public class DoubleClickChecker : MonoBehaviour
                 currentTapTime = Time.time;
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("OH PRA MIM AQUI NO DOUBLETAP");
                     // se o botao jogar estiver highlighted
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
@@ -255,6 +257,7 @@ public class DoubleClickChecker : MonoBehaviour
                             //swipe right
                             if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                             {
+
                             }
                         }
                     }
@@ -377,6 +380,12 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetPontuacao()
     {
         return pontuacaoTotal;
+    }
+
+    //obtem o numero de saltos falhados
+    public static int GetSaltosFalhados()
+    {
+        return n_saltos_falhados;
     }
 
     //obtem o total de saltos feitos pelo utilizador
