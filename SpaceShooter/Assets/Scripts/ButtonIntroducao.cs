@@ -12,7 +12,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float lastTapTime;
 
     private static bool jogarBackToNormal, comoJogarBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -25,49 +24,48 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         intro = sounds[1];
 
         highlighted = 0;
-        check = false;
         comoJogarBackToNormal = jogarBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroducaoButton").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonJogar.IntroducaoBackToNormal() && !check)
+        if (ButtonJogar.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonComoJogar.IntroducaoBackToNormal() && !check)
+        if (ButtonComoJogar.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonTempo.IntroducaoBackToNormal() && !check)
+        if (ButtonTempo.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonVidas.IntroducaoBackToNormal() && !check)
+        if (ButtonVidas.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonPontos.IntroducaoBackToNormal() && !check)
+        if (ButtonPontos.IntroducaoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        check = false;
+        // PLAYER CONTROL SWIPE
+        if (PlayerControlSwipe.ButtonIntroducaoBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -137,7 +135,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        intro.Stop();
+        
     }
 
     public static bool ComoJogarBackToNormal()

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System;
 
 public class PlayerControlSwipe : MonoBehaviour
 {
@@ -17,10 +19,12 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonusRight; // som bonus dir
     public AudioSource bonus100; // som a dizer "100 pontos"
     public AudioSource introducao; // som do button introducao
+    public AudioSource vaiComeçar321;
 
     public Text LivesUIText;
     private static int lives;
     private static float finalScore = 0f;
+    private int i = 0;
 
     private Touch startTouch, endTouch;
     private float startTouchTime, endTouchTime;
@@ -30,6 +34,8 @@ public class PlayerControlSwipe : MonoBehaviour
     private int doubleTapCircle;
     private bool isDoubleTap;
     private float screenDPI;
+
+    private static bool buttonJogarBackToNormal, buttonIntroducaoBackToNormal, buttonInstrucoesBackToNormal;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
 
@@ -64,6 +70,40 @@ public class PlayerControlSwipe : MonoBehaviour
         Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
         Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
 
+        // accoes para o botao de voltar para trás do android
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.GetOpening())
+            {
+                if (introducao.isPlaying)
+                    introducao.Stop();
+                else
+                    Application.Quit();
+            }
+
+            if (GameManager.GetStarted())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+
+            if (GameManager.GetInstructions())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+
+            if (GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3() || GameManager.GetTutorialP4() || GameManager.GetTutorialP5())
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+            }
+
+            if (GameManager.GetPregameplay())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+        }
+
+        if (GameManager.GetPregameplay() && i == 0)
+        {
+            i++;
+            vaiComeçar321.Play();
+            StartCoroutine(WaitForTouch(vaiComeçar321.clip.length, DoAfter));
+        }
+
+        // DETETA O INPUT PARA QUANDO ESTÁ A JOGAR
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
             Touch touch = Input.GetTouch(0);
@@ -149,12 +189,7 @@ public class PlayerControlSwipe : MonoBehaviour
             }
         }
 
-        if (Input.touchCount > 0 && !GameManager.GetStarted())
-        {
-            // nao faz nada, usado apenas para não fazer sons
-            // no menu principal depois de perder.
-        }
-
+        // DETETA O INPUT PARA O ESTADO INICIAL (DUPLO TOQUE NOS BOTOES QUE É SUPOSTO)
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
             Touch touch = Input.GetTouch(0);
@@ -165,20 +200,23 @@ public class PlayerControlSwipe : MonoBehaviour
 
                 if (CheckForDoubleTap(startTouchTime, endTouchTime, startTouch, endTouch) == 0)
                 {
-                    if(ButtonJogar.CheckForHighlighted() == 1)
+                    if (ButtonJogar.CheckForHighlighted() == 1)
                     {
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                        buttonJogarBackToNormal = true;
                     }
 
                     else if (ButtonComoJogar.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+                        buttonInstrucoesBackToNormal = true;
                     }
 
-                    else if(ButtonIntroducao.CheckForHighlighted() == 1)
+                    else if (ButtonIntroducao.CheckForHighlighted() == 1)
                     {
                         if (!introducao.isPlaying)
                             introducao.Play();
+                        buttonIntroducaoBackToNormal = true;
                     }
                 }
             }
@@ -194,21 +232,15 @@ public class PlayerControlSwipe : MonoBehaviour
         }
     }
 
-    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    public IEnumerator WaitForTouch(float duration, Action DoAfter)
     {
-        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
-        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+        yield return new WaitForSeconds(duration);
+        DoAfter();
+    }
 
-        // diferença entre os toques superior a 1s
-        if (currentTapTime - previousTapTime > doubleTapDelta)
-        {
-            return -1;
-        }
-
-        // se o duplo toque estiver dentro do circulo aceitavel, entao retorna 0
-        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
-            return 0;
-        return -1;
+    private void DoAfter()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -267,5 +299,38 @@ public class PlayerControlSwipe : MonoBehaviour
     public static int GetCurrentNumberOfLives()
     {
         return lives;
+    }
+
+    public static bool ButtonJogarBackToNormal()
+    {
+        return buttonJogarBackToNormal;
+    }
+
+    public static bool ButtonIntroducaoBackToNormal()
+    {
+        return buttonIntroducaoBackToNormal;
+    }
+
+    public static bool ButtonInstrucoesBackToNormal()
+    {
+        return buttonInstrucoesBackToNormal;
+    }
+
+
+    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
+
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDelta)
+        {
+            return -1;
+        }
+
+        // se o duplo toque estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < doubleTapCircle)
+            return 0;
+        return -1;
     }
 }

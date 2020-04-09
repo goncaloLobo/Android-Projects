@@ -9,7 +9,6 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private float lastTapTime;
     
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, jogarBackToNormal, vidasBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -20,49 +19,41 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         pontos = GetComponent<AudioSource>();
 
         highlighted = 0;
-        check = false;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = jogarBackToNormal = vidasBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ScoreTag").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonComoJogar.PontosBackToNormal() && !check)
+        if (ButtonComoJogar.PontosBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.PontosBackToNormal() && !check)
+        if (ButtonIntroducao.PontosBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonTempo.PontosBackToNormal() && !check)
+        if (ButtonTempo.PontosBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonVidas.PontosBackToNormal() && !check)
+        if (ButtonVidas.PontosBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonJogar.PontosBackToNormal() && !check)
+        if (ButtonJogar.PontosBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -73,7 +64,7 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        pontos.Stop();
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)

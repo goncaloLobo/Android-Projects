@@ -11,7 +11,6 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private float lastTapTime;
 
     private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -22,49 +21,48 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
         comoJogar = GetComponent<AudioSource>();
 
         highlighted = 0;
-        check = false;
         jogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonComoJogar").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonJogar.ComoJogarBackToNormal() && !check)
+        if (ButtonJogar.ComoJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.ComoJogarBackToNormal() && !check)
+        if (ButtonIntroducao.ComoJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonTempo.ComoJogarBackToNormal() && !check)
+        if (ButtonTempo.ComoJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonVidas.ComoJogarBackToNormal() && !check)
+        if (ButtonVidas.ComoJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonPontos.ComoJogarBackToNormal() && !check)
+        if (ButtonPontos.ComoJogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        check = false;
+        // PLAYER CONTROL SWIPE
+        if (PlayerControlSwipe.ButtonInstrucoesBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -128,7 +126,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        comoJogar.Stop();
+        
     }
 
     public static int CheckForHighlighted()

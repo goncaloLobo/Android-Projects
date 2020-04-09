@@ -11,7 +11,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -22,49 +21,48 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         jogar = GetComponent<AudioSource>();
 
         highlighted = 0;
-        check = false;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonComoJogar.JogarBackToNormal() && !check)
+        if (ButtonComoJogar.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.JogarBackToNormal() && !check)
+        if (ButtonIntroducao.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonTempo.JogarBackToNormal() && !check)
+        if (ButtonTempo.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonVidas.JogarBackToNormal() && !check)
+        if (ButtonVidas.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonPontos.JogarBackToNormal() && !check)
+        if (ButtonPontos.JogarBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        check = false;
+        // PLAYER CONTROL SWIPE
+        if (PlayerControlSwipe.ButtonJogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

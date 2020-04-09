@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject timeCounterGO;
 
     public AudioSource introducao;
-    private static bool started, opening, instructions;
+    private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, pregameplay;
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions
+        Opening, Gameplay, GameOver, Instructions, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, PreGameplay
     }
 
     public static GameManagerState GMState;
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         GMState = GameManagerState.Opening;
         finalScore = 0;
-        started = false;
+        started = instructions = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
 
         //inicializa os sons das instrucoes
         sounds = GetComponents<AudioSource>();
@@ -79,9 +79,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
                 introducaoButton.SetActive(true);
-                started = false;
-                opening = true;
-                instructions = false;
+                SetOpeningBools();
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -94,9 +92,7 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 introducaoButton.SetActive(false);
-                started = true;
-                opening = false;
-                instructions = false;
+                SetGameplayBools();
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
@@ -175,7 +171,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-                started = false;
+                SetGameoverBools();
+                
                 // terminar os contadores de tempo
                 currentTime = timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
 
@@ -207,10 +204,9 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
-                started = false;
-                opening = false;
-                instructions = true;
+                SetInstructionsBools();
 
+                /*
                 float delay = 0f;
                 instrucoespt1.Play();
                 delay += instrucoespt1.clip.length;
@@ -240,6 +236,26 @@ public class GameManager : MonoBehaviour
                 delay += instrucoespt5.clip.length;
 
                 hitWallSound.PlayDelayed(delay);
+                */
+                break;
+
+            case GameManagerState.TutorialP1:
+                SetTutorialP1Bools();
+                break;
+            case GameManagerState.TutorialP2:
+                SetTutorialP2Bools();
+                break;
+            case GameManagerState.TutorialP3:
+                SetTutorialP3Bools();
+                break;
+            case GameManagerState.TutorialP4:
+                SetTutorialP4Bools();
+                break;
+            case GameManagerState.TutorialP5:
+                SetTutorialP5Bools();
+                break;
+            case GameManagerState.PreGameplay:
+                SetPregameplayBools();
                 break;
         }
     }
@@ -273,6 +289,36 @@ public class GameManager : MonoBehaviour
     public static bool GetInstructions()
     {
         return instructions;
+    }
+
+    public static bool GetTutorialP1()
+    {
+        return tutorialp1;
+    }
+
+    public static bool GetTutorialP2()
+    {
+        return tutorialp2;
+    }
+
+    public static bool GetTutorialP3()
+    {
+        return tutorialp3;
+    }
+
+    public static bool GetTutorialP4()
+    {
+        return tutorialp4;
+    }
+
+    public static bool GetTutorialP5()
+    {
+        return tutorialp5;
+    }
+
+    public static bool GetPregameplay()
+    {
+        return pregameplay;
     }
 
     // countdown para aumentar a velocidade
@@ -348,5 +394,74 @@ public class GameManager : MonoBehaviour
         swipeSound = sounds[7];
         instrucoespt5 = sounds[8];
         hitWallSound = sounds[9];
+    }
+
+    // inicializa os bools no estado opening
+    private void SetOpeningBools()
+    {
+        opening = true;
+        started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado gameplay
+    private void SetGameplayBools()
+    {
+        started = true;
+        opening = instructions = pregameplay = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+    }
+
+    // inicializa os bools no estado gameover
+    private void SetGameoverBools()
+    {
+        started = instructions = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado instructions
+    private void SetInstructionsBools()
+    {
+        instructions = true;
+        opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado tutorialp1
+    private void SetTutorialP1Bools()
+    {
+        tutorialp1 = true;
+        opening = instructions = started = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado tutorialp2
+    private void SetTutorialP2Bools()
+    {
+        tutorialp2 = true;
+        opening = instructions = started = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado tutorialp3
+    private void SetTutorialP3Bools()
+    {
+        tutorialp3 = true;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado tutorialp4
+    private void SetTutorialP4Bools()
+    {
+        tutorialp4 = true;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado tutorialp5
+    private void SetTutorialP5Bools()
+    {
+        tutorialp5 = true;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = pregameplay = false;
+    }
+
+    // inicializa os bools no estado pregameplay
+    private void SetPregameplayBools()
+    {
+        pregameplay = true;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = tutorialp4 = false;
     }
 }

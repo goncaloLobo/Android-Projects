@@ -6,7 +6,6 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 {
     public AudioSource tempo;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, vidasBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -17,49 +16,41 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         tempo = GetComponent<AudioSource>();
 
         highlighted = 0;
-        check = false;
         comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("TimeTag").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonComoJogar.TempoBackToNormal() && !check)
+        if (ButtonComoJogar.TempoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonJogar.TempoBackToNormal() && !check)
+        if (ButtonJogar.TempoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.TempoBackToNormal() && !check)
+        if (ButtonIntroducao.TempoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonVidas.TempoBackToNormal() && !check)
+        if (ButtonVidas.TempoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonPontos.TempoBackToNormal() && !check)
+        if (ButtonPontos.TempoBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -70,7 +61,7 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tempo.Stop();
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)

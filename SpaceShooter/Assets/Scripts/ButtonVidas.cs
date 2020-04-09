@@ -12,7 +12,6 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal;
-    private bool check;
     private static int highlighted;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
@@ -27,42 +26,35 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         vidas3 = sounds[3];
 
         highlighted = 0;
-        check = false;
         comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = tempoBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("LivesTag").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonComoJogar.VidasBackToNormal() && !check)
+        if (ButtonComoJogar.VidasBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.VidasBackToNormal() && !check)
+        if (ButtonIntroducao.VidasBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonJogar.VidasBackToNormal() && !check)
+        if (ButtonJogar.VidasBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonTempo.VidasBackToNormal() && !check)
+        if (ButtonTempo.VidasBackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -100,7 +92,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        vidas.Stop();
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
