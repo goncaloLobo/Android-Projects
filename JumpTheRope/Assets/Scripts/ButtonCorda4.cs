@@ -11,7 +11,6 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public Sprite spriteHighlighted;
     private static int highlighted;
     private Image mImage;
-    private bool check;
     private static int soundOn = 0;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
 
@@ -20,66 +19,50 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         intro = GetComponent<AudioSource>();
 
         highlighted = 0;
-        check = false;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("CordaButton4").GetComponent<Image>();
     }
 
     void Update()
     {
-        if (ButtonCorda1.Corda4BackToNormal() && !check)
+        if (ButtonCorda1.Corda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonCorda2.Corda4BackToNormal() && !check)
+        if (ButtonCorda2.Corda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonCorda3.Corda4BackToNormal() && !check)
+        if (ButtonCorda3.Corda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonJogar.Corda4BackToNormal() && !check)
+        if (ButtonJogar.Corda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonInstrucoes.Corda4BackToNormal() && !check)
+        if (ButtonInstrucoes.Corda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (ButtonIntroducao.ButtonCorda4BackToNormal() && !check)
+        if (ButtonIntroducao.ButtonCorda4BackToNormal())
         {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
 
-        if (Tutorial.Corda4BackToNormal() && !check)
+        if (Tutorial.Corda4BackToNormal())
         {
-            check = true;
-            mImage.sprite = normalSprite;
-            highlighted = 0;
-        }
-
-        // DOUBLE CLICK CHECKER
-        if (DoubleClickChecker.Corda4BackToNormal() && !check)
-        {
-            check = true;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
@@ -91,8 +74,6 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (descricao.isPlaying)
                 descricao.Stop();
         }
-
-        check = false;
     }
 
     public void OnPointerClick(PointerEventData eventData)

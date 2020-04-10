@@ -97,12 +97,12 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             ButtonInstrucoes.JogarToHighlightFalse();
         }
 
-        // DOUBLE CLICK CHECKER
-        if (DoubleClickChecker.ButtonJogarBackToNormal())
+        // GAMEMANAGER
+        if (GameManager.JogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
-            DoubleClickChecker.ButtonJogarBackToNormalFalse();
+            GameManager.JogarBackToNormalFalse();
         }
 
         // PARTE DOS SWIPES

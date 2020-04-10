@@ -97,6 +97,14 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             ButtonJogar.InstrucoesToHighlightFalse();
         }
 
+        // GAMEMANAGER
+        if (GameManager.InstrucoesBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            GameManager.InstrucoesBackToNormalFalse();
+        }
+
         // PARTE DOS SWIPES
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {

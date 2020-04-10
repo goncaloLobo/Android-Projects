@@ -44,9 +44,6 @@ public class DoubleClickChecker : MonoBehaviour
     private float increaseSpeedTimer;
 
     private Vector2 swipeDelta;
-
-    private static bool buttonJogarBackToNormal, buttonIntroducaoToHighlight, buttonIntroducaoBackToNormal, buttonInstrucoesToHighlight, buttonInstrucoesBackToNormal;
-    private static bool buttonJogarToHighlight, tutorialBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject buttonJogar;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
@@ -62,10 +59,7 @@ public class DoubleClickChecker : MonoBehaviour
     {
         n_saltos_perfeitos = n_saltos_normais = pontuacaoTotal = 0;
         doubleTapCircle = doubleTapRadius * doubleTapRadius;
-        buttonJogarBackToNormal = false;
-        buttonIntroducaoToHighlight = buttonIntroducaoBackToNormal = buttonInstrucoesToHighlight = buttonInstrucoesBackToNormal = false;
-        corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
-        buttonJogarToHighlight = tutorialBackToNormal = false;
+
         screenDPI = Screen.dpi;
         height = 5; // altura padrão
     }
@@ -83,13 +77,12 @@ public class DoubleClickChecker : MonoBehaviour
                     Application.Quit();
             }
 
-            System.Diagnostics.Debug.WriteLine("get started? " + GameManager.GetStarted());
             if (GameManager.GetStarted() || GameManager.GetInstrucoes() || GameManager.GetPreGameplay())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
 
             if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3() || GameManager.GetTutorialP4() || GameManager.GetTutorialP5())
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.CancelTutorial);
             }
         }
 
@@ -150,20 +143,20 @@ public class DoubleClickChecker : MonoBehaviour
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
-                        buttonJogarBackToNormal = true;
+                        //buttonJogarBackToNormal = true;
                     }
 
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
                     {
                         if (!introducaoSound.isPlaying)
                             introducaoSound.Play();
-                        buttonIntroducaoBackToNormal = true;
+                        //buttonIntroducaoBackToNormal = true;
                     }
 
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
-                        buttonInstrucoesBackToNormal = true;
+                        //buttonInstrucoesBackToNormal = true;
                     }
                 }
             }
@@ -192,14 +185,14 @@ public class DoubleClickChecker : MonoBehaviour
                         // se o botao jogar estiver highlighted
                         if (Tutorial.CheckForHighlighted() == 1)
                         {
-                            tutorialBackToNormal = true;
+                            //tutorialBackToNormal = true;
                             Invoke("ChangeToTutorialP1State", 0.5f);
                         }
 
                         else if (ButtonJogar.CheckForHighlighted() == 1)
                         {
                             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
-                            buttonJogarBackToNormal = true;
+                            //buttonJogarBackToNormal = true;
                         }
 
                         else if (ButtonCorda1.CheckForHighlighted() == 1)
@@ -404,76 +397,6 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetTotalSaltos()
     {
         return n_saltos_normais + n_saltos_perfeitos;
-    }
-
-    public static bool ButtonJogarBackToNormal()
-    {
-        return buttonJogarBackToNormal;
-    }
-
-    public static void ButtonJogarBackToNormalFalse()
-    {
-        buttonJogarBackToNormal = false;
-    }
-
-    public static bool ButtonIntroducaoToHighlight()
-    {
-        return buttonIntroducaoToHighlight;
-    }
-
-    public static void ButtonIntroducaoToHighlightFalse()
-    {
-        buttonIntroducaoToHighlight = false;
-    }
-
-    public static bool ButtonIntroducaoBackToNormal()
-    {
-        return buttonIntroducaoBackToNormal;
-    }
-
-    public static bool ButtonInstrucoesToHighlight()
-    {
-        return buttonInstrucoesToHighlight;
-    }
-
-    public static bool ButtonInstrucoesBackToNormal()
-    {
-        return buttonInstrucoesBackToNormal;
-    }
-
-    public static void ButtonInstrucoesBackToNormalFalse()
-    {
-        buttonInstrucoesBackToNormal = false;
-    }
-
-    public static bool ButtonJogarToHighlight()
-    {
-        return buttonJogarToHighlight;
-    }
-
-    public static bool TutorialBackToNormal()
-    {
-        return tutorialBackToNormal;
-    }
-
-    public static bool Corda1BackToNormal()
-    {
-        return corda1BackToNormal;
-    }
-
-    public static bool Corda2BackToNormal()
-    {
-        return corda2BackToNormal;
-    }
-
-    public static bool Corda3BackToNormal()
-    {
-        return corda3BackToNormal;
-    }
-
-    public static bool Corda4BackToNormal()
-    {
-        return corda4BackToNormal;
     }
 
     public IEnumerator WaitForEndSound(float duration, Action DoAfterDescricao)

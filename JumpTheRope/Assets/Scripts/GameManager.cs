@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public AudioSource paraIniciarJogo;
     private static bool started, toFinish, preGameplay, opening, instrucoes;
     private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
+    private static bool jogarBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
     private float currCountdownValue;
     private float increaseSpeedTimer;
     private float baseCountdown = 15.0f;
@@ -57,7 +58,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5
+        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, CancelTutorial
     }
 
     public static GameManagerState GMState;
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour
         audioData.pitch = 0.8f;
         started = toFinish = preGameplay = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
         opening = true;
+        jogarBackToNormal = instrucoesBackToNormal = false;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
         GetCurrentHighScores();
@@ -121,6 +123,8 @@ public class GameManager : MonoBehaviour
 
             case GameManagerState.PreGameplay:
                 SetPregameplayBools();
+                // para o botao jogar ficar normal depois de entrar no jogo
+                jogarBackToNormal = true;
                 break;
 
             case GameManagerState.Gameplay:
@@ -141,7 +145,9 @@ public class GameManager : MonoBehaviour
 
             case GameManagerState.TutorialP1:
                 SetTutorial1Bools();
-
+                // para o botao instrucoes voltar ao normal depois de entrar na pagina dos tutoriais
+                tutorialBackToNormal = true;
+                
                 introducaoButton.SetActive(false);
                 instrucoesButton.SetActive(false);
                 playButton.SetActive(false);
@@ -212,6 +218,8 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.Instrucoes:
                 SetInstructionsBools();
+                // para o botao instrucoes voltar ao normal depois de entrar na pagina dos tutoriais
+                instrucoesBackToNormal = true;
 
                 audioData.Stop();
                 playButton.SetActive(true);
@@ -219,6 +227,24 @@ public class GameManager : MonoBehaviour
                 instrucoesButton.SetActive(false);
 
                 TutorialButtonsToTrue();
+                break;
+            case GameManagerState.CancelTutorial:
+                if (tut0.isPlaying)
+                    tut0.Stop();
+                if (tut1.isPlaying)
+                    tut1.Stop();
+                if (tut2.isPlaying)
+                    tut2.Stop();
+                if (tut3.isPlaying)
+                    tut3.Stop();
+                if (tut4.isPlaying)
+                    tut4.Stop();
+                if (audioData.isPlaying)
+                    audioData.Stop();
+                if (tut5.isPlaying)
+                    tut5.Stop();
+
+                Invoke("ChangeToInstructionsState", 0f);
                 break;
         }
     }
@@ -294,6 +320,40 @@ public class GameManager : MonoBehaviour
     {
         return tutorialp5;
     }
+
+    // COMANDOS PARA O BOTAO JOGAR VOLTAR AO NORMAL DEPOIS DE SER CARREGADO
+    public static bool JogarBackToNormal()
+    {
+        return jogarBackToNormal;
+    }
+
+    public static void JogarBackToNormalFalse()
+    {
+        jogarBackToNormal = false;
+    }
+
+    // COMANDOS PARA O BOTAO INSTRUCOES VOLTAR AO NORMAL DEPOIS DE SER CARREGADO
+    public static bool InstrucoesBackToNormal()
+    {
+        return instrucoesBackToNormal;
+    }
+
+    public static void InstrucoesBackToNormalFalse()
+    {
+        instrucoesBackToNormal = false;
+    }
+
+    // COMANDOS PARA O BOTAO TUTORIAL VOLTAR AO NORMAL DEPOIS DE SER CARREGADO
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
+    }
+
+    public static void TutorialBackToNormalFalse()
+    {
+        tutorialBackToNormal = false;
+    }
+
 
     // aumenta ou diminui o pitch a cada 15s
     // vai diminuir este intervalo de 3 em 3s (até 1s)
