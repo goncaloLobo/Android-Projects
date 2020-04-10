@@ -81,21 +81,16 @@ public class DoubleClickChecker : MonoBehaviour
                     introducaoSound.Stop();
                 else
                     Application.Quit();
-            }                
+            }
 
-            if(GameManager.GetStarted())
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
-
-            if (GameManager.GetInstrucoes())
+            System.Diagnostics.Debug.WriteLine("get started? " + GameManager.GetStarted());
+            if (GameManager.GetStarted() || GameManager.GetInstrucoes() || GameManager.GetPreGameplay())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
 
             if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3() || GameManager.GetTutorialP4() || GameManager.GetTutorialP5())
             {
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
             }
-
-            if(GameManager.GetPreGameplay())
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
         }
 
         if (Input.touchCount > 0 && GameManager.GetStarted())
@@ -414,6 +409,11 @@ public class DoubleClickChecker : MonoBehaviour
     public static bool ButtonJogarBackToNormal()
     {
         return buttonJogarBackToNormal;
+    }
+
+    public static void ButtonJogarBackToNormalFalse()
+    {
+        buttonJogarBackToNormal = false;
     }
 
     public static bool ButtonIntroducaoToHighlight()

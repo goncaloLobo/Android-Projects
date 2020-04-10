@@ -499,7 +499,7 @@ public class GameManager : MonoBehaviour
     private void SetGameplayBools()
     {
         started = true;
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = instrucoes = started = false;
+        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp1

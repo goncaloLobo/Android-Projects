@@ -97,6 +97,14 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             ButtonInstrucoes.JogarToHighlightFalse();
         }
 
+        // DOUBLE CLICK CHECKER
+        if (DoubleClickChecker.ButtonJogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.ButtonJogarBackToNormalFalse();
+        }
+
         // PARTE DOS SWIPES
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {

@@ -89,6 +89,7 @@ Reunião 02/04:
 Corda:
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
 -> Depois dos sons de bater da corda, som contínuo de velocidade.
+(comecei a incluir um atributo height que depende do tempo entre os dois toques)
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
 
@@ -107,3 +108,8 @@ NAO APAGAR ISTO.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 Próxima reunião -> QUINTA 16/04 11h
+-> O Talkback não funciona com os jogos: apenas deteta gameviews e gameobjects, não deteta nada no contexto do jogo. Não permite que o jogo funcione.
+-> Foi possível implementar um serviço que utiliza a voz do Google Tradutor para obter um clipe de voz de acordo com uma string. 
+   Poderá ser usado para mostrar resultados no final do jogo? (implementado no jogo da corda)
+   Vantagem: apenas seria usado para isso. Se implementado para o resto das coisas, pode resumir clipes de voz do jogo.
+   Desvantagem: voz muito diferente da voz da Polly, voz em brasileiro.
