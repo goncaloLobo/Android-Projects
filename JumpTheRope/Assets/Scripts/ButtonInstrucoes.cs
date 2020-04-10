@@ -105,60 +105,31 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             GameManager.InstrucoesBackToNormalFalse();
         }
 
-        // PARTE DOS SWIPES
-        if (Input.touchCount > 0 && GameManager.GetOpening())
+        // TENTATIVA DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeInstrucoesToJogar() == 1)
         {
-            Touch touch = Input.GetTouch(0);
-            if (touch.phase == TouchPhase.Began)
-            {
-                currentTouch = touch;
-                currentTapTime = Time.time;
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                previousTouch = touch;
-                lastTapTime = currentTapTime;
-                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
-                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
-                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
 
-                if (distance > (16.0f * screenDPI + 0.5f))
-                {
-                    float difference = lastTapTime - currentTapTime;
-                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
-                    {
-                        // swipe!!!
-                        swipeDelta = new Vector2(deltaX, deltaY);
-                        swipeDelta.Normalize();
+        if(DoubleClickChecker.SwipeIntroToInstr() == 1)
+        {
+            DoubleClickChecker.SwipeIntroToInstrReset();
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
 
-                        //swipe left
-                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
-                            if (instrucoesToJogar)
-                            {
-                                System.Diagnostics.Debug.WriteLine("swipe left instrucoes -> jogar");
-                                jogarToHighlight = true;
-                                mImage.sprite = normalSprite;
-                                highlighted = 0;
-                                instrucoesToJogar = false;
-                            }
-                        }
+        if(DoubleClickChecker.SwipeJogarToInstr() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
 
-                        //swipe right
-                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
-                            if (instrucoesToIntroducao)
-                            {
-                                System.Diagnostics.Debug.WriteLine("swipe right instrucoes -> introducao");
-                                introducaoToHighlight = true;
-                                mImage.sprite = normalSprite;
-                                highlighted = 0;
-                                instrucoesToIntroducao = false;
-                            }
-                        }                      
-                    }
-                }
-            }
+        if(DoubleClickChecker.SwipeInstrToIntro() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.SwipeInstrToIntroReset();
         }
     }
 

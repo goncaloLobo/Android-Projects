@@ -40,6 +40,9 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource duasPernasSound; // som de um salto com 2 pernas (usado no ButtonCorda3)
     public AudioSource descricaoDuasPernas; // descricao do som (usado no ButtonCorda3)
 
+    private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left;
+    private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right
+
     private float screenDPI;
     private float increaseSpeedTimer;
 
@@ -62,6 +65,8 @@ public class DoubleClickChecker : MonoBehaviour
 
         screenDPI = Screen.dpi;
         height = 5; // altura padrão
+
+        swipeJogarToIntroducao = swipeInstrucoesToJogar = 0;
     }
 
     void Update()
@@ -143,20 +148,17 @@ public class DoubleClickChecker : MonoBehaviour
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
-                        //buttonJogarBackToNormal = true;
                     }
 
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
                     {
                         if (!introducaoSound.isPlaying)
                             introducaoSound.Play();
-                        //buttonIntroducaoBackToNormal = true;
                     }
 
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
-                        //buttonInstrucoesBackToNormal = true;
                     }
                 }
             }
@@ -168,6 +170,52 @@ public class DoubleClickChecker : MonoBehaviour
             {
                 previousTouch = touch;
                 lastTapTime = currentTapTime;
+                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
+                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                if (distance > (16.0f * screenDPI + 0.5f))
+                {
+                    float difference = lastTapTime - currentTapTime;
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
+                    {
+                        swipeDelta = new Vector2(deltaX, deltaY);
+                        swipeDelta.Normalize();
+
+                        //swipe left no menu opening
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            System.Diagnostics.Debug.WriteLine("ENTREI SWIPE LEFT DOUBLE CLICK CHECKER");
+                            // se o botao jogar estiver highlighted
+                            if (ButtonJogar.CheckForHighlighted() == 1)
+                                swipeJogarToIntroducao = 1;
+
+                            // se o botao instrucoes estiver highlighted
+                            if (ButtonInstrucoes.CheckForHighlighted() == 1)
+                                swipeInstrucoesToJogar = 1;
+
+                            // se o botao introducao estiver highlighted
+                            if (ButtonIntroducao.CheckForHighlighted() == 1)
+                                swipeIntroToInstr = 1;
+                        }
+
+                        //swipe right no menu opening
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            // se o botao jogar estiver highlighted
+                            if (ButtonJogar.CheckForHighlighted() == 1)
+                                swipeJogarToInstr = 1;
+
+                            // se o botao introducao estiver highlighted
+                            if (ButtonIntroducao.CheckForHighlighted() == 1)
+                                swipeIntroToJogar = 1;
+
+                            // se o botao instrucoes estiver highlighted
+                            if (ButtonInstrucoes.CheckForHighlighted() == 1)
+                                swipeInstrToIntro = 1;
+                        }
+                    }
+                }
             }
         }
 
@@ -182,17 +230,14 @@ public class DoubleClickChecker : MonoBehaviour
                     currentTapTime = Time.time;
                     if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                     {
-                        // se o botao jogar estiver highlighted
                         if (Tutorial.CheckForHighlighted() == 1)
                         {
-                            //tutorialBackToNormal = true;
                             Invoke("ChangeToTutorialP1State", 0.5f);
                         }
 
                         else if (ButtonJogar.CheckForHighlighted() == 1)
                         {
                             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
-                            //buttonJogarBackToNormal = true;
                         }
 
                         else if (ButtonCorda1.CheckForHighlighted() == 1)
@@ -244,20 +289,19 @@ public class DoubleClickChecker : MonoBehaviour
                             swipeDelta = new Vector2(deltaX, deltaY);
                             swipeDelta.Normalize();
 
-                            //swipe left
+                            //swipe left no menu instrucoes
                             if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                             {
 
                             }
 
-                            //swipe right
+                            //swipe right no menu instrucoes
                             if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                             {
 
                             }
                         }
                     }
-
                 }
             }
 
@@ -367,6 +411,72 @@ public class DoubleClickChecker : MonoBehaviour
     private void DoAfter()
     {
         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO INTRODUCAO
+    public static int SwipeJogarToIntro()
+    {
+        return swipeJogarToIntroducao;
+    }
+
+    public static void SwipeJogarToIntroReset()
+    {
+        swipeJogarToIntroducao = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO INSTRUCOES PARA O BOTAO JOGAR
+    public static int SwipeInstrucoesToJogar()
+    {
+        return swipeInstrucoesToJogar;
+    }
+
+    public static void SwipeInstrucoesToJogarReset()
+    {
+        swipeInstrucoesToJogar = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO INTRODUCAO PARA O BOTAO INSTRUCOES
+    public static int SwipeIntroToInstr()
+    {
+        return swipeIntroToInstr;
+    }
+
+    public static void SwipeIntroToInstrReset()
+    {
+        swipeIntroToInstr = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO INSTRUCOES
+    public static int SwipeJogarToInstr()
+    {
+        return swipeJogarToInstr;
+    }
+
+    public static void SwipeJogarToInstrReset()
+    {
+        swipeJogarToInstr = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO INTRODUCAO PARA O BOTAO JOGAR
+    public static int SwipeIntroToJogar()
+    {
+        return swipeIntroToJogar;
+    }
+
+    public static void SwipeIntroToJogarReset()
+    {
+        swipeIntroToJogar = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO INSTRUCAO PARA O BOTAO INTRODUCAO
+    public static int SwipeInstrToIntro()
+    {
+        return swipeInstrToIntro;
+    }
+
+    public static void SwipeInstrToIntroReset()
+    {
+        swipeInstrToIntro = 0;
     }
 
     //numero de saltos perfeitos no final
