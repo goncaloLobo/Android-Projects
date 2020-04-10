@@ -76,6 +76,19 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (salto2pernas.isPlaying)
                 salto2pernas.Stop();
         }
+
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -89,7 +102,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if(ButtonJogar.CheckForHighlighted() == 1)
+        if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
         }
@@ -176,6 +189,40 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             }
 
             if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 1)
+            {
+                Tutorial.SetSoundOn();
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                descricao.Play();
+                salto1perna.PlayDelayed(descricao.clip.length);
+                salto2pernas.PlayDelayed(descricao.clip.length + 0.3f);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
             {
                 descricao.Play();
                 salto1perna.PlayDelayed(descricao.clip.length);

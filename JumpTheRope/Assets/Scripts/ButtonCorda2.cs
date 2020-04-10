@@ -73,6 +73,21 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (saltar1perna.isPlaying)
                 saltar1perna.Stop();
         }
+
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.SwipeCorda1ToCorda2Reset();
+        }
+
+        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.SwipeCorda2ToCorda3();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -168,6 +183,36 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             }
 
             if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 1)
+            {
+                Tutorial.SetSoundOn();
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                descricao.Play();
+                saltar1perna.PlayDelayed(descricao.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
             {
                 descricao.Play();
                 saltar1perna.PlayDelayed(descricao.clip.length);

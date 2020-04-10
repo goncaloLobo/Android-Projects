@@ -17,6 +17,7 @@ TagManager:
   - CordaButtonText1
   - Tutorial
   - CordaButton4
+  - ButtonClose
   layers:
   - Default
   - TransparentFX

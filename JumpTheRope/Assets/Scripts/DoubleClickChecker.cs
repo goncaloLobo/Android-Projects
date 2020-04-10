@@ -40,8 +40,10 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource duasPernasSound; // som de um salto com 2 pernas (usado no ButtonCorda3)
     public AudioSource descricaoDuasPernas; // descricao do som (usado no ButtonCorda3)
 
-    private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left;
-    private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right
+    private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
+    private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
+    private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial; // swipe left instrucoes
+    private static int stopSounds;
 
     private float screenDPI;
     private float increaseSpeedTimer;
@@ -83,7 +85,10 @@ public class DoubleClickChecker : MonoBehaviour
             }
 
             if (GameManager.GetStarted() || GameManager.GetInstrucoes() || GameManager.GetPreGameplay())
+            {
+                ButtonCorda1.SetCheckToStop();
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+            }
 
             if(GameManager.GetTutorialP1() || GameManager.GetTutorialP2() || GameManager.GetTutorialP3() || GameManager.GetTutorialP4() || GameManager.GetTutorialP5())
             {
@@ -298,7 +303,16 @@ public class DoubleClickChecker : MonoBehaviour
                             //swipe right no menu instrucoes
                             if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                             {
-
+                                if (ButtonJogar.CheckForHighlighted() == 1)
+                                    swipeJogarToCorda1 = 1;
+                                if (ButtonCorda1.CheckForHighlighted() == 1)
+                                    swipeCorda1ToCorda2 = 1;
+                                if (ButtonCorda2.CheckForHighlighted() == 1)
+                                    swipeCorda2ToCorda3 = 1;
+                                if (ButtonCorda3.CheckForHighlighted() == 1)
+                                    swipeCorda3ToCorda4 = 1;                                
+                                if (ButtonCorda4.CheckForHighlighted() == 1)
+                                    swipeCorda4ToTutorial = 1;
                             }
                         }
                     }
@@ -477,6 +491,61 @@ public class DoubleClickChecker : MonoBehaviour
     public static void SwipeInstrToIntroReset()
     {
         swipeInstrToIntro = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO CORDA1
+    public static int SwipeJogarToCorda1()
+    {
+        return swipeJogarToCorda1;
+    }
+
+    public static void SwipeJogarToCorda1Reset()
+    {
+        swipeJogarToCorda1 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA1 PARA O BOTAO CORDA2
+    public static int SwipeCorda1ToCorda2()
+    {
+        return swipeCorda1ToCorda2;
+    }
+
+    public static void SwipeCorda1ToCorda2Reset()
+    {
+        swipeCorda1ToCorda2 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA2 PARA O BOTAO CORDA3
+    public static int SwipeCorda2ToCorda3()
+    {
+        return swipeCorda2ToCorda3;
+    }
+
+    public static void SwipeCorda2ToCorda3Reset()
+    {
+        swipeCorda2ToCorda3 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA3 PARA O BOTAO CORDA4
+    public static int SwipeCorda3ToCorda4()
+    {
+        return swipeCorda3ToCorda4;
+    }
+
+    public static void SwipeCorda3ToCorda4Reset()
+    {
+        swipeCorda3ToCorda4 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA4 PARA O BOTAO TUTORIAL
+    public static int SwipeCorda4ToTutorial()
+    {
+        return swipeCorda4ToTutorial;
+    }
+
+    public static void SwipeCorda4ToTutorialReset()
+    {
+        swipeCorda4ToTutorial = 0;
     }
 
     //numero de saltos perfeitos no final

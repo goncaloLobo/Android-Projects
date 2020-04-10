@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject introducaoButton;
     public GameObject instrucoesButton;
+    public GameObject closeButton;
 
     // coisas para a pagina do tutorial
     public GameObject tutorialButton;
@@ -192,7 +193,7 @@ public class GameManager : MonoBehaviour
                 tut5.Play();
                 audioData.Stop();
 
-                Invoke("ChangeToInstructionsState", 0f);
+                Invoke("ChangeToInstructionsState", tut5.clip.length);
 
                 break;
             case GameManagerState.GameOver:

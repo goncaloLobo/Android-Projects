@@ -9,6 +9,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public Sprite spriteHighlighted;
     private static int highlighted;
     private Image mImage;
+    private static int soundOn = 0;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject GameManagerGO;
 
@@ -75,6 +76,21 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             mImage.sprite = normalSprite;
             highlighted = 0;
             GameManager.TutorialBackToNormalFalse();
+        }
+
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.SwipeCorda4ToTutorialReset();
+        }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (tutorial.isPlaying)
+                tutorial.Stop();
         }
     }
 
@@ -146,13 +162,91 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             highlighted = 1;
         }
 
+        //if (!tutorial.isPlaying)
+        //    tutorial.Play();
+
         if (!tutorial.isPlaying)
-            tutorial.Play();
+        {
+            if(ButtonCorda1.GetSoundOn() == 1)
+            {
+                ButtonCorda1.SetSoundOn();
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if(ButtonCorda1.GetSoundOn() == 0)
+            {
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 1)
+            {
+                ButtonCorda2.SetSoundOn();
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 0)
+            {
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 1)
+            {
+                ButtonCorda3.SetSoundOn();
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 0)
+            {
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 1)
+            {
+                ButtonCorda4.SetSoundOn();
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if(ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                tutorial.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                tutorial.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
     {
 
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()

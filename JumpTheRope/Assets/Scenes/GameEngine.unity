@@ -1129,7 +1129,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb,
       type: 3}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb,
       type: 3}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2604,7 +2604,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb,
       type: 3}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3564,7 +3564,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb,
       type: 3}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 21300000, guid: dceee32d7dce6a24b9eafc0f3adaf2bb, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4052,6 +4052,7 @@ MonoBehaviour:
   GameOverGO: {fileID: 1336017725}
   introducaoButton: {fileID: 924196887}
   instrucoesButton: {fileID: 980060336}
+  closeButton: {fileID: 0}
   tutorialButton: {fileID: 1148920199}
   corda1: {fileID: 660200665}
   descricao1: {fileID: 15055811}

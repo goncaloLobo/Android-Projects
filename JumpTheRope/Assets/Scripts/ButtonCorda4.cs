@@ -74,6 +74,22 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (descricao.isPlaying)
                 descricao.Stop();
         }
+
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
+        {
+            DoubleClickChecker.SwipeCorda3ToCorda4Reset();
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        /*
+        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+        */
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -169,6 +185,36 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             }
 
             if (ButtonCorda3.GetSoundOn() == 0)
+            {
+                intro.Play();
+                descricao.PlayDelayed(intro.clip.length);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 1)
+            {
+                Tutorial.SetSoundOn();
+                intro.Play();
+                descricao.PlayDelayed(intro.clip.length);
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 0)
+            {
+                intro.Play();
+                descricao.PlayDelayed(intro.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                intro.Play();
+                descricao.PlayDelayed(intro.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
             {
                 intro.Play();
                 descricao.PlayDelayed(intro.clip.length);

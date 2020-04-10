@@ -8,6 +8,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public AudioSource jogar;
     private float currentTapTime;
     private float lastTapTime;
+    private static int soundOn = 0;
     private static bool introducaoBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
     private static bool introducaoToHighlight, instrucoesToHighlight;
 
@@ -105,7 +106,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             GameManager.JogarBackToNormalFalse();
         }
 
-        // TENTATIVA DOUBLE CLICK CHECKER
+        // DOUBLE CLICK CHECKER
         if (DoubleClickChecker.SwipeJogarToIntro() == 1)
         {
             mImage.sprite = normalSprite;
@@ -132,6 +133,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
             DoubleClickChecker.SwipeIntroToJogarReset();
+        }
+
+        if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (jogar.isPlaying)
+                jogar.Stop();
         }
     }
 
@@ -202,13 +216,91 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 1;
         }
 
+        //if (!jogar.isPlaying)
+        //    jogar.Play();
+
         if (!jogar.isPlaying)
-            jogar.Play();
+        {
+            if (ButtonCorda1.GetSoundOn() == 1)
+            {
+                ButtonCorda1.SetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda1.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 1)
+            {
+                ButtonCorda2.SetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda2.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 1)
+            {
+                ButtonCorda3.SetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda3.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 1)
+            {
+                ButtonCorda4.SetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonCorda4.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 1)
+            {
+                Tutorial.SetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (Tutorial.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
 
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()

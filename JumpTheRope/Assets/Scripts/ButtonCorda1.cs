@@ -14,6 +14,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private static int soundOn = 0;
+    private static bool checkToStop;
     private static bool introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal;
     private static bool corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
@@ -75,6 +76,20 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 corda.Stop();
             if (descricao.isPlaying)
                 descricao.Stop();
+        }
+
+        // DOUBLE CLICK CHECKER
+        if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.SwipeJogarToCorda1Reset();
+        }
+
+        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
         }
     }
 
@@ -178,6 +193,22 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 soundOn = 1;
             }
 
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                descricao.Play();
+                corda.PlayDelayed(descricao.clip.length);
+                StartCoroutine(WaitForTouch(8, DoAfter));
+                soundOn = 1;
+            }
         }
 
         if (highlighted == 0)
@@ -253,5 +284,19 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
+    }
+
+    public void StopSounds()
+    {
+        if (checkToStop)
+        {
+            corda.Stop();
+            descricao.Stop();
+        }    
     }
 }
