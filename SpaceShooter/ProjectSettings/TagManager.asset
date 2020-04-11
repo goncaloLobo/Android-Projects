@@ -20,6 +20,9 @@ TagManager:
   - TimeTag
   - ScoreTag
   - LivesTag
+  - InstrucoesB1
+  - InstrucoesB2
+  - InstrucoesB3
   layers:
   - Default
   - TransparentFX

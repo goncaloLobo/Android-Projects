@@ -13,6 +13,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal;
     private static int highlighted;
+    private static int soundOn = 0;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
@@ -129,6 +130,90 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                 vidas.Play();
         }
 
+        if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
+        {
+            if (!vidas.isPlaying)
+            {
+                if (InstrucoesB1.GetSoundOn() == 1)
+                {
+                    InstrucoesB1.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (InstrucoesB1.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (InstrucoesB2.GetSoundOn() == 1)
+                {
+                    InstrucoesB2.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (InstrucoesB2.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (InstrucoesB3.GetSoundOn() == 1)
+                {
+                    InstrucoesB3.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (InstrucoesB3.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonJogar.GetSoundOn() == 1)
+                {
+                    ButtonJogar.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonJogar.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonTempo.GetSoundOn() == 1)
+                {
+                    ButtonTempo.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonTempo.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonPontos.GetSoundOn() == 1)
+                {
+                    ButtonPontos.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonPontos.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
+            }
+        }
+
         if (GameManager.GetCurrentState() == GameManager.GameManagerState.Gameplay)
         {
             switch (PlayerControlSwipe.GetCurrentNumberOfLives())
@@ -147,6 +232,16 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                     break;
             }
         }
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static bool IntroducaoBackToNormal()

@@ -75,6 +75,9 @@
     <Compile Include="Assets\Scripts\EnemySpawner3.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameScore.cs" />
+    <Compile Include="Assets\Scripts\InstrucoesB1.cs" />
+    <Compile Include="Assets\Scripts\InstrucoesB2.cs" />
+    <Compile Include="Assets\Scripts\InstrucoesB3.cs" />
     <Compile Include="Assets\Scripts\PlayerControlSwipe.cs" />
     <Compile Include="Assets\Scripts\TimeCounter.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

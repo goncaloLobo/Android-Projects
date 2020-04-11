@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
 
+    // botoes instrucoes
+    public GameObject instrucoesB1;
+    public GameObject instrucoesB2;
+    public GameObject instrucoesB3;
+
     public AudioSource introducao;
     private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, pregameplay;
 
@@ -79,6 +84,9 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
                 introducaoButton.SetActive(true);
+                instrucoesB1.SetActive(false);
+                instrucoesB2.SetActive(false);
+                instrucoesB3.SetActive(false);
                 SetOpeningBools();
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
@@ -92,6 +100,9 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 introducaoButton.SetActive(false);
+                instrucoesB1.SetActive(false);
+                instrucoesB2.SetActive(false);
+                instrucoesB3.SetActive(false);
                 SetGameplayBools();
 
                 // iniciar os contadores de tempo
@@ -203,7 +214,11 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Instructions:
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
-                howToButton.SetActive(true);
+                howToButton.SetActive(false);
+                instrucoesB1.SetActive(true);
+                instrucoesB2.SetActive(true);
+                instrucoesB3.SetActive(true);
+                introducaoButton.SetActive(true);
                 SetInstructionsBools();
 
                 /*

@@ -12,7 +12,9 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float lastTapTime;
 
     private static bool jogarBackToNormal, comoJogarBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
+    private static int soundOn = 0;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
@@ -25,6 +27,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
         highlighted = 0;
         comoJogarBackToNormal = jogarBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroducaoButton").GetComponent<Image>();
     }
 
@@ -60,11 +63,31 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             highlighted = 0;
         }
 
-        // PLAYER CONTROL SWIPE
-        if (PlayerControlSwipe.ButtonIntroducaoBackToNormal())
+        if (InstrucoesB1.IntroducaoBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+        }
+
+        if (InstrucoesB2.IntroducaoBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (InstrucoesB3.IntroducaoBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (introducao.isPlaying)
+                introducao.Stop();
+            if (intro.isPlaying)
+                intro.Stop();
         }
     }
 
@@ -76,8 +99,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            if(!introducao.isPlaying)
-                introducao.Play();
+            introducao.Play();
         }
         lastTapTime = currentTapTime;
     }
@@ -118,6 +140,21 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             pontosBackToNormal = true;
         }
 
+        if (InstrucoesB1.CheckForHighlighted() == 1)
+        {
+            instrucoesB1BackToNormal = true;
+        }
+
+        if (InstrucoesB2.CheckForHighlighted() == 1)
+        {
+            instrucoesB2BackToNormal = true;
+        }
+
+        if (InstrucoesB3.CheckForHighlighted() == 1)
+        {
+            instrucoesB3BackToNormal = true;
+        }
+
         if (highlighted == 0)
         {
             mImage.sprite = spriteHighlighted;
@@ -125,7 +162,111 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         }
 
         if (!intro.isPlaying)
-            intro.Play();
+        {
+            if (InstrucoesB1.GetSoundOn() == 1)
+            {
+                InstrucoesB1.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if(InstrucoesB1.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 1)
+            {
+                InstrucoesB2.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 1)
+            {
+                InstrucoesB3.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonComoJogar.GetSoundOn() == 1)
+            {
+                ButtonComoJogar.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonComoJogar.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 1)
+            {
+                ButtonTempo.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 1)
+            {
+                ButtonPontos.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 1)
+            {
+                ButtonVidas.SetSoundOn();
+                intro.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 0)
+            {
+                intro.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public static int CheckForHighlighted()
@@ -161,5 +302,20 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool VidasBackToNormal()
     {
         return vidasBackToNormal;
+    }
+
+    public static bool InstrucoesB1BackToNormal()
+    {
+        return instrucoesB1BackToNormal;
+    }
+
+    public static bool InstrucoesB2BackToNormal()
+    {
+        return instrucoesB2BackToNormal;
+    }
+
+    public static bool InstrucoesB3BackToNormal()
+    {
+        return instrucoesB3BackToNormal;
     }
 }

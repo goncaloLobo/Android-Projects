@@ -7,6 +7,7 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public AudioSource tempo;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, vidasBackToNormal;
     private static int highlighted;
+    private static int soundOn = 0;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
@@ -99,6 +100,16 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if (!tempo.isPlaying)
             tempo.Play();
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()

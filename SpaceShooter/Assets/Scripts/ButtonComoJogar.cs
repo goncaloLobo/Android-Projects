@@ -11,7 +11,9 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private float lastTapTime;
 
     private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
+    private static int soundOn = 0;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
@@ -22,6 +24,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         highlighted = 0;
         jogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonComoJogar").GetComponent<Image>();
     }
 
@@ -57,8 +60,19 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
             highlighted = 0;
         }
 
-        // PLAYER CONTROL SWIPE
-        if (PlayerControlSwipe.ButtonInstrucoesBackToNormal())
+        if (InstrucoesB1.ComoJogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (InstrucoesB2.ComoJogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (InstrucoesB3.ComoJogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -114,6 +128,21 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
             pontosBackToNormal = true;
         }
 
+        if(InstrucoesB1.CheckForHighlighted() == 1)
+        {
+            instrucoesB1BackToNormal = true;
+        }
+
+        if (InstrucoesB2.CheckForHighlighted() == 1)
+        {
+            instrucoesB2BackToNormal = true;
+        }
+
+        if (InstrucoesB3.CheckForHighlighted() == 1)
+        {
+            instrucoesB3BackToNormal = true;
+        }
+
         if (highlighted == 0)
         {
             mImage.sprite = spriteHighlighted;
@@ -121,12 +150,113 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
 
         if (!comoJogar.isPlaying)
-            comoJogar.Play();
+        {
+            if (InstrucoesB1.GetSoundOn() == 1)
+            {
+                InstrucoesB1.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB1.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 1)
+            {
+                InstrucoesB2.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 1)
+            {
+                InstrucoesB3.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 1)
+            {
+                ButtonTempo.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 1)
+            {
+                ButtonPontos.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 1)
+            {
+                ButtonVidas.SetSoundOn();
+                comoJogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 0)
+            {
+                comoJogar.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()
@@ -157,5 +287,20 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public static bool VidasBackToNormal()
     {
         return vidasBackToNormal;
+    }
+
+    public static bool InstrucoesB1BackToNormal()
+    {
+        return instrucoesB1BackToNormal;
+    }
+
+    public static bool InstrucoesB2BackToNormal()
+    {
+        return instrucoesB2BackToNormal;
+    }
+
+    public static bool InstrucoesB3BackToNormal()
+    {
+        return instrucoesB3BackToNormal;
     }
 }

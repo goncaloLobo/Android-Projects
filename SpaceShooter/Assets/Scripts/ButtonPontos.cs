@@ -10,6 +10,7 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, jogarBackToNormal, vidasBackToNormal;
     private static int highlighted;
+    private static int soundOn = 0;
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private Image mImage;
@@ -101,7 +102,95 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         if (!pontos.isPlaying)
-            pontos.Play();
+        {
+            if (InstrucoesB1.GetSoundOn() == 1)
+            {
+                InstrucoesB1.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB1.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 1)
+            {
+                InstrucoesB2.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 1)
+            {
+                InstrucoesB3.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 1)
+            {
+                ButtonVidas.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 1)
+            {
+                ButtonTempo.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTempo.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                pontos.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                pontos.Play();
+                soundOn = 1;
+            }
+        }
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void SetSoundOn()
+    {
+        soundOn = 0;
     }
 
     public static int CheckForHighlighted()
