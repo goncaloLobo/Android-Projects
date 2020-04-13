@@ -29,7 +29,6 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource saltoPerfeito; // salto perfeito
     public AudioSource inicioJogo;
     public GameManager GameManagerGO;
-    private int i = 0;
     private static int j = 0; // para verificar que faz duplo salto no tutorial 3x
 
     public AudioSource introducaoSound; // som do botao da introducao
@@ -68,7 +67,9 @@ public class DoubleClickChecker : MonoBehaviour
         screenDPI = Screen.dpi;
         height = 5; // altura padrão
 
-        swipeJogarToIntroducao = swipeInstrucoesToJogar = 0;
+        swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
+        swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
+        swipeJogarToCorda1 = swipeCorda1ToCorda2 = swipeCorda2ToCorda3 = swipeCorda3ToCorda4 = swipeCorda4ToTutorial = 0;
     }
 
     void Update()
@@ -84,7 +85,7 @@ public class DoubleClickChecker : MonoBehaviour
                     Application.Quit();
             }
 
-            if (GameManager.GetStarted() || GameManager.GetInstrucoes() || GameManager.GetPreGameplay())
+            if (GameManager.GetStarted() || GameManager.GetInstrucoes())
             {
                 ButtonCorda1.SetCheckToStop();
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
@@ -133,13 +134,6 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
-        if (GameManager.GetPreGameplay() && i == 0)
-        {
-            i++;
-            inicioJogo.Play();
-            StartCoroutine(WaitForTouch(inicioJogo.clip.length, DoAfter));
-        }
-
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
             Touch touch = Input.GetTouch(0);
@@ -152,7 +146,8 @@ public class DoubleClickChecker : MonoBehaviour
                     // se o botao jogar estiver highlighted
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                        inicioJogo.Play();
+                        Invoke("StartGame", inicioJogo.clip.length);
                     }
 
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
@@ -242,7 +237,7 @@ public class DoubleClickChecker : MonoBehaviour
 
                         else if (ButtonJogar.CheckForHighlighted() == 1)
                         {
-                            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+                            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
                         }
 
                         else if (ButtonCorda1.CheckForHighlighted() == 1)
@@ -414,17 +409,6 @@ public class DoubleClickChecker : MonoBehaviour
     public static int GetJ()
     {
         return j;
-    }
-
-    public IEnumerator WaitForTouch(float duration, Action DoAfter)
-    {
-        yield return new WaitForSeconds(duration);
-        DoAfter();
-    }
-
-    private void DoAfter()
-    {
-        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
     }
 
     // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO INTRODUCAO
@@ -656,5 +640,10 @@ public class DoubleClickChecker : MonoBehaviour
     private void ChangeToTutorialP5State()
     {
         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP5);
+    }
+
+    private void StartGame()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
     }
 }

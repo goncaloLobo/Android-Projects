@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
-    private static bool started, toFinish, preGameplay, opening, instrucoes;
+    private static bool started, toFinish, opening, instrucoes;
     private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private static bool jogarBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
     private float currCountdownValue;
@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instrucoes, PreGameplay, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, CancelTutorial
+        Opening, Gameplay, GameOver, Instrucoes, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, CancelTutorial
     }
 
     public static GameManagerState GMState;
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
 
         //valor inicial do pitch
         audioData.pitch = 0.8f;
-        started = toFinish = preGameplay = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        started = toFinish = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
         opening = true;
         jogarBackToNormal = instrucoesBackToNormal = false;
 
@@ -121,13 +121,6 @@ public class GameManager : MonoBehaviour
                 GetCurrentHighScores();
 
                 break;
-
-            case GameManagerState.PreGameplay:
-                SetPregameplayBools();
-                // para o botao jogar ficar normal depois de entrar no jogo
-                jogarBackToNormal = true;
-                break;
-
             case GameManagerState.Gameplay:
                 SetGameplayBools();
                 TutorialButtonsToFalse();
@@ -143,7 +136,6 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(15));
 
                 break;
-
             case GameManagerState.TutorialP1:
                 SetTutorial1Bools();
                 // para o botao instrucoes voltar ao normal depois de entrar na pagina dos tutoriais
@@ -185,8 +177,8 @@ public class GameManager : MonoBehaviour
                 {
                     audioData.Stop();
                 }
-                break;
 
+                break;
             case GameManagerState.TutorialP5:
                 SetTutorial5Bools();
 
@@ -280,11 +272,6 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
-    }
-
-    public static bool GetPreGameplay()
-    {
-        return preGameplay;
     }
 
     public static bool GetOpening()
@@ -546,68 +533,61 @@ public class GameManager : MonoBehaviour
     private void SetOpeningBools()
     {
         opening = true;
-        started = instrucoes = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = preGameplay = false;
-    }
-
-    // inicializa os bools para o estado pregameplay
-    private void SetPregameplayBools()
-    {
-        preGameplay = true;
-        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
+        started = instrucoes = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
     // inicializa os bools para o estado gameplay
     private void SetGameplayBools()
     {
         started = true;
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = instrucoes = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp1
     private void SetTutorial1Bools()
     {
         tutorialp1 = true;
-        preGameplay = opening = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
+        opening = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp2
     private void SetTutorial2Bools()
     {
         tutorialp2 = true;
-        preGameplay = opening = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
+        opening = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp3
     private void SetTutorial3Bools()
     {
         tutorialp3 = true;
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = started = instrucoes = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp4
     private void SetTutorial4Bools()
     {
         tutorialp4 = true;
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = started = instrucoes = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado tutorialp5
     private void SetTutorial5Bools()
     {
         tutorialp5 = true;
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = started = instrucoes = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado gameover
     private void SetGameoverBools()
     {
-        preGameplay = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
+        opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = started = instrucoes = false;
     }
 
     // inicializa os bools para o estado instrucoes
     private void SetInstructionsBools()
     {
         instrucoes = true;
-        preGameplay = opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 }

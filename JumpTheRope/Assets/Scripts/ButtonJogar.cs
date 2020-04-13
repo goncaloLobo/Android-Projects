@@ -157,7 +157,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.PreGameplay);
+            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
         }
         lastTapTime = currentTapTime;
     }
