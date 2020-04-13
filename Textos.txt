@@ -21,14 +21,15 @@ Space Shooter:
 
 	Tutorial:
 	Início: "Vamos dar início ao tutorial."
-	Explicar desviar inimigos -> Encontra-se no meio de um ecrã e vem um asteroid na sua direção. Varra o ecrã para um dos lados para se desviar."
+	Explicar desviar inimigos -> "A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar."
 	(som do inimigo a vir do centro do ecrã -> se desviar para a esq entao continua na esq, se for para a dir entao continua na direita)
-	Explicar desviar inimigos -> "Agora, encontra-se à esq (ou dir) e vem um asteroid à esquerda (ou dir). Desvie-se varrendo o ecrã para a direita (ou esq)."
+	Explicar desviar inimigos -> "Agora, encontra-se à esq (ou dir) e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita (ou esq)."
 	(som do inimigo a vir do lado de onde está e faz o movimento para se desviar)
-	Explicar desviar asteroides -> "Agora, encontra-se à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar."
+	Explicar desviar asteroides -> "Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar."
 	(som do asteroid a vir do lado de onde está e faz o movimento para se desviar)
 	Explicar som bónus -> "Enquanto estiver a jogar, pode apanhar bónus para ganhar mais pontos. Quando ouvir o som do bónus, varre no ecrã para ir de encontro ao bónus."
 	(som bónus a vir de um dos lados do ecrã, jogador varre o ecrã para bater no bónus)
+	Final -> "Chegámos ao final do tutorial. Durante o jogo tens 3 vidas, tenta sobreviver ao máximo de inimigos possíveis. Podes fazer o tutorial novamente, se quiseres. Boa sorte."
 
 
 Guarda-Redes:

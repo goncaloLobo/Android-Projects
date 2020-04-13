@@ -23,6 +23,7 @@ TagManager:
   - InstrucoesB1
   - InstrucoesB2
   - InstrucoesB3
+  - ButtonTutorial
   layers:
   - Default
   - TransparentFX

@@ -41,7 +41,6 @@ public class EnemySpawner2 : MonoBehaviour
             case 1:
                 Enemy = (GameObject)Instantiate(EnemyGO1);
                 Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
-
                 break;
             case 2:
                 if (Random.value < 0.5f)
@@ -83,12 +82,46 @@ public class EnemySpawner2 : MonoBehaviour
                         Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
                     }
                 }
-
                 break;
         }
 
         //Produzir novos inimigos em tempo aleatorio
         ScheduleNextEnemySpawnRandom();
+    }
+
+    // faz spawn de um inimigo para o tutorial
+    void SpawnEnemyTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        Enemy = (GameObject)Instantiate(EnemyGO1);
+        Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+    }
+
+    // faz spawn de um asteroid para o tutorial
+    void SpawnAsteroidTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        if (Random.value < 0.5f)
+        {
+            Meteor = (GameObject)Instantiate(MeteorMidGO);
+        }
+        else
+        {
+            Meteor = (GameObject)Instantiate(MeteorGreyMidGO);
+        }
+        Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+    }
+
+
+    // faz spawn de um bonus para o tutorial
+    void SpawnBonusTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        Boost = (GameObject)Instantiate(Boost100Mid);
+        Boost.transform.position = new Vector2((min.x + max.x) / 2, max.y);
     }
 
     // produz cada inimigo entre 1 e 8.1s depois do inimigo anterior, de forma aleatoria
@@ -120,6 +153,24 @@ public class EnemySpawner2 : MonoBehaviour
     public void ScheduleEnemySpawner(float initialSpawnRate)
     {
         Invoke("SpawnEnemy", initialSpawnRate);
+    }
+
+    // começar o enemy spawner para o tutorial
+    public void ScheduleEnemySpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnEnemyTutorial", initialSpawnRate);
+    }
+
+    // faz spawn de um asteroide para o tutorial
+    public void ScheduleAsteroidSpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnAsteroidTutorial", initialSpawnRate);
+    }
+
+    // faz spawn de um bonus para o tutorial
+    public void ScheduleBonusSpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnBonusTutorial", initialSpawnRate);
     }
 
     // parar o enemy spawner

@@ -92,6 +92,40 @@ public class EnemySpawner3 : MonoBehaviour
         ScheduleNextEnemySpawnRandom();
     }
 
+    // faz spawn de um inimigo para o tutorial
+    void SpawnEnemyTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        Enemy = (GameObject)Instantiate(EnemyGO2);
+        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+    }
+
+    // faz spawn de um asteroid para o tutorial
+    void SpawnAsteroidTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        if (Random.value < 0.5f)
+        {
+            Meteor = (GameObject)Instantiate(MeteorRightGO);
+        }
+        else
+        {
+            Meteor = (GameObject)Instantiate(MeteorGreyRightGO);
+        }
+        Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+    }
+
+    // faz spawn de um bonus para o tutorial
+    void SpawnBonusTutorial()
+    {
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
+        Enemy = (GameObject)Instantiate(EnemyGO2);
+        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+    }
+
     // produz cada inimigo entre 1 a 8.1s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
@@ -121,6 +155,24 @@ public class EnemySpawner3 : MonoBehaviour
     public void ScheduleEnemySpawner(float initialSpawnRate)
     {
         Invoke("SpawnEnemy", initialSpawnRate);
+    }
+
+    // faz spawn de um inimigo para o tutorial
+    public void ScheduleEnemySpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnEnemyTutorial", initialSpawnRate);
+    }
+
+    // faz spawn de um asteroide para o tutorial
+    public void ScheduleAsteroidSpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnAsteroidTutorial", initialSpawnRate);
+    }
+
+    // faz spawn de um bonus para o tutorial
+    public void ScheduleBonusSpawnerTutorial(float initialSpawnRate)
+    {
+        Invoke("SpawnBonusTutorial", initialSpawnRate);
     }
 
     // parar o enemy spawner

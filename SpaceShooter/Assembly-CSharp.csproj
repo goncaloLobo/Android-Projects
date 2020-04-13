@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\ButtonPontos.cs" />
     <Compile Include="Assets\Scripts\ButtonsInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonTempo.cs" />
+    <Compile Include="Assets\Scripts\ButtonTutorial.cs" />
     <Compile Include="Assets\Scripts\ButtonVidas.cs" />
     <Compile Include="Assets\Scripts\Configuration.cs" />
     <Compile Include="Assets\Scripts\Destroyer.cs" />

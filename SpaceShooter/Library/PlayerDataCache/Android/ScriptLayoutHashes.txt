@@ -121,7 +121,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 68f1d4c5e0a82dcc465ddd3d9f9c299d Assembly-CSharp.dll:.EnemySpawner
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 358adfa5b87376a97ce64822519f5d25 Assembly-CSharp.dll:.ButtonPontos
-62e6aa7c803566f1ba08b9979731e1ea Assembly-CSharp.dll:.GameManager
+38543cf8fa7dd7843599e201aff133c6 Assembly-CSharp.dll:.GameManager
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 f9a1d18e31e497258d7c8f58de58f81e Assembly-CSharp.dll:.InstrucoesB1
@@ -147,6 +147,7 @@ e0ee4b3d4e27318934cc940a969d3d96 UnityEngine.Networking.dll:UnityEngine.Networki
 ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
+161b986fe4da92926d5bd92b07e00200 Assembly-CSharp.dll:.InstrucoesB3
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState
@@ -168,11 +169,11 @@ bbe9ef5475af1f117e7ea8150cf5fea0 Assembly-CSharp.dll:.EnemySpawner3
 507174d46dacbc5fe45e28485db5dd1e Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 a253dc9a9180bceb9997470845b838b4 Assembly-CSharp.dll:.EnemySpawner2
+ad217af46eb3ce70dfd9d137cad7a5c0 Assembly-CSharp.dll:.ButtonTutorial
+9f70105b50970c3aedf1d431ee269f7c Assembly-CSharp.dll:.InstrucoesB2
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
 df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 2c688b10bbc461d1230503cf361d400b Assembly-CSharp.dll:.PlayerControlSwipe
 ade854cf6ad6b897937d44b793d92525 Assembly-CSharp.dll:.ButtonIntroducao
-9f70105b50970c3aedf1d431ee269f7c Assembly-CSharp.dll:.InstrucoesB2
-161b986fe4da92926d5bd92b07e00200 Assembly-CSharp.dll:.InstrucoesB3
