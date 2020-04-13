@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     public GameObject instrucoesB3;
 
     public AudioSource introducao;
+    public AudioSource background;
     private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, tutorialp6;
+    public static bool decreaseBackground, increaseBackground; // bool para aumentar ou diminuir som background
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -72,12 +74,14 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.Opening;
         finalScore = 0;
         opening = true;
+        playerShip.SetActive(false);
         started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = stopEnemySpawners = false;
 
         //inicializa os sons das instrucoes
         sounds = GetComponents<AudioSource>();
         InitiateSounds(sounds);
         InitiateTutorialSounds(sounds);
+        background.Play();
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -120,6 +124,7 @@ public class GameManager : MonoBehaviour
                 instrucoesB2.SetActive(false);
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
+                playerShip.SetActive(true);
                 SetGameplayBools();
 
                 // iniciar os contadores de tempo
@@ -355,6 +360,13 @@ public class GameManager : MonoBehaviour
             timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
             timeCounterGO.GetComponent<TimeCounter>().ResetTimer();
             playerShip.SetActive(false);
+
+            EnemyControl.TriggerExplosion();
+        }
+
+        if (GetDecreaseBackGround())
+        {
+            background.volume = 0.1f;
         }
     }
 
@@ -516,6 +528,26 @@ public class GameManager : MonoBehaviour
     {
         float froll = Random.Range(firstValue, secondValue);
         return froll;
+    }
+
+    public static void SetDecreaseBackground()
+    {
+        decreaseBackground = true;
+    }
+
+    public static bool GetDecreaseBackGround()
+    {
+        return decreaseBackground;
+    }
+
+    public static void SetIncreaseBackground()
+    {
+        increaseBackground = true;
+    }
+
+    public static bool GetIncreaseBackground()
+    {
+        return increaseBackground;
     }
 
     //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening

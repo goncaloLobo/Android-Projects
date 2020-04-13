@@ -11,6 +11,7 @@ public class EnemyControl : MonoBehaviour
     public GameObject Boost100PointsRight; // referencia para o objeto de som a anunciar um boost à esquerda
 
     public static float speed = 1f;
+    private static bool triggerExplosion;
 
     private static int enemiesAvoided; // inimigos que chegam ao final do ecra (que o utilizador se desviou)
 
@@ -22,7 +23,7 @@ public class EnemyControl : MonoBehaviour
         Boost100PointsRight = GameObject.FindGameObjectWithTag("Boost100PointsRight");
         EnemyGO = GameObject.FindGameObjectWithTag("EnemyShipTag");
         Meteor = GameObject.FindGameObjectWithTag("MeteorTag");
-
+        triggerExplosion = false;
         enemiesAvoided = 0;
     }
 
@@ -66,6 +67,9 @@ public class EnemyControl : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+
+        if (triggerExplosion)
+            Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -106,5 +110,10 @@ public class EnemyControl : MonoBehaviour
     public static int GetEnemiesAvoided()
     {
         return enemiesAvoided;
+    }
+
+    public static void TriggerExplosion()
+    {
+        triggerExplosion = true;
     }
 }

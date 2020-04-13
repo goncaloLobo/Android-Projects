@@ -14,7 +14,6 @@ public class EnemySpawner : MonoBehaviour
     public static float maxSpawnRateInSeconds = 8.1f;
     public static float minSpawnRateInSeconds = 1f;
     public float r;
-    private int tutorialRoll;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
@@ -22,7 +21,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        tutorialRoll = 0;
+        
     }
 
     void Update()
@@ -38,9 +37,6 @@ public class EnemySpawner : MonoBehaviour
         // random entre 3 opcoes
         int enemyRoll = Random.Range(1, 4);
         //int enemyRoll = 3;
-
-        if (tutorialRoll == 1)
-            enemyRoll = 1;
 
         switch (enemyRoll)
         {

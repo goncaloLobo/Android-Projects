@@ -63,6 +63,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         if (!inimigo.isPlaying)
         {
+            GameManager.SetDecreaseBackground();
             inimigo.Play();
             inimigoDescricao.PlayDelayed(inimigo.clip.length);
         }

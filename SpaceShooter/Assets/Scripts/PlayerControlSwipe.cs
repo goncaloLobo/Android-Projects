@@ -195,17 +195,20 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 currentTouch = touch;
                 currentTapTime = Time.time;
+                System.Diagnostics.Debug.WriteLine("hey, i'm here.");
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     // se o botao jogar estiver highlighted
                     if (ButtonJogar.CheckForHighlighted() == 1)
                     {
+                        System.Diagnostics.Debug.WriteLine("hey, i'm here2.");
                         vaiComeçar321.Play();
                         Invoke("StartGame", vaiComeçar321.clip.length);
                     }
 
                     if(ButtonComoJogar.CheckForHighlighted() == 1)
                     {
+                        System.Diagnostics.Debug.WriteLine("hey, i'm here3.");
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
                         buttonInstrucoesBackToNormal = true;
                     }

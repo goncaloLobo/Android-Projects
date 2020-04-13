@@ -1660,7 +1660,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7dc661a4d48b554e96b057591bcbd8d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
@@ -4799,6 +4799,7 @@ MonoBehaviour:
   instrucoesB2: {fileID: 42844020}
   instrucoesB3: {fileID: 189571915}
   introducao: {fileID: 450449765}
+  background: {fileID: 417492380}
   sounds: []
   instrucoespt1: {fileID: 0}
   naveInimiga: {fileID: 0}
@@ -4816,6 +4817,7 @@ MonoBehaviour:
   tutorial3: {fileID: 0}
   tutorial4: {fileID: 0}
   tutorial5: {fileID: 0}
+  tutorial2dir: {fileID: 0}
 --- !u!82 &1693170705
 AudioSource:
   m_ObjectHideFlags: 0
@@ -7027,7 +7029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &1950541783
 Animator:
   serializedVersion: 3
