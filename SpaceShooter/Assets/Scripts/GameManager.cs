@@ -74,7 +74,6 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.Opening;
         finalScore = 0;
         opening = true;
-        playerShip.SetActive(false);
         started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = stopEnemySpawners = false;
 
         //inicializa os sons das instrucoes
@@ -107,6 +106,7 @@ public class GameManager : MonoBehaviour
                 instrucoesB2.SetActive(false);
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
+                playerShip.SetActive(true);
                 SetOpeningBools();
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
             scoreUITextGO.GetComponent<GameScore>().Score = 0;
             timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
             timeCounterGO.GetComponent<TimeCounter>().ResetTimer();
-            playerShip.SetActive(false);
+            playerShip.SetActive(true);
 
             EnemyControl.TriggerExplosion();
         }

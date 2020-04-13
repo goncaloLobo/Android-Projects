@@ -18,6 +18,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public Sprite spriteHighlighted;
     private Image mImage;
 
+    public AudioSource vaicomeçar321;
+
     void Start()
     {
         jogar = GetComponent<AudioSource>();
@@ -89,11 +91,13 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                vaicomeçar321.Play();
+                Invoke("StartGame", vaicomeçar321.clip.length);
             }
             else if(GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                vaicomeçar321.Play();
+                Invoke("StartGame", vaicomeçar321.clip.length);
             }
         }
         lastTapTime = currentTapTime;
@@ -110,7 +114,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        mImage.sprite = spriteHighlighted;
+        highlighted = 1;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -296,5 +301,10 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool InstrucoesB3BackToNormal()
     {
         return instrucoesB3BackToNormal;
+    }
+
+    private void StartGame()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
     }
 }

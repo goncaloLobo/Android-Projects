@@ -196,6 +196,8 @@ public class PlayerControlSwipe : MonoBehaviour
                 currentTouch = touch;
                 currentTapTime = Time.time;
                 System.Diagnostics.Debug.WriteLine("hey, i'm here.");
+                System.Diagnostics.Debug.WriteLine("current: " + currentTapTime);
+                System.Diagnostics.Debug.WriteLine("last: " + lastTapTime);
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     // se o botao jogar estiver highlighted
