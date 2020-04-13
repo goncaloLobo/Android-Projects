@@ -13,7 +13,6 @@ public class TimeCounter : MonoBehaviour
     int minutes;
     int seconds;
 
-    // Start is called before the first frame update
     void Start()
     {
         startCounter = false;
@@ -32,6 +31,11 @@ public class TimeCounter : MonoBehaviour
     {
         startCounter = false;
         return ellapsedTime;
+    }
+
+    public void ResetTimer()
+    {
+        timeUI.text = string.Format("{0:00}:{1:00}", 0, 0);
     }
 
     // Update is called once per frame

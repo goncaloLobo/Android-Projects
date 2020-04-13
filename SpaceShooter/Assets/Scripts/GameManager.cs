@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
     public GameObject tutorialButton;
+    public Text LivesUIText;
 
     // botoes instrucoes
     public GameObject instrucoesB1;
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject instrucoesB3;
 
     public AudioSource introducao;
-    private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
+    private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, tutorialp6;
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -42,6 +44,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial3;
     public AudioSource tutorial4;
     public AudioSource tutorial5;
+    public AudioSource tutorial2dir;
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -54,10 +57,12 @@ public class GameManager : MonoBehaviour
     private float currentTime;
     private int finalScore; // pontuacao final (pontos)
     private int enemiesAvoided; // inimigos desviados com sucesso
-        
+    private static bool stopEnemySpawners;
+
+
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5
+        Opening, Gameplay, GameOver, Instructions, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, TutorialP6
     }
 
     public static GameManagerState GMState;
@@ -67,7 +72,7 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.Opening;
         finalScore = 0;
         opening = true;
-        started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = stopEnemySpawners = false;
 
         //inicializa os sons das instrucoes
         sounds = GetComponents<AudioSource>();
@@ -234,37 +239,6 @@ public class GameManager : MonoBehaviour
                 tutorialButton.SetActive(true);
                 SetInstructionsBools();
 
-                /*
-                float delay = 0f;
-                instrucoespt1.Play();
-                delay += instrucoespt1.clip.length;
-
-                naveInimiga.PlayDelayed(delay);
-                delay += naveInimiga.clip.length;
-
-                instrucoespt2.PlayDelayed(delay);
-                delay += instrucoespt2.clip.length;
-
-                asteroide.PlayDelayed(delay);
-                delay += asteroide.clip.length;
-
-                instrucoespt3.PlayDelayed(delay);
-                delay += instrucoespt3.clip.length;
-
-                bonus.PlayDelayed(delay);
-                delay += bonus.clip.length;
-
-                instrucoespt4.PlayDelayed(delay);
-                delay += instrucoespt4.clip.length;
-
-                swipeSound.PlayDelayed(delay);
-                delay += swipeSound.clip.length;
-
-                instrucoespt5.PlayDelayed(delay);
-                delay += instrucoespt5.clip.length;
-
-                hitWallSound.PlayDelayed(delay);
-                */
                 break;
 
             case GameManagerState.TutorialP1:
@@ -292,12 +266,29 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.TutorialP2:
                 SetTutorialP2Bools();
+               
+                if (PlayerControlSwipe.CheckTutorialLeft())
+                {
+                    // Uma vez que foi para a esquerda, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
+                    //Experimente varrer o ecrã para a esquerda.
+                    tutorial2.Play();
+                }
+                else if (PlayerControlSwipe.CheckTutorialRight())
+                {
+                    // Uma vez que foi para a direita, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
+                    //Experimente varrer o ecrã para a direita.
+                    tutorial2dir.Play();
+                }                
+
+                break;
+            case GameManagerState.TutorialP3:
+                SetTutorialP3Bools();
 
                 // se no p1 o utilizador fez swipe para a esq
                 if (PlayerControlSwipe.CheckTutorialLeft())
                 {
                     // Agora, encontra-se à esq e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita.
-                    tutorial2.Play();
+                    tutorial3.Play();
                     Invoke("DeployLeftEnemyForTutorial", tutorial2.clip.length);
                 }
                 // se no p1 o utilizador fez swipe para a dir
@@ -308,8 +299,8 @@ public class GameManager : MonoBehaviour
                     Invoke("DeployRightEnemyForTutorial", tutorial3.clip.length);
                 }
                 break;
-            case GameManagerState.TutorialP3:
-                SetTutorialP3Bools();
+            case GameManagerState.TutorialP4:
+                SetTutorialP4Bools();
 
                 //Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar.
                 tutorial4.Play();
@@ -317,8 +308,8 @@ public class GameManager : MonoBehaviour
                 Invoke("DeployCenterAsteroidForTutorial", tutorial4.clip.length);
 
                 break;
-            case GameManagerState.TutorialP4:
-                SetTutorialP4Bools();
+            case GameManagerState.TutorialP5:
+                SetTutorialP5Bools();
 
                 // Enquanto estiver a jogar, pode apanhar bónus para ganhar mais pontos. Quando ouvir o som do bónus, varre no ecrã para ir de encontro ao bónus.
                 tutorial5.Play();
@@ -346,9 +337,24 @@ public class GameManager : MonoBehaviour
                     }
                 }
                 break;
-            case GameManagerState.TutorialP5:
-                SetTutorialP5Bools();
+            case GameManagerState.TutorialP6:
+                SetTutorialP6Bools();
                 break;
+        }
+
+        // faz parar os inimigos qdo o utilizador volta p tras qdo esta a jogar
+        if (stopEnemySpawners)
+        {
+            enemySpawner.GetComponent<EnemySpawner>().UnscheduleEnemySpawner();
+            enemySpawner2.GetComponent<EnemySpawner2>().UnscheduleEnemySpawner();
+            enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
+            stopEnemySpawners = false;
+
+            LivesUIText.text = Configuration.MaxLives().ToString();
+            scoreUITextGO.GetComponent<GameScore>().Score = 0;
+            timeCounterGO.GetComponent<TimeCounter>().StopTimeCounter();
+            timeCounterGO.GetComponent<TimeCounter>().ResetTimer();
+            playerShip.SetActive(false);
         }
     }
 
@@ -408,36 +414,53 @@ public class GameManager : MonoBehaviour
         return tutorialp5;
     }
 
+    public static bool GetTutorialP6()
+    {
+        return tutorialp6;
+    }
+
+    public static void CheckToStopEnemySpawners()
+    {
+        stopEnemySpawners = true;
+    }
+
+    // faz deploy de um inimigo no centro do ecra para o tutorial
     public void DeployCenterEnemyForTutorial()
     {
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawnerTutorial(0);
     }
 
+    // faz deploy de um inimigo à esquerda do ecra para o tutorial
     public void DeployLeftEnemyForTutorial()
     {
         enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawnerTutorial(0);
     }
 
+    // faz deploy de um inimigo à direita do ecra para o tutorial
     public void DeployRightEnemyForTutorial()
     {
         enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawnerTutorial(0);
     }
 
+    // faz deploy de um asteroide no centro do ecra para o tutorial
     public void DeployCenterAsteroidForTutorial()
     {
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleAsteroidSpawnerTutorial(0);
     }
 
+    // faz deploy de um bonus à esquerda no ecra para o tutorial
     public void DeployLeftBonusForTutorial()
     {
         enemySpawner.GetComponent<EnemySpawner>().ScheduleBonusSpawnerTutorial(0);
     }
 
+    // faz deploy de um bonus no centro do ecra para o tutorial
     public void DeployCenterBonusForTutorial()
     {
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleBonusSpawnerTutorial(0);
     }
 
+    // faz deploy de um bonus à direita no ecra para o tutorial
     public void DeployRightBonusForTutorial()
     {
         enemySpawner3.GetComponent<EnemySpawner3>().ScheduleBonusSpawnerTutorial(0);
@@ -526,67 +549,75 @@ public class GameManager : MonoBehaviour
         tutorial3 = sounds[13];
         tutorial4 = sounds[14];
         tutorial5 = sounds[15];
+        tutorial2dir = sounds[16];
     }
 
     // inicializa os bools no estado opening
     private void SetOpeningBools()
     {
         opening = true;
-        started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado gameplay
     private void SetGameplayBools()
     {
         started = true;
-        opening = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        opening = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado gameover
     private void SetGameoverBools()
     {
-        started = instructions = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        started = instructions = opening = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado instructions
     private void SetInstructionsBools()
     {
         instructions = true;
-        opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        opening = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado tutorialp1
     private void SetTutorialP1Bools()
     {
         tutorialp1 = true;
-        opening = instructions = started = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        opening = instructions = started = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado tutorialp2
     private void SetTutorialP2Bools()
     {
         tutorialp2 = true;
-        opening = instructions = started = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        opening = instructions = started = tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado tutorialp3
     private void SetTutorialP3Bools()
     {
         tutorialp3 = true;
-        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = false;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado tutorialp4
     private void SetTutorialP4Bools()
     {
         tutorialp4 = true;
-        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = false;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = tutorialp6 = false;
     }
 
     // inicializa os bools no estado tutorialp5
     private void SetTutorialP5Bools()
     {
         tutorialp5 = true;
-        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = false;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp6 = false;
+    }
+
+    // inicializa os bools no estado tutorialp5
+    private void SetTutorialP6Bools()
+    {
+        tutorialp6 = true;
+        opening = instructions = started = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 }

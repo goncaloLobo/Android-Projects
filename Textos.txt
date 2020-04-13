@@ -23,6 +23,7 @@ Space Shooter:
 	Início: "Vamos dar início ao tutorial."
 	Explicar desviar inimigos -> "A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar."
 	(som do inimigo a vir do centro do ecrã -> se desviar para a esq entao continua na esq, se for para a dir entao continua na direita)
+	Explicar limites esq e dir -> "Uma vez que foi para a esquerda, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. Experimente varrer o ecrã para a esquerda."
 	Explicar desviar inimigos -> "Agora, encontra-se à esq (ou dir) e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita (ou esq)."
 	(som do inimigo a vir do lado de onde está e faz o movimento para se desviar)
 	Explicar desviar asteroides -> "Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar."
