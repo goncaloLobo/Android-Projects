@@ -5660,6 +5660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jogar: {fileID: 0}
+  inicioJogo: {fileID: 1856236751}
   normalSprite: {fileID: 21300000, guid: dda3f084a7d587848a3f3931511b41c1, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: cd404730e1726294e9403af7d34568db, type: 3}
   GameManagerGO: {fileID: 1693170702}

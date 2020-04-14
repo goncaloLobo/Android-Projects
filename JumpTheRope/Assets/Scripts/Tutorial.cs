@@ -104,7 +104,14 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+                if (DoubleClickChecker.GetCancelTutorialAction())
+                {
+                    DoubleClickChecker.ResetCancelTutorialAction();
+                }
+                else
+                {
+                    GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+                }
             }
         }
         lastTapTime = currentTapTime;

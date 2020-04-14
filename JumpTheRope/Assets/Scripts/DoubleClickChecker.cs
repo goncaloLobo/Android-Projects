@@ -43,6 +43,7 @@ public class DoubleClickChecker : MonoBehaviour
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
     private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial; // swipe left instrucoes
     private static int stopSounds;
+    private static bool cancelJogarAction, cancelTutorialAction;
 
     private float screenDPI;
     private float increaseSpeedTimer;
@@ -571,6 +572,27 @@ public class DoubleClickChecker : MonoBehaviour
     public void DoAfterDescricao()
     {
         cordaSound.Stop();
+    }
+
+    // FAZER COM QUE DUPLO TOQUE EM CIMA DO BOTAO NAO FAÇA A MESMA COISA 2X
+    public static bool GetCancelJogarAction()
+    {
+        return cancelJogarAction;
+    }
+
+    public static void ResetCancelJogarAction()
+    {
+        cancelJogarAction = false;
+    }
+
+    public static bool GetCancelTutorialAction()
+    {
+        return cancelTutorialAction;
+    }
+
+    public static void ResetCancelTutorialAction()
+    {
+        cancelTutorialAction = false;
     }
 
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)

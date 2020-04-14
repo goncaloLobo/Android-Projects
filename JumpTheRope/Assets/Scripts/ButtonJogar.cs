@@ -6,6 +6,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 {
     private float clickdelay = 0.5f;
     public AudioSource jogar;
+    public AudioSource inicioJogo;
     private float currentTapTime;
     private float lastTapTime;
     private static int soundOn = 0;
@@ -157,7 +158,15 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+            if (DoubleClickChecker.GetCancelJogarAction())
+            {
+                DoubleClickChecker.ResetCancelJogarAction();
+            }
+            else
+            {
+                inicioJogo.Play();
+                Invoke("StartGame", inicioJogo.clip.length);
+            }
         }
         lastTapTime = currentTapTime;
     }
@@ -371,5 +380,10 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    private void StartGame()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
     }
 }
