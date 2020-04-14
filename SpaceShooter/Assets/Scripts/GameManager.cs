@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
     public AudioSource hitWallSound; // sounds[9]
 
     // audioSource tutorial
-    public AudioSource tutorial0;
     public AudioSource tutorial1;
     public AudioSource tutorial2;
     public AudioSource tutorial3;
@@ -60,11 +59,11 @@ public class GameManager : MonoBehaviour
     private int finalScore; // pontuacao final (pontos)
     private int enemiesAvoided; // inimigos desviados com sucesso
     private static bool stopEnemySpawners;
-
+    private static float delay = 0f;
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, TutorialP6
+        Opening, Gameplay, GameOver, Instructions, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5, TutorialP6, CancelTutorial
     }
 
     public static GameManagerState GMState;
@@ -230,7 +229,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 2f);
+                Invoke("ChangeToOpeningState", 1.5f);
 
                 break;
             case GameManagerState.Instructions:
@@ -245,7 +244,6 @@ public class GameManager : MonoBehaviour
                 SetInstructionsBools();
 
                 break;
-
             case GameManagerState.TutorialP1:
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
@@ -255,33 +253,31 @@ public class GameManager : MonoBehaviour
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
 
+                SetTutorialP1Bools();
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
 
-                SetTutorialP1Bools();
-
-                //Vamos dar inicio ao tutorial
-                tutorial0.Play();
-
                 // A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar.
-                tutorial1.PlayDelayed(tutorial0.clip.length);
+                tutorial1.PlayDelayed(delay);
 
-                Invoke("DeployCenterEnemyForTutorial", tutorial0.clip.length + tutorial1.clip.length);
+                System.Diagnostics.Debug.WriteLine("aqui1");
+                Invoke("DeployCenterEnemyForTutorial", tutorial1.clip.length);
 
                 break;
             case GameManagerState.TutorialP2:
                 SetTutorialP2Bools();
-               
+
+
                 if (PlayerControlSwipe.CheckTutorialLeft())
                 {
                     // Uma vez que foi para a esquerda, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
-                    //Experimente varrer o ecrã para a esquerda.
+                    // Experimente varrer o ecrã para a esquerda.
                     tutorial2.Play();
                 }
                 else if (PlayerControlSwipe.CheckTutorialRight())
                 {
                     // Uma vez que foi para a direita, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
-                    //Experimente varrer o ecrã para a direita.
+                    // Experimente varrer o ecrã para a direita.
                     tutorial2dir.Play();
                 }                
 
@@ -345,6 +341,22 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP6:
                 SetTutorialP6Bools();
                 break;
+            case GameManagerState.CancelTutorial:
+                if (tutorial1.isPlaying)
+                    tutorial1.Stop();
+                if (tutorial2.isPlaying)
+                    tutorial2.Stop();
+                if (tutorial2dir.isPlaying)
+                    tutorial2dir.Stop();
+                if (tutorial3.isPlaying)
+                    tutorial3.Stop();
+                if (tutorial4.isPlaying)
+                    tutorial4.Stop();
+                if (tutorial5.isPlaying)
+                    tutorial5.Stop();
+
+                Invoke("ChangeToInstructionsState", 0f);
+                break;
         }
 
         // faz parar os inimigos qdo o utilizador volta p tras qdo esta a jogar
@@ -379,6 +391,11 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public void ChangeToP1TutorialState()
+    {
+        SetGameManagerState(GameManagerState.TutorialP1);
     }
 
     public static GameManagerState GetCurrentState()
@@ -439,6 +456,7 @@ public class GameManager : MonoBehaviour
     // faz deploy de um inimigo no centro do ecra para o tutorial
     public void DeployCenterEnemyForTutorial()
     {
+        System.Diagnostics.Debug.WriteLine("aqui2");
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawnerTutorial(0);
     }
 
@@ -575,13 +593,12 @@ public class GameManager : MonoBehaviour
 
     private void InitiateTutorialSounds(AudioSource[] sounds)
     {
-        tutorial0 = sounds[10];
-        tutorial1 = sounds[11];
-        tutorial2 = sounds[12];
-        tutorial3 = sounds[13];
-        tutorial4 = sounds[14];
-        tutorial5 = sounds[15];
-        tutorial2dir = sounds[16];
+        tutorial1 = sounds[10];
+        tutorial2 = sounds[11];
+        tutorial3 = sounds[12];
+        tutorial4 = sounds[13];
+        tutorial5 = sounds[14];
+        tutorial2dir = sounds[15];
     }
 
     // inicializa os bools no estado opening

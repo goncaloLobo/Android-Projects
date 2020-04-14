@@ -87,7 +87,14 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
-            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+            if (PlayerControlSwipe.GetInstrucoesCancelAction())
+            {
+                PlayerControlSwipe.ResetInstrucoesCancelAction();
+            }
+            else
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+            }
         }
         lastTapTime = currentTapTime;
     }

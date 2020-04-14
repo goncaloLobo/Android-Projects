@@ -10,7 +10,7 @@ public class EnemyControl : MonoBehaviour
     public GameObject Boost100PointsMid; // referencia para o objeto de som a anunciar um boost à esquerda
     public GameObject Boost100PointsRight; // referencia para o objeto de som a anunciar um boost à esquerda
 
-    public static float speed = 1f;
+    public static float speed = 2f;
     private static bool triggerExplosion;
 
     private static int enemiesAvoided; // inimigos que chegam ao final do ecra (que o utilizador se desviou)

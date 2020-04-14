@@ -92,6 +92,7 @@ public class EnemySpawner2 : MonoBehaviour
     // faz spawn de um inimigo para o tutorial
     void SpawnEnemyTutorial()
     {
+        System.Diagnostics.Debug.WriteLine("aqui crl");
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
         Enemy = (GameObject)Instantiate(EnemyGO1);
@@ -158,6 +159,7 @@ public class EnemySpawner2 : MonoBehaviour
     // começar o enemy spawner para o tutorial
     public void ScheduleEnemySpawnerTutorial(float initialSpawnRate)
     {
+        System.Diagnostics.Debug.WriteLine("aqui3");
         Invoke("SpawnEnemyTutorial", initialSpawnRate);
     }
 

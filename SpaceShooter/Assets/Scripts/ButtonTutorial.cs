@@ -41,7 +41,15 @@ public class ButtonTutorial : MonoBehaviour, IPointerClickHandler, IPointerEnter
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
             {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+                if (PlayerControlSwipe.GetTutorialCancelAction())
+                {
+                    PlayerControlSwipe.ResetTutorialCancelAction();
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("entreeeeeeei");
+                    GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+                }
             }
         }
         lastTapTime = currentTapTime;

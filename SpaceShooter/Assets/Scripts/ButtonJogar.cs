@@ -91,13 +91,27 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
             {
-                vaicomeçar321.Play();
-                Invoke("StartGame", vaicomeçar321.clip.length);
+                if (PlayerControlSwipe.GetJogarCancelAction())
+                {
+                    PlayerControlSwipe.ResetJogarCancelAction();
+                }
+                else
+                {
+                    vaicomeçar321.Play();
+                    Invoke("StartGame", vaicomeçar321.clip.length);
+                }
             }
             else if(GameManager.GetCurrentState() == GameManager.GameManagerState.Instructions)
             {
-                vaicomeçar321.Play();
-                Invoke("StartGame", vaicomeçar321.clip.length);
+                if (PlayerControlSwipe.GetJogarCancelAction())
+                {
+                    PlayerControlSwipe.ResetJogarCancelAction();
+                }
+                else
+                {
+                    vaicomeçar321.Play();
+                    Invoke("StartGame", vaicomeçar321.clip.length);
+                }
             }
         }
         lastTapTime = currentTapTime;
