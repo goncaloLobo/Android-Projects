@@ -101,20 +101,16 @@ public class EnemySpawner2 : MonoBehaviour
     // faz spawn de um asteroid para o tutorial
     void SpawnAsteroidTutorial()
     {
-        System.Diagnostics.Debug.WriteLine("aqui1");
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
         if (Random.value < 0.5f)
         {
-            System.Diagnostics.Debug.WriteLine("aqui2");
             Meteor = (GameObject)Instantiate(MeteorMidGO);
         }
         else
         {
-            System.Diagnostics.Debug.WriteLine("aqui3");
             Meteor = (GameObject)Instantiate(MeteorGreyMidGO);
         }
-        System.Diagnostics.Debug.WriteLine("aqui4");
         Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
     }
 

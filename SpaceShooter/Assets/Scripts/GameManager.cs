@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial5;
     public AudioSource tutorial2dir;
     public AudioSource tutorial3dir;
+    public AudioSource tutorial6;
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
     private float highscoreStored;
     private float timeStored;
     private float enemiesStored;
+    private bool deployAsteroid;
 
     private float currentTime;
     private int finalScore; // pontuacao final (pontos)
@@ -74,6 +76,7 @@ public class GameManager : MonoBehaviour
         finalScore = 0;
         opening = true;
         started = instructions = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = stopEnemySpawners = false;
+        deployAsteroid = false;
 
         //inicializa os sons das instrucoes
         sounds = GetComponents<AudioSource>();
@@ -310,7 +313,11 @@ public class GameManager : MonoBehaviour
                 //Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar.
                 tutorial4.Play();
 
-                Invoke("DeployCenterAsteroidForTutorial", tutorial4.clip.length);
+                if (!deployAsteroid)
+                {
+                    Invoke("DeployCenterAsteroidForTutorial", tutorial4.clip.length);
+                    deployAsteroid = true;
+                }
 
                 break;
             case GameManagerState.TutorialP5:
@@ -318,32 +325,14 @@ public class GameManager : MonoBehaviour
 
                 // Enquanto estiver a jogar, pode apanhar bónus para ganhar mais pontos. Quando ouvir o som do bónus, varre no ecrã para ir de encontro ao bónus.
                 tutorial5.Play();
-                Invoke("DeployBonusForTutorial", tutorial5.clip.length);
-                if (PlayerControlSwipe.CheckTutorialLeft())
-                {
-                    if(Random.value < 0.5f)
-                    {
-                        Invoke("DeployLeftBonusForTutorial", tutorial5.clip.length);
-                    }
-                    else
-                    {
-                        Invoke("DeployCenterBonusForTutorial", tutorial5.clip.length);
-                    }
-                }
-                else if (PlayerControlSwipe.CheckTutorialRight())
-                {
-                    if (Random.value < 0.5f)
-                    {
-                        Invoke("DeployRightBonusForTutorial", tutorial5.clip.length);
-                    }
-                    else
-                    {
-                        Invoke("DeployCenterBonusForTutorial", tutorial5.clip.length);
-                    }
-                }
+                Invoke("DeployCenterBonusForTutorial", tutorial5.clip.length);
+
                 break;
             case GameManagerState.TutorialP6:
                 SetTutorialP6Bools();
+                tutorial6.Play();
+
+                Invoke("ChangeToInstructionsState", tutorial6.clip.length);
                 break;
             case GameManagerState.CancelTutorial:
                 if (tutorial1.isPlaying)
@@ -358,6 +347,10 @@ public class GameManager : MonoBehaviour
                     tutorial4.Stop();
                 if (tutorial5.isPlaying)
                     tutorial5.Stop();
+                if (tutorial6.isPlaying)
+                    tutorial6.Stop();
+                if (tutorial3dir.isPlaying)
+                    tutorial3dir.Stop();
 
                 Invoke("ChangeToInstructionsState", 0f);
                 break;
@@ -395,6 +388,11 @@ public class GameManager : MonoBehaviour
     public void ChangeToP1TutorialState()
     {
         SetGameManagerState(GameManagerState.TutorialP1);
+    }
+
+    public void ChangeToInstructionsState()
+    {
+        SetGameManagerState(GameManagerState.Instructions);
     }
 
     public static GameManagerState GetCurrentState()
@@ -473,7 +471,6 @@ public class GameManager : MonoBehaviour
     // faz deploy de um asteroide no centro do ecra para o tutorial
     public void DeployCenterAsteroidForTutorial()
     {
-        System.Diagnostics.Debug.WriteLine("entrei eheheheh");
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleAsteroidSpawnerTutorial(0);
     }
 
@@ -579,6 +576,7 @@ public class GameManager : MonoBehaviour
         tutorial5 = sounds[14];
         tutorial2dir = sounds[15];
         tutorial3dir = sounds[16];
+        tutorial6 = sounds[17];
     }
 
     // inicializa os bools no estado opening

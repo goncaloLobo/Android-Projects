@@ -122,8 +122,8 @@ public class EnemySpawner3 : MonoBehaviour
     {
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
-        Enemy = (GameObject)Instantiate(EnemyGO2);
-        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+        Boost = (GameObject)Instantiate(Boost100Right);
+        Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
     }
 
     // produz cada inimigo entre 1 a 8.1s depois do inimigo anterior, de forma aleatoria
