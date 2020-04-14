@@ -226,12 +226,10 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 currentTouch = touch;
                 currentTapTime = Time.time;
-                System.Diagnostics.Debug.WriteLine("entrei began instructions");
                 if (CheckForDoubleTapInstructions(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     if (ButtonTutorial.CheckForHighlighted() == 1)
                     {
-                        System.Diagnostics.Debug.WriteLine("entreeeeei");
                         tutorialCancelAction = true;
                         Invoke("ChangeToTutorialP1State", 0.5f);
                     }
@@ -258,19 +256,80 @@ public class PlayerControlSwipe : MonoBehaviour
             Touch touchp1 = Input.GetTouch(0);
             if (touchp1.phase == TouchPhase.Began)
             {
-                currentTouch = touchp1;
-                currentTapTime = Time.time;
-                System.Diagnostics.Debug.WriteLine("entrei began gettutorialp1");
+                startTouch = touchp1;
+                startTouchTime = Time.time;
             }
             else if (touchp1.phase == TouchPhase.Ended)
             {
-                previousTouch = touchp1;
-                lastTapTime = currentTapTime;
-                System.Diagnostics.Debug.WriteLine("entrei ended");
+                endTouch = touchp1;
+                endTouchTime = Time.time;
+
+                int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
+                int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+                if (distance > (16.0f * screenDPI + 0.5f))
+                {
+                    float difference = lastTapTime - currentTapTime;
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
+                    {
+                        // swipe!!!
+                        swipeDelta = new Vector2(deltaX, deltaY);
+
+                        //normalize the 2d vector
+                        swipeDelta.Normalize();
+
+                        //swipe left
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector2(startRocketPosition.x - 1.3f, transform.position.y);
+                            if (endRocketPosition.x > border.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    swipeSound.Play();
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                    tutorialLeft = true;
+                                    Invoke("ChangeToTutorialP2StateLeft", 1f);
+                                }
+                            }
+                            else
+                            {
+                                // som de bater na parede no lado esquerdo
+                                hitWallSoundLeft.Play();
+                            }
+                        }
+
+                        //swipe right
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            flytime = 0f;
+                            startRocketPosition = transform.position;
+                            endRocketPosition = new Vector2(startRocketPosition.x + 1.3f, transform.position.y);
+                            if (endRocketPosition.x < border2.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    swipeSound.Play();
+                                    transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
+                                    tutorialRight = true;
+                                    Invoke("ChangeToTutorialP2StateRight", 1f);
+                                }
+                            }
+                            else
+                            {
+                                // som de bater na parede no lado direito
+                                hitWallSoundRight.Play();
+                            }
+                        }
+                    }
+                }
             }
         }
 
-        /*
         // PARTE 2 DO TUTORIAL
         if (GameManager.GetTutorialP2())
         {
@@ -312,7 +371,7 @@ public class PlayerControlSwipe : MonoBehaviour
                             if (endRocketPosition.x < border.x)
                             {
                                 hitWallSoundLeft.Play();
-                                Invoke("ChangeToTutorialP3State", 0.5f);
+                                Invoke("ChangeToTutorialP3State", 1f);
                             }
                         }
 
@@ -325,15 +384,14 @@ public class PlayerControlSwipe : MonoBehaviour
                             if (endRocketPosition.x > border2.x)
                             {
                                 hitWallSoundRight.Play();
-                                Invoke("ChangeToTutorialP3State", 0.5f);
+                                Invoke("ChangeToTutorialP3State", 1f);
                             }
                         }
                     }
                 }
             }
         }
-        */
-        /*
+
         if (GameManager.GetTutorialP3())
         {
             Touch touch = Input.GetTouch(0);
@@ -378,7 +436,7 @@ public class PlayerControlSwipe : MonoBehaviour
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                                    Invoke("ChangeToTutorialP4StateLeft", 0.5f);
+                                    Invoke("ChangeToTutorialP4StateLeft", 1f);
                                 }
                             }
                             else
@@ -401,7 +459,7 @@ public class PlayerControlSwipe : MonoBehaviour
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                                    Invoke("ChangeToTutorialP4StateRight", 0.5f);
+                                    Invoke("ChangeToTutorialP4StateRight", 1f);
                                 }
                             }
                             else
@@ -432,6 +490,7 @@ public class PlayerControlSwipe : MonoBehaviour
             {
                 endTouch = touch;
                 endTouchTime = Time.time;
+                System.Diagnostics.Debug.WriteLine("olha eu aqui");
                 int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
                 int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
 
@@ -460,7 +519,8 @@ public class PlayerControlSwipe : MonoBehaviour
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                                    Invoke("ChangeToTutorialP5StateLeft", 0.5f);
+                                    Invoke("ChangeToTutorialP5StateLeft", 1f);
+                                    tutorialLeft = true;
                                 }
                             }
                             else
@@ -483,7 +543,8 @@ public class PlayerControlSwipe : MonoBehaviour
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
-                                    Invoke("ChangeToTutorialP5StateRight", 0.5f);
+                                    Invoke("ChangeToTutorialP5StateRight", 1f);
+                                    tutorialRight = true;
                                 }
                             }
                             else
@@ -500,7 +561,6 @@ public class PlayerControlSwipe : MonoBehaviour
                 tutorialRight = tutorialLeft = false;
             }
         }
-        */
     }
 
     public IEnumerator WaitForTouch(float duration, Action DoAfter)

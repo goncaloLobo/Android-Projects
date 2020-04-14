@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource background;
     private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, tutorialp6;
-    public static bool decreaseBackground, increaseBackground; // bool para aumentar ou diminuir som background
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -46,6 +45,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial4;
     public AudioSource tutorial5;
     public AudioSource tutorial2dir;
+    public AudioSource tutorial3dir;
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         InitiateSounds(sounds);
         InitiateTutorialSounds(sounds);
         background.Play();
+        background.loop = true;
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -106,7 +107,9 @@ public class GameManager : MonoBehaviour
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
                 playerShip.SetActive(true);
+
                 SetOpeningBools();
+                background.volume = 0.2f;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -241,7 +244,9 @@ public class GameManager : MonoBehaviour
                 instrucoesB3.SetActive(true);
                 introducaoButton.SetActive(true);
                 tutorialButton.SetActive(true);
+
                 SetInstructionsBools();
+                background.volume = 0.05f;
 
                 break;
             case GameManagerState.TutorialP1:
@@ -259,8 +264,7 @@ public class GameManager : MonoBehaviour
 
                 // A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar.
                 tutorial1.PlayDelayed(delay);
-
-                System.Diagnostics.Debug.WriteLine("aqui1");
+                
                 Invoke("DeployCenterEnemyForTutorial", tutorial1.clip.length);
 
                 break;
@@ -290,13 +294,13 @@ public class GameManager : MonoBehaviour
                 {
                     // Agora, encontra-se à esq e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita.
                     tutorial3.Play();
-                    Invoke("DeployLeftEnemyForTutorial", tutorial2.clip.length);
+                    Invoke("DeployLeftEnemyForTutorial", tutorial3.clip.length);
                 }
                 // se no p1 o utilizador fez swipe para a dir
                 else if (PlayerControlSwipe.CheckTutorialRight())
                 {
-                    // Agora, encontra-se à dir e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a esquerda.
-                    tutorial3.Play();
+                    // Agora, encontra-se à direita e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a esquerda.
+                    tutorial3dir.Play();
                     Invoke("DeployRightEnemyForTutorial", tutorial3.clip.length);
                 }
                 break;
@@ -375,11 +379,6 @@ public class GameManager : MonoBehaviour
 
             EnemyControl.TriggerExplosion();
         }
-
-        if (GetDecreaseBackGround())
-        {
-            background.volume = 0.1f;
-        }
     }
 
     public void SetGameManagerState(GameManagerState state)
@@ -456,7 +455,6 @@ public class GameManager : MonoBehaviour
     // faz deploy de um inimigo no centro do ecra para o tutorial
     public void DeployCenterEnemyForTutorial()
     {
-        System.Diagnostics.Debug.WriteLine("aqui2");
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawnerTutorial(0);
     }
 
@@ -475,6 +473,7 @@ public class GameManager : MonoBehaviour
     // faz deploy de um asteroide no centro do ecra para o tutorial
     public void DeployCenterAsteroidForTutorial()
     {
+        System.Diagnostics.Debug.WriteLine("entrei eheheheh");
         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleAsteroidSpawnerTutorial(0);
     }
 
@@ -548,26 +547,6 @@ public class GameManager : MonoBehaviour
         return froll;
     }
 
-    public static void SetDecreaseBackground()
-    {
-        decreaseBackground = true;
-    }
-
-    public static bool GetDecreaseBackGround()
-    {
-        return decreaseBackground;
-    }
-
-    public static void SetIncreaseBackground()
-    {
-        increaseBackground = true;
-    }
-
-    public static bool GetIncreaseBackground()
-    {
-        return increaseBackground;
-    }
-
     //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
     private void GetCurrentHighScores()
     {
@@ -599,6 +578,7 @@ public class GameManager : MonoBehaviour
         tutorial4 = sounds[13];
         tutorial5 = sounds[14];
         tutorial2dir = sounds[15];
+        tutorial3dir = sounds[16];
     }
 
     // inicializa os bools no estado opening

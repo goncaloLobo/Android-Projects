@@ -47,7 +47,6 @@ public class ButtonTutorial : MonoBehaviour, IPointerClickHandler, IPointerEnter
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("entreeeeeeei");
                     GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
                 }
             }
