@@ -56,6 +56,8 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 d3c76b14a25eebd3a3323dd43297919c Unity.TextMeshPro.dll:TMPro.TMP_InputField
 478e665117a92a4aa7cef79a6fd2af89 Assembly-CSharp.dll:.ButtonsInstrucoes
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
+71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 6552f93c0228709361d680a068a277f8 Assembly-CSharp.dll:.TimeCounter
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.UI.dll:UnityEngine.EventSystems.BaseInput
@@ -121,7 +123,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 68f1d4c5e0a82dcc465ddd3d9f9c299d Assembly-CSharp.dll:.EnemySpawner
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 358adfa5b87376a97ce64822519f5d25 Assembly-CSharp.dll:.ButtonPontos
-74f426b7eec8520ceb618a9cc77cf22b Assembly-CSharp.dll:.GameManager
+c058635a8faf5bbd097d0289e9aefa0f Assembly-CSharp.dll:.GameManager
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 f9a1d18e31e497258d7c8f58de58f81e Assembly-CSharp.dll:.InstrucoesB1

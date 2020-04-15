@@ -25,14 +25,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
     private Vector2 swipeDelta;
 
-    private bool jogarToInstrucoes, jogarToIntroducao;
-
     void Start()
     {
         jogar = GetComponent<AudioSource>();
         screenDPI = Screen.dpi;
         introducaoToHighlight = instrucoesToHighlight = false;
-        jogarToInstrucoes = jogarToIntroducao = false;
         introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("PlayButtonTag").GetComponent<Image>();
     }
@@ -117,6 +114,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if(DoubleClickChecker.SwipeInstrucoesToJogar() == 1)
         {
+            jogar.Play();
             DoubleClickChecker.SwipeInstrucoesToJogarReset();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
@@ -131,12 +129,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if(DoubleClickChecker.SwipeIntroToJogar() == 1)
         {
+            jogar.Play();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
             DoubleClickChecker.SwipeIntroToJogarReset();
         }
 
         if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -152,23 +157,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
         if (!jogar.isPlaying)
             jogar.Play();
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (DoubleClickChecker.GetCancelJogarAction())
-            {
-                DoubleClickChecker.ResetCancelJogarAction();
-            }
-            else
-            {
-                inicioJogo.Play();
-                Invoke("StartGame", inicioJogo.clip.length);
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -182,8 +172,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        jogarToIntroducao = true;
-        jogarToInstrucoes = true;
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
@@ -224,9 +212,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
-
-        //if (!jogar.isPlaying)
-        //    jogar.Play();
 
         if (!jogar.isPlaying)
         {

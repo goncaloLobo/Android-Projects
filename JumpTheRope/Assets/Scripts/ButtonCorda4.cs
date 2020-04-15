@@ -83,13 +83,11 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 1;
         }
 
-        /*
-        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
+        if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
-        */
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -97,7 +95,6 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (!intro.isPlaying)
         {
             intro.Play();
-            descricao.PlayDelayed(intro.clip.length);
         }
     }
 
@@ -150,14 +147,12 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda1.SetSoundOn();
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
             if (ButtonCorda1.GetSoundOn() == 0)
             {
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
@@ -165,14 +160,12 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda2.SetSoundOn();
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
             if (ButtonCorda2.GetSoundOn() == 0)
             {
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
@@ -180,14 +173,12 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda3.SetSoundOn();
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
             if (ButtonCorda3.GetSoundOn() == 0)
             {
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
@@ -195,14 +186,12 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 Tutorial.SetSoundOn();
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
             if (Tutorial.GetSoundOn() == 0)
             {
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
@@ -210,14 +199,12 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonJogar.SetSoundOn();
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
 
             if (ButtonJogar.GetSoundOn() == 0)
             {
                 intro.Play();
-                descricao.PlayDelayed(intro.clip.length);
                 soundOn = 1;
             }
         }

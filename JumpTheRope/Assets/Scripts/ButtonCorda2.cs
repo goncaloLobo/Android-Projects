@@ -88,6 +88,13 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
             DoubleClickChecker.SwipeCorda2ToCorda3();
         }
+
+        if(DoubleClickChecker.SwipeCorda3ToCorda2() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.SwipeCorda3ToCorda2Reset();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

@@ -23,8 +23,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float screenDPI;
     private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
     private Vector2 swipeDelta;
-
-    private bool introducaoToJogar, introducaoToInstrucoes;
+    private static bool introducaoIsPlaying;
 
     void Start()
     {
@@ -34,7 +33,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         highlighted = 0;
         screenDPI = Screen.dpi;
         jogarToHighlight = instrucoesToHighlight = false;
-        introducaoToJogar = introducaoToInstrucoes = false;
+        introducaoIsPlaying = false;
         jogarBackToNormal = buttonCorda1BackToNormal = instrucoesBackToNormal = buttonCorda2BackToNormal = buttonCorda3BackToNormal = buttonCorda4BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroductionButtonTag").GetComponent<Image>();
     }
@@ -106,6 +105,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            intro.Play();
         }
 
         if(DoubleClickChecker.SwipeIntroToInstr() == 1)
@@ -124,23 +124,14 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            intro.Play();
         }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
         if (!intro.isPlaying)
             intro.Play();
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
-            {
-                introducao.Play();
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -154,8 +145,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        introducaoToInstrucoes = true;
-        introducaoToJogar = true;
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
@@ -274,5 +263,16 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    // INTRODUCAO IS PLAYING
+    public static bool GetIntroducaoIsPlaying()
+    {
+        return introducaoIsPlaying;
+    }
+
+    public static void ResetIntroducaoIsPlaying()
+    {
+        introducaoIsPlaying = false;
     }
 }

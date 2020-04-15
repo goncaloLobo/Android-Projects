@@ -23,15 +23,12 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
     private Vector2 swipeDelta;
 
-    private bool instrucoesToJogar, instrucoesToIntroducao;
-
     void Start()
     {
         instrucoes = GetComponent<AudioSource>();
         highlighted = 0;
         screenDPI = Screen.dpi;
         jogarToHighlight = introducaoToHighlight = false;
-        instrucoesToJogar = instrucoesToIntroducao = false;
         jogarBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("InstructionsButtonTag").GetComponent<Image>();
     }
@@ -117,12 +114,14 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             DoubleClickChecker.SwipeIntroToInstrReset();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            instrucoes.Play();
         }
 
         if(DoubleClickChecker.SwipeJogarToInstr() == 1)
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            instrucoes.Play();
         }
 
         if(DoubleClickChecker.SwipeInstrToIntro() == 1)
@@ -135,18 +134,8 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
         if (!instrucoes.isPlaying)
             instrucoes.Play();        
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
-            {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -160,8 +149,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        instrucoesToIntroducao = true;
-        instrucoesToJogar = true;
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;

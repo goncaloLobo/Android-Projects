@@ -44,8 +44,8 @@ public class DoubleClickChecker : MonoBehaviour
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
     private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial; // swipe left instrucoes
+    private static int swipeJogarToTutorial, swipeCorda4ToCorda3, swipeCorda3ToCorda2, swipeCorda2ToCorda1; // swipe right instrucoes
     private static int stopSounds;
-    private static bool cancelJogarAction, cancelTutorialAction;
 
     private float screenDPI;
     private float increaseSpeedTimer;
@@ -73,6 +73,7 @@ public class DoubleClickChecker : MonoBehaviour
         swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
         swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
         swipeJogarToCorda1 = swipeCorda1ToCorda2 = swipeCorda2ToCorda3 = swipeCorda3ToCorda4 = swipeCorda4ToTutorial = 0;
+        swipeJogarToTutorial = swipeCorda4ToCorda3 = 0;
     }
 
     void Update()
@@ -83,7 +84,9 @@ public class DoubleClickChecker : MonoBehaviour
             if (GameManager.GetOpening())
             {
                 if (introducaoSound.isPlaying)
+                {
                     introducaoSound.Stop();
+                }
                 else
                     Application.Quit();
             }
@@ -156,7 +159,9 @@ public class DoubleClickChecker : MonoBehaviour
                     else if (ButtonIntroducao.CheckForHighlighted() == 1)
                     {
                         if (!introducaoSound.isPlaying)
+                        {
                             introducaoSound.Play();
+                        }
                     }
 
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
@@ -189,15 +194,10 @@ public class DoubleClickChecker : MonoBehaviour
                         if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
                             System.Diagnostics.Debug.WriteLine("ENTREI SWIPE LEFT DOUBLE CLICK CHECKER");
-                            // se o botao jogar estiver highlighted
                             if (ButtonJogar.CheckForHighlighted() == 1)
                                 swipeJogarToIntroducao = 1;
-
-                            // se o botao instrucoes estiver highlighted
                             if (ButtonInstrucoes.CheckForHighlighted() == 1)
                                 swipeInstrucoesToJogar = 1;
-
-                            // se o botao introducao estiver highlighted
                             if (ButtonIntroducao.CheckForHighlighted() == 1)
                                 swipeIntroToInstr = 1;
                         }
@@ -205,15 +205,10 @@ public class DoubleClickChecker : MonoBehaviour
                         //swipe right no menu opening
                         if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            // se o botao jogar estiver highlighted
                             if (ButtonJogar.CheckForHighlighted() == 1)
                                 swipeJogarToInstr = 1;
-
-                            // se o botao introducao estiver highlighted
                             if (ButtonIntroducao.CheckForHighlighted() == 1)
                                 swipeIntroToJogar = 1;
-
-                            // se o botao instrucoes estiver highlighted
                             if (ButtonInstrucoes.CheckForHighlighted() == 1)
                                 swipeInstrToIntro = 1;
                         }
@@ -240,7 +235,8 @@ public class DoubleClickChecker : MonoBehaviour
 
                         else if (ButtonJogar.CheckForHighlighted() == 1)
                         {
-                            GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+                            inicioJogo.Play();
+                            Invoke("StartGame", inicioJogo.clip.length);
                         }
 
                         else if (ButtonCorda1.CheckForHighlighted() == 1)
@@ -295,7 +291,14 @@ public class DoubleClickChecker : MonoBehaviour
                             //swipe left no menu instrucoes
                             if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                             {
-
+                                if (ButtonJogar.CheckForHighlighted() == 1)
+                                    swipeJogarToTutorial = 1;
+                                if (ButtonCorda4.CheckForHighlighted() == 1)
+                                    swipeCorda4ToCorda3 = 1;
+                                if (ButtonCorda3.CheckForHighlighted() == 1)
+                                    swipeCorda3ToCorda2 = 1;
+                                if (ButtonCorda2.CheckForHighlighted() == 1)
+                                    swipeCorda2ToCorda1 = 1;
                             }
 
                             //swipe right no menu instrucoes
@@ -536,6 +539,50 @@ public class DoubleClickChecker : MonoBehaviour
         swipeCorda4ToTutorial = 0;
     }
 
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA4 PARA O BOTAO CORDA3
+    public static int SwipeCorda4ToCorda3()
+    {
+        return swipeCorda4ToCorda3;
+    }
+
+    public static void SwipeCorda4ToCorda3Reset()
+    {
+        swipeCorda4ToCorda3 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO TUTORIAL
+    public static int SwipeJogarToTutorial()
+    {
+        return swipeJogarToTutorial;
+    }
+
+    public static void SwipeJogarToTutorialReset()
+    {
+        swipeJogarToTutorial = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA3 PARA O BOTAO CORDA2
+    public static int SwipeCorda3ToCorda2()
+    {
+        return swipeCorda3ToCorda2;
+    }
+
+    public static void SwipeCorda3ToCorda2Reset()
+    {
+        swipeCorda3ToCorda2 = 0;
+    }
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA2 PARA O BOTAO CORDA1
+    public static int SwipeCorda2ToCorda1()
+    {
+        return swipeCorda2ToCorda1;
+    }
+
+    public static void SwipeCorda2ToCorda1Reset()
+    {
+        swipeCorda2ToCorda1 = 0;
+    }
+
+
     //numero de saltos perfeitos no final
     public static int GetSaltosPerfeitos()
     {
@@ -575,27 +622,6 @@ public class DoubleClickChecker : MonoBehaviour
     public void DoAfterDescricao()
     {
         cordaSound.Stop();
-    }
-
-    // FAZER COM QUE DUPLO TOQUE EM CIMA DO BOTAO NAO FAÇA A MESMA COISA 2X
-    public static bool GetCancelJogarAction()
-    {
-        return cancelJogarAction;
-    }
-
-    public static void ResetCancelJogarAction()
-    {
-        cancelJogarAction = false;
-    }
-
-    public static bool GetCancelTutorialAction()
-    {
-        return cancelTutorialAction;
-    }
-
-    public static void ResetCancelTutorialAction()
-    {
-        cancelTutorialAction = false;
     }
 
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
