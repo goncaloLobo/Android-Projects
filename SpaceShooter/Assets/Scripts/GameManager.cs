@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial2dir;
     public AudioSource tutorial3dir;
     public AudioSource tutorial6;
+    public AudioSource tutorial0;
 
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -265,8 +266,11 @@ public class GameManager : MonoBehaviour
                 // tipo de controlo
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
 
-                // A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar.
-                tutorial1.PlayDelayed(delay);
+                // Estás numa nave espacial e o teu objetivo é desviares-te dos inimigos ou asteroides que irão vir contra ti.
+                tutorial0.Play();
+
+                // A tua nave começa o jogo no meio do ecrã. Quando ouvires o som do inimigo, tens de varrer o ecrã para um dos lados para te desviares.
+                tutorial1.PlayDelayed(tutorial0.clip.length);
                 
                 Invoke("DeployCenterEnemyForTutorial", tutorial1.clip.length);
 
@@ -277,14 +281,14 @@ public class GameManager : MonoBehaviour
 
                 if (PlayerControlSwipe.CheckTutorialLeft())
                 {
-                    // Uma vez que foi para a esquerda, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
-                    // Experimente varrer o ecrã para a esquerda.
+                    // Uma vez que foste para a esquerda, não é possível ires novamente para esse lado. Se tentares, irás ouvir um som como se batesses numa parede. 
+                    // Experimenta varrer o ecrã para a esquerda.
                     tutorial2.Play();
                 }
                 else if (PlayerControlSwipe.CheckTutorialRight())
                 {
-                    // Uma vez que foi para a direita, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. 
-                    // Experimente varrer o ecrã para a direita.
+                    // Uma vez que foste para a direita, não é possível ires novamente para esse lado. Se tentares, irás ouvir um som como se batesses numa parede. 
+                    // Experimenta varrer o ecrã para a direita.
                     tutorial2dir.Play();
                 }                
 
@@ -295,14 +299,14 @@ public class GameManager : MonoBehaviour
                 // se no p1 o utilizador fez swipe para a esq
                 if (PlayerControlSwipe.CheckTutorialLeft())
                 {
-                    // Agora, encontra-se à esq e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita.
+                    // Continuas à esquerda e vem um inimigo contra ti. Desvia-te varrendo o ecrã para a direita.
                     tutorial3.Play();
                     Invoke("DeployLeftEnemyForTutorial", tutorial3.clip.length);
                 }
                 // se no p1 o utilizador fez swipe para a dir
                 else if (PlayerControlSwipe.CheckTutorialRight())
                 {
-                    // Agora, encontra-se à direita e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a esquerda.
+                    // Continuas à direita e vem um inimigo contra ti. Desvia-te varrendo o ecrã para a esquerda.
                     tutorial3dir.Play();
                     Invoke("DeployRightEnemyForTutorial", tutorial3.clip.length);
                 }
@@ -310,7 +314,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP4:
                 SetTutorialP4Bools();
 
-                //Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar.
+                // Agora, estás novamente no centro e à tua frente encontra-se um asteroide. Desvia-te varrendo o ecrã para um dos lados.
                 tutorial4.Play();
 
                 if (!deployAsteroid)
@@ -323,13 +327,15 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP5:
                 SetTutorialP5Bools();
 
-                // Enquanto estiver a jogar, pode apanhar bónus para ganhar mais pontos. Quando ouvir o som do bónus, varre no ecrã para ir de encontro ao bónus.
+                // Enquanto estiveres a jogar, podes apanhar bónus para ganhar mais pontos. Quando ouvires o som do bónus, varre o ecrã para ires de encontro ao bónus.
                 tutorial5.Play();
                 Invoke("DeployCenterBonusForTutorial", tutorial5.clip.length);
 
                 break;
             case GameManagerState.TutorialP6:
                 SetTutorialP6Bools();
+
+                // Chegámos ao final do tutorial. Durante o jogo tens 3 vidas, tenta sobreviver ao máximo de inimigos possível. Podes fazer o tutorial novamente, se quiseres. Boa sorte.
                 tutorial6.Play();
 
                 Invoke("ChangeToInstructionsState", tutorial6.clip.length);
@@ -577,6 +583,7 @@ public class GameManager : MonoBehaviour
         tutorial2dir = sounds[15];
         tutorial3dir = sounds[16];
         tutorial6 = sounds[17];
+        tutorial0 = sounds[18];
     }
 
     // inicializa os bools no estado opening

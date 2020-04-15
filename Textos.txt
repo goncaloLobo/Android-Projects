@@ -4,33 +4,33 @@ Explicar som de uma perna a saltar -> "Um toque no ecrã corresponde a uma das p
 Explicar som de duas pernas a saltar -> "Dois toques corresponde a um salto com as duas pernas."
 
 	Tutorial:
-	Início: "Vamos dar início ao tutorial."
-	Explicar salto no ecra -> "Para levantar uma perna deve tocar uma vez no ecrã: experimente."
+	Início -> "Vamos saltar à corda! Para obteres a melhor pontuação terás de saltar no melhor momento. A corda não vai parar, vamos ver quanto tempo aguentas."
+	Explicar salto no ecra -> "Primeiro vamos ver como podes saltar. Um toque no ecrã corresponde a um impulso em cada uma das pernas. Para levantar uma perna deves tocar uma vez no ecrã: experimenta."
 	(faz o som de o salto de uma perna).
-	Explicar salto bem feito -> "Agora, para saltar à corda, deve fazer um duplo toque no ecrã: experimente."
+	Explicar salto bem feito -> "Agora para saltar tens de fazer dois toques rápidos seguidos no ecrã. Ou seja um duplo toque. Experimenta."
 	(faz o som do salto normal).
-	Explicar o salto perfeito -> "Para saltar de forma perfeita, deve fazer um duplo toque no ecrã de forma mais rápida. Experimente."
+	Explicar o salto perfeito -> "Saltar de forma perfeita garante mais pontos. Para isso o duplo toque tem de ser mais rápido. Ouve o exemplo e de seguida experimenta."
 	(se for um duplo toque para salto perfeito, faz o salto perfeito. Se não for, repete a instrução).
-	Explicar o som da corda -> "Quando ouvir o som da corda, deve então tentar fazer um salto perfeito. Experimente algumas vezes."
-	(se nao fizer bem, repete a mensagem)
-	Explicar como se perde -> "Por fim, perde quando falhar mais do que 10 saltos perfeitos ou quando metade dos seus saltos forem apenas saltos normais. 
-				   Pode fazer o tutorial novamente, se quiser. Boa sorte."
+	Explicar o som da corda -> "Para saltar no momento certo, quando ouvir o som da corda deve então tentar fazer um salto perfeito. Experimente algumas vezes."
+	(à medida que vai fazendo bem, diz para fazer mais 2 saltos perfeitos, mais 1 salto perfeito, até passar para o próximo passo)
+	Explicar como se perde -> "Por fim, perdes quando falhares mais do que 10 saltos perfeitos. Quando perderes, os teus pontos são registados e se fizeres uma pontuação mais alta irá ficar guardada. 
+				   Pode fazer o tutorial novamente quando quiseres. Boa sorte."
 	Final do tutorial
 
 Space Shooter:
 
 	Tutorial:
-	Início: "Vamos dar início ao tutorial."
-	Explicar desviar inimigos -> "A sua nave está no meio do ecrã. Quando ouvir um inimigo, varra o ecrã para um dos lados para se desviar."
+	Início: "Estás numa nave espacial e o teu objetivo é desviares-te dos inimigos ou asteroides que irão vir contra ti."
+	Explicar desviar inimigos -> "A tua nave começa o jogo no meio do ecrã. Quando ouvires o som do inimigo, tens de varrer o ecrã para um dos lados para te desviares."
 	(som do inimigo a vir do centro do ecrã -> se desviar para a esq entao continua na esq, se for para a dir entao continua na direita)
-	Explicar limites esq e dir -> "Uma vez que foi para a esquerda, não é possível ir mais para o mesmo lado. Se tentar, irá ouvir um som como se batesse numa parede. Experimente varrer o ecrã para a esquerda."
-	Explicar desviar inimigos -> "Agora, encontra-se à esq (ou dir) e vem um inimigo bater contra si. Desvie-se varrendo o ecrã para a direita (ou esq)."
+	Explicar limites esq e dir -> "Uma vez que foste para a esquerda, não é possível ires novamente para esse lado. Se tentares, irás ouvir um som como se batesses numa parede. Experimente varrer o ecrã para a esquerda."
+	Explicar desviar inimigos -> "Continuas à esquerda e vem um inimigo contra ti. Desvia-te varrendo o ecrã para a direita."
 	(som do inimigo a vir do lado de onde está e faz o movimento para se desviar)
-	Explicar desviar asteroides -> "Agora, encontra-se novamente no centro e à sua frente um asteroide. Varra o ecrã para um dos lados para se desviar."
+	Explicar desviar asteroides -> "Agora, estás novamente no centro e à tua frente encontra-se um asteroide. Desvia-te varrendo o ecrã para um dos lados."
 	(som do asteroid a vir do lado de onde está e faz o movimento para se desviar)
-	Explicar som bónus -> "Enquanto estiver a jogar, pode apanhar bónus para ganhar mais pontos. Quando ouvir o som do bónus, varre no ecrã para ir de encontro ao bónus."
+	Explicar som bónus -> "Enquanto estiveres a jogar, podes apanhar bónus para ganhar mais pontos. Quando ouvires o som do bónus, varre o ecrã para ires de encontro ao bónus."
 	(som bónus a vir de um dos lados do ecrã, jogador varre o ecrã para bater no bónus)
-	Final -> "Chegámos ao final do tutorial. Durante o jogo tens 3 vidas, tenta sobreviver ao máximo de inimigos possíveis. Podes fazer o tutorial novamente, se quiseres. Boa sorte."
+	Final -> "Chegámos ao final do tutorial. Durante o jogo tens 3 vidas, tenta sobreviver ao máximo de inimigos possível. Podes fazer o tutorial novamente, se quiseres. Boa sorte."
 
 
 Guarda-Redes:
