@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     public GameObject GameOverGO;
     public GameObject introducaoButton;
     public GameObject instrucoesButton;
-    public GameObject closeButton;
 
     // coisas para a pagina do tutorial
     public GameObject tutorialButton;
@@ -28,6 +27,8 @@ public class GameManager : MonoBehaviour
     public AudioSource tut3;
     public AudioSource tut4;
     public AudioSource tut5;
+    public AudioSource oneFootJumping;
+    public AudioSource manJump;
 
     public AudioSource[] sounds;
     public AudioSource audioData; // som da corda sounds[0]
@@ -40,6 +41,8 @@ public class GameManager : MonoBehaviour
     public AudioSource introducao;
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
+    public AudioSource novoHighscore;
+
     private static bool started, toFinish, opening, instrucoes;
     private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private static bool jogarBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
@@ -146,33 +149,44 @@ public class GameManager : MonoBehaviour
                 playButton.SetActive(false);
                 TutorialButtonsToFalse();
 
-                // "Vamos dar início ao tutorial"
+                // "Vamos saltar à corda! Para obteres a melhor pontuação terás de saltar no melhor momento. A corda não vai parar, vamos ver quanto tempo aguentas."
                 tut0.Play();
                 delay += tut0.clip.length;
 
-                // "Para levantar uma perna deve tocar uma vez no ecrã: experimente"
+                // "Primeiro vamos ver como podes saltar. Um toque no ecrã corresponde a um impulso em cada uma das pernas. Para levantar uma perna deves tocar uma vez no ecrã: experimenta."
                 tut1.PlayDelayed(delay);
 
                 break;
             case GameManagerState.TutorialP2:
                 SetTutorial2Bools();
 
-                // "Agora, para saltar à corda, deve fazer um duplo toque no ecrã: experimente."
+                // "Agora para saltar tens de fazer dois toques rápidos seguidos no ecrã. Ou seja um duplo toque. Experimenta."
                 tut2.Play();
 
                 break;
             case GameManagerState.TutorialP3:
                 SetTutorial3Bools();
 
-                // "Para saltar de forma perfeita, deve fazer um duplo toque no ecrã de forma mais rápida. Experimente"
+                // "Saltar de forma perfeita garante mais pontos. Para isso o duplo toque tem de ser mais rápido. Ouve o exemplo e de seguida experimenta."
+                delay = 0;
                 tut3.Play();
+
+                delay += tut3.clip.length + 0.5f;
+                System.Diagnostics.Debug.WriteLine("delay: " + delay);
+
+                oneJump.PlayDelayed(delay);
+                //oneFootJumping.PlayDelayed(delay + 0.2f);
+                manJump.PlayDelayed(delay + 0.1f);
+
                 break;
 
             case GameManagerState.TutorialP4:
                 SetTutorial4Bools();
 
+                // Para saltar no momento certo, quando ouvir o som da corda deve então tentar fazer um salto perfeito. Experimente algumas vezes.
                 tut4.Play();
                 audioData.PlayDelayed(tut4.clip.length);
+                audioData.loop = true;
                 if(DoubleClickChecker.GetJ() == 3)
                 {
                     audioData.Stop();
@@ -182,6 +196,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP5:
                 SetTutorial5Bools();
 
+                // Por fim, perdes quando falhares mais do que 10 saltos perfeitos. Quando perderes, os teus pontos são registados e se fizeres uma pontuação mais alta irá ficar guardada. Pode fazer o tutorial novamente quando quiseres. Boa sorte.
                 tut5.Play();
                 audioData.Stop();
 
@@ -203,6 +218,7 @@ public class GameManager : MonoBehaviour
                 // se for novo highscore, vai regista-lo
                 if (finalScore > highscoreStored)
                 {
+                    novoHighscore.Play();
                     GameScore.SetHighScore(finalScore, n_saltos_perfeitos, n_saltos_normais);
                 }
 
@@ -239,6 +255,12 @@ public class GameManager : MonoBehaviour
 
                 Invoke("ChangeToInstructionsState", 0f);
                 break;
+        }
+
+        // CONSTANTEMENTE VERIFICAR SE FALHOU MAIS QUE 10 SALTOS
+        if (DoubleClickChecker.GetSaltosFalhados() > 10)
+        {
+            toFinish = true;
         }
     }
 
@@ -407,14 +429,10 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
 
+            /*
             // se falhar mais do que 10 saltos, então vai terminar o jogo.
             if(DoubleClickChecker.GetSaltosFalhados() > 10)
             {
-                toFinish = true;
-            }
-            else if (IsGameOver())
-            {
-                // jogo vai terminar
                 toFinish = true;
             }
             else
@@ -423,6 +441,7 @@ public class GameManager : MonoBehaviour
                 // verificar novamente se o jogo irá terminar ou não
                 StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
             }
+            */
         }
         else
         {

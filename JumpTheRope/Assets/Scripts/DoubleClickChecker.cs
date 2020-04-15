@@ -28,6 +28,8 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource oneFootJumping; // tap
     public AudioSource saltoPerfeito; // salto perfeito
     public AudioSource inicioJogo;
+    public AudioSource falta1;
+    public AudioSource falta2;
     public GameManager GameManagerGO;
     private static int j = 0; // para verificar que faz duplo salto no tutorial 3x
 
@@ -342,7 +344,6 @@ public class DoubleClickChecker : MonoBehaviour
                     oneFootJumping.Play();
                     if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                     {
-                        manJumping.Play();
                         Invoke("ChangeToTutorialP3State", 0.5f);
                     }
 
@@ -391,10 +392,12 @@ public class DoubleClickChecker : MonoBehaviour
                         saltoPerfeito.PlayDelayed(manJumping.clip.length);
                         j++;
 
-                        if(j == 3)
-                        {
-                            Invoke("ChangeToTutorialP5State", 1.5f);
-                        }                        
+                        if (j == 1)
+                            falta2.PlayDelayed(manJumping.clip.length + saltoPerfeito.clip.length);
+                        if (j == 2)
+                            falta1.PlayDelayed(manJumping.clip.length + saltoPerfeito.clip.length);
+                        if (j == 3)
+                            Invoke("ChangeToTutorialP5State", 1.5f);                      
                     }
 
                 }
