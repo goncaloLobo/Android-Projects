@@ -82,6 +82,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            DoubleClickChecker.SwipeCorda2ToCorda3Reset();
         }
 
         if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
@@ -92,7 +93,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
-            DoubleClickChecker.SwipeCorda4ToCorda3Reset();
+            System.Diagnostics.Debug.WriteLine("buttoncorda3 4->3");
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
@@ -101,6 +102,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            DoubleClickChecker.SwipeCorda3ToCorda2Reset();
         }
     }
 

@@ -147,6 +147,20 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
         }
 
+        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
+        {
+            jogar.Play();
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
+        {
+            jogar.Play();
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
         // PARTE RELACIONADA COM OS SONS
         if (soundOn == 0)
         {

@@ -81,6 +81,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // DOUBLE CLICK CHECKER
         if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
         {
+            descricao.Play();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
             DoubleClickChecker.SwipeJogarToCorda1Reset();
@@ -91,6 +92,20 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
+
+        if(DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
+        {
+            descricao.Play();
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.SwipeCorda1ToJogarReset();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -98,8 +113,8 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (!descricao.isPlaying)
         {
             descricao.Play();
-            corda.PlayDelayed(descricao.clip.length);
-            StartCoroutine(WaitForTouch(8, DoAfter));
+            //corda.PlayDelayed(descricao.clip.length);
+            //StartCoroutine(WaitForTouch(8, DoAfter));
         }            
     }
 
@@ -146,16 +161,16 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda2.SetSoundOn();
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
             if (ButtonCorda2.GetSoundOn() == 0)
             {
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
@@ -163,16 +178,16 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda3.SetSoundOn();
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
             if (ButtonCorda3.GetSoundOn() == 0)
             {
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
@@ -180,16 +195,16 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonCorda4.SetSoundOn();
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
             if (ButtonCorda4.GetSoundOn() == 0)
             {
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
@@ -197,16 +212,16 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 ButtonJogar.SetSoundOn();
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
 
             if (ButtonJogar.GetSoundOn() == 0)
             {
                 descricao.Play();
-                corda.PlayDelayed(descricao.clip.length);
-                StartCoroutine(WaitForTouch(8, DoAfter));
+                //corda.PlayDelayed(descricao.clip.length);
+                //StartCoroutine(WaitForTouch(8, DoAfter));
                 soundOn = 1;
             }
         }

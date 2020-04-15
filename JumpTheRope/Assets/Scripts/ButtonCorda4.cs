@@ -78,15 +78,31 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // DOUBLE CLICK CHECKER
         if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
         {
-            DoubleClickChecker.SwipeCorda3ToCorda4Reset();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            DoubleClickChecker.SwipeCorda3ToCorda4Reset();
         }
 
         if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
+            System.Diagnostics.Debug.WriteLine("buttoncorda4 4->3");
             mImage.sprite = normalSprite;
             highlighted = 0;
+            DoubleClickChecker.SwipeCorda4ToCorda3Reset();
+        }
+
+        if (DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.SwipeCorda4ToTutorialReset();
+        }
+
+        if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
+        {
+            mImage.sprite = spriteHighlighted;
+            highlighted = 1;
+            DoubleClickChecker.SwipeTutorialToCorda4Reset();
         }
     }
 

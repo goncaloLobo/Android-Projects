@@ -83,7 +83,6 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
-            DoubleClickChecker.SwipeCorda4ToTutorialReset();
         }
 
         if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
@@ -91,6 +90,19 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
             DoubleClickChecker.SwipeJogarToTutorialReset();
+        }
+
+        if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+            DoubleClickChecker.SwipeTutorialToJogarReset();
         }
 
         // PARTE RELACIONADA COM OS SONS

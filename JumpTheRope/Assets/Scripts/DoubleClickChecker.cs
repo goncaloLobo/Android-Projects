@@ -43,8 +43,8 @@ public class DoubleClickChecker : MonoBehaviour
 
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
-    private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial; // swipe left instrucoes
-    private static int swipeJogarToTutorial, swipeCorda4ToCorda3, swipeCorda3ToCorda2, swipeCorda2ToCorda1; // swipe right instrucoes
+    private static int swipeJogarToTutorial, swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial; // swipe left instrucoes
+    private static int swipeTutorialToJogar, swipeCorda1ToJogar, swipeCorda2ToCorda1, swipeCorda3ToCorda2, swipeCorda4ToCorda3, swipeTutorialToCorda4 ; // swipe right instrucoes
     private static int stopSounds;
 
     private float screenDPI;
@@ -73,7 +73,7 @@ public class DoubleClickChecker : MonoBehaviour
         swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
         swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
         swipeJogarToCorda1 = swipeCorda1ToCorda2 = swipeCorda2ToCorda3 = swipeCorda3ToCorda4 = swipeCorda4ToTutorial = 0;
-        swipeJogarToTutorial = swipeCorda4ToCorda3 = 0;
+        swipeJogarToTutorial = swipeCorda4ToCorda3 = swipeTutorialToCorda4 = 0;
     }
 
     void Update()
@@ -299,6 +299,10 @@ public class DoubleClickChecker : MonoBehaviour
                                     swipeCorda3ToCorda2 = 1;
                                 if (ButtonCorda2.CheckForHighlighted() == 1)
                                     swipeCorda2ToCorda1 = 1;
+                                if (Tutorial.CheckForHighlighted() == 1)
+                                    swipeTutorialToCorda4 = 1;
+                                if (ButtonCorda1.CheckForHighlighted() == 1)
+                                    swipeCorda1ToJogar = 1;
                             }
 
                             //swipe right no menu instrucoes
@@ -314,6 +318,8 @@ public class DoubleClickChecker : MonoBehaviour
                                     swipeCorda3ToCorda4 = 1;                                
                                 if (ButtonCorda4.CheckForHighlighted() == 1)
                                     swipeCorda4ToTutorial = 1;
+                                if (Tutorial.CheckForHighlighted() == 1)
+                                    swipeTutorialToJogar = 1;
                             }
                         }
                     }
@@ -580,6 +586,39 @@ public class DoubleClickChecker : MonoBehaviour
     public static void SwipeCorda2ToCorda1Reset()
     {
         swipeCorda2ToCorda1 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO TUTORIAL PARA O BOTAO CORDA4
+    public static int SwipeTutorialToCorda4()
+    {
+        return swipeTutorialToCorda4;
+    }
+
+    public static void SwipeTutorialToCorda4Reset()
+    {
+        swipeTutorialToCorda4 = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO TUTORIAL PARA O BOTAO JOGAR
+    public static int SwipeTutorialToJogar()
+    {
+        return swipeTutorialToJogar;
+    }
+
+    public static void SwipeTutorialToJogarReset()
+    {
+        swipeTutorialToJogar = 0;
+    }
+
+    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA1 PARA O BOTAO JOGAR
+    public static int SwipeCorda1ToJogar()
+    {
+        return swipeCorda1ToJogar;
+    }
+
+    public static void SwipeCorda1ToJogarReset()
+    {
+        swipeCorda1ToJogar = 0;
     }
 
 
