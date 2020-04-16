@@ -10,6 +10,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private float currentTapTime;
     private float lastTapTime;
     private static int soundOn = 0;
+    private static bool checkToStop;
     private static bool introducaoBackToNormal, instrucoesBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
     private static bool introducaoToHighlight, instrucoesToHighlight;
 
@@ -29,6 +30,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         jogar = GetComponent<AudioSource>();
         screenDPI = Screen.dpi;
+        checkToStop = false;
         introducaoToHighlight = instrucoesToHighlight = false;
         introducaoBackToNormal = instrucoesBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("PlayButtonTag").GetComponent<Image>();
@@ -139,17 +141,20 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
         }
 
         if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
         }
 
         if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
         {
             jogar.Play();
+            soundOn = 1;
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
@@ -157,6 +162,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
         {
             jogar.Play();
+            soundOn = 1;
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
@@ -384,5 +390,18 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private void StartGame()
     {
         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
+    }
+
+    public void StopSounds()
+    {
+        if (checkToStop)
+        {
+            jogar.Stop();
+        }
     }
 }

@@ -12,11 +12,13 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private static int soundOn = 0;
+    private static bool checkToStop;
     private static bool corda1BackToNormal, introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     void Start()
     {
         highlighted = 0;
+        checkToStop = false;
         corda1BackToNormal = introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda3BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("CordaButton2").GetComponent<Image>();
     }
@@ -77,6 +79,9 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // DOUBLE CLICK CHECKER
         if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
         {
+            descricao.Play();
+            saltar1perna.PlayDelayed(descricao.clip.length);
+            soundOn = 1;
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
             DoubleClickChecker.SwipeCorda1ToCorda2Reset();
@@ -86,18 +91,23 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
         }
 
         if(DoubleClickChecker.SwipeCorda3ToCorda2() == 1)
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            descricao.Play();
+            saltar1perna.PlayDelayed(descricao.clip.length);
+            soundOn = 1;
         }
         
         if (DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
             DoubleClickChecker.SwipeCorda2ToCorda1Reset();
         }
     }
@@ -286,5 +296,19 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
+    }
+
+    public void StopSounds()
+    {
+        if (checkToStop)
+        {
+            saltar1perna.Stop();
+            descricao.Stop();
+        }
     }
 }

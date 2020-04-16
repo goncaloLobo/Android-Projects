@@ -13,11 +13,13 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private static int highlighted;
     private Image mImage;
     private static int soundOn = 0;
+    private static bool checkToStop;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda4BackToNormal, tutorialBackToNormal;
 
     void Start()
     {
         highlighted = 0;
+        checkToStop = false;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda4BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("CordaButton3").GetComponent<Image>();
     }
@@ -82,6 +84,10 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            descricao.Play();
+            salto1perna.PlayDelayed(descricao.clip.length);
+            salto2pernas.PlayDelayed(descricao.clip.length + salto1perna.clip.length);
+            soundOn = 1;
             DoubleClickChecker.SwipeCorda2ToCorda3Reset();
         }
 
@@ -89,19 +95,24 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
         }
 
         if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
-            System.Diagnostics.Debug.WriteLine("buttoncorda3 4->3");
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            descricao.Play();
+            salto1perna.PlayDelayed(descricao.clip.length);
+            salto2pernas.PlayDelayed(descricao.clip.length + salto1perna.clip.length);
+            soundOn = 1;
         }
 
         if(DoubleClickChecker.SwipeCorda3ToCorda2() == 1)
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
             DoubleClickChecker.SwipeCorda3ToCorda2Reset();
         }
     }
@@ -300,5 +311,20 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
+    }
+
+    public void StopSounds()
+    {
+        if (checkToStop)
+        {
+            salto1perna.Stop();
+            salto2pernas.Stop();
+            descricao.Stop();
+        }
     }
 }

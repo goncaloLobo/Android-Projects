@@ -21,6 +21,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     void Start()
     {
         highlighted = 0;
+        checkToStop = false;
         introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda2BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("CordaButton1").GetComponent<Image>();
     }
@@ -84,11 +85,13 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             descricao.Play();
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            soundOn = 1;
             DoubleClickChecker.SwipeJogarToCorda1Reset();
         }
 
         if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
         {
+            soundOn = 0;
             mImage.sprite = normalSprite;
             highlighted = 0;
         }
@@ -96,6 +99,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if(DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
         {
             descricao.Play();
+            soundOn = 1;
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
@@ -104,6 +108,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
             DoubleClickChecker.SwipeCorda1ToJogarReset();
         }
     }

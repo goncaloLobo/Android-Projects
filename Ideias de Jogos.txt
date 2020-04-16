@@ -92,6 +92,7 @@ Corda:
 (comecei a incluir um atributo height que depende do tempo entre os dois toques)
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
+-> Som de que a corda bateu em mim (qdo não salta).
 
 Rocket:
 -> Instruções mais pormenorizadas e introduzir mecânicas do jogo com exemplos (vem um asteroid à esquerda e a sua nave está à esquerda, desvie-se agora ->> e faz o desvio).
@@ -101,15 +102,14 @@ Rocket:
 -> Possivelmente ter som dos inimigos mais contínuo.
 -> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
+
 ------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
 NAO APAGAR ISTO.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Próxima reunião -> QUINTA 16/04 11h
--> O Talkback não funciona com os jogos: apenas deteta gameviews e gameobjects, não deteta nada no contexto do jogo. Não permite que o jogo funcione.
--> Foi possível implementar um serviço que utiliza a voz do Google Tradutor para obter um clipe de voz de acordo com uma string. 
-   Poderá ser usado para mostrar resultados no final do jogo? (implementado no jogo da corda)
-   Vantagem: apenas seria usado para isso. Se implementado para o resto das coisas, pode resumir clipes de voz do jogo.
-   Desvantagem: voz muito diferente da voz da Polly, voz em brasileiro.
+Próxima reunião -> QUINTA 23/04 11h
+
+Como gravar os dados? -> toques, swipes, métricas do jogo (utilizar firebase?)
+Aplicação Android para as pessoas fazerem swipes para depois comparar com os jogos (papers Target Practicing, Gesture Detection, Touchscreen Gestures, Target Size, Assessing Touchscreen Gestures/ Assessing Double Tap)

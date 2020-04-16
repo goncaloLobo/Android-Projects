@@ -10,6 +10,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private static int highlighted;
     private Image mImage;
     private static int soundOn = 0;
+    private static bool checkToStop;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject GameManagerGO;
 
@@ -20,7 +21,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     void Start()
     {
         tutorial = GetComponent<AudioSource>();
-
+        checkToStop = false;
         highlighted = 0;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("Tutorial").GetComponent<Image>();
@@ -83,12 +84,16 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            tutorial.Play();
+            soundOn = 1;
         }
 
         if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
         {
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
+            tutorial.Play();
+            soundOn = 1;
             DoubleClickChecker.SwipeJogarToTutorialReset();
         }
 
@@ -102,6 +107,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
+            soundOn = 0;
             DoubleClickChecker.SwipeTutorialToJogarReset();
         }
 
@@ -296,5 +302,18 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public static bool Corda4BackToNormal()
     {
         return corda4BackToNormal;
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
+    }
+
+    public void StopSounds()
+    {
+        if (checkToStop)
+        {
+            tutorial.Stop();
+        }
     }
 }

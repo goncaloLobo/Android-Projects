@@ -94,6 +94,11 @@ public class DoubleClickChecker : MonoBehaviour
             if (GameManager.GetStarted() || GameManager.GetInstrucoes())
             {
                 ButtonCorda1.SetCheckToStop();
+                ButtonCorda2.SetCheckToStop();
+                ButtonCorda3.SetCheckToStop();
+                ButtonCorda4.SetCheckToStop();
+                Tutorial.SetCheckToStop();
+                ButtonJogar.SetCheckToStop();
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
             }
 
