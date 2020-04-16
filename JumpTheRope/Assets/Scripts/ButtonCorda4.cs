@@ -10,7 +10,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public Sprite normalSprite;
     public Sprite spriteHighlighted;
     private static int highlighted;
-    private Image mImage;
+    private Image mImageBC4;
     private static int soundOn = 0;
     private static bool checkToStop;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
@@ -21,50 +21,50 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         checkToStop = false;
         highlighted = 0;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
-        mImage = GameObject.FindGameObjectWithTag("CordaButton4").GetComponent<Image>();
+        mImageBC4 = GameObject.FindGameObjectWithTag("CordaButton4").GetComponent<Image>();
     }
 
     void Update()
     {
         if (ButtonCorda1.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda2.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda3.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonJogar.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonInstrucoes.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonIntroducao.ButtonCorda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
         if (Tutorial.Corda4BackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
         }
 
@@ -79,7 +79,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         // DOUBLE CLICK CHECKER
         if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            mImageBC4.sprite = spriteHighlighted;
             highlighted = 1;
             descricao.Play();
             intro.PlayDelayed(descricao.clip.length);
@@ -89,7 +89,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeCorda4ToCorda3Reset();
@@ -97,7 +97,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImageBC4.sprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeCorda4ToTutorialReset();
@@ -105,7 +105,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            mImageBC4.sprite = spriteHighlighted;
             highlighted = 1;
             descricao.Play();
             intro.PlayDelayed(descricao.clip.length);
@@ -161,7 +161,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (highlighted == 0)
         {
-            mImage.sprite = spriteHighlighted;
+            mImageBC4.sprite = spriteHighlighted;
             highlighted = 1;
         }
 

@@ -514,7 +514,10 @@ public class DoubleClickChecker : MonoBehaviour
 
     public static void SwipeCorda1ToCorda2Reset()
     {
+        System.Diagnostics.Debug.WriteLine("hey3");
+        System.Diagnostics.Debug.WriteLine("valor antes: " + swipeCorda1ToCorda2);
         swipeCorda1ToCorda2 = 0;
+        System.Diagnostics.Debug.WriteLine("valor dps: " + swipeCorda1ToCorda2);
     }
 
     // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA2 PARA O BOTAO CORDA3
