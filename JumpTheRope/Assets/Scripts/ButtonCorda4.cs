@@ -13,58 +13,55 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private Image mImageBC4;
     private static int soundOn = 0;
     private static bool checkToStop;
-    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
+    private static bool jogarBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, tutorialBackToNormal;
+    private static bool corda4ToTutorial, corda3ToHighlight;
 
     void Start()
     {
         intro = GetComponent<AudioSource>();
         checkToStop = false;
         highlighted = 0;
-        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
+        jogarBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = tutorialBackToNormal = false;
         mImageBC4 = GameObject.FindGameObjectWithTag("CordaButton4").GetComponent<Image>();
+
+        corda4ToTutorial = corda3ToHighlight = false;
     }
 
     void Update()
     {
         if (ButtonCorda1.Corda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda2.Corda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda3.Corda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonJogar.Corda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
-            highlighted = 0;
-        }
-
-        if (ButtonInstrucoes.Corda4BackToNormal())
-        {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonIntroducao.ButtonCorda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (Tutorial.Corda4BackToNormal())
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
@@ -77,9 +74,10 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         // DOUBLE CLICK CHECKER
+        /*
         if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
         {
-            mImageBC4.sprite = spriteHighlighted;
+            mImageBC4.overrideSprite = spriteHighlighted;
             highlighted = 1;
             descricao.Play();
             intro.PlayDelayed(descricao.clip.length);
@@ -89,7 +87,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
         {
-            mImageBC4.sprite = normalSprite;
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeCorda4ToCorda3Reset();
@@ -97,7 +95,8 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
         {
-            mImageBC4.sprite = normalSprite;
+            System.Diagnostics.Debug.WriteLine("corda4: entrei corda4 -> tutorial");
+            mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeCorda4ToTutorialReset();
@@ -105,12 +104,72 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
         {
-            mImageBC4.sprite = spriteHighlighted;
+            mImageBC4.overrideSprite = spriteHighlighted;
             highlighted = 1;
             descricao.Play();
             intro.PlayDelayed(descricao.clip.length);
             soundOn = 1;
             DoubleClickChecker.SwipeTutorialToCorda4Reset();
+        }
+        */
+        /////////////////////////////////////////////////////
+        /*
+        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
+        {
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
+        {
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
+        {
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
+        {
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+        */
+
+        /////////////////////////////////////
+        if (DoubleClickChecker.GetConfirmedSwipeRight())
+        {
+            corda4ToTutorial = true;
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (DoubleClickChecker.GetConfirmedSwipeLeft())
+        {
+            corda3ToHighlight = true;
+            mImageBC4.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda3.GetCorda4ToHighlight())
+        {
+            mImageBC4.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonCorda3.ResetCorda4ToHighlight();
+        }
+
+        if (Tutorial.GetCorda4ToHighlight())
+        {
+            mImageBC4.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            Tutorial.ResetCorda4ToHighlight();
         }
     }
 
@@ -127,11 +186,6 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
-        }
-
-        if (ButtonInstrucoes.CheckForHighlighted() == 1)
-        {
-            instrucoesBackToNormal = true;
         }
 
         if (ButtonIntroducao.CheckForHighlighted() == 1)
@@ -165,6 +219,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 1;
         }
 
+        /*
         if (!intro.isPlaying)
         {
             if (ButtonCorda1.GetSoundOn() == 1)
@@ -232,6 +287,7 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 soundOn = 1;
             }
         }
+        */
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
@@ -262,11 +318,6 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
-    }
-
-    public static bool InstrucoesBackToNormal()
-    {
-        return instrucoesBackToNormal;
     }
 
     public static bool Corda1BackToNormal()
@@ -301,5 +352,26 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             intro.Stop();
             descricao.Stop();
         }
+    }
+
+    ///////////////////////////////
+    public static bool GetCorda4ToTutorial()
+    {
+        return corda4ToTutorial;
+    }
+
+    public static void ResetCorda4ToTutorial()
+    {
+        corda4ToTutorial = false;
+    }
+
+    public static bool GetCorda3ToHighlight()
+    {
+        return corda3ToHighlight;
+    }
+
+    public static void ResetCorda3ToHighlight()
+    {
+        corda3ToHighlight = false;
     }
 }

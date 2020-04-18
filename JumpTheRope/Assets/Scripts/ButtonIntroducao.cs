@@ -43,59 +43,59 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         // BACK TO NORMAL
         if (ButtonJogar.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonJogar.IntroducaoBackToNormalFalse();
         }
 
         if (ButtonInstrucoes.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonInstrucoes.IntroducaoBackToNormalFalse();
         }
 
         if (ButtonCorda1.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda2.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda3.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda4.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (Tutorial.IntroducaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         // TO HIGHLIGHT
         if (ButtonJogar.IntroducaoToHighlight())
         {
-            mImage.sprite = spriteHighlighted;
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             ButtonJogar.IntroducaoToHighlightFalse();
         }
 
         if (ButtonInstrucoes.IntroducaoToHighlight())
         {
-            mImage.sprite = spriteHighlighted;
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             ButtonInstrucoes.IntroducaoToHighlightFalse();
         }
@@ -103,26 +103,26 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         // TENTATIVA DOUBLE CLICK CHECKER
         if (DoubleClickChecker.SwipeJogarToIntro() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             intro.Play();
         }
 
         if(DoubleClickChecker.SwipeIntroToInstr() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if(DoubleClickChecker.SwipeIntroToJogar() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (DoubleClickChecker.SwipeInstrToIntro() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             intro.Play();
         }

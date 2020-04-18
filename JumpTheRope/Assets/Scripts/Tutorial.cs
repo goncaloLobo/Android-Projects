@@ -14,6 +14,8 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, corda1BackToNormal, corda2BackToNormal, corda3BackToNormal, corda4BackToNormal;
     public GameObject GameManagerGO;
 
+    private static bool corda4ToHighlight, jogarToHighlight;
+
     private float currentTapTime;
     private float lastTapTime;
     private float clickdelay = 0.5f;
@@ -25,64 +27,60 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         highlighted = 0;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = corda1BackToNormal = corda2BackToNormal = corda3BackToNormal = corda4BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("Tutorial").GetComponent<Image>();
+
+        corda4ToHighlight = jogarToHighlight = false;
     }
 
     void Update()
     {
         if (ButtonCorda1.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda2.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda3.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda4.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonJogar.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonInstrucoes.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonIntroducao.TutorialBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
-        }
-
-        // GAMEMANAGER
-        if (GameManager.TutorialBackToNormal())
-        {
-            mImage.sprite = normalSprite;
-            highlighted = 0;
-            GameManager.TutorialBackToNormalFalse();
         }
 
         // DOUBLE CLICK CHECKER
+        /*
         if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            System.Diagnostics.Debug.WriteLine("tutorial: entrei corda4 -> tutorial");
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             tutorial.Play();
             soundOn = 1;
@@ -90,7 +88,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
         {
-            mImage.sprite = spriteHighlighted;
+            mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
             tutorial.Play();
             soundOn = 1;
@@ -99,23 +97,52 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
         if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeTutorialToJogarReset();
         }
-
+        */
         // PARTE RELACIONADA COM OS SONS
         if (soundOn == 0)
         {
             if (tutorial.isPlaying)
                 tutorial.Stop();
+        }
+
+        //////////////////////////////
+        if (DoubleClickChecker.GetConfirmedSwipeLeft())
+        {
+            corda4ToHighlight = true;
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (DoubleClickChecker.GetConfirmedSwipeRight())
+        {
+            jogarToHighlight = true;
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonJogar.GetTutorialToHighlight())
+        {
+            mImage.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonJogar.ResetTutorialToHighlight();
+        }
+
+        if (ButtonCorda4.GetCorda4ToTutorial())
+        {
+            mImage.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonCorda4.ResetCorda4ToTutorial();
         }
     }
 
@@ -176,9 +203,6 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             mImage.sprite = spriteHighlighted;
             highlighted = 1;
         }
-
-        //if (!tutorial.isPlaying)
-        //    tutorial.Play();
 
         if (!tutorial.isPlaying)
         {
@@ -315,5 +339,26 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             tutorial.Stop();
         }
+    }
+
+    ///////////////////////////////////
+    public static bool GetJogarToHighlight()
+    {
+        return jogarToHighlight;
+    }
+
+    public static void ResetJogarToHighlight()
+    {
+        jogarToHighlight = false;
+    }
+
+    public static bool GetCorda4ToHighlight()
+    {
+        return corda4ToHighlight;
+    }
+
+    public static void ResetCorda4ToHighlight()
+    {
+        corda4ToHighlight = false;
     }
 }

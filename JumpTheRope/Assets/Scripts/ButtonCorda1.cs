@@ -15,58 +15,56 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     private Image mImageBC1;
     private static int soundOn = 0;
     private static bool checkToStop;
-    private static bool introducaoBackToNormal, jogarBackToNormal, instrucoesBackToNormal;
+    private static bool introducaoBackToNormal, jogarBackToNormal;
     private static bool corda2BackToNormal, corda3BackToNormal, corda4BackToNormal, tutorialBackToNormal;
+
+    private static bool corda2ToHighlight, jogarToHighlight;
 
     void Start()
     {
         highlighted = 0;
         checkToStop = false;
-        introducaoBackToNormal = jogarBackToNormal = instrucoesBackToNormal = corda2BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
+        introducaoBackToNormal = jogarBackToNormal = corda2BackToNormal = tutorialBackToNormal = corda4BackToNormal = false;
         mImageBC1 = GameObject.FindGameObjectWithTag("CordaButton1").GetComponent<Image>();
+        corda2ToHighlight = jogarToHighlight = false;
     }
 
     void Update()
     {
         if(ButtonIntroducao.ButtonCorda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if(ButtonJogar.Corda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
-            highlighted = 0;
-        }
-
-        if(ButtonInstrucoes.Corda1BackToNormal())
-        {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if(ButtonCorda2.Corda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda2.Corda1BackToNormalReset();
         }
 
         if (ButtonCorda3.Corda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (ButtonCorda4.Corda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
         if (Tutorial.Corda1BackToNormal())
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
         }
 
@@ -80,10 +78,11 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         // DOUBLE CLICK CHECKER
+        /*
         if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
         {
             descricao.Play();
-            mImageBC1.sprite = spriteHighlighted;
+            mImageBC1.overrideSprite = spriteHighlighted;
             highlighted = 1;
             soundOn = 1;
             DoubleClickChecker.SwipeJogarToCorda1Reset();
@@ -92,25 +91,84 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
         {
             soundOn = 0;
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
-            System.Diagnostics.Debug.WriteLine("hey1");
         }
-
+        */
         if(DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
         {
             descricao.Play();
             soundOn = 1;
-            mImageBC1.sprite = spriteHighlighted;
+            mImageBC1.overrideSprite = spriteHighlighted;
             highlighted = 1;
         }
 
         if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
         {
-            mImageBC1.sprite = normalSprite;
+            mImageBC1.overrideSprite = normalSprite;
             highlighted = 0;
             soundOn = 0;
             DoubleClickChecker.SwipeCorda1ToJogarReset();
+        }
+
+        ///////////////////
+        /*
+        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
+        {
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
+        {
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
+        {
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+
+        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
+        {
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+            soundOn = 0;
+        }
+        */
+
+        // INCRIVEL, ESTOU MESMO A TENTAR TANTO QUE ISTO RESULTE
+        if (DoubleClickChecker.GetConfirmedSwipeRight())
+        {
+            corda2ToHighlight = true;
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (DoubleClickChecker.GetConfirmedSwipeLeft())
+        {
+            jogarToHighlight = true;
+            mImageBC1.overrideSprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonCorda2.GetCorda1ToHighlight())
+        {
+            mImageBC1.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonCorda2.ResetCorda1ToHighlight();
+        }
+
+        if (ButtonJogar.GetCorda1ToHighlight())
+        {
+            mImageBC1.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+            ButtonJogar.ResetCorda1ToHighlight();
         }
     }
 
@@ -126,7 +184,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        System.Diagnostics.Debug.WriteLine("ahoy sir");
+        System.Diagnostics.Debug.WriteLine("entrei entrei entrei");
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
@@ -135,11 +193,6 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
-        }
-
-        if(ButtonInstrucoes.CheckForHighlighted() == 1)
-        {
-            instrucoesBackToNormal = true;
         }
 
         if(ButtonCorda2.CheckForHighlighted() == 1)
@@ -237,14 +290,8 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (highlighted == 0)
         {
-            System.Diagnostics.Debug.WriteLine("hey jude");
-            mImageBC1.sprite = spriteHighlighted;
+            mImageBC1.overrideSprite = spriteHighlighted;
             highlighted = 1;
-        }
-
-        if(highlighted == 1 && DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
-        {
-            System.Diagnostics.Debug.WriteLine("aqui estou eu");
         }
     }
 
@@ -291,11 +338,6 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         return jogarBackToNormal;
     }
 
-    public static bool InstrucoesBackToNormal()
-    {
-        return instrucoesBackToNormal;
-    }
-
     public static bool Corda2BackToNormal()
     {
         return corda2BackToNormal;
@@ -328,5 +370,40 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             corda.Stop();
             descricao.Stop();
         }    
+    }
+
+    public static void StayHighlighted()
+    {
+        highlighted = 1;
+    }
+
+    private void StayHighlightedPrivate()
+    {
+        if(highlighted == 1)
+        {
+            mImageBC1.overrideSprite = spriteHighlighted;
+            highlighted = 1;
+        }
+    }
+
+    // AQUELA TENTATIVA DESESPERADA
+    public static bool GetCorda2ToHighlight()
+    {
+        return corda2ToHighlight;
+    }
+
+    public static void ResetCorda2ToHighlight()
+    {
+        corda2ToHighlight = false;
+    }
+
+    public static bool GetJogarToHighlight()
+    {
+        return jogarToHighlight;
+    }
+
+    public static void ResetJogarToHighlight()
+    {
+        jogarToHighlight = false;
     }
 }

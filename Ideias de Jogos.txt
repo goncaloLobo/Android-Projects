@@ -79,9 +79,6 @@ Jogo 9 -> Guarda Redes
 	
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-TODO:
--> (Corda) Falta integrar algum plugin somehow de text to speech para ler informações como pontuação, scores, etc (aplicável aos outros jogos).
-
 Reunião 02/04:
 -> Procurar source code do talkback para swipes em L.
 -> https://assetstore.unity.com/packages/tools/gui/android-native-dialogs-and-functions-plugin-106497
