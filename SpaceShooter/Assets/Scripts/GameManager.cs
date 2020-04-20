@@ -62,7 +62,6 @@ public class GameManager : MonoBehaviour
     private int finalScore; // pontuacao final (pontos)
     private int enemiesAvoided; // inimigos desviados com sucesso
     private static bool stopEnemySpawners;
-    private static float delay = 0f;
 
     public enum GameManagerState
     {
@@ -147,61 +146,61 @@ public class GameManager : MonoBehaviour
                 Debug.Log("ROLL INICIAL: " + roll);
                 switch (roll)
                 {
-                    case 3:
+                    case 3: // DIREITA
                         // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
                         enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(2);
                         if(Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         
                         break;
-                    case 2:
+                    case 2: // CENTRO
                         // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
                         enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(2);
 
                         if (Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
                         break;
-                    case 1:
+                    case 1: // ESQUERDA
                         // o primeiro inimigo aparece sempre 2s depois de iniciar o jogo
                         enemySpawner.GetComponent<EnemySpawner>().ScheduleEnemySpawner(2);
 
                         if (Random.value < 0.5f)
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
                         }
                         else
                         {
-                            initialSpawnRate = CreateRandomFloat(2.5f, 5);
+                            initialSpawnRate = CreateRandomFloat(3.1f, 4.7f);
                             enemySpawner3.GetComponent<EnemySpawner3>().ScheduleEnemySpawner(initialSpawnRate);
-                            initialSpawnRate = CreateRandomFloat(5, 8);
+                            initialSpawnRate = CreateRandomFloat(5.8f, 7.5f);
                             enemySpawner2.GetComponent<EnemySpawner2>().ScheduleEnemySpawner(initialSpawnRate);
                         }
 
@@ -500,7 +499,7 @@ public class GameManager : MonoBehaviour
 
     // countdown para aumentar a velocidade
     // de 7 em 7s aumenta a velocidade em 0.3
-    // de 7 em 7s diminui o intervalo de tempo de spawn dos inimigos [curr - 0.3,curr - 0.3]
+    // de 7 em 7s diminui o intervalo de tempo de spawn dos inimigos [curr - 0.3, curr - 0.3]
     public IEnumerator StartCountdownSpeed(float countdownValue = 7)
     {
         float speed = EnemyControl.GetSpeed();
@@ -542,8 +541,8 @@ public class GameManager : MonoBehaviour
     }
 
     // calcula float aleatorio para o 2º e 3º enemy spawner de cada caso
-    // para o 2º inimigo é entre 3 e 5
-    // para o 3º inimigo é entre 5 e 8
+    // para o 2º inimigo é entre 3.1f, 4.7f
+    // para o 3º inimigo é entre 5.8f, 7.5f
     public float CreateRandomFloat(float firstValue, float secondValue)
     {
         float froll = Random.Range(firstValue, secondValue);

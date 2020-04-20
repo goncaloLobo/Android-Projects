@@ -12,22 +12,12 @@ public class EnemySpawner : MonoBehaviour
     private GameObject Boost;
 
     public static float maxSpawnRateInSeconds = 8.1f;
-    public static float minSpawnRateInSeconds = 1f;
+    public static float minSpawnRateInSeconds = 1.1f;
     public float r;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
     private static int checkIfBonus = 0;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-
-    }
 
     void SpawnEnemy()
     {

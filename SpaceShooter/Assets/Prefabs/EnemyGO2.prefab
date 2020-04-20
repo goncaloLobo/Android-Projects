@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1501506873366405533}
   - component: {fileID: 1501506873366405504}
   - component: {fileID: 423467371}
-  - component: {fileID: 82834610389744296}
+  - component: {fileID: 82806628472277558}
   m_Layer: 0
   m_Name: EnemyGO2
   m_TagString: EnemyShipTag
@@ -148,7 +148,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34, y: 0.39}
   m_EdgeRadius: 0
---- !u!82 &82834610389744296
+--- !u!82 &82806628472277558
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +160,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 228d143c87d0cf449b919c18ee0a019a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.8
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -169,9 +169,9 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 11
-  Pan2D: 1
-  rolloffMode: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

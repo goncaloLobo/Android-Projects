@@ -19,16 +19,6 @@ public class EnemySpawner3 : MonoBehaviour
     // 3 se o bonus for do 3º inimigo e direita
     private static int checkIfBonus = 0;
 
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-
-    }
-
     void SpawnEnemy()
     {
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
