@@ -92,8 +92,6 @@ Corda:
 -> Som de que a corda bateu em mim (qdo não salta).
 
 Rocket:
--> Depois de fazer as instruções não é possível jogar e começa a ficar lento.
--> Não devem aparecer inimigos muito próximos: garantir sempre uma distância mínima entre inimigos.
 -> Possivelmente ter som dos inimigos mais contínuo.
 -> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).

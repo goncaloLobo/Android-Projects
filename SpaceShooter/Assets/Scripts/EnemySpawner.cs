@@ -11,13 +11,14 @@ public class EnemySpawner : MonoBehaviour
     private GameObject Meteor;
     private GameObject Boost;
 
-    public static float maxSpawnRateInSeconds = 8.1f;
-    public static float minSpawnRateInSeconds = 1.1f;
+    public static float maxSpawnRateInSeconds = 7.5f;
+    public static float minSpawnRateInSeconds = 1.2f;
     public float r;
 
     // flag para o bonus: 1 se o bonus for do 1º inimigo e esquerda, 2 se o bonus for do 2º inimigo e meio
     // 3 se o bonus for do 3º inimigo e direita
     private static int checkIfBonus = 0;
+    private static bool firstTime = true;
 
     void SpawnEnemy()
     {
@@ -116,14 +117,23 @@ public class EnemySpawner : MonoBehaviour
         Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
     }
 
-    // produz cada inimigo entre 1 a 8.1s depois do inimigo anterior, de forma aleatoria
+    // produz cada inimigo entre 1.2 a 7.5s depois do inimigo anterior, de forma aleatoria
     void ScheduleNextEnemySpawnRandom()
     {
         float spawnInNSeconds;
         if (maxSpawnRateInSeconds > 1f)
         {
-            // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds)
-            spawnInNSeconds = Random.Range(minSpawnRateInSeconds, maxSpawnRateInSeconds);
+            if (firstTime)
+            {
+                spawnInNSeconds = Random.Range(2, 6);
+                firstTime = false;
+            }
+            else
+            {
+                // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds)
+                spawnInNSeconds = Random.Range(minSpawnRateInSeconds, maxSpawnRateInSeconds);
+                firstTime = false;
+            }
         }
         else
             spawnInNSeconds = 1f;

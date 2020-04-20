@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     public AudioSource introducao;
     public AudioSource background;
+    public AudioSource textToSpeech;
     private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, tutorialp6;
 
     public AudioSource[] sounds;
@@ -37,6 +39,10 @@ public class GameManager : MonoBehaviour
     public AudioSource swipeSound; // sounds [7]
     public AudioSource instrucoespt5; // sounds[8]
     public AudioSource hitWallSound; // sounds[9]
+    public AudioSource newHighscore; // sounds[20]
+    public AudioSource finalScoreAudio;
+    public AudioSource avoidedEnemies;
+    public AudioSource gameOver;
 
     // audioSource tutorial
     public AudioSource tutorial1;
@@ -62,6 +68,7 @@ public class GameManager : MonoBehaviour
     private int finalScore; // pontuacao final (pontos)
     private int enemiesAvoided; // inimigos desviados com sucesso
     private static bool stopEnemySpawners;
+    private static float delay = 0f;
 
     public enum GameManagerState
     {
@@ -112,7 +119,7 @@ public class GameManager : MonoBehaviour
                 playerShip.SetActive(true);
 
                 SetOpeningBools();
-                background.volume = 0.2f;
+                background.volume = 0.11f;
 
                 // vai buscar o highscore no opening para qdo o jogo termina e volta a este estado
                 // ou seja, todas as vezes que o jogador perde
@@ -220,11 +227,16 @@ public class GameManager : MonoBehaviour
                 enemySpawner3.GetComponent<EnemySpawner3>().UnscheduleEnemySpawner();
 
                 //display game over e o tempo final
-                GameOverGO.SetActive(true);                
+                GameOverGO.SetActive(true);
+                delay += 1f;
+                gameOver.PlayDelayed(delay);
+                delay += gameOver.clip.length;
 
                 // resultado final
                 finalScore = PlayerControlSwipe.GetFinalScore();
                 enemiesAvoided = EnemyControl.GetEnemiesAvoided();
+                StartCoroutine(DownloadFinalScore(finalScore));
+                //StartCoroutine(DownloadAvoidedEnemies(enemiesAvoided));
 
                 // se for novo highscore, vai regista-lo
                 // assim como o tempo e o numero de inimigos desviados associado
@@ -235,7 +247,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 //mudar o estado do gamemanagerstate
-                Invoke("ChangeToOpeningState", 1.5f);
+                Invoke("ChangeToOpeningState", 3f);
 
                 break;
             case GameManagerState.Instructions:
@@ -549,6 +561,67 @@ public class GameManager : MonoBehaviour
         return froll;
     }
 
+    public IEnumerator DownloadFinalScore(int finalScore)
+    {
+        // "%20pontos%20"
+        string pontostxt = "pontos";
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + finalScore + pontostxt + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                if (finalScore > highscoreStored)
+                {
+                    //new highscore
+                    newHighscore.PlayDelayed(delay); // "nova pontuacao final:"
+                    delay += newHighscore.clip.length;
+                    textToSpeech.PlayDelayed(delay);
+                    delay += textToSpeech.clip.length;
+                    delay = 0;
+                }
+                else
+                {
+                    finalScoreAudio.PlayDelayed(delay); // "pontuacao final"
+                    delay += finalScoreAudio.clip.length;
+                    textToSpeech.PlayDelayed(delay);
+                    delay += textToSpeech.clip.length;
+                    delay = 0;
+                }
+
+            }
+        }
+    }
+
+    public IEnumerator DownloadAvoidedEnemies(int enemiesAvoided)
+    {
+        // "%20pontos%20"
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                avoidedEnemies.Play(); // "Inimigos desviados :"
+                textToSpeech.PlayDelayed(avoidedEnemies.clip.length);
+            }
+        }
+    }
+
     //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
     private void GetCurrentHighScores()
     {
@@ -570,6 +643,10 @@ public class GameManager : MonoBehaviour
         swipeSound = sounds[7];
         instrucoespt5 = sounds[8];
         hitWallSound = sounds[9];
+        newHighscore = sounds[19];
+        finalScoreAudio = sounds[20];
+        avoidedEnemies = sounds[21];
+        gameOver = sounds[22];
     }
 
     private void InitiateTutorialSounds(AudioSource[] sounds)

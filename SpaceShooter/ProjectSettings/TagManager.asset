@@ -24,6 +24,7 @@ TagManager:
   - InstrucoesB2
   - InstrucoesB3
   - ButtonTutorial
+  - GameOverGO
   layers:
   - Default
   - TransparentFX
