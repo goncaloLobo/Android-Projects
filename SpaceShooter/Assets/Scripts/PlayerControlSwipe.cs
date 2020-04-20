@@ -17,7 +17,6 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonusLeft; // som bonus esq
     public AudioSource bonusMid; // som bonus mid
     public AudioSource bonusRight; // som bonus dir
-    public AudioSource bonus100; // som a dizer "100 pontos"
     public AudioSource introducao; // som do button introducao
     public AudioSource vaiComeçar321;
 
@@ -670,19 +669,16 @@ public class PlayerControlSwipe : MonoBehaviour
             if (EnemySpawner.GetBonus() == 1)
             {
                 bonusLeft.Play();
-                bonus100.PlayDelayed(bonusLeft.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner2.GetBonus() == 2)
             {
                 bonusMid.Play();
-                bonus100.PlayDelayed(bonusMid.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
             else if (EnemySpawner3.GetBonus() == 3)
             {
                 bonusRight.Play();
-                bonus100.PlayDelayed(bonusRight.clip.length);
                 scoreUITextGO.GetComponent<GameScore>().Score += 100;
             }
         }
