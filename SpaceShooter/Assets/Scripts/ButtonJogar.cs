@@ -11,7 +11,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
-    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -26,7 +26,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         highlighted = 0;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
-        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
     }
 
@@ -34,56 +34,66 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         if (ButtonComoJogar.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            Debug.Log("entrei update buttoncomojogar.jogarbacktonormal");
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonComoJogar.ResetJogarBackToNormal();
         }
 
         if (ButtonIntroducao.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.ResetJogarBackToNormal();
         }
 
         if (ButtonTempo.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonTempo.ResetJogarBackToNormal();
         }
 
         if (ButtonVidas.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonVidas.ResetJogarBackToNormal();
         }
 
         if (ButtonPontos.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonPontos.ResetJogarBackToNormal();
         }
 
         if (InstrucoesB1.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB1.ResetJogarBackToNormal();
         }
 
         if (InstrucoesB2.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB2.ResetJogarBackToNormal();
         }
 
         if (InstrucoesB3.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB3.ResetJogarBackToNormal();
         }
 
         if (ButtonPontuacao.JogarBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonPontuacao.ResetJogarBackToNormal();
         }
     }
 
@@ -134,14 +144,14 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        mImage.sprite = spriteHighlighted;
-        highlighted = 1;
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (ButtonComoJogar.CheckForHighlighted() == 1)
         {
+            Debug.Log("entrei buttoncomojogar.checkforhighlighted");
             comoJogarBackToNormal = true;
         }
 
@@ -183,6 +193,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(ButtonPontuacao.CheckForHighlighted() == 1)
         {
             pontuacaoBackToNormal = true;
+        }
+
+        if(ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -293,9 +308,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return comoJogarBackToNormal;
     }
 
+    public static void ResetComoJogarBackToNormal()
+    {
+        comoJogarBackToNormal = false;
+    }
+
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
     }
 
     public static bool TempoBackToNormal()
@@ -303,9 +328,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return tempoBackToNormal;
     }
 
+    public static void ResetTempoBackToNormal()
+    {
+        tempoBackToNormal = false;
+    }
+
     public static bool PontosBackToNormal()
     {
         return pontosBackToNormal;
+    }
+
+    public static void ResetPontosBackToNormal()
+    {
+        pontosBackToNormal = false;
     }
 
     public static bool VidasBackToNormal()
@@ -313,9 +348,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return vidasBackToNormal;
     }
 
+    public static void ResetVidasBackToNormal()
+    {
+        vidasBackToNormal = false;
+    }
+
     public static bool InstrucoesB1BackToNormal()
     {
         return instrucoesB1BackToNormal;
+    }
+
+    public static void ResetInstrucoesB1BackToNormal()
+    {
+        instrucoesB1BackToNormal = false;
     }
 
     public static bool InstrucoesB2BackToNormal()
@@ -323,14 +368,39 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return instrucoesB2BackToNormal;
     }
 
+    public static void ResetInstrucoesB2BackToNormal()
+    {
+        instrucoesB2BackToNormal = false;
+    }
+
     public static bool InstrucoesB3BackToNormal()
     {
         return instrucoesB3BackToNormal;
     }
 
+    public static void ResetInstrucoesB3BackToNormal()
+    {
+        instrucoesB3BackToNormal = false;
+    }
+
     public static bool PontuacaoBackToNormal()
     {
         return pontuacaoBackToNormal;
+    }
+
+    public static void ResetPontuacaoBackToNormal()
+    {
+        pontuacaoBackToNormal = false;
+    }
+
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
     }
 
     private void StartGame()

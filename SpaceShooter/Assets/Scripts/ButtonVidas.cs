@@ -12,6 +12,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal, pontuacaoBackToNormal;
+    private static bool tutorialBackToNormal, instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -28,6 +29,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         highlighted = 0;
         comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = tempoBackToNormal = pontuacaoBackToNormal = false;
+        tutorialBackToNormal = instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("LivesTag").GetComponent<Image>();
     }
 
@@ -35,32 +37,72 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         if (ButtonComoJogar.VidasBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonComoJogar.ResetVidasBackToNormal();
         }
 
         if (ButtonIntroducao.VidasBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.ResetVidasBackToNormal();
         }
 
         if (ButtonJogar.VidasBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonJogar.ResetVidasBackToNormal();
         }
 
         if (ButtonTempo.VidasBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonTempo.ResetVidasBackToNormal();
         }
 
         if (ButtonPontuacao.VidasBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonPontuacao.ResetVidasBackToNormal();
+        }
+
+        if (ButtonTutorial.VidasBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonTutorial.ResetVidasBackToNormal();
+        }
+
+        if (InstrucoesB1.VidasBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            InstrucoesB1.ResetVidasBackToNormal();
+        }
+
+        if (InstrucoesB2.VidasBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            InstrucoesB2.ResetVidasBackToNormal();
+        }
+
+        if (InstrucoesB3.VidasBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            InstrucoesB3.ResetVidasBackToNormal();
+        }
+
+        if (ButtonPontos.VidasBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonPontos.ResetVidasBackToNormal();
         }
     }
 
@@ -116,7 +158,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
-            introducaoBackToNormal = true;
+            jogarBackToNormal = true;
         }
 
         if(ButtonTempo.CheckForHighlighted() == 1)
@@ -127,6 +169,31 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if (ButtonPontuacao.CheckForHighlighted() == 1)
         {
             pontuacaoBackToNormal = true;
+        }
+
+        if (ButtonPontos.CheckForHighlighted() == 1)
+        {
+            pontosBackToNormal = true;
+        }
+
+        if (ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
+        }
+
+        if(InstrucoesB1.CheckForHighlighted() == 1)
+        {
+            instrucoesB1BackToNormal = true;
+        }
+
+        if(InstrucoesB2.CheckForHighlighted() == 1)
+        {
+            instrucoesB2BackToNormal = true;
+        }
+
+        if(InstrucoesB3.CheckForHighlighted() == 1)
+        {
+            instrucoesB3BackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -222,6 +289,19 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                     vidas.Play();
                     soundOn = 1;
                 }
+
+                if (ButtonTutorial.GetSoundOn() == 1)
+                {
+                    ButtonTutorial.SetSoundOn();
+                    vidas.Play();
+                    soundOn = 1;
+                }
+
+                if (ButtonTutorial.GetSoundOn() == 0)
+                {
+                    vidas.Play();
+                    soundOn = 1;
+                }
             }
         }
 
@@ -260,9 +340,19 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return introducaoBackToNormal;
     }
 
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
+    }
+
     public static bool TempoBackToNormal()
     {
         return tempoBackToNormal;
+    }
+
+    public static void ResetTempoBackToNormal()
+    {
+        tempoBackToNormal = false;
     }
 
     public static bool JogarBackToNormal()
@@ -270,9 +360,19 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return jogarBackToNormal;
     }
 
+    public static void ResetJogarBackToNormal()
+    {
+        jogarBackToNormal = false;
+    }
+
     public static bool ComoJogarBackToNormal()
     {
         return comoJogarBackToNormal;
+    }
+
+    public static void ResetComoJogarBackToNormal()
+    {
+        comoJogarBackToNormal = false;
     }
 
     public static bool PontosBackToNormal()
@@ -280,8 +380,58 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return pontosBackToNormal;
     }
 
+    public static void ResetPontosBackToNormal()
+    {
+        pontosBackToNormal = false;
+    }
+
     public static bool PontuacaoBackToNormal()
     {
         return pontuacaoBackToNormal;
+    }
+
+    public static void ResetPontuacaoBackToNormal()
+    {
+        pontuacaoBackToNormal = false;
+    }
+
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
+    }
+
+    public static bool InstrucoesB1BackToNormal()
+    {
+        return instrucoesB1BackToNormal;
+    }
+
+    public static void ResetInstrucoesB1BackToNormal()
+    {
+        instrucoesB1BackToNormal = false;
+    }
+
+    public static bool InstrucoesB2BackToNormal()
+    {
+        return instrucoesB2BackToNormal;
+    }
+
+    public static void ResetInstrucoesB2BackToNormal()
+    {
+        instrucoesB2BackToNormal = false;
+    }
+
+    public static bool InstrucoesB3BackToNormal()
+    {
+        return instrucoesB3BackToNormal;
+    }
+
+    public static void ResetInstrucoesB3BackToNormal()
+    {
+        instrucoesB3BackToNormal = false;
     }
 }

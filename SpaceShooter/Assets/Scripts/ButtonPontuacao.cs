@@ -19,7 +19,7 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, jogarBackToNormal;
-    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -37,7 +37,7 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
         highlighted = 0;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
-        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPontuacao").GetComponent<Image>();
     }
 
@@ -45,50 +45,72 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (ButtonComoJogar.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonComoJogar.ResetPontuacaoBackToNormal();
         }
 
         if (ButtonIntroducao.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.ResetPontuacaoBackToNormal();
         }
 
         if (ButtonTempo.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonTempo.ResetPontuacaoBackToNormal();
         }
 
         if (ButtonVidas.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonVidas.ResetPontuacaoBackToNormal();
         }
 
         if (ButtonPontos.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonPontos.ResetPontuacaoBackToNormal();
         }
 
         if (InstrucoesB1.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB1.ResetPontuacaoBackToNormal();
         }
 
         if (InstrucoesB2.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB2.ResetPontuacaoBackToNormal();
         }
 
         if (InstrucoesB3.PontuacaoBackToNormal())
         {
-            mImage.sprite = normalSprite;
+            mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            InstrucoesB3.ResetPontuacaoBackToNormal();
+        }
+
+        if (ButtonJogar.PontuacaoBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonJogar.ResetPontuacaoBackToNormal();
+        }
+
+        if (ButtonTutorial.PontuacaoBackToNormal())
+        {
+            mImage.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonTutorial.ResetPontuacaoBackToNormal();
         }
     }
 
@@ -215,6 +237,11 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
             jogarBackToNormal = true;
         }
 
+        if(ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
+        }
+
         if (highlighted == 0)
         {
             mImage.sprite = spriteHighlighted;
@@ -323,9 +350,19 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
         return comoJogarBackToNormal;
     }
 
+    public static void ResetComoJogarBackToNormal()
+    {
+        comoJogarBackToNormal = false;
+    }
+
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
     }
 
     public static bool TempoBackToNormal()
@@ -333,9 +370,19 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
         return tempoBackToNormal;
     }
 
+    public static void ResetTempoBackToNormal()
+    {
+        tempoBackToNormal = false;
+    }
+
     public static bool PontosBackToNormal()
     {
         return pontosBackToNormal;
+    }
+
+    public static void ResetPontosBackToNormal()
+    {
+        pontosBackToNormal = false;
     }
 
     public static bool VidasBackToNormal()
@@ -343,9 +390,19 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
         return vidasBackToNormal;
     }
 
+    public static void ResetVidasBackToNormal()
+    {
+        vidasBackToNormal = false;
+    }
+
     public static bool InstrucoesB1BackToNormal()
     {
         return instrucoesB1BackToNormal;
+    }
+
+    public static void ResetInstrucoesB1BackToNormal()
+    {
+        instrucoesB1BackToNormal = false;
     }
 
     public static bool InstrucoesB2BackToNormal()
@@ -353,14 +410,39 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
         return instrucoesB2BackToNormal;
     }
 
+    public static void ResetInstrucoesB2BackToNormal()
+    {
+        instrucoesB2BackToNormal = false;
+    }
+
     public static bool InstrucoesB3BackToNormal()
     {
         return instrucoesB3BackToNormal;
     }
 
+    public static void ResetInstrucoesB3BackToNormal()
+    {
+        instrucoesB3BackToNormal = false;
+    }
+
     public static bool JogarBackToNormal()
     {
         return jogarBackToNormal;
+    }
+
+    public static void ResetJogarBackToNormal()
+    {
+        jogarBackToNormal = false;
+    }
+
+    public static bool TutorialBackToNormal()
+    {
+        return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
     }
 
     private IEnumerator DownloadAvoidedEnemies(int enemiesAvoided)

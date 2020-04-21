@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds: []
   pontuacao: {fileID: 0}
-  textToSpeech: {fileID: 0}
+  textToSpeech: {fileID: 108673555}
   avoidedEnemies: {fileID: 0}
   pontuacao2: {fileID: 0}
   pontuacao3: {fileID: 0}

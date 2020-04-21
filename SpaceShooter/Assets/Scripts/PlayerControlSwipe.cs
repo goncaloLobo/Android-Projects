@@ -224,13 +224,9 @@ public class PlayerControlSwipe : MonoBehaviour
 
                     if(ButtonPontuacao.CheckForHighlighted() == 1)
                     {
-                        System.Diagnostics.Debug.WriteLine("aqui");
                         float highscore = PlayerPrefs.GetFloat("highscore");
-                        System.Diagnostics.Debug.WriteLine("highscore aqui: " + highscore);
                         float time = PlayerPrefs.GetFloat("time");
-                        System.Diagnostics.Debug.WriteLine("time aqui: " + time);
                         int enemiesAvoided = PlayerPrefs.GetInt("enemies");
-                        System.Diagnostics.Debug.WriteLine("enemies avoided aqui: " + enemiesAvoided);
                         if (highscore == 0)
                         {
                             System.Diagnostics.Debug.WriteLine("aqui2");
