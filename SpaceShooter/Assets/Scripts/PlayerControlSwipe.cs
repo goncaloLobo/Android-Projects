@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using UnityEngine.Networking;
 
 public class PlayerControlSwipe : MonoBehaviour
 {
@@ -18,7 +19,16 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource bonusMid; // som bonus mid
     public AudioSource bonusRight; // som bonus dir
     public AudioSource introducao; // som do button introducao
+
+    public AudioSource[] sounds;
+    public AudioSource pontuacaoError;
+    public AudioSource pontuacao2;
+    public AudioSource pontuacao3;
+    public AudioSource avoidedEnemies;
+
     public AudioSource vaiComeçar321;
+    public AudioSource introducaoSound;
+    public AudioSource textToSpeech;
 
     public Text LivesUIText;
     private static int lives;
@@ -54,6 +64,12 @@ public class PlayerControlSwipe : MonoBehaviour
         lives = Configuration.MaxLives();
         LivesUIText.text = lives.ToString();
         scoreUITextGO = GameObject.FindGameObjectWithTag("ScoreTextTag");
+
+        sounds = GetComponents<AudioSource>();
+        pontuacaoError = sounds[0];
+        pontuacao2 = sounds[1];
+        pontuacao3 = sounds[2];
+        avoidedEnemies = sounds[3];
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
@@ -204,6 +220,37 @@ public class PlayerControlSwipe : MonoBehaviour
                     if (ButtonComoJogar.CheckForHighlighted() == 1)
                     {
                         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+                    }
+
+                    if(ButtonPontuacao.CheckForHighlighted() == 1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("aqui");
+                        float highscore = PlayerPrefs.GetFloat("highscore");
+                        System.Diagnostics.Debug.WriteLine("highscore aqui: " + highscore);
+                        float time = PlayerPrefs.GetFloat("time");
+                        System.Diagnostics.Debug.WriteLine("time aqui: " + time);
+                        int enemiesAvoided = PlayerPrefs.GetInt("enemies");
+                        System.Diagnostics.Debug.WriteLine("enemies avoided aqui: " + enemiesAvoided);
+                        if (highscore == 0)
+                        {
+                            System.Diagnostics.Debug.WriteLine("aqui2");
+                            // ainda nao fez nenhum jogo
+                            pontuacaoError.Play();
+                        }
+                        else
+                        {
+                            System.Diagnostics.Debug.WriteLine("aqui3");
+                            // vai dizer os resultados do melhor jogo
+                            StartCoroutine(DownloadHighscore(highscore));
+                            StartCoroutine(DownloadAvoidedEnemies(enemiesAvoided));
+                            StartCoroutine(DownloadTime(time));
+                        }
+                    }
+
+                    if(ButtonIntroducao.CheckForHighlighted() == 1)
+                    {
+                        if (!introducaoSound.isPlaying)
+                            introducaoSound.Play();
                     }
                 }
             }
@@ -839,5 +886,78 @@ public class PlayerControlSwipe : MonoBehaviour
     private void ChangeToTutorialP6State()
     {
         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP6);
+    }
+
+    private IEnumerator DownloadAvoidedEnemies(int enemiesAvoided)
+    {
+        // "%20pontos%20"
+        string pontostxt = "pontos";
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + pontostxt + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                avoidedEnemies.Play(); // "Inimigos desviados :"
+                textToSpeech.PlayDelayed(avoidedEnemies.clip.length);
+            }
+        }
+    }
+
+    private IEnumerator DownloadHighscore(float highscore)
+    {
+        System.Diagnostics.Debug.WriteLine("entrei crl");
+        // "%20pontos%20"
+        string pontostxt = "pontos";
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + highscore + pontostxt + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            System.Diagnostics.Debug.WriteLine("entrei crl 2");
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                System.Diagnostics.Debug.WriteLine("entrei crl erro");
+                Debug.Log(www.error);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("entrei crl 3");
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                pontuacao2.Play(); // "Pontuação deste jogo:"
+                textToSpeech.PlayDelayed(pontuacao2.clip.length);
+            }
+        }
+    }
+
+    private IEnumerator DownloadTime(float time)
+    {
+        // "%20pontos%20"
+        string pontostxt = "pontos";
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + time + pontostxt + "&tl=pt-BR";
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.isNetworkError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                AudioClip myClip = DownloadHandlerAudioClip.GetContent(www);
+                textToSpeech.clip = myClip;
+                pontuacao3.Play(); // "Duração do jogo:"
+                textToSpeech.PlayDelayed(avoidedEnemies.clip.length);
+            }
+        }
     }
 }

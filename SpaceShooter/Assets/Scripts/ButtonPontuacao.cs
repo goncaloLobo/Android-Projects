@@ -365,9 +365,10 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     private IEnumerator DownloadAvoidedEnemies(int enemiesAvoided)
     {
+        System.Diagnostics.Debug.WriteLine("entrei coroutine download avoided enemies button pontuacao");
         // "%20pontos%20"
         string pontostxt = "pontos";
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + pontostxt + "&tl=pt-BR";
+        string googleUrl = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=pt-BR&q=" + enemiesAvoided + pontostxt;
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();
@@ -388,9 +389,10 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     private IEnumerator DownloadHighscore(float highscore)
     {
+        System.Diagnostics.Debug.WriteLine("entrei coroutine download highscore button pontuacao");
         // "%20pontos%20"
         string pontostxt = "pontos";
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + highscore + pontostxt + "&tl=pt-BR";
+        string googleUrl = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=pt-BR&q=" + highscore + pontostxt;
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();
@@ -412,8 +414,9 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private IEnumerator DownloadTime(float time)
     {
         // "%20pontos%20"
+        System.Diagnostics.Debug.WriteLine("entrei download time coroutine button pontuacao");
         string pontostxt = "pontos";
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + time + pontostxt + "&tl=pt-BR";
+        string googleUrl = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=pt-BR&q=" + time + pontostxt;
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();

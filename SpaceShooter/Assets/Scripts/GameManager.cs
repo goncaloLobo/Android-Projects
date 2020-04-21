@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public GameObject scoreUITextGO;
     public GameObject timeCounterGO;
     public GameObject tutorialButton;
+    public GameObject pontuacaoButton;
     public Text LivesUIText;
 
     // botoes instrucoes
@@ -116,6 +117,7 @@ public class GameManager : MonoBehaviour
                 instrucoesB2.SetActive(false);
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
+                pontuacaoButton.SetActive(true);
                 playerShip.SetActive(true);
 
                 SetOpeningBools();
@@ -137,6 +139,7 @@ public class GameManager : MonoBehaviour
                 instrucoesB3.SetActive(false);
                 tutorialButton.SetActive(false);
                 playerShip.SetActive(true);
+                pontuacaoButton.SetActive(false);
                 SetGameplayBools();
 
                 // iniciar os contadores de tempo
@@ -216,6 +219,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
+                System.Diagnostics.Debug.WriteLine("entrei gameover");
                 SetGameoverBools();
                 
                 // terminar os contadores de tempo
@@ -228,7 +232,9 @@ public class GameManager : MonoBehaviour
 
                 //display game over e o tempo final
                 GameOverGO.SetActive(true);
+                System.Diagnostics.Debug.WriteLine("entrei 1");
                 delay += 1f;
+                System.Diagnostics.Debug.WriteLine("entrei dps de += 1 no delay");
                 gameOver.PlayDelayed(delay);
                 delay += gameOver.clip.length;
 
@@ -259,6 +265,7 @@ public class GameManager : MonoBehaviour
                 instrucoesB3.SetActive(true);
                 introducaoButton.SetActive(true);
                 tutorialButton.SetActive(true);
+                pontuacaoButton.SetActive(true);
 
                 SetInstructionsBools();
                 background.volume = 0.05f;
@@ -565,7 +572,7 @@ public class GameManager : MonoBehaviour
     {
         // "%20pontos%20"
         string pontostxt = "pontos";
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + finalScore + pontostxt + "&tl=pt-BR";
+        string googleUrl = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=pt-BR&q=" + finalScore + pontostxt;
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();
@@ -604,7 +611,7 @@ public class GameManager : MonoBehaviour
     {
         // "%20pontos%20"
         string pontostxt = "pontos";
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + pontostxt +  "&tl=pt-BR";
+        string googleUrl = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=pt-BR&q=" + enemiesAvoided + pontostxt;
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();
