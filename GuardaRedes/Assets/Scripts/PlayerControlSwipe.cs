@@ -8,9 +8,18 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource hitCenterUp; // som de bater no topo
     public AudioSource hitCenterDown; // som de bater em baixo
 
+    // CONSTANTES PARA OS VALORES
+    private int minimumFlingVelocity = Configuration.MinimumFlingVelocity();
+    private float doubleTapDelta = Configuration.DoubleTapDelta();
+    private int doubleTapRadius = Configuration.DoubleTapRadius();
+
     private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch, sndTouch, turningPoint;
-    private float flytime;
+    private Touch currentTouch, previousTouch;
+    private Touch startTouch, endTouch;
+    private float startTouchTime, endTouchTime;
+    private float currentTapTime, lastTapTime, flytime;
     private float flightDuration = 0.1f;
+    private float screenDPI;
 
     private bool swipeLeft, swipeRight, swipeUp, swipeDown;
 
@@ -24,268 +33,183 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         //mostra as luvas do gr no ecra
         gameObject.SetActive(true);
+        screenDPI = Screen.dpi;
     }
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         swipeLeft = swipeRight = swipeDown = swipeUp = false;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
-
-#if UNITY_EDITOR
-        UpdateStandalone();
-#else
-        UpdateMobile();
-#endif
-
-    }
-
-    // controlador para fazer swipes no pc
-    private void UpdateStandalone()
-    {
         Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
         Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
 
-        if (Input.GetMouseButtonDown(0))
+        // accoes para o botao de voltar para trás do android
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            stTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            if (GameManager.GetOpening())
+            {
+                Application.Quit();
+            }
+
+            if (GameManager.GetStarted())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
+
+            if (GameManager.GetInstructions())
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
         }
 
-        if (Input.GetMouseButtonUp(0))
+        // DETETA O INPUT PARA O ESTADO INICIAL (DUPLO TOQUE NOS BOTOES QUE É SUPOSTO)
+        if (Input.touchCount > 0 && GameManager.GetOpening())
         {
-            sndTouch = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
-            Debug.Log("stTouch: " + stTouch);
-            Debug.Log("sndTouch: " + sndTouch);
-            Debug.Log("swipe delta: " + swipeDelta);
-
-            //normalize the 2d vector
-            swipeDelta.Normalize();
-
-            //swipe up
-            if (swipeDelta.y > 0 && swipeDelta.x > -0.5f && swipeDelta.x < 0.5f)
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
             {
-                swipeUp = true;
-                flytime = 0f;
-                startGlovePosition = transform.position;
-                endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y + 2.3f);
-                if (endGlovePosition.y < border2.y)
+                currentTouch = touch;
+                currentTapTime = Time.time;
+                if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-                }
-                else
-                {
-                    // som de bater na parede em cima
-                    hitCenterUp.Play();
+                    // VERIFICA SE ESTA HIGHLIGHTED E FAZ A ACAO DO DUPLO TOQUE
                 }
             }
-
-            //swipe down
-            if (swipeDelta.y < 0 && swipeDelta.x > -0.5f && swipeDelta.x < 0.5f)
+            else if (touch.phase == TouchPhase.Moved)
             {
-                swipeDown = true;
-                flytime = 0f;
-                startGlovePosition = transform.position;
-                endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y - 2.3f);
-                if (endGlovePosition.y > border.y)
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                previousTouch = touch;
+                lastTapTime = currentTapTime;
+            }
+        }
+
+        if (Input.touchCount > 0 && GameManager.GetInstructions())
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                currentTouch = touch;
+                currentTapTime = Time.time;
+                if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-                }
-                else
-                {
-                    // som de bater na parede em baixo
-                    hitCenterDown.Play();
+                    
                 }
             }
-
-            //swipe left
-            if (swipeDelta.x < 0)
+            else if (touch.phase == TouchPhase.Moved)
             {
-                swipeLeft = true;
-                flytime = 0f;
-                startGlovePosition = transform.position;
-                if(swipeDelta.y > -0.5f && swipeDelta.y < 0.5f) { // apenas swipe para a esquerda
-                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
-                    if (endGlovePosition.x > border.x)
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                previousTouch = touch;
+                lastTapTime = currentTapTime;
+                int deltaX = (int)previousTouch.position.x - (int)currentTouch.position.x;
+                int deltaY = (int)previousTouch.position.y - (int)currentTouch.position.y;
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+
+                // DAQUI PARA BAIXO É SWIPES, JÁ VOLTAMOS CÁ
+            }
+        }
+
+        // DETETA O INPUT PARA QUANDO ESTÁ A JOGAR
+        if (Input.touchCount > 0 && GameManager.GetStarted())
+        {
+            Touch touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                startTouch = touch;
+                startTouchTime = Time.time;
+                if (CheckForDoubleTap(startTouchTime, endTouchTime, startTouch, endTouch) == 0)
+                {
+
+                }
+            }
+            else if (touch.phase == TouchPhase.Moved)
+            {
+
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                endTouch = touch;
+                endTouchTime = Time.time;
+                int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
+                int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
+
+                int distance = (deltaX * deltaX) + (deltaY * deltaY);
+                if (distance > (16.0f * screenDPI + 0.5f))
+                {
+                    float difference = endTouchTime - startTouchTime;
+                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {
-                        while (flytime < flightDuration)
+                        // swipe!!!
+                        swipeDelta = new Vector2(deltaX, deltaY);
+
+                        //normalize the 2d vector
+                        swipeDelta.Normalize();
+
+                        //swipe left
+                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                            flytime = 0f;
+                            startGlovePosition = transform.position;
+                            endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
+                            if (endGlovePosition.x > border.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                                }
+                            }
+                            else
+                            {
+                                // som de bater na parede no lado esquerdo
+                                hitWallSoundLeft.Play();
+                            }
                         }
 
-                        // roda as luvas para a esquerda
-                    }
-
-                    else
-                    {
-                        // som de bater na parede no lado esquerdo
-                        hitWallSoundLeft.Play();
-                    }
-                }
-                else if (swipeDelta.y > 0.5f)
-                { // swipe para a esquerda e para cima (gesto L esquerda e para cima)
-                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, startGlovePosition.y + 2.3f);
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        //swipe right
+                        if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
+                        {
+                            flytime = 0f;
+                            startGlovePosition = transform.position;
+                            endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
+                            if (endGlovePosition.x < border2.x)
+                            {
+                                while (flytime < flightDuration)
+                                {
+                                    flytime += Time.deltaTime;
+                                    transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                                }
+                            }
+                            else
+                            {
+                                // som de bater na parede no lado direito
+                                hitWallSoundRight.Play();
+                            }
+                        }
                     }
                 }
             }
-
-            //swipe right
-            if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-            {
-                swipeRight = true;
-                flytime = 0f;
-                startGlovePosition = transform.position;
-                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
-                if (endGlovePosition.x < border2.x)
-                {
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-
-                    // roda as luvas para a direita
-                }
-                else
-                {
-                    // som de bater na parede no lado direito
-                    hitWallSoundRight.Play();
-                }
-            }         
         }
     }
 
-    // controlador para fazer swipes no telemóvel
-    private void UpdateMobile()
+    private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
     {
-        Vector2 border = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // para limite esq
-        Vector2 border2 = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // para limite dir
+        int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
+        int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
 
-        if (Input.touches.Length != 0)
+        // diferença entre os toques superior a 1s
+        if (currentTapTime - previousTapTime > doubleTapDelta)
         {
-            if (Input.touches[0].phase == TouchPhase.Began)
-            {
-                stTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
-            }
-
-            if (Input.touches[0].phase == TouchPhase.Ended)
-            {
-                sndTouch = new Vector2(Input.touches[0].position.x, Input.touches[0].position.y);
-                swipeDelta = new Vector2(sndTouch.x - stTouch.x, sndTouch.y - stTouch.y);
-
-                //normalize the 2d vector
-                swipeDelta.Normalize();
-
-                //swipe up
-                if (swipeDelta.y > 0 && swipeDelta.x > -0.5f && swipeDelta.x < 0.5f)
-                {
-                    swipeUp = true;
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y + 2.3f);
-                    if (endGlovePosition.y < border2.y)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                        }
-                    }
-                    else
-                    {
-                        // som de bater na parede em cima
-                        hitCenterUp.Play();
-                    }
-                }
-
-                //swipe down
-                if (swipeDelta.y < 0 && swipeDelta.x > -0.5f && swipeDelta.x < 0.5f)
-                {
-                    swipeDown = true;
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(transform.position.x, startGlovePosition.y - 2.3f);
-                    if (endGlovePosition.y > border.y)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                        }
-                    }
-                    else
-                    {
-                        // som de bater na parede em baixo
-                        hitCenterDown.Play();
-                    }
-                }
-
-                //swipe left
-                if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                {
-                    swipeLeft = true;
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
-                    if (endGlovePosition.x > border.x)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                        }
-
-                        // roda as luvas para a esquerda
-
-                    }
-                    else
-                    {
-                        // som de bater na parede no lado esquerdo
-                        hitWallSoundLeft.Play();
-                    }
-                }
-
-                //swipe right
-                if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                {
-                    swipeRight = true;
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
-                    if (endGlovePosition.x < border2.x)
-                    {
-                        while (flytime < flightDuration)
-                        {
-                            flytime += Time.deltaTime;
-                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                        }
-
-                        // roda as luvas para a direita
-                    }
-                    else
-                    {
-                        // som de bater na parede no lado direito
-                        hitWallSoundRight.Play();
-                    }
-                }
-            }
+            return -1;
         }
+
+        // se o duplo toque "perfeito" estiver dentro do circulo aceitavel, entao retorna 0
+        if (deltaX * deltaX + deltaY * deltaY < (doubleTapRadius * doubleTapRadius))
+            return 0;
+        return -1;
     }
 }

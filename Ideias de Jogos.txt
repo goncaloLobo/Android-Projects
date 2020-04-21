@@ -79,7 +79,6 @@ Jogo 9 -> Guarda Redes
 	
 	
 ------------------------------------------------------------------------------------------------------------------------------------------------------
-Reunião 02/04:
 -> Procurar source code do talkback para swipes em L.
 -> https://assetstore.unity.com/packages/tools/gui/android-native-dialogs-and-functions-plugin-106497
 

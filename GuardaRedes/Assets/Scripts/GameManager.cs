@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public AudioSource apito3x; // terceiro som [2]
     public AudioSource introducao;
 
-    private static bool started;
+    private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown;
     private static int startedDirection;
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
 
     public static GameManagerState GMState;
 
-    // Start is called before the first frame update
     void Start()
     {
         GMState = GameManagerState.Opening;
-        started = false;
+        opening = true;
+        started = instructions = gameover = swiperight = swipeleft = swipeup = swipedown = false;
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         switch (GMState)
         {
             case GameManagerState.Opening:
+                SetOpeningBools();
                 playerShip.SetActive(false);
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Gameplay:
+                SetGameplayBools();
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
                 // mete os varios defenderes a false
@@ -90,6 +92,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
+                SetGameoverBools();
                 //display game over
                 GameOverGO.SetActive(true);
                 apito3x.Play();
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.Instructions:
+                SetInstructionsBools();
                 GameOverGO.SetActive(false);
                 playButton.SetActive(false);
                 howToButton.SetActive(false);
@@ -117,6 +121,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.SwipeDown:
+                SetSwipedownBools();
+
                 // caso para ensinar remates para baixo (1)
                 startedDirection = 1;
 
@@ -125,6 +131,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.SwipeLeft:
+                SetSwipeleftBools();
+
                 // caso para ensinar remates para esquerda (2)
                 // unico caso funcional, por agora.
                 startedDirection = 2;
@@ -141,6 +149,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.SwipeRight:
+                SetSwiperightBools();
+
                 // caso para ensinar remates para direita (3)
                 startedDirection = 3;
 
@@ -152,6 +162,8 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.SwipeUp:
+                SetSwipeupBools();
+
                 // caso para ensinar remates para baixo (4)
                 startedDirection = 4;
 
@@ -184,6 +196,41 @@ public class GameManager : MonoBehaviour
     public static bool GetStarted()
     {
         return started;
+    }
+
+    public static bool GetOpening()
+    {
+        return opening;
+    }
+
+    public static bool GetGameover()
+    {
+        return gameover;
+    }
+
+    public static bool GetSwipeUp()
+    {
+        return swipeup;
+    }
+
+    public static bool GetSwipeLeft()
+    {
+        return swipeleft;
+    }
+
+    public static bool GetSwipeRight()
+    {
+        return swiperight;
+    }
+
+    public static bool GetSwipeDown()
+    {
+        return swipedown;
+    }
+
+    public static bool GetInstructions()
+    {
+        return instructions;
     }
 
     public void Apitar()
@@ -238,5 +285,53 @@ public class GameManager : MonoBehaviour
         defenderCima.SetActive(true);
         defenderEsquerda.SetActive(true);
         defenderDireita.SetActive(true);
+    }
+
+    private void SetOpeningBools()
+    {
+        opening = true;
+        started = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
+    }
+
+    private void SetGameplayBools()
+    {
+        started = true;
+        opening = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
+    }
+
+    private void SetInstructionsBools()
+    {
+        instructions = true;
+        opening = started = swipedown = swipeleft = swiperight = swiperight = gameover = false;
+    }
+
+    private void SetSwipedownBools()
+    {
+        swipedown = true;
+        instructions = opening = started = swipeleft = swiperight = swipeup = gameover = false;
+    }
+
+    private void SetSwipeupBools()
+    {
+        swipeup = true;
+        instructions = opening = started = swipeleft = swiperight = swipedown = gameover = false;
+    }
+
+    private void SetSwipeleftBools()
+    {
+        swipeleft = true;
+        instructions = opening = started = swipeup = swiperight = swipedown = gameover = false;
+    }
+
+    private void SetSwiperightBools()
+    {
+        swiperight = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = gameover = false;
+    }
+
+    private void SetGameoverBools()
+    {
+        gameover = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = false;
     }
 }
