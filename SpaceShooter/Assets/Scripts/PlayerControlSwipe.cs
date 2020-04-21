@@ -37,7 +37,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private bool isDoubleTap;
     private float screenDPI;
     private static bool tutorialLeft, tutorialRight;
-    private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction;
+    private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction, pontuacaoCancelAction;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
 
@@ -59,7 +59,7 @@ public class PlayerControlSwipe : MonoBehaviour
         gameObject.SetActive(true);
         isDoubleTap = false;
         tutorialLeft = tutorialRight = false;
-        tutorialCancelAction = jogarCancelAction = instrucoesCancelAction = false;
+        tutorialCancelAction = jogarCancelAction = instrucoesCancelAction = pontuacaoCancelAction = false;
         screenDPI = Screen.dpi;
     }
 
@@ -739,6 +739,16 @@ public class PlayerControlSwipe : MonoBehaviour
     public static void ResetInstrucoesCancelAction()
     {
         instrucoesCancelAction = false;
+    }
+
+    public static bool GetPontuacaoCancelAction()
+    {
+        return pontuacaoCancelAction;
+    }
+
+    public static void ResetPontuacaoCancelAction()
+    {
+        pontuacaoCancelAction = false;
     }
 
     private void StartGame()

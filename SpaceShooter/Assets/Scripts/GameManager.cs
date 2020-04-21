@@ -603,7 +603,8 @@ public class GameManager : MonoBehaviour
     public IEnumerator DownloadAvoidedEnemies(int enemiesAvoided)
     {
         // "%20pontos%20"
-        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + "&tl=pt-BR";
+        string pontostxt = "pontos";
+        string googleUrl = "http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&textlen=1024&client=tw-ob&q=+" + enemiesAvoided + pontostxt +  "&tl=pt-BR";
         using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(googleUrl, AudioType.MPEG))
         {
             yield return www.SendWebRequest();

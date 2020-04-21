@@ -8,7 +8,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public AudioSource asteroide; // sounds[0]
     public AudioSource asteroideDescricao; // sounds[1]
 
-    private static bool jogarBackToNormal, comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool jogarBackToNormal, comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
@@ -21,7 +21,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         sounds = GetComponents<AudioSource>();
         asteroide = sounds[0];
         asteroideDescricao = sounds[1];
-
+        jogarBackToNormal = comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
         highlighted = 0;
         mImage = GameObject.FindGameObjectWithTag("InstrucoesB3").GetComponent<Image>();
     }
@@ -53,6 +53,12 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         }
 
         if (InstrucoesB2.InstrucoesB3BackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontuacao.InstrucoesB3BackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -108,6 +114,11 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         if (InstrucoesB1.CheckForHighlighted() == 1)
         {
             instrucoesB1BackToNormal = true;
+        }
+
+        if (ButtonPontuacao.CheckForHighlighted() == 1)
+        {
+            pontuacaoBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -283,5 +294,10 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static bool PontuacaoBackToNormal()
+    {
+        return pontuacaoBackToNormal;
     }
 }

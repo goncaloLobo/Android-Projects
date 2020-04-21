@@ -11,7 +11,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private float currentTapTime;
     private float lastTapTime;
 
-    private static bool jogarBackToNormal, comoJogarBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool jogarBackToNormal, comoJogarBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
@@ -26,7 +26,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         intro = sounds[1];
 
         highlighted = 0;
-        comoJogarBackToNormal = jogarBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
+        comoJogarBackToNormal = jogarBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
         instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("IntroducaoButton").GetComponent<Image>();
     }
@@ -76,6 +76,12 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         }
 
         if (InstrucoesB3.IntroducaoBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontuacao.IntroducaoBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -153,6 +159,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (InstrucoesB3.CheckForHighlighted() == 1)
         {
             instrucoesB3BackToNormal = true;
+        }
+
+        if (ButtonPontuacao.CheckForHighlighted() == 1)
+        {
+            pontuacaoBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -312,6 +323,11 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static bool InstrucoesB2BackToNormal()
     {
         return instrucoesB2BackToNormal;
+    }
+
+    public static bool PontuacaoBackToNormal()
+    {
+        return pontuacaoBackToNormal;
     }
 
     public static bool InstrucoesB3BackToNormal()

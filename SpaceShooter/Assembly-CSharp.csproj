@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\ButtonIntroducao.cs" />
     <Compile Include="Assets\Scripts\ButtonJogar.cs" />
     <Compile Include="Assets\Scripts\ButtonPontos.cs" />
+    <Compile Include="Assets\Scripts\ButtonPontuacao.cs" />
     <Compile Include="Assets\Scripts\ButtonsInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonTempo.cs" />
     <Compile Include="Assets\Scripts\ButtonTutorial.cs" />

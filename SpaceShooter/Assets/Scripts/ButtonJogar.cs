@@ -10,7 +10,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private float lastTapTime;
 
     public GameObject GameManagerGO;
-    private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
@@ -25,7 +25,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         jogar = GetComponent<AudioSource>();
 
         highlighted = 0;
-        comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = false;
+        comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
         instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
     }
@@ -75,6 +75,12 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         }
 
         if (InstrucoesB3.JogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontuacao.JogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -172,6 +178,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if (InstrucoesB3.CheckForHighlighted() == 1)
         {
             instrucoesB3BackToNormal = true;
+        }
+
+        if(ButtonPontuacao.CheckForHighlighted() == 1)
+        {
+            pontuacaoBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -315,6 +326,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool InstrucoesB3BackToNormal()
     {
         return instrucoesB3BackToNormal;
+    }
+
+    public static bool PontuacaoBackToNormal()
+    {
+        return pontuacaoBackToNormal;
     }
 
     private void StartGame()

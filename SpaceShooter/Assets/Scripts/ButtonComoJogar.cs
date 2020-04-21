@@ -10,7 +10,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     private float currentTapTime;
     private float lastTapTime;
 
-    private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal;
+    private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
@@ -73,6 +73,12 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
         }
 
         if (InstrucoesB3.ComoJogarBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontuacao.ComoJogarBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -148,6 +154,11 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
         if (InstrucoesB3.CheckForHighlighted() == 1)
         {
             instrucoesB3BackToNormal = true;
+        }
+
+        if (ButtonPontuacao.CheckForHighlighted() == 1)
+        {
+            pontuacaoBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -309,5 +320,10 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     public static bool InstrucoesB3BackToNormal()
     {
         return instrucoesB3BackToNormal;
+    }
+
+    public static bool PontuacaoBackToNormal()
+    {
+        return pontuacaoBackToNormal;
     }
 }

@@ -177,3 +177,4 @@ df434544c9f7b33d1cc7e635b180d279 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 5fb3286db90859cc4aeec86ccb69dd2d Assembly-CSharp.dll:.PlayerControlSwipe
 ade854cf6ad6b897937d44b793d92525 Assembly-CSharp.dll:.ButtonIntroducao
+ee0c8f414dc738f64912898ba92de5d6 Assembly-CSharp.dll:.ButtonPontuacao

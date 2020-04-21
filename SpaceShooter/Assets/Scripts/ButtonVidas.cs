@@ -11,7 +11,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public AudioSource vidas3; //sounds[3]
 
     public GameObject GameManagerGO;
-    private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal;
+    private static bool comoJogarBackToNormal, introducaoBackToNormal, jogarBackToNormal, pontosBackToNormal, tempoBackToNormal, pontuacaoBackToNormal;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -27,7 +27,7 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         vidas3 = sounds[3];
 
         highlighted = 0;
-        comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = tempoBackToNormal = false;
+        comoJogarBackToNormal = introducaoBackToNormal = jogarBackToNormal = pontosBackToNormal = tempoBackToNormal = pontuacaoBackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("LivesTag").GetComponent<Image>();
     }
 
@@ -52,6 +52,12 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         }
 
         if (ButtonTempo.VidasBackToNormal())
+        {
+            mImage.sprite = normalSprite;
+            highlighted = 0;
+        }
+
+        if (ButtonPontuacao.VidasBackToNormal())
         {
             mImage.sprite = normalSprite;
             highlighted = 0;
@@ -116,6 +122,11 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(ButtonTempo.CheckForHighlighted() == 1)
         {
             tempoBackToNormal = true;
+        }
+
+        if (ButtonPontuacao.CheckForHighlighted() == 1)
+        {
+            pontuacaoBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -267,5 +278,10 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     public static bool PontosBackToNormal()
     {
         return pontosBackToNormal;
+    }
+
+    public static bool PontuacaoBackToNormal()
+    {
+        return pontuacaoBackToNormal;
     }
 }
