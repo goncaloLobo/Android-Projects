@@ -712,7 +712,7 @@ GameObject:
   - component: {fileID: 605067507}
   m_Layer: 5
   m_Name: ButtonIntroducao
-  m_TagString: Untagged
+  m_TagString: ButtonIntroducao
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -955,8 +955,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 5777a8fd66fe42345b7f3a78db38e9d2,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 5777a8fd66fe42345b7f3a78db38e9d2, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1018,6 +1019,8 @@ MonoBehaviour:
   sounds: []
   introducao: {fileID: 0}
   intro: {fileID: 0}
+  normalSprite: {fileID: 21300000, guid: 23b6f1e088e397948b1d8c8fea87b96b, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 5777a8fd66fe42345b7f3a78db38e9d2, type: 3}
 --- !u!1 &651261817
 GameObject:
   m_ObjectHideFlags: 0
@@ -1034,7 +1037,7 @@ GameObject:
   - component: {fileID: 651261823}
   m_Layer: 5
   m_Name: DefenderBaixo
-  m_TagString: Untagged
+  m_TagString: DefenderBaixo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1085,9 +1088,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: dc05d4ce24aced941b067a3ab8a3644b,
+    m_HighlightedSprite: {fileID: 21300000, guid: 90a23f9139e285841b8df741ba35f170,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: dc05d4ce24aced941b067a3ab8a3644b, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 90a23f9139e285841b8df741ba35f170, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1098,18 +1101,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 651261820}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1693170704}
-        m_MethodName: StartDefenderBaixo
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &651261820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1159,6 +1151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenderParaBaixo: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: 31626ae51b2d0cb47a1620ccb1f9da72, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 90a23f9139e285841b8df741ba35f170, type: 3}
 --- !u!82 &651261823
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1452,7 +1446,7 @@ GameObject:
   - component: {fileID: 921154961}
   m_Layer: 5
   m_Name: DefenderDireita
-  m_TagString: Untagged
+  m_TagString: DefenderDireita
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1503,9 +1497,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 502579c019f328341865b421c28445b0,
+    m_HighlightedSprite: {fileID: 21300000, guid: 684ba2b6aba8ac1428e48abc9ee29b76,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: 502579c019f328341865b421c28445b0, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 684ba2b6aba8ac1428e48abc9ee29b76, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1662,6 +1656,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenderParaDireita: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 0}
+  spriteHighlighted: {fileID: 0}
 --- !u!1 &953288078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1884,7 +1880,7 @@ GameObject:
   - component: {fileID: 1029436945}
   m_Layer: 5
   m_Name: DefenderCima
-  m_TagString: Untagged
+  m_TagString: DefenderCima
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1935,9 +1931,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: d3bf4095eb57239458a76afc7edf122c,
+    m_HighlightedSprite: {fileID: 21300000, guid: a79b26228c9755c4aa24db28255017ff,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: d3bf4095eb57239458a76afc7edf122c, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: a79b26228c9755c4aa24db28255017ff, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1948,18 +1944,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1029436942}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1693170704}
-        m_MethodName: StartDefenderCima
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1029436942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2009,6 +1994,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenderParaCima: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: 92bd89d81739fc44385f13e95d89d472, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: a79b26228c9755c4aa24db28255017ff, type: 3}
 --- !u!82 &1029436945
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2121,7 +2108,7 @@ GameObject:
   - component: {fileID: 1077075330}
   m_Layer: 5
   m_Name: DefenderEsquerda
-  m_TagString: Untagged
+  m_TagString: DefenderEsquerda
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2172,9 +2159,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: f5a9ad520001c424b9e3b883ff6e5864,
+    m_HighlightedSprite: {fileID: 21300000, guid: 05e55cb7312ccac408e08d7243e53650,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: f5a9ad520001c424b9e3b883ff6e5864, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 05e55cb7312ccac408e08d7243e53650, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2185,18 +2172,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1077075327}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1693170704}
-        m_MethodName: StartDefenderEsquerda
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1077075327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,6 +2222,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defenderParaEsquerda: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: 9a00fbb6e6dcc0648be1a79a05017e75, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 05e55cb7312ccac408e08d7243e53650, type: 3}
 --- !u!82 &1077075330
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2979,7 +2957,7 @@ GameObject:
   - component: {fileID: 1615466975}
   m_Layer: 5
   m_Name: ButtonHome
-  m_TagString: Untagged
+  m_TagString: HomeButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3126,8 +3104,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 8694c3b0622c96e4395d405914161326,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 8694c3b0622c96e4395d405914161326, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3188,6 +3167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sair: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: fa95e9e5a61f1864b8c1c7a8cfcb38bd, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 8694c3b0622c96e4395d405914161326, type: 3}
 --- !u!1 &1665691372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3681,7 +3662,7 @@ GameObject:
   - component: {fileID: 1743029037}
   m_Layer: 5
   m_Name: ButtonClose
-  m_TagString: Untagged
+  m_TagString: CloseButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3719,6 +3700,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sair: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: 3efc3e169a1e6764db26910af853eb34, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 986c0f8cb3d1c984c9ec6f0aa46c9d52, type: 3}
 --- !u!82 &1743029038
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3842,8 +3825,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 21300000, guid: 986c0f8cb3d1c984c9ec6f0aa46c9d52,
+      type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 986c0f8cb3d1c984c9ec6f0aa46c9d52, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3906,7 +3890,7 @@ GameObject:
   - component: {fileID: 1770039761}
   m_Layer: 5
   m_Name: ButtonPlay
-  m_TagString: Untagged
+  m_TagString: ButtonPlay
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3957,9 +3941,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: eb857e231b8d7b64a884c01fcf05fcca,
+    m_HighlightedSprite: {fileID: 21300000, guid: 71e98dd1339938c40b7ef0a239949544,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: eb857e231b8d7b64a884c01fcf05fcca, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 71e98dd1339938c40b7ef0a239949544, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4116,6 +4100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jogar: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: 53b1438699a3a0d4cb031f9e76cb5b50, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 71e98dd1339938c40b7ef0a239949544, type: 3}
 --- !u!1 &1950541782
 GameObject:
   m_ObjectHideFlags: 0
@@ -4132,7 +4118,7 @@ GameObject:
   - component: {fileID: 1950541786}
   m_Layer: 0
   m_Name: PlayerGO
-  m_TagString: PlayerShipTag
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4298,7 +4284,7 @@ GameObject:
   - component: {fileID: 2002436644}
   m_Layer: 5
   m_Name: ButtonInstrucoes
-  m_TagString: Untagged
+  m_TagString: ButtonInstrucoes
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4349,9 +4335,9 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: fe5026080535bf541a115fc951647ff3,
+    m_HighlightedSprite: {fileID: 21300000, guid: 35c890ed51f61e745adf312eabfac6be,
       type: 3}
-    m_PressedSprite: {fileID: 21300000, guid: fe5026080535bf541a115fc951647ff3, type: 3}
+    m_PressedSprite: {fileID: 21300000, guid: 35c890ed51f61e745adf312eabfac6be, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -4410,9 +4396,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d11e4777dfade3743b8e227dc2188cd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonPressed: 0
   instrucoes: {fileID: 0}
   GameManagerGO: {fileID: 1693170702}
+  normalSprite: {fileID: 21300000, guid: fe1a0212dc76fd844aea5b960217aa31, type: 3}
+  spriteHighlighted: {fileID: 21300000, guid: 35c890ed51f61e745adf312eabfac6be, type: 3}
 --- !u!82 &2002436645
 AudioSource:
   m_ObjectHideFlags: 0

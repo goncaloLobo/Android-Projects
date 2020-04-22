@@ -21,8 +21,6 @@ public class PlayerControlSwipe : MonoBehaviour
     private float flightDuration = 0.1f;
     private float screenDPI;
 
-    private bool swipeLeft, swipeRight, swipeUp, swipeDown;
-
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Vector2 StartGlovePosition { get { return startGlovePosition; } }
     public Vector2 EndGlovePosition { get { return endGlovePosition; } }
@@ -38,7 +36,7 @@ public class PlayerControlSwipe : MonoBehaviour
     
     void Start()
     {
-        swipeLeft = swipeRight = swipeDown = swipeUp = false;
+
     }
     
     void Update()

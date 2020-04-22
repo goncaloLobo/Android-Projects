@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
+public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     float clickdelay = 0.5f;
     public AudioSource sair;
@@ -9,10 +10,80 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     private float lastTapTime;
 
     public GameObject GameManagerGO;
+    public Sprite normalSprite;
+    public Sprite spriteHighlighted;
+    private static Image mImageClose;
+    private static int highlighted;
+    private static int soundOn = 0;
+    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, homeBackToNormal;
+    private static bool buttonDefenderBaixoBackToNormal, buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal;
 
     void Start()
     {
         sair = GetComponent<AudioSource>();
+        mImageClose = GameObject.FindGameObjectWithTag("CloseButton").GetComponent<Image>();
+        highlighted = 0;
+        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = homeBackToNormal = false;
+        buttonDefenderBaixoBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderDireitaBackToNormal = buttonDefenderEsquerdaBackToNormal = false;
+    }
+
+    void Update()
+    {
+        if (ButtonInstrucoes.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonInstrucoes.ResetCloseBackToNormal();
+        }
+
+        if (ButtonIntroducao.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonIntroducao.ResetCloseBackToNormal();
+        }
+
+        if (MyButton.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            MyButton.ResetCloseBackToNormal();
+        }
+
+        if (ButtonHome.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonHome.ResetCloseBackToNormal();
+        }
+
+        if (ButtonDefenderEsquerda.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonDefenderEsquerda.ResetCloseBackToNormal();
+        }
+
+        if (ButtonDefenderDireita.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonDefenderDireita.ResetCloseBackToNormal();
+        }
+
+        if (ButtonDefenderCima.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonDefenderCima.ResetCloseBackToNormal();
+        }
+
+        if (ButtonDefenderBaixo.CloseBackToNormal())
+        {
+            mImageClose.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonDefenderBaixo.ResetCloseBackToNormal();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -45,6 +116,153 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        sair.Play();
+        if (ButtonDefenderBaixo.CheckForHighlighted() == 1)
+        {
+            buttonDefenderBaixoBackToNormal = true;
+        }
+
+        if (ButtonDefenderEsquerda.CheckForHighlighted() == 1)
+        {
+            buttonDefenderEsquerdaBackToNormal = true;
+        }
+
+        if (ButtonDefenderCima.CheckForHighlighted() == 1)
+        {
+            buttonDefenderCimaBackToNormal = true;
+        }
+
+        if (ButtonDefenderDireita.CheckForHighlighted() == 1)
+        {
+            buttonDefenderDireitaBackToNormal = true;
+        }
+
+        if (ButtonIntroducao.CheckForHighlighted() == 1)
+        {
+            introducaoBackToNormal = true;
+        }
+
+        if (ButtonInstrucoes.CheckForHighlighted() == 1)
+        {
+            instrucoesBackToNormal = true;
+        }
+
+        if (ButtonHome.CheckForHighlighted() == 1)
+        {
+            homeBackToNormal = true;
+        }
+
+        if (MyButton.CheckForHighlighted() == 1)
+        {
+            jogarBackToNormal = true;
+        }
+
+        if (highlighted == 0)
+        {
+            mImageClose.sprite = spriteHighlighted;
+            highlighted = 1;
+        }
+
+        if(!sair.isPlaying)
+            sair.Play();
+    }
+
+    public void OnPointerExit(PointerEventData pointerEventData)
+    {
+
+    }
+
+    public static int GetSoundOn()
+    {
+        return soundOn;
+    }
+
+    public static void ResetSoundOn()
+    {
+        soundOn = 0;
+    }
+
+    public static int CheckForHighlighted()
+    {
+        return highlighted;
+    }
+
+    public static bool JogarBackToNormal()
+    {
+        return jogarBackToNormal;
+    }
+
+    public static void ResetJogarBackToNormal()
+    {
+        jogarBackToNormal = false;
+    }
+
+    public static bool InstrucoesBackToNormal()
+    {
+        return instrucoesBackToNormal;
+    }
+
+    public static void ResetInstrucoesBackToNormal()
+    {
+        instrucoesBackToNormal = false;
+    }
+
+    public static bool IntroducaoBackToNormal()
+    {
+        return introducaoBackToNormal;
+    }
+
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
+    }
+
+    public static bool DefenderBaixoBackToNormal()
+    {
+        return buttonDefenderBaixoBackToNormal;
+    }
+
+    public static void ResetDefenderBaixoBackToNormal()
+    {
+        buttonDefenderBaixoBackToNormal = false;
+    }
+
+    public static bool DefenderCimaBackToNormal()
+    {
+        return buttonDefenderCimaBackToNormal;
+    }
+
+    public static void ResetDefenderCimaBackToNormal()
+    {
+        buttonDefenderCimaBackToNormal = false;
+    }
+
+    public static bool DefenderDireitaBackToNormal()
+    {
+        return buttonDefenderDireitaBackToNormal;
+    }
+
+    public static void ResetDefenderDireitaBackToNormal()
+    {
+        buttonDefenderDireitaBackToNormal = false;
+    }
+
+    public static bool DefenderEsquerdaBackToNormal()
+    {
+        return buttonDefenderEsquerdaBackToNormal;
+    }
+
+    public static void ResetDefenderEsquerdaBackToNormal()
+    {
+        buttonDefenderEsquerdaBackToNormal = false;
+    }
+
+    public static bool HomeBackToNormal()
+    {
+        return homeBackToNormal;
+    }
+
+    public static void ResetHomeBackToNormal()
+    {
+        homeBackToNormal = false;
     }
 }
