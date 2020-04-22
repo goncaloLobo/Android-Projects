@@ -39,20 +39,21 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonJogar.InstrucoesBackToNormalFalse();
+            ButtonJogar.ResetInstrucoesBackToNormal();
         }
 
         if (ButtonIntroducao.InstrucoesBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonIntroducao.SetInstrucoesBackToNormalFalse();
+            ButtonIntroducao.ResetInstrucoesBackToNormal();
         }
 
         if (Tutorial.InstrucoesBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            Tutorial.ResetInstrucoesBackToNormal();
         }
 
         // TO HIGHLIGHT
@@ -102,8 +103,22 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        currentTapTime = Time.time;
         if (!instrucoes.isPlaying)
-            instrucoes.Play();        
+            instrucoes.Play();
+
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
+        {
+            if (DoubleClickChecker.GetInstrucoesCancelAction())
+            {
+                DoubleClickChecker.ResetInstrucoesCancelAction();
+            }
+            else
+            {
+                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+            }
+        }
+        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -159,7 +174,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return jogarBackToNormal;
     }
 
-    public static void JogarBackToNormalFalse()
+    public static void ResetJogarBackToNormal()
     {
         jogarBackToNormal = false;
     }
@@ -179,7 +194,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return introducaoBackToNormal;
     }
 
-    public static void IntroducaoBackToNormalFalse()
+    public static void ResetIntroducaoBackToNormal()
     {
         introducaoBackToNormal = false;
     }
@@ -189,7 +204,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return introducaoToHighlight;
     }
 
-    public static void IntroducaoToHighlightFalse()
+    public static void ResetIntroducaoToHighlight()
     {
         introducaoToHighlight = false;
     }
@@ -199,5 +214,8 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return tutorialBackToNormal;
     }
 
-    
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
+    }
 }

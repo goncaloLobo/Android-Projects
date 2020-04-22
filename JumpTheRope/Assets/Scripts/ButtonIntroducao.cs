@@ -45,44 +45,49 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonJogar.IntroducaoBackToNormalFalse();
+            ButtonJogar.ResetIntroducaoBackToNormal();
         }
 
         if (ButtonInstrucoes.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonInstrucoes.IntroducaoBackToNormalFalse();
+            ButtonInstrucoes.ResetIntroducaoBackToNormal();
         }
 
         if (ButtonCorda1.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda1.ResetIntroducaoBackToNormal();
         }
 
         if (ButtonCorda2.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda2.ResetIntroducaoBackToNormal();
         }
 
         if (ButtonCorda3.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda3.ResetIntroducaoBackToNormal();
         }
 
         if (ButtonCorda4.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda4.ResetIntroducaoBackToNormal();
         }
 
         if (Tutorial.IntroducaoBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            Tutorial.ResetIntroducaoBackToNormal();
         }
 
         // TO HIGHLIGHT
@@ -97,7 +102,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         {
             mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
-            ButtonInstrucoes.IntroducaoToHighlightFalse();
+            ButtonInstrucoes.ResetIntroducaoToHighlight();
         }
 
         // TENTATIVA DOUBLE CLICK CHECKER
@@ -130,8 +135,27 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        currentTapTime = Time.time;
         if (!intro.isPlaying)
             intro.Play();
+
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
+        {
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
+            {
+                if(DoubleClickChecker.GetIntroducaoCancelAction())
+                {
+                    DoubleClickChecker.ResetIntroducaoCancelAction();
+                }
+                else
+                {
+                    if (intro.isPlaying)
+                        intro.Stop();
+                    introducao.Play();
+                }
+            }
+        }
+        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -205,7 +229,7 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return jogarBackToNormal;
     }
 
-    public static void JogarBackToNormalFalse()
+    public static void ResetJogarBackToNormal()
     {
         jogarBackToNormal = false;
     }
@@ -225,9 +249,19 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return buttonCorda1BackToNormal;
     }
 
+    public static void ResetButtonCorda1BackToNormal()
+    {
+        buttonCorda1BackToNormal = false;
+    }
+
     public static bool InstrucoesBackToNormal()
     {
         return instrucoesBackToNormal;
+    }
+
+    public static void ResetInstrucoesBackToNormal()
+    {
+        instrucoesBackToNormal = false;
     }
 
     public static bool InstrucoesToHighlight()
@@ -240,14 +274,14 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         instrucoesToHighlight = false;
     }
 
-    public static void SetInstrucoesBackToNormalFalse()
-    {
-        instrucoesBackToNormal = false;
-    }
-
     public static bool ButtonCorda2BackToNormal()
     {
         return buttonCorda2BackToNormal;
+    }
+
+    public static void ResetButtonCorda2BackToNormal()
+    {
+        buttonCorda2BackToNormal = false;
     }
 
     public static bool ButtonCorda3BackToNormal()
@@ -255,14 +289,29 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
         return buttonCorda3BackToNormal;
     }
 
+    public static void ResetButtonCorda3BackToNormal()
+    {
+        buttonCorda3BackToNormal = false;
+    }
+
     public static bool ButtonCorda4BackToNormal()
     {
         return buttonCorda4BackToNormal;
     }
 
+    public static void ResetButtonCorda4BackToNormal()
+    {
+        buttonCorda4BackToNormal = false;
+    }
+
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
     }
 
     // INTRODUCAO IS PLAYING

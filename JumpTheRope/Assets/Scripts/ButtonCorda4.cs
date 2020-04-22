@@ -33,36 +33,42 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda1.ResetCorda4BackToNormal();
         }
 
         if (ButtonCorda2.Corda4BackToNormal())
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda2.ResetCorda4BackToNormal();
         }
 
         if (ButtonCorda3.Corda4BackToNormal())
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda3.ResetCorda4BackToNormal();
         }
 
         if (ButtonJogar.Corda4BackToNormal())
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonJogar.ResetCorda4BackToNormal();
         }
 
         if (ButtonIntroducao.ButtonCorda4BackToNormal())
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.ResetButtonCorda4BackToNormal();
         }
 
         if (Tutorial.Corda4BackToNormal())
         {
             mImageBC4.overrideSprite = normalSprite;
             highlighted = 0;
+            Tutorial.ResetCorda4BackToNormal();
         }
 
         // PARTE RELACIONADA COM OS SONS
@@ -315,9 +321,19 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         return jogarBackToNormal;
     }
 
+    public static void ResetJogarBackToNormal()
+    {
+        jogarBackToNormal = false;
+    }
+
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
     }
 
     public static bool Corda1BackToNormal()
@@ -325,9 +341,19 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         return corda1BackToNormal;
     }
 
+    public static void ResetCorda1BackToNormal()
+    {
+        corda1BackToNormal = false;
+    }
+
     public static bool Corda2BackToNormal()
     {
         return corda2BackToNormal;
+    }
+
+    public static void ResetCorda2BackToNormal()
+    {
+        corda2BackToNormal = false;
     }
 
     public static bool Corda3BackToNormal()
@@ -335,9 +361,19 @@ public class ButtonCorda4 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         return corda3BackToNormal;
     }
 
+    public static void ResetCorda3BackToNormal()
+    {
+        corda3BackToNormal = false;
+    }
+
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
     }
 
     public static void SetCheckToStop()

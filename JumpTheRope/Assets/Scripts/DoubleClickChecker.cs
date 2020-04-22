@@ -43,6 +43,7 @@ public class DoubleClickChecker : MonoBehaviour
 
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
+    private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction, introducaoCancelAction;
 
     // right swipes
     //private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial, swipeTutorialToJogar;
@@ -77,6 +78,7 @@ public class DoubleClickChecker : MonoBehaviour
         swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
         swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
         //swipeJogarToCorda1 = swipeCorda1ToCorda2 = swipeCorda2ToCorda3 = swipeCorda3ToCorda4 = swipeCorda4ToTutorial = 0;
+        tutorialCancelAction = jogarCancelAction = instrucoesCancelAction = introducaoCancelAction = false;
         confirmedSwipeRight = false;
     }
 
@@ -677,6 +679,47 @@ public class DoubleClickChecker : MonoBehaviour
     public void DoAfterDescricao()
     {
         cordaSound.Stop();
+    }
+
+    // FAZER COM QUE NAO FAÇA A AÇAO DO DUPLO TOQUE E DO BOTAO AO MESMO TEMPO
+    public static bool GetTutorialCancelAction()
+    {
+        return tutorialCancelAction;
+    }
+
+    public static void ResetTutorialCancelAction()
+    {
+        tutorialCancelAction = false;
+    }
+
+    public static bool GetJogarCancelAction()
+    {
+        return jogarCancelAction;
+    }
+
+    public static void ResetJogarCancelAction()
+    {
+        jogarCancelAction = false;
+    }
+
+    public static bool GetInstrucoesCancelAction()
+    {
+        return instrucoesCancelAction;
+    }
+
+    public static void ResetInstrucoesCancelAction()
+    {
+        instrucoesCancelAction = false;
+    }
+
+    public static bool GetIntroducaoCancelAction()
+    {
+        return introducaoCancelAction;
+    }
+
+    public static void ResetIntroducaoCancelAction()
+    {
+        introducaoCancelAction = false;
     }
 
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)

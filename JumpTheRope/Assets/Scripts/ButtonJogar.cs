@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private float clickdelay = 0.5f;
+    public AudioSource[] sounds;
     public AudioSource jogar;
+    public AudioSource vaicomeçar321;
     public AudioSource inicioJogo;
     private float currentTapTime;
     private float lastTapTime;
@@ -30,7 +32,10 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     void Start()
     {
-        jogar = GetComponent<AudioSource>();
+        sounds = GetComponents<AudioSource>();
+        jogar = sounds[0];
+        vaicomeçar321 = sounds[1];
+
         screenDPI = Screen.dpi;
         checkToStop = false;
         introducaoToHighlight = instrucoesToHighlight = false;
@@ -45,44 +50,49 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonIntroducao.JogarBackToNormalFalse();
+            ButtonIntroducao.ResetJogarBackToNormal();
         }
 
         if (ButtonInstrucoes.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
-            ButtonInstrucoes.JogarBackToNormalFalse();
+            ButtonInstrucoes.ResetJogarBackToNormal();
         }
 
         if (ButtonCorda1.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda1.ResetJogarBackToNormal();
         }
 
         if (ButtonCorda2.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda2.ResetJogarBackToNormal();
         }
 
         if (ButtonCorda3.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda3.ResetJogarBackToNormal();
         }
 
         if (ButtonCorda4.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda4.ResetJogarBackToNormal();
         }
 
         if (Tutorial.JogarBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            Tutorial.ResetJogarBackToNormal();
         }
 
         // TO HIGHLIGHT
@@ -111,9 +121,9 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(DoubleClickChecker.SwipeInstrucoesToJogar() == 1)
         {
             jogar.Play();
-            DoubleClickChecker.SwipeInstrucoesToJogarReset();
             mImage.overrideSprite = spriteHighlighted;
             highlighted = 1;
+            DoubleClickChecker.SwipeInstrucoesToJogarReset();
         }
 
         if(DoubleClickChecker.SwipeJogarToInstr() == 1)
@@ -130,14 +140,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 1;
             DoubleClickChecker.SwipeIntroToJogarReset();
         }
-        /*
-        if(DoubleClickChecker.SwipeJogarToCorda1() == 1)
-        {
-            mImage.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-        */
 
         if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
         {
@@ -145,16 +147,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
             soundOn = 0;
         }
-
-        /*
-        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
-        {
-            jogar.Play();
-            soundOn = 1;
-            mImage.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-        }
-        */
 
         if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
         {
@@ -203,8 +195,38 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        currentTapTime = Time.time;
         if (!jogar.isPlaying)
             jogar.Play();
+
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
+        {
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
+            {
+                if (DoubleClickChecker.GetJogarCancelAction())
+                {
+                    DoubleClickChecker.ResetJogarCancelAction();
+                }
+                else
+                {
+                    vaicomeçar321.Play();
+                    Invoke("StartGame", vaicomeçar321.clip.length);
+                }
+            }
+            else if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
+            {
+                if (DoubleClickChecker.GetJogarCancelAction())
+                {
+                    DoubleClickChecker.ResetJogarCancelAction();
+                }
+                else
+                {
+                    vaicomeçar321.Play();
+                    Invoke("StartGame", vaicomeçar321.clip.length);
+                }
+            }
+        }
+        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -353,6 +375,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return introducaoBackToNormal;
     }
 
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
+    }
+
     public static bool IntroducaoToHighlight()
     {
          return introducaoToHighlight;
@@ -363,14 +390,14 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         introducaoToHighlight = false;
     }
 
-    public static void IntroducaoBackToNormalFalse()
-    {
-        introducaoBackToNormal = false;
-    }
-
     public static bool InstrucoesBackToNormal()
     {
         return instrucoesBackToNormal;
+    }
+
+    public static void ResetInstrucoesBackToNormal()
+    {
+        instrucoesBackToNormal = false;
     }
 
     public static bool InstrucoesToHighlight()
@@ -383,14 +410,14 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         instrucoesToHighlight = false;
     }
 
-    public static void InstrucoesBackToNormalFalse()
-    {
-        instrucoesBackToNormal = false;
-    }
-
     public static bool Corda1BackToNormal()
     {
         return corda1BackToNormal;
+    }
+
+    public static void ResetCorda1BackToNormal()
+    {
+        corda1BackToNormal = false;
     }
 
     public static bool Corda2BackToNormal()
@@ -398,9 +425,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return corda2BackToNormal;
     }
 
+    public static void ResetCorda2BackToNormal()
+    {
+        corda2BackToNormal = false;
+    }
+
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
+    }
+
+    public static void ResetCorda3BackToNormal()
+    {
+        corda3BackToNormal = false;
     }
 
     public static bool Corda4BackToNormal()
@@ -408,9 +445,19 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         return corda4BackToNormal;
     }
 
+    public static void ResetCorda4BackToNormal()
+    {
+        corda4BackToNormal = false;
+    }
+
     public static bool TutorialBackToNormal()
     {
         return tutorialBackToNormal;
+    }
+
+    public static void ResetTutorialBackToNormal()
+    {
+        tutorialBackToNormal = false;
     }
 
     private void StartGame()

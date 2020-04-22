@@ -37,78 +37,51 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda1.ResetTutorialBackToNormal();
         }
 
         if (ButtonCorda2.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda2.ResetTutorialBackToNormal();
         }
 
         if (ButtonCorda3.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda3.ResetTutorialBackToNormal();
         }
 
         if (ButtonCorda4.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonCorda4.ResetTutorialBackToNormal();
         }
 
         if (ButtonJogar.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonJogar.ResetTutorialBackToNormal();
         }
 
         if (ButtonInstrucoes.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonInstrucoes.ResetTutorialBackToNormal();
         }
 
         if (ButtonIntroducao.TutorialBackToNormal())
         {
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
+            ButtonIntroducao.ResetTutorialBackToNormal();
         }
 
-        // DOUBLE CLICK CHECKER
-        /*
-        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
-        {
-            System.Diagnostics.Debug.WriteLine("tutorial: entrei corda4 -> tutorial");
-            mImage.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            tutorial.Play();
-            soundOn = 1;
-        }
-
-        if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
-        {
-            mImage.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            tutorial.Play();
-            soundOn = 1;
-            DoubleClickChecker.SwipeJogarToTutorialReset();
-        }
-
-        if(DoubleClickChecker.SwipeTutorialToCorda4() == 1)
-        {
-            mImage.overrideSprite = normalSprite;
-            highlighted = 0;
-        }
-
-        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
-        {
-            mImage.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-            DoubleClickChecker.SwipeTutorialToJogarReset();
-        }
-        */
         // PARTE RELACIONADA COM OS SONS
         if (soundOn == 0)
         {
@@ -148,8 +121,25 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        currentTapTime = Time.time;
         if (!tutorial.isPlaying)
             tutorial.Play();
+
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
+        {
+            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
+            {
+                if (DoubleClickChecker.GetTutorialCancelAction())
+                {
+                    DoubleClickChecker.ResetTutorialCancelAction();
+                }
+                else
+                {
+                    GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
+                }
+            }
+        }
+        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -298,9 +288,19 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         return jogarBackToNormal;
     }
 
+    public static void ResetJogarBackToNormal()
+    {
+        jogarBackToNormal = false;
+    }
+
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
+    }
+
+    public static void ResetIntroducaoBackToNormal()
+    {
+        introducaoBackToNormal = false;
     }
 
     public static bool InstrucoesBackToNormal()
@@ -308,9 +308,19 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         return instrucoesBackToNormal;
     }
 
+    public static void ResetInstrucoesBackToNormal()
+    {
+        instrucoesBackToNormal = false;
+    }
+
     public static bool Corda1BackToNormal()
     {
         return corda1BackToNormal;
+    }
+
+    public static void ResetCorda1BackToNormal()
+    {
+        corda1BackToNormal = false;
     }
 
     public static bool Corda2BackToNormal()
@@ -318,14 +328,29 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         return corda2BackToNormal;
     }
 
+    public static void ResetCorda2BackToNormal()
+    {
+        corda2BackToNormal = false;
+    }
+
     public static bool Corda3BackToNormal()
     {
         return corda3BackToNormal;
     }
 
+    public static void ResetCorda3BackToNormal()
+    {
+        corda3BackToNormal = false;
+    }
+
     public static bool Corda4BackToNormal()
     {
         return corda4BackToNormal;
+    }
+
+    public static void ResetCorda4BackToNormal()
+    {
+        corda4BackToNormal = false;
     }
 
     public static void SetCheckToStop()
