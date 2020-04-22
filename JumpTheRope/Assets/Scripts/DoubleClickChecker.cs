@@ -4,11 +4,12 @@ using System;
 
 public class DoubleClickChecker : MonoBehaviour
 {
-    private static int n_saltos_perfeitos;
-    private static int n_saltos_normais;
-    private static int pontuacaoTotal;
-    private static int n_saltos_falhados;
+    private static int n_saltos_perfeitos; // numero de saltos perfeitos
+    private static int n_saltos_normais; // numero de saltos normais
+    private static int pontuacaoTotal; // pontuacao total
+    private static int n_saltos_falhados; // numero de saltos falhados
 
+    // CONSTANTES
     private float doubleTapDeltaBigger = Configuration.DoubleTapDeltaBigger();
     private float doubleTapDelta = Configuration.DoubleTapDelta();
     private int perfectJump = Configuration.PerfectJump();
@@ -30,6 +31,7 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource inicioJogo;
     public AudioSource falta1;
     public AudioSource falta2;
+    public AudioSource tropecar; // som de tropecar (qdo nao é feito salto nenhum)
     public GameManager GameManagerGO;
     private static int j = 0; // para verificar que faz duplo salto no tutorial 3x
 
@@ -43,18 +45,13 @@ public class DoubleClickChecker : MonoBehaviour
 
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
-    private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction, introducaoCancelAction;
-
-    // right swipes
-    //private static int swipeJogarToCorda1, swipeCorda1ToCorda2, swipeCorda2ToCorda3, swipeCorda3ToCorda4, swipeCorda4ToTutorial, swipeTutorialToJogar;
-    //left swipes
-    private static int swipeJogarToTutorial, swipeTutorialToCorda4, swipeCorda4ToCorda3, swipeCorda3ToCorda2, swipeCorda2ToCorda1, swipeCorda1ToJogar;
+    private static bool introducaoCancelAction;
     private static int stopSounds;
-    private static bool confirmedSwipeRight, confirmedSwipeLeft;
+    private static bool confirmedSwipeRight, confirmedSwipeLeft; // sinalizar que houve swipes para a pagina de instrucoes
+    private bool singleTouch, isDoubleTap;
 
     private float screenDPI;
     private float increaseSpeedTimer;
-
     private Vector2 swipeDelta;
     public GameObject buttonJogar;
 
@@ -74,12 +71,10 @@ public class DoubleClickChecker : MonoBehaviour
 
         screenDPI = Screen.dpi;
         height = 5; // altura padrão
-
         swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
         swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
-        //swipeJogarToCorda1 = swipeCorda1ToCorda2 = swipeCorda2ToCorda3 = swipeCorda3ToCorda4 = swipeCorda4ToTutorial = 0;
-        tutorialCancelAction = jogarCancelAction = instrucoesCancelAction = introducaoCancelAction = false;
-        confirmedSwipeRight = false;
+        introducaoCancelAction = false;
+        confirmedSwipeRight = confirmedSwipeLeft = false;
     }
 
     void Update()
@@ -114,6 +109,20 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
+        /*
+        // TENTATIVA PARA DETETAR SE NAO HOUVE TOQUE MAS HOUVE CORDA, ENTAO FALHOU SALTO
+        if (GameManager.GetStarted())
+        {
+            if (GameManager.CheckPitchChanged())
+            {
+                // criar uma nova coroutine com o novo valor da length do som
+                System.Diagnostics.Debug.WriteLine("(DoubleClickChecker) novo pitch aqui: " + GameManager.GetCurrentPitch());
+                StartCoroutine(CheckIfTouches(cordaSound.clip.length / Mathf.Abs(GameManager.GetCurrentPitch())));
+            }
+        }
+        */
+
+        // VERIFICA OS SALTOS PARA QDO ESTA A JOGAR
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
             Touch touch = Input.GetTouch(0);
@@ -122,8 +131,10 @@ public class DoubleClickChecker : MonoBehaviour
                 oneFootJumping.Play();
                 currentTouch = touch;
                 currentTapTime = Time.time;
-                if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0 && !isDoubleTap)
                 {
+                    isDoubleTap = true;
+                    System.Diagnostics.Debug.WriteLine("entrei CheckForDoubleTap == 0");
                     // salta sempre 5m x tempo entre os toques (mais tempo, mais alto)
                     height *= timeBetweenTouches;
                     manJumping.Play();
@@ -131,14 +142,20 @@ public class DoubleClickChecker : MonoBehaviour
                     pontuacaoTotal += perfectJump;
                     saltoPerfeito.PlayDelayed(manJumping.clip.length);
                 }
-                else if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1)
+                else if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1 && !isDoubleTap)
                 {
+                    isDoubleTap = true;
+                    System.Diagnostics.Debug.WriteLine("entrei CheckForDoubleTap == 1");
                     n_saltos_normais++;
                     pontuacaoTotal += normalJump;
                 }
-                else
+                else if(CheckForSingleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine("entrei checkforsingletap");
+                    //tropecar.Play();
                     n_saltos_falhados++;
-
+                    isDoubleTap = false;
+                }
             }
             else if (touch.phase == TouchPhase.Moved)
             {
@@ -151,6 +168,7 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
+        // VERIFICA O INPUT PARA O ESTADO INICIAL
         if (Input.touchCount > 0 && GameManager.GetOpening())
         {
             Touch touch = Input.GetTouch(0);
@@ -177,7 +195,7 @@ public class DoubleClickChecker : MonoBehaviour
 
                     else if (ButtonInstrucoes.CheckForHighlighted() == 1)
                     {
-                        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
+                        Invoke("ChangeToInstructionsState", 0f);
                     }
                 }
             }
@@ -482,142 +500,6 @@ public class DoubleClickChecker : MonoBehaviour
         swipeInstrToIntro = 0;
     }
 
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO CORDA1
-    /*
-    public static int SwipeJogarToCorda1()
-    {
-        return swipeJogarToCorda1;
-    }
-
-    public static void SwipeJogarToCorda1Reset()
-    {
-        swipeJogarToCorda1 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA1 PARA O BOTAO CORDA2
-    public static int SwipeCorda1ToCorda2()
-    {
-        return swipeCorda1ToCorda2;
-    }
-
-    public static void SwipeCorda1ToCorda2Reset()
-    {
-        swipeCorda1ToCorda2 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA2 PARA O BOTAO CORDA3
-    public static int SwipeCorda2ToCorda3()
-    {
-        return swipeCorda2ToCorda3;
-    }
-
-    public static void SwipeCorda2ToCorda3Reset()
-    {
-        swipeCorda2ToCorda3 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA3 PARA O BOTAO CORDA4
-    public static int SwipeCorda3ToCorda4()
-    {
-        return swipeCorda3ToCorda4;
-    }
-
-    public static void SwipeCorda3ToCorda4Reset()
-    {
-        swipeCorda3ToCorda4 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA4 PARA O BOTAO TUTORIAL
-    public static int SwipeCorda4ToTutorial()
-    {
-        return swipeCorda4ToTutorial;
-    }
-
-    public static void SwipeCorda4ToTutorialReset()
-    {
-        swipeCorda4ToTutorial = 0;
-    }
-    */
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA4 PARA O BOTAO CORDA3
-    public static int SwipeCorda4ToCorda3()
-    {
-        return swipeCorda4ToCorda3;
-    }
-
-    public static void SwipeCorda4ToCorda3Reset()
-    {
-        swipeCorda4ToCorda3 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO JOGAR PARA O BOTAO TUTORIAL
-    public static int SwipeJogarToTutorial()
-    {
-        return swipeJogarToTutorial;
-    }
-
-    public static void SwipeJogarToTutorialReset()
-    {
-        swipeJogarToTutorial = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA3 PARA O BOTAO CORDA2
-    public static int SwipeCorda3ToCorda2()
-    {
-        return swipeCorda3ToCorda2;
-    }
-
-    public static void SwipeCorda3ToCorda2Reset()
-    {
-        swipeCorda3ToCorda2 = 0;
-    }
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA2 PARA O BOTAO CORDA1
-    public static int SwipeCorda2ToCorda1()
-    {
-        return swipeCorda2ToCorda1;
-    }
-
-    public static void SwipeCorda2ToCorda1Reset()
-    {
-        swipeCorda2ToCorda1 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO TUTORIAL PARA O BOTAO CORDA4
-    public static int SwipeTutorialToCorda4()
-    {
-        return swipeTutorialToCorda4;
-    }
-
-    public static void SwipeTutorialToCorda4Reset()
-    {
-        swipeTutorialToCorda4 = 0;
-    }
-
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO TUTORIAL PARA O BOTAO JOGAR
-    /*
-    public static int SwipeTutorialToJogar()
-    {
-        return swipeTutorialToJogar;
-    }
-
-    public static void SwipeTutorialToJogarReset()
-    {
-        swipeTutorialToJogar = 0;
-    }
-    */
-    // FUNCOES PARA VER SE HOUVE SWIPE DO BOTAO CORDA1 PARA O BOTAO JOGAR
-    public static int SwipeCorda1ToJogar()
-    {
-        return swipeCorda1ToJogar;
-    }
-
-    public static void SwipeCorda1ToJogarReset()
-    {
-        swipeCorda1ToJogar = 0;
-    }
-
-
-
-
     public static bool GetConfirmedSwipeRight()
     {
         return confirmedSwipeRight;
@@ -637,8 +519,6 @@ public class DoubleClickChecker : MonoBehaviour
     {
         confirmedSwipeLeft = false;
     }
-
-
 
     //numero de saltos perfeitos no final
     public static int GetSaltosPerfeitos()
@@ -682,36 +562,6 @@ public class DoubleClickChecker : MonoBehaviour
     }
 
     // FAZER COM QUE NAO FAÇA A AÇAO DO DUPLO TOQUE E DO BOTAO AO MESMO TEMPO
-    public static bool GetTutorialCancelAction()
-    {
-        return tutorialCancelAction;
-    }
-
-    public static void ResetTutorialCancelAction()
-    {
-        tutorialCancelAction = false;
-    }
-
-    public static bool GetJogarCancelAction()
-    {
-        return jogarCancelAction;
-    }
-
-    public static void ResetJogarCancelAction()
-    {
-        jogarCancelAction = false;
-    }
-
-    public static bool GetInstrucoesCancelAction()
-    {
-        return instrucoesCancelAction;
-    }
-
-    public static void ResetInstrucoesCancelAction()
-    {
-        instrucoesCancelAction = false;
-    }
-
     public static bool GetIntroducaoCancelAction()
     {
         return introducaoCancelAction;
@@ -722,18 +572,29 @@ public class DoubleClickChecker : MonoBehaviour
         introducaoCancelAction = false;
     }
 
+    private int CheckForSingleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
+    {
+        // falta meter o pitch ao barulho
+        // se a diferença entre os toques for superior à duracao do som da corda -> houve apenas 1 toque
+        if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
+        {
+            return 0;
+        }
+        return -1;
+    }
+
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)
     {
         int deltaX = (int)currentTouch.position.x - (int)previousTouch.position.x;
         int deltaY = (int)currentTouch.position.y - (int)previousTouch.position.y;
         timeBetweenTouches = currentTapTime - previousTapTime;
-        // diferença entre os toques superior a 1s
+        // diferença entre os toques superior a 700ms
         if (currentTapTime - previousTapTime > doubleTapDeltaBigger)
         {
             return -1;
         }
 
-        // se a diferença entre os toques for menor que 1s e maior que 300ms então é salto normal
+        // se a diferença entre os toques for menor que 700ms e maior que 300ms então é salto normal
         if (currentTapTime - previousTapTime < doubleTapDeltaBigger && currentTapTime - previousTapTime > doubleTapDelta)
         {
             // se o duplo toque "normal" estiver dentro do circulo aceitavel, entao retorna 1
@@ -794,5 +655,10 @@ public class DoubleClickChecker : MonoBehaviour
     private void StartGame()
     {
         GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Gameplay);
+    }
+
+    private void ChangeToInstructionsState()
+    {
+        GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
     }
 }

@@ -79,74 +79,7 @@ public class ButtonCorda2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 saltar1perna.Stop();
         }
 
-        // DOUBLE CLICK CHECKER
-        /*
-        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
-        {
-            descricao.Play();
-            saltar1perna.PlayDelayed(descricao.clip.length);
-            soundOn = 1;
-            mImageBC2.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            DoubleClickChecker.SwipeCorda1ToCorda2Reset();
-        }
-
-        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-        */
-        if(DoubleClickChecker.SwipeCorda3ToCorda2() == 1)
-        {
-            mImageBC2.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            descricao.Play();
-            saltar1perna.PlayDelayed(descricao.clip.length);
-            soundOn = 1;
-        }
-        
-        if (DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-            DoubleClickChecker.SwipeCorda2ToCorda1Reset();
-        }
-
-        /////////////////////////////////
-        /*
-        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
-        {
-            mImageBC2.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-        */
-
-        // AQUELA TENTATIVA MESMO DESESPERADA
+        // GET CONFIRMED SWIPE RIGHT / LEFT
         if (DoubleClickChecker.GetConfirmedSwipeRight())
         {
             corda3ToHighlight = true;

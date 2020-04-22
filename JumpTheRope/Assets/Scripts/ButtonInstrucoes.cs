@@ -106,19 +106,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         currentTapTime = Time.time;
         if (!instrucoes.isPlaying)
             instrucoes.Play();
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (DoubleClickChecker.GetInstrucoesCancelAction())
-            {
-                DoubleClickChecker.ResetInstrucoesCancelAction();
-            }
-            else
-            {
-                GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instrucoes);
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)

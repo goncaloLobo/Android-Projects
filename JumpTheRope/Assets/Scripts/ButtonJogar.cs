@@ -141,21 +141,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             DoubleClickChecker.SwipeIntroToJogarReset();
         }
 
-        if(DoubleClickChecker.SwipeJogarToTutorial() == 1)
-        {
-            mImage.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
-        {
-            jogar.Play();
-            soundOn = 1;
-            mImage.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-        }
-
         // PARTE RELACIONADA COM OS SONS
         if (soundOn == 0)
         {
@@ -163,7 +148,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                 jogar.Stop();
         }
 
-        ////////////////////////////////////
+        // GET CONFIRMED SWIPE RIGHT / LEFT
         if (DoubleClickChecker.GetConfirmedSwipeLeft())
         {
             corda1ToHighlight = true;
@@ -195,38 +180,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
         if (!jogar.isPlaying)
             jogar.Play();
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
-            {
-                if (DoubleClickChecker.GetJogarCancelAction())
-                {
-                    DoubleClickChecker.ResetJogarCancelAction();
-                }
-                else
-                {
-                    vaicomeçar321.Play();
-                    Invoke("StartGame", vaicomeçar321.clip.length);
-                }
-            }
-            else if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
-            {
-                if (DoubleClickChecker.GetJogarCancelAction())
-                {
-                    DoubleClickChecker.ResetJogarCancelAction();
-                }
-                else
-                {
-                    vaicomeçar321.Play();
-                    Invoke("StartGame", vaicomeçar321.clip.length);
-                }
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)

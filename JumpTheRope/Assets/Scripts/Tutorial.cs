@@ -121,25 +121,8 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
         if (!tutorial.isPlaying)
             tutorial.Play();
-
-        if (CheckForDoubleTap(currentTapTime, lastTapTime))
-        {
-            if (GameManager.GetCurrentState() == GameManager.GameManagerState.Instrucoes)
-            {
-                if (DoubleClickChecker.GetTutorialCancelAction())
-                {
-                    DoubleClickChecker.ResetTutorialCancelAction();
-                }
-                else
-                {
-                    GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.TutorialP1);
-                }
-            }
-        }
-        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)

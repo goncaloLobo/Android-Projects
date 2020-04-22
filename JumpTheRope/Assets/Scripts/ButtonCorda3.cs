@@ -82,77 +82,7 @@ public class ButtonCorda3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 salto2pernas.Stop();
         }
 
-        // DOUBLE CLICK CHECKER
-        /*
-        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
-        {
-            mImageBC3.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            descricao.Play();
-            salto1perna.PlayDelayed(descricao.clip.length);
-            salto2pernas.PlayDelayed(descricao.clip.length + salto1perna.clip.length);
-            soundOn = 1;
-            DoubleClickChecker.SwipeCorda2ToCorda3Reset();
-        }
-
-        if(DoubleClickChecker.SwipeCorda3ToCorda4() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-        */
-
-        if(DoubleClickChecker.SwipeCorda4ToCorda3() == 1)
-        {
-            mImageBC3.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-            descricao.Play();
-            salto1perna.PlayDelayed(descricao.clip.length);
-            salto2pernas.PlayDelayed(descricao.clip.length + salto1perna.clip.length);
-            soundOn = 1;
-        }
-
-        if(DoubleClickChecker.SwipeCorda3ToCorda2() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-            DoubleClickChecker.SwipeCorda3ToCorda2Reset();
-        }
-
-        /////////////////////////////////////////////////////
-        /*
-        if(DoubleClickChecker.SwipeCorda1ToCorda2() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeCorda2ToCorda3() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeCorda4ToTutorial() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-
-        if(DoubleClickChecker.SwipeTutorialToJogar() == 1)
-        {
-            mImageBC3.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-        }
-        */
-
-        // TENTATIVA DESESPERADA BLA BLA BLA
+        // GET CONFIRMED SWIPE RIGHT / LEFT
         if (DoubleClickChecker.GetConfirmedSwipeRight())
         {
             corda4ToHighlight = true;

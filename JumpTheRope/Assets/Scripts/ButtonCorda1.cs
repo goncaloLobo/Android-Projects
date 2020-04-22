@@ -82,23 +82,7 @@ public class ButtonCorda1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 descricao.Stop();
         }
 
-        if(DoubleClickChecker.SwipeCorda2ToCorda1() == 1)
-        {
-            descricao.Play();
-            soundOn = 1;
-            mImageBC1.overrideSprite = spriteHighlighted;
-            highlighted = 1;
-        }
-
-        if(DoubleClickChecker.SwipeCorda1ToJogar() == 1)
-        {
-            mImageBC1.overrideSprite = normalSprite;
-            highlighted = 0;
-            soundOn = 0;
-            DoubleClickChecker.SwipeCorda1ToJogarReset();
-        }
-
-        // INCRIVEL, ESTOU MESMO A TENTAR TANTO QUE ISTO RESULTE
+        // GET CONFIRMED SWIPE RIGHT / LEFT
         if (DoubleClickChecker.GetConfirmedSwipeRight())
         {
             corda2ToHighlight = true;
