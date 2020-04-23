@@ -22,7 +22,6 @@ public class EnemySpawner2 : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Debug.Log("INIMIGO centro");
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0)); // bottom-left point (corner) of the screen
         Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1)); // top-right point (corner) of the screen
 
@@ -136,7 +135,7 @@ public class EnemySpawner2 : MonoBehaviour
         }
         else
             spawnInNSeconds = 1f;
-
+        
         Invoke("SpawnEnemy", spawnInNSeconds);
     }
 

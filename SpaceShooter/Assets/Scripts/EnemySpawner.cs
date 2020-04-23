@@ -137,7 +137,7 @@ public class EnemySpawner : MonoBehaviour
         }
         else
             spawnInNSeconds = 1f;
-
+        
         Invoke("SpawnEnemy", spawnInNSeconds);
     }
 

@@ -124,7 +124,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 d4bbabeae12a1a26173e3ee73c434e1b Assembly-CSharp.dll:.GameManager
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
-f9a1d18e31e497258d7c8f58de58f81e Assembly-CSharp.dll:.InstrucoesB1
+10a14ce32fc88c4d300d0d1efc90b7f7 Assembly-CSharp.dll:.InstrucoesB1
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 24688e961dc869b7134ea31576058db3 Assembly-CSharp.dll:.ButtonTempo
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
@@ -147,7 +147,7 @@ e0ee4b3d4e27318934cc940a969d3d96 UnityEngine.Networking.dll:UnityEngine.Networki
 ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransform
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
-161b986fe4da92926d5bd92b07e00200 Assembly-CSharp.dll:.InstrucoesB3
+27c84e8ae61d851ff76213293d5d9574 Assembly-CSharp.dll:.InstrucoesB3
 35a9693c388776aaf487636491a20f11 Unity.TextMeshPro.dll:TMPro.TMP_FontAsset
 e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState

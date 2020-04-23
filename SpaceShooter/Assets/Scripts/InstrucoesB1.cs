@@ -7,6 +7,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public AudioSource[] sounds;
     public AudioSource inimigo; // sounds[0]
     public AudioSource inimigoDescricao; // sounds[1]
+    public AudioSource somInimigo; // sounds[2]
 
     private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal;
@@ -21,9 +22,11 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         sounds = GetComponents<AudioSource>();
         inimigo = sounds[0];
         inimigoDescricao = sounds[1];
+        somInimigo = sounds[2];
 
         highlighted = 0;
         pontuacaoBackToNormal = jogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = tutorialBackToNormal = false;
+        instrucoesB2BackToNormal = instrucoesB3BackToNormal = false;
         mImage = GameObject.FindGameObjectWithTag("InstrucoesB1").GetComponent<Image>();
     }
 
@@ -92,6 +95,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             inimigo.Play();
             inimigoDescricao.PlayDelayed(inimigo.clip.length);
+            somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
         }
     }
 
@@ -155,6 +159,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 InstrucoesB2.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -162,6 +167,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -170,6 +176,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 InstrucoesB3.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -177,6 +184,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -185,6 +193,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonJogar.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -192,6 +201,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -200,6 +210,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonTempo.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -207,6 +218,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -215,6 +227,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonPontos.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -222,6 +235,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -230,6 +244,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonVidas.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -237,6 +252,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -245,6 +261,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonTutorial.SetSoundOn();
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -252,6 +269,7 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 inimigo.Play();
                 inimigoDescricao.PlayDelayed(inimigo.clip.length);
+                somInimigo.PlayDelayed(inimigo.clip.length + inimigoDescricao.clip.length);
                 soundOn = 1;
             }
         }

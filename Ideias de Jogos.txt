@@ -78,14 +78,11 @@ Jogo 9 -> Guarda Redes
 	Nível "normal" com todos os gestos.
 	
 	
-------------------------------------------------------------------------------------------------------------------------------------------------------
--> Procurar source code do talkback para swipes em L.
--> https://assetstore.unity.com/packages/tools/gui/android-native-dialogs-and-functions-plugin-106497
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Corda:
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
 -> Depois dos sons de bater da corda, som contínuo de velocidade.
-(comecei a incluir um atributo height que depende do tempo entre os dois toques)
+   (comecei a incluir um atributo height que depende do tempo entre os dois toques)
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
 -> Som de que a corda bateu em mim (qdo não salta).
@@ -95,13 +92,16 @@ Rocket:
 -> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
 NAO APAGAR ISTO.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Próxima reunião -> QUINTA 23/04 11h
 
 Como gravar os dados? -> toques, swipes, métricas do jogo (utilizar firebase?)
 Aplicação Android para as pessoas fazerem swipes para depois comparar com os jogos (papers Target Practicing, Gesture Detection, Touchscreen Gestures, Target Size, Assessing Touchscreen Gestures/ Assessing Double Tap)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Próxima reunião -> Quinta 30/04 11h30

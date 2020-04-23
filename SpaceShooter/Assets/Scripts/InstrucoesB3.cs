@@ -7,6 +7,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public AudioSource[] sounds;
     public AudioSource asteroide; // sounds[0]
     public AudioSource asteroideDescricao; // sounds[1]
+    public AudioSource somAsteroide;
 
     private static bool jogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
     private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, tutorialBackToNormal;
@@ -21,7 +22,10 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         sounds = GetComponents<AudioSource>();
         asteroide = sounds[0];
         asteroideDescricao = sounds[1];
+        somAsteroide = sounds[2];
+
         jogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = tutorialBackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = false;
         highlighted = 0;
         mImage = GameObject.FindGameObjectWithTag("InstrucoesB3").GetComponent<Image>();
     }
@@ -105,6 +109,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             asteroide.Play();
             asteroideDescricao.PlayDelayed(asteroide.clip.length);
+            somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
         }
     }
 
@@ -168,6 +173,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 InstrucoesB1.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -175,6 +181,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -183,6 +190,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 InstrucoesB2.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -190,6 +198,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -198,6 +207,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonJogar.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -205,6 +215,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -213,6 +224,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonTempo.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -220,6 +232,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -228,6 +241,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonPontos.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -235,6 +249,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -243,6 +258,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonVidas.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -250,6 +266,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -258,6 +275,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
                 ButtonVidas.SetSoundOn();
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
 
@@ -265,6 +283,7 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             {
                 asteroide.Play();
                 asteroideDescricao.PlayDelayed(asteroide.clip.length);
+                somAsteroide.PlayDelayed(asteroide.clip.length + asteroideDescricao.clip.length);
                 soundOn = 1;
             }
         }

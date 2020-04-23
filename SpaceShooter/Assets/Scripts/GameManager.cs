@@ -533,12 +533,12 @@ public class GameManager : MonoBehaviour
                 {
                     speed += 0.3f;
                     EnemyControl.SetSpeed(speed);
-                    if (EnemySpawner.GetMaxSpawnRate() > 3.0f)
+                    if (EnemySpawner.GetMaxSpawnRate() > 2.5f)
                     {
                         float sp = EnemySpawner.GetMaxSpawnRate();
                         float minsp = EnemySpawner.GetMinSpawnRate();
 
-                        float nsp = sp - 0.3f;
+                        float nsp = sp - 0.4f;
                         float nminsp = minsp - 0.1f;
 
                         EnemySpawner.UpdateMaxSpawnRate(nsp);

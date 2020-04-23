@@ -34,7 +34,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         if (ButtonComoJogar.JogarBackToNormal())
         {
-            Debug.Log("entrei update buttoncomojogar.jogarbacktonormal");
             mImage.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonComoJogar.ResetJogarBackToNormal();
@@ -102,7 +101,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         currentTapTime = Time.time;
         if(!jogar.isPlaying)
             jogar.Play();
-
+        
+        
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
@@ -131,6 +131,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             }
         }
         lastTapTime = currentTapTime;
+        
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -151,7 +152,6 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         if (ButtonComoJogar.CheckForHighlighted() == 1)
         {
-            Debug.Log("entrei buttoncomojogar.checkforhighlighted");
             comoJogarBackToNormal = true;
         }
 

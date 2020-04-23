@@ -693,7 +693,7 @@ public class PlayerControlSwipe : MonoBehaviour
         if ((collision.tag == "EnemyShipTag") || (collision.tag == "EnemyBulletTag") || (collision.tag == "MeteorTag"))
         {
             PlayExplosion();
-            lives--;
+            //lives--;
             LivesUIText.text = lives.ToString();
             if (lives == 0)
             {

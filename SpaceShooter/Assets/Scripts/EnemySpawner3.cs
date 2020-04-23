@@ -130,7 +130,6 @@ public class EnemySpawner3 : MonoBehaviour
             }
             else
             {
-
                 // o proximo inimigo vai aparecer Random.Range(1f, maxSpawnRateInSeconds)
                 spawnInNSeconds = Random.Range(minSpawnRateInSeconds, maxSpawnRateInSeconds);
                 firstTime = false;
@@ -138,7 +137,7 @@ public class EnemySpawner3 : MonoBehaviour
         }
         else
             spawnInNSeconds = 1f;
-
+        
         Invoke("SpawnEnemy", spawnInNSeconds);
     }
 
