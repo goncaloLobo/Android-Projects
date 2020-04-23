@@ -45,7 +45,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private float doubleTapDelta = Configuration.DoubleTapDelta();
     private int doubleTapRadius = Configuration.DoubleTapRadius();
     private bool isDoubleTap;
-    private float screenDPI;
+    private float screenDPI, increaseSpeedTimer;
     private static bool tutorialLeft, tutorialRight;
     private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction, pontuacaoCancelAction;
 
@@ -163,6 +163,11 @@ public class PlayerControlSwipe : MonoBehaviour
                                 {
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
+                                    if (swipeSound.isPlaying)
+                                    {
+                                        swipeSound.panStereo -= 0.1f;
+                                    }
+
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                                 }
                             }
@@ -185,6 +190,11 @@ public class PlayerControlSwipe : MonoBehaviour
                                 {
                                     flytime += Time.deltaTime;
                                     swipeSound.Play();
+                                    if (swipeSound.isPlaying)
+                                    {
+                                        swipeSound.panStereo += 0.1f;
+                                    }
+
                                     transform.position = Vector2.Lerp(startRocketPosition, endRocketPosition, flytime / flightDuration);
                                 }
                             }
@@ -229,13 +239,11 @@ public class PlayerControlSwipe : MonoBehaviour
                         int enemiesAvoided = PlayerPrefs.GetInt("enemies");
                         if (highscore == 0)
                         {
-                            System.Diagnostics.Debug.WriteLine("aqui2");
                             // ainda nao fez nenhum jogo
                             pontuacaoError.Play();
                         }
                         else
                         {
-                            System.Diagnostics.Debug.WriteLine("aqui3");
                             // vai dizer os resultados do melhor jogo
                             StartCoroutine(DownloadHighscore(highscore));
                             StartCoroutine(DownloadAvoidedEnemies(enemiesAvoided));
