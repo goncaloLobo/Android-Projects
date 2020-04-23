@@ -4604,6 +4604,7 @@ MonoBehaviour:
   sounds: []
   inimigo: {fileID: 0}
   inimigoDescricao: {fileID: 0}
+  somInimigo: {fileID: 0}
   normalSprite: {fileID: 21300000, guid: b530c2d81f5ab0542ae1d51531d6b71f, type: 3}
   spriteHighlighted: {fileID: 21300000, guid: 312482f6eb6db0546884f242bdb63043, type: 3}
 --- !u!82 &1446709177

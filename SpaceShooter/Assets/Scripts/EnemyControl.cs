@@ -9,7 +9,6 @@ public class EnemyControl : MonoBehaviour
     public GameObject Boost100PointsLeft; // referencia para o objeto de som a anunciar um boost à esquerda
     public GameObject Boost100PointsMid; // referencia para o objeto de som a anunciar um boost à esquerda
     public GameObject Boost100PointsRight; // referencia para o objeto de som a anunciar um boost à esquerda
-
     public static float speed = 2f;
     private static bool triggerExplosion;
 
@@ -31,10 +30,28 @@ public class EnemyControl : MonoBehaviour
     {
         Vector2 position = transform.position;
         position = new Vector2(position.x, position.y - speed * Time.deltaTime);
-
         transform.position = position;
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+
+        // ponto em que os objetos passaram a metade do ecra
+        if (transform.position.y > min.y)
+        {
+            if (gameObject.CompareTag("EnemyShipTag"))
+                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+
+            if (gameObject.CompareTag("MeteorTag"))
+                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+
+            if (gameObject.CompareTag("Boost100PointsLeft"))
+                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+
+            if (gameObject.CompareTag("Boost100PointsMid"))
+                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+
+            if (gameObject.CompareTag("Boost100PointsRight"))
+                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+        }
 
         // destruir os objetos que passem o limite inferior do ecra
         if (transform.position.y < min.y)

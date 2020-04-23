@@ -89,7 +89,7 @@ Corda:
 
 Rocket:
 -> Possivelmente ter som dos inimigos mais contínuo.
--> Som contínuo que aumenta de volume de 2 em 2s de forma a resolver o problema dos sons.
+(FEITO) Som aumenta à medida que o inimigo nave/asteroide vai descendo pelo ecrã.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------

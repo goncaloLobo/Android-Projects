@@ -98,11 +98,11 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        currentTapTime = Time.time;
+        //currentTapTime = Time.time;
         if(!jogar.isPlaying)
             jogar.Play();
         
-        
+        /*
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
@@ -131,7 +131,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             }
         }
         lastTapTime = currentTapTime;
-        
+        */
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
