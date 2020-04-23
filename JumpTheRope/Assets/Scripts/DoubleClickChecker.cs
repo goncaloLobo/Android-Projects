@@ -33,7 +33,7 @@ public class DoubleClickChecker : MonoBehaviour
     public AudioSource falta2;
     public AudioSource tropecar; // som de tropecar (qdo nao é feito salto nenhum)
     public GameManager GameManagerGO;
-    private static int j = 0; // para verificar que faz duplo salto no tutorial 3x
+    private static int j = 0, stopSounds; // para verificar que faz duplo salto no tutorial 3x
 
     public AudioSource introducaoSound; // som do botao da introducao
     public AudioSource cordaSound; // som da corda (usado no ButtonCorda1)
@@ -45,13 +45,10 @@ public class DoubleClickChecker : MonoBehaviour
 
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
-    private static bool introducaoCancelAction;
-    private static int stopSounds;
-    private static bool confirmedSwipeRight, confirmedSwipeLeft; // sinalizar que houve swipes para a pagina de instrucoes
-    private bool singleTouch, isDoubleTap;
+    private static bool introducaoCancelAction, confirmedSwipeRight, confirmedSwipeLeft; // sinalizar que houve swipes para a pagina de instrucoes
+    private bool isDoubleTap;
 
-    private float screenDPI;
-    private float increaseSpeedTimer;
+    private float screenDPI, increaseSpeedTimer;
     private Vector2 swipeDelta;
     public GameObject buttonJogar;
 
@@ -73,8 +70,7 @@ public class DoubleClickChecker : MonoBehaviour
         height = 5; // altura padrão
         swipeJogarToIntroducao = swipeInstrucoesToJogar = swipeIntroToInstr = 0;
         swipeJogarToInstr = swipeIntroToJogar = swipeInstrToIntro = 0;
-        introducaoCancelAction = false;
-        confirmedSwipeRight = confirmedSwipeLeft = false;
+        introducaoCancelAction = confirmedSwipeRight = confirmedSwipeLeft = false;
     }
 
     void Update()
@@ -109,19 +105,6 @@ public class DoubleClickChecker : MonoBehaviour
             }
         }
 
-        /*
-        // TENTATIVA PARA DETETAR SE NAO HOUVE TOQUE MAS HOUVE CORDA, ENTAO FALHOU SALTO
-        if (GameManager.GetStarted())
-        {
-            if (GameManager.CheckPitchChanged())
-            {
-                // criar uma nova coroutine com o novo valor da length do som
-                System.Diagnostics.Debug.WriteLine("(DoubleClickChecker) novo pitch aqui: " + GameManager.GetCurrentPitch());
-                StartCoroutine(CheckIfTouches(cordaSound.clip.length / Mathf.Abs(GameManager.GetCurrentPitch())));
-            }
-        }
-        */
-
         // VERIFICA OS SALTOS PARA QDO ESTA A JOGAR
         if (Input.touchCount > 0 && GameManager.GetStarted())
         {
@@ -134,7 +117,7 @@ public class DoubleClickChecker : MonoBehaviour
                 if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0 && !isDoubleTap)
                 {
                     isDoubleTap = true;
-                    System.Diagnostics.Debug.WriteLine("entrei CheckForDoubleTap == 0");
+
                     // salta sempre 5m x tempo entre os toques (mais tempo, mais alto)
                     height *= timeBetweenTouches;
                     manJumping.Play();
@@ -145,16 +128,16 @@ public class DoubleClickChecker : MonoBehaviour
                 else if (CheckForDoubleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 1 && !isDoubleTap)
                 {
                     isDoubleTap = true;
-                    System.Diagnostics.Debug.WriteLine("entrei CheckForDoubleTap == 1");
+
                     n_saltos_normais++;
                     pontuacaoTotal += normalJump;
                 }
                 else if(CheckForSingleTap(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
-                    System.Diagnostics.Debug.WriteLine("entrei checkforsingletap");
+                    isDoubleTap = false;
+
                     //tropecar.Play();
                     n_saltos_falhados++;
-                    isDoubleTap = false;
                 }
             }
             else if (touch.phase == TouchPhase.Moved)

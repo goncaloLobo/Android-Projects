@@ -43,10 +43,10 @@ public class GameManager : MonoBehaviour
     public AudioSource paraIniciarJogo;
     public AudioSource novoHighscore;
 
-    private static bool started, toFinish, opening, instrucoes, pitchChanged;
+    public static bool pitchHasChanged;
+    private static bool started, toFinish, opening, instrucoes;
     private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private float currCountdownValue, increaseSpeedTimer;
-    private static float currentPitch;
     private float baseCountdown = 15.0f;
     private float delay = 0f;
 
@@ -88,7 +88,6 @@ public class GameManager : MonoBehaviour
         audioData.pitch = 0.8f;
         started = toFinish = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
         opening = true;
-        pitchChanged = false;
 
         // vai buscar o highscore no start para quando o jogo é iniciado
         GetCurrentHighScores();
@@ -326,7 +325,6 @@ public class GameManager : MonoBehaviour
     // vai diminuir este intervalo de 3 em 3s (até 1s)
     public IEnumerator StartCountdownSpeed(float countdownValue)
     {
-        pitchChanged = false;
         increaseSpeedTimer = countdownValue;
         while (increaseSpeedTimer >= 0)
         {
@@ -339,8 +337,6 @@ public class GameManager : MonoBehaviour
                 if (audioData.pitch == 0.8f)
                 {
                     audioData.pitch = 0.9f;
-                    currentPitch = audioData.pitch; // atualizar o valor do pitch
-                    pitchChanged = true;
                 }
 
                 // pitch aqui = 0.9f
@@ -354,7 +350,6 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         audioData.pitch += 0.05f;
-                        currentPitch = audioData.pitch; // atualizar o valor do pitch
                     }
                 }
                 else
@@ -367,10 +362,9 @@ public class GameManager : MonoBehaviour
                     else
                     {
                         audioData.pitch -= 0.05f;
-                        currentPitch = audioData.pitch; // atualizar o valor do pitch
                     }
                 }
-                pitchChanged = true;
+
                 if (toFinish) // o jogo vai terminar
                 {
                     Invoke("ChangeToGameOverState", 1f);
@@ -392,7 +386,6 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
 
-            /*
             // se falhar mais do que 10 saltos, então vai terminar o jogo.
             if(DoubleClickChecker.GetSaltosFalhados() > 10)
             {
@@ -403,8 +396,7 @@ public class GameManager : MonoBehaviour
                 // vai chamar outra coroutine (neste caso, de 1s) para
                 // verificar novamente se o jogo irá terminar ou não
                 StartCoroutine(StartCountdownSpeed(baseCountdown = 1.0f));
-            }
-            */
+            }            
         }
         else
         {
@@ -436,19 +428,6 @@ public class GameManager : MonoBehaviour
                 StartCoroutine(StartCountdownSpeed(baseCountdown += 2.0f));
             }
         }
-    }
-
-    public static bool CheckPitchChanged()
-    {
-        if (pitchChanged)
-            System.Diagnostics.Debug.WriteLine("hey there, i'm true.");
-
-        return pitchChanged;
-    }
-
-    public static float GetCurrentPitch()
-    {
-        return currentPitch;
     }
 
     // se a % de saltos perfeitos no total de saltos for menor que 70% entao termina o jogo

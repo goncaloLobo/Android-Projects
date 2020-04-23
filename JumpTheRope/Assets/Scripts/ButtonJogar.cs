@@ -180,8 +180,15 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        currentTapTime = Time.time;
         if (!jogar.isPlaying)
             jogar.Play();
+        if (CheckForDoubleTap(currentTapTime, lastTapTime))
+        {
+            vaicomeçar321.Play();
+            Invoke("StartGame", vaicomeçar321.clip.length);
+        }
+        lastTapTime = currentTapTime;
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
