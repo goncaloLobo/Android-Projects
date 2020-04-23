@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     public AudioSource apito3x; // terceiro som [2]
     public AudioSource introducao;
 
-    private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown;
+    private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private static int startedDirection;
     private float currCountdownValue;
     private float increaseSpeedTimer;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown
+        Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5
     }
 
     public static GameManagerState GMState;
@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
         GMState = GameManagerState.Opening;
         opening = true;
         started = instructions = gameover = swiperight = swipeleft = swipeup = swipedown = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
@@ -174,6 +175,26 @@ public class GameManager : MonoBehaviour
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 break;
+            case GameManagerState.TutorialP1:
+                SetTutorialP1Bools();
+
+                break;
+            case GameManagerState.TutorialP2:
+                SetTutorialP2Bools();
+
+                break;
+            case GameManagerState.TutorialP3:
+                SetTutorialP3Bools();
+
+                break;
+            case GameManagerState.TutorialP4:
+                SetTutorialP4Bools();
+
+                break;
+            case GameManagerState.TutorialP5:
+                SetTutorialP5Bools();
+
+                break;
         }
     }
 
@@ -233,6 +254,31 @@ public class GameManager : MonoBehaviour
         return instructions;
     }
 
+    public static bool GetTutorialP1()
+    {
+        return tutorialp1;
+    }
+
+    public static bool GetTutorialP2()
+    {
+        return tutorialp2;
+    }
+
+    public static bool GetTutorialP3()
+    {
+        return tutorialp3;
+    }
+
+    public static bool GetTutorialP4()
+    {
+        return tutorialp4;
+    }
+
+    public static bool GetTutorialP5()
+    {
+        return tutorialp5;
+    }
+
     public void Apitar()
     {
         apitoParaChutar.Play();
@@ -287,51 +333,107 @@ public class GameManager : MonoBehaviour
         defenderDireita.SetActive(true);
     }
 
+    // Bools para o estado Opening
     private void SetOpeningBools()
     {
         opening = true;
         started = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado Gameplay
     private void SetGameplayBools()
     {
         started = true;
         opening = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado Instructions
     private void SetInstructionsBools()
     {
         instructions = true;
         opening = started = swipedown = swipeleft = swiperight = swiperight = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado SwipeDown
     private void SetSwipedownBools()
     {
         swipedown = true;
         instructions = opening = started = swipeleft = swiperight = swipeup = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado SwipeUp
     private void SetSwipeupBools()
     {
         swipeup = true;
         instructions = opening = started = swipeleft = swiperight = swipedown = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado SwipeLeft
     private void SetSwipeleftBools()
     {
         swipeleft = true;
         instructions = opening = started = swipeup = swiperight = swipedown = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado SwipeRight
     private void SetSwiperightBools()
     {
         swiperight = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
     }
 
+    // Bools para o estado Gameover
     private void SetGameoverBools()
     {
         gameover = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+    }
+
+    // Bools para o estado TutorialP1
+    private void SetTutorialP1Bools()
+    {
+        tutorialp1 = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
+        tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+    }
+
+    // Bools para o estado TutorialP2
+    private void SetTutorialP2Bools()
+    {
+        tutorialp2 = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
+        tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+    }
+
+    // Bools para o estado TutorialP3
+    private void SetTutorialP3Bools()
+    {
+        tutorialp3 = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = false;
+    }
+
+    // Bools para o estado TutorialP4
+    private void SetTutorialP4Bools()
+    {
+        tutorialp4 = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = false;
+    }
+
+    // Bools para o estado TutorialP5
+    private void SetTutorialP5Bools()
+    {
+        tutorialp5 = true;
+        instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
+        tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = false;
     }
 }

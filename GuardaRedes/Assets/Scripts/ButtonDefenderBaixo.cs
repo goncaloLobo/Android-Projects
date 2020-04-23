@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     float clickdelay = 0.5f;
+    public AudioSource[] sounds;
     public AudioSource defenderParaBaixo;
+    public AudioSource defenderDescricao;
     private float currentTapTime;
     private float lastTapTime;
 
@@ -20,7 +22,10 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
 
     void Start()
     {
-        defenderParaBaixo = GetComponent<AudioSource>();
+        sounds = GetComponents<AudioSource>();
+        defenderParaBaixo = sounds[0];
+        defenderDescricao = sounds[1];
+
         mImageDefenderBaixo = GameObject.FindGameObjectWithTag("DefenderBaixo").GetComponent<Image>();
         highlighted = 0;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = closeBackToNormal = homeBackToNormal = false;
@@ -77,12 +82,23 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
             highlighted = 0;
             ButtonDefenderDireita.ResetDefenderBaixoBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (defenderParaBaixo.isPlaying)
+                defenderParaBaixo.Stop();
+            if (defenderDescricao.isPlaying)
+                defenderDescricao.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        defenderParaBaixo.Play();
+        if(!defenderParaBaixo.isPlaying)
+            defenderParaBaixo.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.SwipeDown);
@@ -147,8 +163,98 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
             highlighted = 1;
         }
 
-        if(!defenderParaBaixo.isPlaying)
-            defenderParaBaixo.Play();
+        if (!defenderParaBaixo.isPlaying)
+        {
+            if(ButtonIntroducao.GetSoundOn() == 1)
+            {
+                ButtonIntroducao.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 1)
+            {
+                ButtonDefenderCima.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderEsquerda.GetSoundOn() == 1)
+            {
+                ButtonDefenderEsquerda.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderEsquerda.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 1)
+            {
+                ButtonDefenderDireita.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonClose.GetSoundOn() == 1)
+            {
+                ButtonClose.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonClose.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 1)
+            {
+                ButtonHome.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)

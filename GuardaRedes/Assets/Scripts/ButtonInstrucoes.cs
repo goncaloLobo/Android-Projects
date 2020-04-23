@@ -84,12 +84,21 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             highlighted = 0;
             MyButton.ResetInstrucoesBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (instrucoes.isPlaying)
+                instrucoes.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        instrucoes.Play();
+        if(!instrucoes.isPlaying)
+            instrucoes.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
@@ -153,9 +162,113 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             mImageInstrucoes.sprite = spriteHighlighted;
             highlighted = 1;
         }
-        
-        if(!instrucoes.isPlaying)
-            instrucoes.Play();
+
+        if (!instrucoes.isPlaying)
+        {
+            if (ButtonIntroducao.GetSoundOn() == 1)
+            {
+                ButtonIntroducao.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 1)
+            {
+                ButtonHome.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 1)
+            {
+                ButtonDefenderDireita.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderEsquerda.GetSoundOn() == 1)
+            {
+                ButtonDefenderEsquerda.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderEsquerda.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 1)
+            {
+                ButtonDefenderCima.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderBaixo.GetSoundOn() == 1)
+            {
+                ButtonDefenderBaixo.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderBaixo.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonClose.GetSoundOn() == 1)
+            {
+                ButtonClose.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonClose.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (MyButton.GetSoundOn() == 1)
+            {
+                MyButton.ResetSoundOn();
+                instrucoes.Play();
+                soundOn = 1;
+            }
+
+            if (MyButton.GetSoundOn() == 0)
+            {
+                instrucoes.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)

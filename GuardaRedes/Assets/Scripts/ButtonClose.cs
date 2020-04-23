@@ -84,12 +84,21 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
             ButtonDefenderBaixo.ResetCloseBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (sair.isPlaying)
+                sair.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         currentTapTime = Time.time;
-        sair.Play();
+        if(!sair.isPlaying)
+            sair.Play();
+
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             // qdo pressiona o botao de sair, muda para o estado inicial
@@ -162,8 +171,112 @@ public class ButtonClose : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 1;
         }
 
-        if(!sair.isPlaying)
-            sair.Play();
+        if (!sair.isPlaying)
+        {
+            if (ButtonDefenderEsquerda.GetSoundOn() == 1)
+            {
+                ButtonDefenderEsquerda.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderEsquerda.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 1)
+            {
+                ButtonDefenderDireita.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderDireita.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderBaixo.GetSoundOn() == 1)
+            {
+                ButtonDefenderBaixo.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderBaixo.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 1)
+            {
+                ButtonDefenderCima.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonDefenderCima.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 1)
+            {
+                ButtonHome.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonHome.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (MyButton.GetSoundOn() == 1)
+            {
+                MyButton.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (MyButton.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 1)
+            {
+                ButtonIntroducao.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonInstrucoes.GetSoundOn() == 1)
+            {
+                ButtonInstrucoes.ResetSoundOn();
+                sair.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonInstrucoes.GetSoundOn() == 0)
+            {
+                sair.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public void OnPointerExit(PointerEventData pointerEventData)
