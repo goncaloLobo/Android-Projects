@@ -30,25 +30,44 @@ public class EnemySpawner2 : MonoBehaviour
         switch (enemyRoll)
         {
             case 1:
-                Enemy = (GameObject)Instantiate(EnemyGO1);
-                Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                Enemy = Instantiate(EnemyGO1);
+
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                    Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                }
+                else
+                {
+                    Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                }
+
                 break;
             case 2:
                 if (Random.value < 0.5f)
                 {
-                    Meteor = (GameObject)Instantiate(MeteorMidGO);
+                    Meteor = Instantiate(MeteorMidGO);
                 }
                 else
                 {
-                    Meteor = (GameObject)Instantiate(MeteorGreyMidGO);
+                    Meteor = Instantiate(MeteorGreyMidGO);
                 }
-                Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                    Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                }
+                else
+                {
+                    Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                }
 
                 break;
             case 3:
                 if (Random.value < 0.1f)
                 {
-                    Boost = (GameObject)Instantiate(Boost100Mid);
+                    Boost = Instantiate(Boost100Mid);
                     Boost.transform.position = new Vector2((min.x + max.x) / 2, max.y);
                     checkIfBonus = 2;
                 }
@@ -57,20 +76,37 @@ public class EnemySpawner2 : MonoBehaviour
                     r = Random.value;
                     if (r < 0.5f)
                     {
-                        Enemy = (GameObject)Instantiate(EnemyGO1);
-                        Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                        Enemy = Instantiate(EnemyGO1);
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                            Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Enemy.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                        }
                     }
                     else if (r > 0.5f && r < 0.8f)
                     {
                         if (Random.value < 0.5f)
                         {
-                            Meteor = (GameObject)Instantiate(MeteorMidGO);
+                            Meteor = Instantiate(MeteorMidGO);
                         }
                         else
                         {
-                            Meteor = (GameObject)Instantiate(MeteorGreyMidGO);
+                            Meteor = Instantiate(MeteorGreyMidGO);
                         }
-                        Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                            Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Meteor.transform.position = new Vector2((min.x + max.x) / 2, max.y);
+                        }
                     }
                 }
                 break;

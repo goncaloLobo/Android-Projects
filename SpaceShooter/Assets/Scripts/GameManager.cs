@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     public AudioSource background;
     public AudioSource textToSpeech;
     private static bool started, opening, instructions, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5, tutorialp6;
+    private int i = 0;
 
     public AudioSource[] sounds;
     public AudioSource instrucoespt1; // sounds[0]
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
                 playerShip.SetActive(true);
                 pontuacaoButton.SetActive(false);
                 SetGameplayBools();
-                System.Diagnostics.Debug.WriteLine("olha eu aqui");
+
                 ButtonJogar.ResetEntered();
                 PlayerControlSwipe.ResetHasEntered();
 
@@ -222,7 +223,6 @@ public class GameManager : MonoBehaviour
 
                 break;
             case GameManagerState.GameOver:
-                System.Diagnostics.Debug.WriteLine("entrei gameover");
                 SetGameoverBools();
                 
                 // terminar os contadores de tempo
@@ -235,9 +235,7 @@ public class GameManager : MonoBehaviour
 
                 //display game over e o tempo final
                 GameOverGO.SetActive(true);
-                System.Diagnostics.Debug.WriteLine("entrei 1");
                 delay += 1f;
-                System.Diagnostics.Debug.WriteLine("entrei dps de += 1 no delay");
                 gameOver.PlayDelayed(delay);
                 delay += gameOver.clip.length;
 
@@ -524,6 +522,7 @@ public class GameManager : MonoBehaviour
     // de 7 em 7s diminui o intervalo de tempo de spawn dos inimigos [curr - 0.3, curr - 0.3]
     public IEnumerator StartCountdownSpeed(float countdownValue = 7)
     {
+        i++;
         float speed = EnemyControl.GetSpeed();
         increaseSpeedTimer = countdownValue;
         if (!(GameManager.GetCurrentState() == GameManagerState.GameOver)) {
@@ -535,6 +534,13 @@ public class GameManager : MonoBehaviour
                 if (increaseSpeedTimer == 0)
                 {
                     speed += 0.3f;
+                    Debug.Log("valor do i: " + i);
+                    if (i > 2)
+                    {
+                        EnemyControl.SignalIncreasePitch();
+                        i = 0;
+                    }
+
                     EnemyControl.SetSpeed(speed);
                     if (EnemySpawner.GetMaxSpawnRate() > 2.5f)
                     {

@@ -74,11 +74,11 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //currentTapTime = Time.time;
+        currentTapTime = Time.time;
         if(!comoJogar.isPlaying)
             comoJogar.Play();
 
-        /*
+        
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (PlayerControlSwipe.GetInstrucoesCancelAction())
@@ -91,7 +91,7 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
             }
         }
         lastTapTime = currentTapTime;
-        */
+        
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)

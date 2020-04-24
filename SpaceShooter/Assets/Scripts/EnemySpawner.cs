@@ -32,25 +32,43 @@ public class EnemySpawner : MonoBehaviour
         switch (enemyRoll)
         {
             case 1:
-                Enemy = (GameObject)Instantiate(EnemyGO);
-                Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                Enemy = Instantiate(EnemyGO);
+
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                    Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                }
+                else
+                {
+                    Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                }
 
                 break;
             case 2:
                 if (Random.value < 0.5f)
                 {
-                    Meteor = (GameObject)Instantiate(MeteorLeftGO);
+                    Meteor = Instantiate(MeteorLeftGO);
                 } else
                 {
-                    Meteor = (GameObject)Instantiate(MeteorGreyLeftGO);
+                    Meteor = Instantiate(MeteorGreyLeftGO);
                 }
-                Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                    Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                }
+                else
+                {
+                    Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                }
 
                 break;
             case 3:
                 if (Random.value < 0.15f)
                 {
-                    Boost = (GameObject)Instantiate(Boost100Left);
+                    Boost = Instantiate(Boost100Left);
                     Boost.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
                     checkIfBonus = 1;
                 }
@@ -59,20 +77,37 @@ public class EnemySpawner : MonoBehaviour
                     r = Random.value;
                     if (r < 0.5f)
                     {
-                        Enemy = (GameObject)Instantiate(EnemyGO);
-                        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                        Enemy = Instantiate(EnemyGO);
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                            Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Enemy.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                        }
                     }
                     else if(r > 0.5f && r < 0.8f)
                     {
                         if (Random.value < 0.5f)
                         {
-                            Meteor = (GameObject)Instantiate(MeteorLeftGO);
+                            Meteor = Instantiate(MeteorLeftGO);
                         }
                         else
                         {
-                            Meteor = (GameObject)Instantiate(MeteorGreyLeftGO);
+                            Meteor = Instantiate(MeteorGreyLeftGO);
                         }
-                        Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                            Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Meteor.transform.position = new Vector2(((min.x + max.x) / 2) - 1.2f, max.y);
+                        }
                     }
                 }
 
@@ -213,5 +248,4 @@ public class EnemySpawner : MonoBehaviour
     {
         return minSpawnRateInSeconds;
     }
-
 }

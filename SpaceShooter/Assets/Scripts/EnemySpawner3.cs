@@ -31,26 +31,44 @@ public class EnemySpawner3 : MonoBehaviour
         switch (enemyRoll)
         {
             case 1:
-                Enemy = (GameObject)Instantiate(EnemyGO2);
-                Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                Enemy = Instantiate(EnemyGO2);
+
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                    Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                }
+                else
+                {
+                    Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                }
 
                 break;
             case 2:
                 if (Random.value < 0.5f)
                 {
-                    Meteor = (GameObject)Instantiate(MeteorRightGO);
+                    Meteor = Instantiate(MeteorRightGO);
                 }
                 else
                 {
-                    Meteor = (GameObject)Instantiate(MeteorGreyRightGO);
+                    Meteor = Instantiate(MeteorGreyRightGO);
+                }               
+
+                if (EnemyControl.spawnWithNewPitch)
+                {
+                    Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                    Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
                 }
-                Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                else
+                {
+                    Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                }
 
                 break;
             case 3:
                 if (Random.value < 0.2f)
                 {
-                    Boost = (GameObject)Instantiate(Boost100Right);
+                    Boost = Instantiate(Boost100Right);
                     Boost.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
                     checkIfBonus = 2;
                 }
@@ -59,20 +77,38 @@ public class EnemySpawner3 : MonoBehaviour
                     r = Random.value;
                     if (r < 0.5f)
                     {
-                        Enemy = (GameObject)Instantiate(EnemyGO2);
-                        Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                        Enemy = Instantiate(EnemyGO2);
+
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                            Enemy.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Enemy.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                        }
                     }
                     else if(r > 0.5f && r < 0.8f)
                     {
                         if (Random.value < 0.5f)
                         {
-                            Meteor = (GameObject)Instantiate(MeteorRightGO);
+                            Meteor = Instantiate(MeteorRightGO);
                         }
                         else
                         {
-                            Meteor = (GameObject)Instantiate(MeteorGreyRightGO);
+                            Meteor = Instantiate(MeteorGreyRightGO);
                         }
-                        Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+
+                        if (EnemyControl.spawnWithNewPitch)
+                        {
+                            Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                            Meteor.GetComponent<AudioSource>().pitch = EnemyControl.currentPitch;
+                        }
+                        else
+                        {
+                            Meteor.transform.position = new Vector2(((min.x + max.x) / 2) + 1.2f, max.y);
+                        }
                     }
                 }
 

@@ -10,7 +10,10 @@ public class EnemyControl : MonoBehaviour
     public GameObject Boost100PointsMid; // referencia para o objeto de som a anunciar um boost à esquerda
     public GameObject Boost100PointsRight; // referencia para o objeto de som a anunciar um boost à esquerda
     public static float speed = 2f;
+    public static float currentPitch;
     private static bool triggerExplosion;
+    private static bool increasePitch = false;
+    public static bool spawnWithNewPitch = false;
 
     private static int enemiesAvoided; // inimigos que chegam ao final do ecra (que o utilizador se desviou)
 
@@ -87,6 +90,31 @@ public class EnemyControl : MonoBehaviour
 
         if (triggerExplosion)
             Destroy(gameObject);
+
+        if (increasePitch)
+        {
+            if (gameObject.CompareTag("MeteorTag"))
+            {
+                if (gameObject.GetComponent<AudioSource>().pitch + 0.05f < 1.1f)
+                {
+                    gameObject.GetComponent<AudioSource>().pitch += 0.05f;
+                    currentPitch = gameObject.GetComponent<AudioSource>().pitch;
+                    ResetPitch();
+                    spawnWithNewPitch = true;
+                }
+            }
+
+            if (gameObject.CompareTag("EnemyShipTag"))
+            {
+                if (gameObject.GetComponent<AudioSource>().pitch + 0.05f < 1.1f)
+                {
+                    gameObject.GetComponent<AudioSource>().pitch += 0.05f;
+                    currentPitch = gameObject.GetComponent<AudioSource>().pitch;
+                    ResetPitch();
+                    spawnWithNewPitch = true;
+                }
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -109,6 +137,21 @@ public class EnemyControl : MonoBehaviour
     {
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
+    }
+
+    public static void SignalIncreasePitch()
+    {
+        increasePitch = true;
+    }
+
+    public static void ResetPitch()
+    {
+        increasePitch = false;
+    }
+
+    public static void ResetSpawnWithNewPitch()
+    {
+        spawnWithNewPitch = false;
     }
 
     // gets the speed

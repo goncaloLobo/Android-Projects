@@ -11,7 +11,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
-    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal, hasEntered;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal;
+    private static bool hasEntered;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -26,7 +27,8 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         highlighted = 0;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
-        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = hasEntered = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = false;
+        hasEntered = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
     }
 
@@ -102,7 +104,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(!jogar.isPlaying)
             jogar.Play();
         
-        /*
+        
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
@@ -132,7 +134,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             }
         }
         lastTapTime = currentTapTime;
-        */
+        
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
