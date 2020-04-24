@@ -34,23 +34,23 @@ public class EnemyControl : MonoBehaviour
 
         Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
 
-        // ponto em que os objetos passaram a metade do ecra
+        // assim que aparecem no ecrã
         if (transform.position.y > min.y)
         {
             if (gameObject.CompareTag("EnemyShipTag"))
-                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+                gameObject.GetComponent<AudioSource>().volume += 0.01f;
 
             if (gameObject.CompareTag("MeteorTag"))
-                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+                gameObject.GetComponent<AudioSource>().volume += 0.01f;
 
             if (gameObject.CompareTag("Boost100PointsLeft"))
-                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+                gameObject.GetComponent<AudioSource>().volume += 0.01f;
 
             if (gameObject.CompareTag("Boost100PointsMid"))
-                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+                gameObject.GetComponent<AudioSource>().volume += 0.01f;
 
             if (gameObject.CompareTag("Boost100PointsRight"))
-                gameObject.GetComponent<AudioSource>().volume += 0.05f;
+                gameObject.GetComponent<AudioSource>().volume += 0.01f;
         }
 
         // destruir os objetos que passem o limite inferior do ecra

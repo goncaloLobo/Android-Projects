@@ -130,6 +130,9 @@ public class GameManager : MonoBehaviour
                 audioData.Play();
                 audioData.loop = true;
 
+                DoubleClickChecker.ResetHasEntered();
+                ButtonJogar.ResetHasEntered();
+
                 // countdown para alterar a velocidade do som
                 StartCoroutine(StartCountdownSpeed(15));
 

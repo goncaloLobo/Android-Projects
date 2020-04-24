@@ -11,7 +11,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
     public GameObject GameManagerGO;
     private static bool comoJogarBackToNormal, introducaoBackToNormal, tempoBackToNormal, pontosBackToNormal, vidasBackToNormal, pontuacaoBackToNormal;
-    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal;
+    private static bool instrucoesB1BackToNormal, instrucoesB2BackToNormal, instrucoesB3BackToNormal, tutorialBackToNormal, hasEntered;
     private static int highlighted;
     private static int soundOn = 0;
     public Sprite normalSprite;
@@ -26,7 +26,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
 
         highlighted = 0;
         comoJogarBackToNormal = introducaoBackToNormal = tempoBackToNormal = pontosBackToNormal = vidasBackToNormal = pontuacaoBackToNormal = false;
-        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = false;
+        instrucoesB1BackToNormal = instrucoesB2BackToNormal = instrucoesB3BackToNormal = tutorialBackToNormal = hasEntered = false;
         mImage = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
     }
 
@@ -102,7 +102,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         if(!jogar.isPlaying)
             jogar.Play();
         
-        
+        /*
         if (CheckForDoubleTap(currentTapTime, lastTapTime))
         {
             if (GameManager.GetCurrentState() == GameManager.GameManagerState.Opening)
@@ -111,8 +111,9 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                 {
                     PlayerControlSwipe.ResetJogarCancelAction();
                 }
-                else
+                else if(!hasEntered)
                 {
+                    hasEntered = true;
                     vaicomeçar321.Play();
                     Invoke("StartGame", vaicomeçar321.clip.length);
                 }
@@ -131,7 +132,7 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             }
         }
         lastTapTime = currentTapTime;
-        
+        */
     }
 
     private bool CheckForDoubleTap(float currentTapTime, float previousTapTime)
@@ -286,6 +287,12 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
                 soundOn = 1;
             }
         }
+    }
+
+    // GameManager chama esta funcao para certificar que apenas entra 1x no estado Gameplay
+    public static void ResetEntered()
+    {
+        hasEntered = false;
     }
 
     public static int GetSoundOn()

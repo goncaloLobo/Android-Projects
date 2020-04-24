@@ -25,6 +25,7 @@ public class PlayerControlSwipe : MonoBehaviour
     public AudioSource pontuacao2;
     public AudioSource pontuacao3;
     public AudioSource avoidedEnemies;
+    public AudioSource playerEngine;
 
     public AudioSource vaiComeçar321;
     public AudioSource introducaoSound;
@@ -46,7 +47,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private int doubleTapRadius = Configuration.DoubleTapRadius();
     private bool isDoubleTap;
     private float screenDPI, increaseSpeedTimer;
-    private static bool tutorialLeft, tutorialRight;
+    private static bool tutorialLeft, tutorialRight, hasEntered;
     private static bool tutorialCancelAction, jogarCancelAction, instrucoesCancelAction, pontuacaoCancelAction;
 
     private Vector2 startRocketPosition, endRocketPosition, swipeDelta;
@@ -70,11 +71,14 @@ public class PlayerControlSwipe : MonoBehaviour
         pontuacao2 = sounds[1];
         pontuacao3 = sounds[2];
         avoidedEnemies = sounds[3];
+        playerEngine = sounds[4];
 
         //mostra a nave do jogador no ecra
         gameObject.SetActive(true);
+        playerEngine.Play();
+
         isDoubleTap = false;
-        tutorialLeft = tutorialRight = false;
+        tutorialLeft = tutorialRight = hasEntered = false;
         tutorialCancelAction = jogarCancelAction = instrucoesCancelAction = pontuacaoCancelAction = false;
         screenDPI = Screen.dpi;
     }
@@ -221,8 +225,9 @@ public class PlayerControlSwipe : MonoBehaviour
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     // se o botao jogar estiver highlighted
-                    if (ButtonJogar.CheckForHighlighted() == 1)
+                    if (ButtonJogar.CheckForHighlighted() == 1 && !hasEntered)
                     {
+                        hasEntered = true;
                         vaiComeçar321.Play();
                         Invoke("StartGame", vaiComeçar321.clip.length);
                     }
@@ -739,6 +744,11 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         GameObject explosion = (GameObject)Instantiate(ExplosionGO);
         explosion.transform.position = transform.position;
+    }
+
+    public static void ResetHasEntered()
+    {
+        hasEntered = false;
     }
 
     public static int GetFinalScore()

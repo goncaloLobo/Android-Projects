@@ -107,7 +107,6 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
     {
         if (ButtonJogar.CheckForHighlighted() == 1)
         {
-            Debug.Log("entrei buttonjogar.checkforhighlighted");
             jogarBackToNormal = true;
         }
 

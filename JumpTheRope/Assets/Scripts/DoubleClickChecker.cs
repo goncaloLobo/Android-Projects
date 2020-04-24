@@ -45,7 +45,7 @@ public class DoubleClickChecker : MonoBehaviour
 
     private static int swipeJogarToIntroducao, swipeInstrucoesToJogar, swipeIntroToInstr; // swipe left opening
     private static int swipeJogarToInstr, swipeIntroToJogar, swipeInstrToIntro; // swipe right opening
-    private static bool introducaoCancelAction, confirmedSwipeRight, confirmedSwipeLeft; // sinalizar que houve swipes para a pagina de instrucoes
+    private static bool introducaoCancelAction, confirmedSwipeRight, confirmedSwipeLeft, jogarCancelAction, hasEntered; // sinalizar que houve swipes para a pagina de instrucoes
     private bool isDoubleTap;
 
     private float screenDPI, increaseSpeedTimer;
@@ -162,8 +162,9 @@ public class DoubleClickChecker : MonoBehaviour
                 if (CheckForDoubleTapOpening(currentTapTime, lastTapTime, currentTouch, previousTouch) == 0)
                 {
                     // se o botao jogar estiver highlighted
-                    if (ButtonJogar.CheckForHighlighted() == 1)
+                    if (ButtonJogar.CheckForHighlighted() == 1 && !hasEntered)
                     {
+                        hasEntered = true;
                         inicioJogo.Play();
                         Invoke("StartGame", inicioJogo.clip.length);
                     }
@@ -553,6 +554,21 @@ public class DoubleClickChecker : MonoBehaviour
     public static void ResetIntroducaoCancelAction()
     {
         introducaoCancelAction = false;
+    }
+
+    public static bool GetJogarCancelAction()
+    {
+        return jogarCancelAction;
+    }
+
+    public static void ResetJogarCancelAction()
+    {
+        jogarCancelAction = false;
+    }
+
+    public static void ResetHasEntered()
+    {
+        hasEntered = false;
     }
 
     private int CheckForSingleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)

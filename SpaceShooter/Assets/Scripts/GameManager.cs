@@ -141,6 +141,9 @@ public class GameManager : MonoBehaviour
                 playerShip.SetActive(true);
                 pontuacaoButton.SetActive(false);
                 SetGameplayBools();
+                System.Diagnostics.Debug.WriteLine("olha eu aqui");
+                ButtonJogar.ResetEntered();
+                PlayerControlSwipe.ResetHasEntered();
 
                 // iniciar os contadores de tempo
                 timeCounterGO.GetComponent<TimeCounter>().StartTimeCounter();
