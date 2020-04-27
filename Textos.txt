@@ -39,8 +39,8 @@ Guarda-Redes:
 	Início: "És o guarda redes da tua equipa e vais ter de defender um conjunto de remates. Vamos ver quantos consegues defender."
 	Explicar defender remates direita -> "Estás no meio da baliza e quando ouvires o apito significa que vão rematar para ti. Deves varrer o ecrã para o lado de onde ouves a bola.
 				      	     O próximo remate vem para a tua direita, experimenta."
-	Explicar defender remates esquerda -> "Bom trabalho. Depois de uma defesa, voltas para o meio do ecrã para defender outro remate. Rápido, o próximo vem para a esquerda."
-	Explicar defender remates baixo -> "Os remates também podem ser feitos para cima de ti ou para baixo, para as tuas pernas. Tens de varrer o ecrã para baixo ou para cima. Experimenta."
-	Explicar defender remates L -> "Por fim, também podes ter de defender remates nos cantos da baliza."
+	Explicar defender remates esquerda -> "Bom trabalho. Depois de defenderes voltas para o meio da baliza para defender outro remate. Rápido, o próximo remate vem para a esquerda."
+	Explicar defender remates baixo -> "Os remates também podem ser feitos para cima de ti ou para baixo, para o meio das tuas pernas. No próximo remate tens de varrer o ecrã para baixo. Experimenta."
+	Explicar defender remates L -> "Por fim, os remates também podem ir para os cantos da baliza. Para defenderes estes remates, tens de fazer um L no ecrã. O próximo remate vem para o canto superior direito, tens de fazer um L para lá. Experimenta."
 	Final -> "Chegámos ao final do tutorial. Durante o jogo tens 5 vidas, ou seja, só podes deixar entrar 5 golos. Mais que isso e perdes. Podes fazer o tutorial as vezes que quiseres."
 		 "No menu das instruções podes ainda treinar os vários tipos de remate. Boa sorte."

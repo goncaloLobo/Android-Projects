@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,16 +15,26 @@ public class GameManager : MonoBehaviour
     public GameObject panelHolder;
     public GameObject panelDefenderBaixo;
 
+    private static int golos_sofridos; // numero de golos sofridos
+    private static int golos_defendidos; // numero de golos defendidos
+
     public AudioSource [] sounds; // array para os varios sons
     public AudioSource apitoParaChutar; // primeiro som [0]
     public AudioSource chutoEsquerda; // segundo som [1]
+    public AudioSource chutoDireita;
     public AudioSource apito3x; // terceiro som [2]
     public AudioSource introducao;
+    public AudioSource tutorial0;
+    public AudioSource tutorial1;
+    public AudioSource golo;
+    public AudioSource tutorial2;
+    public AudioSource tutorial3;
+    public AudioSource tutorial4;
+    public AudioSource tutorial5;
 
     private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private static int startedDirection;
-    private float currCountdownValue;
-    private float increaseSpeedTimer;
+    private float currCountdownValue, increaseSpeedTimer;
 
     private float highscoreStored;
     private int defesasStored;
@@ -45,7 +56,16 @@ public class GameManager : MonoBehaviour
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
         chutoEsquerda = sounds[1];
+        chutoDireita = sounds[5];
         apito3x = sounds[2];
+
+        tutorial0 = sounds[3];
+        tutorial1 = sounds[4];
+        golo = sounds[5];
+        tutorial2 = sounds[6];
+        tutorial3 = sounds[7];
+        tutorial4 = sounds[8];
+        tutorial5 = sounds[9];
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -90,6 +110,27 @@ public class GameManager : MonoBehaviour
                 playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
+                int roll = Random.Range(1, 8);
+                switch (roll)
+                {
+                    case 1: // swipe left
+                        Invoke("Apitar", 0f);
+                        break;
+                    case 2: // swipe right
+                        break;
+                    case 3: // swipe up
+                        break;
+                    case 4: // swipe down
+                        break;
+                    case 5: // swipe up and left
+                        break;
+                    case 6: // swipe up and right
+                        break;
+                    case 7: // swipe down then left
+                        break;
+                    case 8: // swipe down then right
+                        break;
+                }
 
                 break;
             case GameManagerState.GameOver:
@@ -146,7 +187,7 @@ public class GameManager : MonoBehaviour
 
                 // countdown para o apito (2s)
                 //StartCoroutine(StartCountDownToApito());
-                Invoke("Apitar", 2f);
+                Invoke("Apitar", 0f);
 
                 break;
             case GameManagerState.SwipeRight:
@@ -178,23 +219,63 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP1:
                 SetTutorialP1Bools();
 
+                // És o guarda redes da tua equipa e vais ter de defender um conjunto de remates. Vamos ver quantos consegues defender.
+                tutorial0.Play();
+
+                // Estás no meio da baliza e quando ouvires o apito significa que vão rematar para ti. Deves varrer o ecrã para o lado de onde ouves a bola. 
+                // O próximo remate vem para a tua direita, experimenta.
+                tutorial1.PlayDelayed(tutorial0.clip.length);
+
+                Invoke("Apitar", tutorial0.clip.length + tutorial1.clip.length);
+
                 break;
             case GameManagerState.TutorialP2:
                 SetTutorialP2Bools();
+
+                //Bom trabalho. Depois de defenderes voltas para o meio da baliza para defender outro remate. Rápido, o próximo remate vem para a esquerda.
+                tutorial2.Play();
+                Invoke("Apitar", tutorial2.clip.length);
 
                 break;
             case GameManagerState.TutorialP3:
                 SetTutorialP3Bools();
 
+                //Os remates também podem ser feitos para cima de ti ou para baixo, para o meio das tuas pernas. No próximo remate tens de varrer o ecrã para baixo. Experimenta.
+                tutorial3.Play();
+                Invoke("Apitar", tutorial3.clip.length);
+
                 break;
             case GameManagerState.TutorialP4:
                 SetTutorialP4Bools();
+
+                // Por fim, os remates também podem ir para os cantos da baliza. Para defenderes estes remates, tens de fazer um L no ecrã. 
+                // O próximo remate vem para o canto superior direito, tens de fazer um L para lá. Experimenta.
+                tutorial4.Play();
+                Invoke("Apitar", tutorial4.clip.length);
 
                 break;
             case GameManagerState.TutorialP5:
                 SetTutorialP5Bools();
 
+                // Chegámos ao final do tutorial.Durante o jogo tens 5 vidas, ou seja, só podes deixar entrar 5 golos.Mais que isso e perdes.Podes fazer o tutorial as vezes que quiseres. 
+                // No menu das instruções podes ainda treinar os vários tipos de remate. Boa sorte.
+                tutorial5.Play();
+                Invoke("ChangeToInstructionsState", tutorial5.clip.length);
+
                 break;
+        }
+
+        // SE FOR GOLO
+        if (PlayerControlSwipe.GetGoalScored())
+        {
+            golo.Play();
+            golos_sofridos++;
+        }
+
+        // TERMINOU O JOGO
+        if(golos_sofridos == 5)
+        {
+            Invoke("ChangeToGameoverState", 0f);
         }
     }
 
@@ -207,6 +288,16 @@ public class GameManager : MonoBehaviour
     public void ChangeToOpeningState()
     {
         SetGameManagerState(GameManagerState.Opening);
+    }
+
+    public void ChangeToInstructionsState()
+    {
+        SetGameManagerState(GameManagerState.Instructions);
+    }
+
+    public void ChangeToGameoverState()
+    {
+        SetGameManagerState(GameManagerState.GameOver);
     }
 
     public static GameManagerState GetCurrentState()
@@ -282,29 +373,135 @@ public class GameManager : MonoBehaviour
     public void Apitar()
     {
         apitoParaChutar.Play();
+        if (GetTutorialP1())
+        {
+            Invoke("Rematar", 1.0f);
+        }
+
         // chama repetitivamente a funcao rematar
-        // 2.5s apos o inicio do apito e de 3 em 3s
-        InvokeRepeating("Rematar", 2.5f, 3.0f);
+        // 1s apos o inicio do apito e de 3 em 3s
+        InvokeRepeating("Rematar", apitoParaChutar.clip.length, 3.0f);
     }
 
     public void Rematar()
     {
-        // 1 - baixo
-        // 2 - esquerda
-        // 3 - direita
-        // 4 - cima
-        switch (startedDirection)
+        if (GetTutorialP1())
         {
-            case 1:
-                break;
-            case 2:
-                Debug.Log("vou rematar!");
-                chutoEsquerda.Play();
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+            Debug.Log("tutorial -> vou rematar para a direita!");
+            chutoDireita.Play();
+        }
+
+        else if (GetTutorialP2())
+        {
+
+        }
+
+        else if (GetTutorialP3())
+        {
+
+        }
+
+        else if(GetTutorialP4())
+        {
+
+        }
+
+        else if (GetTutorialP5())
+        {
+
+        }
+
+        else if (GetSwipeLeft())
+        {
+            chutoEsquerda.Play();
+            StartCoroutine(WaitForLeftShot(3.0f));
+        }
+
+        else if (GetSwipeRight())
+        {
+            chutoDireita.Play();
+            StartCoroutine(WaitForRightShot(3.0f));
+        }
+
+        else if (GetSwipeDown())
+        {
+
+        }
+
+        else if (GetSwipeUp())
+        {
+
+        }
+
+        else if (GetStarted())
+        {
+            // 1 - baixo
+            // 2 - esquerda
+            // 3 - direita
+            // 4 - cima
+            switch (startedDirection)
+            {
+                case 1:
+                    break;
+                case 2:
+                    Debug.Log("vou rematar!");
+                    chutoEsquerda.Play();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+            }
+        }
+    }
+
+    public IEnumerator WaitForLeftShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedSwipeLeft())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a esquerda ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golos_sofridos++;
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForRightShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedSwipeRight())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golos_sofridos++;
+                    yield break;
+                }
+            }
         }
     }
 
