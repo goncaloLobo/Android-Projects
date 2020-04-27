@@ -112,6 +112,13 @@ public class ButtonPontuacao : MonoBehaviour, IPointerClickHandler, IPointerEnte
             highlighted = 0;
             ButtonTutorial.ResetPontuacaoBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (pontuacao.isPlaying)
+                pontuacao.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

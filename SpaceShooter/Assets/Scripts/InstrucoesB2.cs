@@ -97,6 +97,15 @@ public class InstrucoesB2 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
             ButtonTutorial.ResetInstrucoesB2BackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (naveJogador.isPlaying)
+                naveJogador.Stop();
+            if (naveJogadorDescricao.isPlaying)
+                naveJogadorDescricao.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

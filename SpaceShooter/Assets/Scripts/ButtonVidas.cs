@@ -104,6 +104,13 @@ public class ButtonVidas : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
             ButtonPontos.ResetVidasBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (vidas.isPlaying)
+                vidas.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

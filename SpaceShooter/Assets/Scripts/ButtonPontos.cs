@@ -97,6 +97,13 @@ public class ButtonPontos : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
             InstrucoesB3.ResetPontosBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (pontos.isPlaying)
+                pontos.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

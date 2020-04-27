@@ -93,6 +93,12 @@ public class ButtonTutorial : MonoBehaviour, IPointerClickHandler, IPointerEnter
             ButtonPontos.ResetTutorialBackToNormal();
         }
 
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (tutorial.isPlaying)
+                tutorial.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

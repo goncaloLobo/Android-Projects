@@ -94,6 +94,13 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
             InstrucoesB3.ResetTempoBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (tempo.isPlaying)
+                tempo.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -166,7 +173,111 @@ public class ButtonTempo : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
         }
 
         if (!tempo.isPlaying)
-            tempo.Play();
+        {
+            if (ButtonJogar.GetSoundOn() == 1)
+            {
+                ButtonJogar.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonJogar.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonComoJogar.GetSoundOn() == 1)
+            {
+                ButtonComoJogar.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonComoJogar.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 1)
+            {
+                ButtonIntroducao.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonIntroducao.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 1)
+            {
+                ButtonVidas.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonVidas.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 1)
+            {
+                ButtonPontos.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonPontos.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB1.GetSoundOn() == 1)
+            {
+                InstrucoesB1.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB1.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 1)
+            {
+                InstrucoesB2.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB2.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 1)
+            {
+                InstrucoesB3.SetSoundOn();
+                tempo.Play();
+                soundOn = 1;
+            }
+
+            if (InstrucoesB3.GetSoundOn() == 0)
+            {
+                tempo.Play();
+                soundOn = 1;
+            }
+        }
     }
 
     public static int GetSoundOn()

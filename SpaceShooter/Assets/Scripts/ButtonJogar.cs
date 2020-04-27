@@ -96,6 +96,13 @@ public class ButtonJogar : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
             highlighted = 0;
             ButtonPontuacao.ResetJogarBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (jogar.isPlaying)
+                jogar.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

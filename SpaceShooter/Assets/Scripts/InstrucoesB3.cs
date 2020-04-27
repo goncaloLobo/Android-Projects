@@ -101,6 +101,17 @@ public class InstrucoesB3 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
             ButtonPontuacao.ResetInstrucoesB3BackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (asteroide.isPlaying)
+                asteroide.Stop();
+            if (asteroideDescricao.isPlaying)
+                asteroideDescricao.Stop();
+            if (somAsteroide.isPlaying)
+                somAsteroide.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

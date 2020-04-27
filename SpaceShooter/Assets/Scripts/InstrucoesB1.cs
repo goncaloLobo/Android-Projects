@@ -87,6 +87,17 @@ public class InstrucoesB1 : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             highlighted = 0;
             ButtonPontuacao.ResetInstrucoesB1BackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (inimigo.isPlaying)
+                inimigo.Stop();
+            if (inimigoDescricao.isPlaying)
+                inimigoDescricao.Stop();
+            if (somInimigo.isPlaying)
+                somInimigo.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

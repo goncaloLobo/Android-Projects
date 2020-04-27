@@ -70,6 +70,13 @@ public class ButtonComoJogar : MonoBehaviour, IPointerClickHandler, IPointerEnte
             highlighted = 0;
             ButtonPontuacao.ResetComoJogarBackToNormal();
         }
+
+        // PARTE RELACIONADA COM OS SONS
+        if (soundOn == 0)
+        {
+            if (comoJogar.isPlaying)
+                comoJogar.Stop();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
