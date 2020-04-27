@@ -15,7 +15,7 @@ public class Configuration : MonoBehaviour
     private static float DOUBLE_TAP_DELTA = 0.3f;
 
     // diferença de tempo para ser considerado um doubletap normal
-    private static float DOUBLE_TAP_DELTA_BIGGER = 0.7f;
+    private static float DOUBLE_TAP_DELTA_BIGGER = 0.672f;
 
     // distancia máxima do circulo de doubletap possivel à volta de um tap
     private const int DOUBLE_TAP_RADIUS = 100;

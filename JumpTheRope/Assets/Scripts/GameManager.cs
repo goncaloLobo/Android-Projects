@@ -339,6 +339,7 @@ public class GameManager : MonoBehaviour
                 // aumenta o pitch para 0.9
                 if (audioData.pitch == 0.8f)
                 {
+                    pitchHasChanged = true;
                     audioData.pitch = 0.9f;
                 }
 
