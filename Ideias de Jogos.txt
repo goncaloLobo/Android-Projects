@@ -81,8 +81,6 @@ Jogo 9 -> Guarda Redes
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Corda:
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
--> Depois dos sons de bater da corda, som contínuo de velocidade.
-   (comecei a incluir um atributo height que depende do tempo entre os dois toques)
 -> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
 -> Som de que a corda bateu em mim (qdo não salta).

@@ -42,8 +42,7 @@ public class GameManager : MonoBehaviour
     public AudioSource textToSpeech;
     public AudioSource paraIniciarJogo;
     public AudioSource novoHighscore;
-
-    public static bool pitchHasChanged;
+    
     private static bool started, toFinish, opening, instrucoes;
     private static bool tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private float currCountdownValue, increaseSpeedTimer;
@@ -170,7 +169,6 @@ public class GameManager : MonoBehaviour
                 delay += tut3.clip.length + 0.5f;
 
                 oneJump.PlayDelayed(delay);
-                //oneFootJumping.PlayDelayed(delay + 0.2f);
                 manJump.PlayDelayed(delay + 0.1f);
 
                 break;
@@ -182,7 +180,8 @@ public class GameManager : MonoBehaviour
                 tut4.Play();
                 audioData.PlayDelayed(tut4.clip.length);
                 audioData.loop = true;
-                if(DoubleClickChecker.GetJ() == 3)
+
+                if (DoubleClickChecker.GetJ() == 3)
                 {
                     audioData.Stop();
                 }
@@ -191,7 +190,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP5:
                 SetTutorial5Bools();
 
-                // Por fim, perdes quando falhares mais do que 10 saltos perfeitos. Quando perderes, os teus pontos são registados e se fizeres uma pontuação mais alta irá ficar guardada. Pode fazer o tutorial novamente quando quiseres. Boa sorte.
+                // Por fim, perdes quando falhares mais do que 5 saltos. Quando perderes, os teus pontos são registados e se fizeres uma pontuação mais alta irá ficar guardada. Pode fazer o tutorial novamente quando quiseres. Boa sorte.
                 tut5.Play();
                 audioData.Stop();
 
@@ -250,8 +249,8 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        // CONSTANTEMENTE VERIFICAR SE FALHOU MAIS QUE 10 SALTOS
-        if (DoubleClickChecker.GetSaltosFalhados() > 10)
+        // CONSTANTEMENTE VERIFICAR SE FALHOU MAIS QUE 5 SALTOS
+        if (DoubleClickChecker.GetSaltosFalhados() > 5)
         {
             toFinish = true;
         }
@@ -339,7 +338,6 @@ public class GameManager : MonoBehaviour
                 // aumenta o pitch para 0.9
                 if (audioData.pitch == 0.8f)
                 {
-                    pitchHasChanged = true;
                     audioData.pitch = 0.9f;
                 }
 
