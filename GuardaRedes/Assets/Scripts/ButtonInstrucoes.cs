@@ -29,20 +29,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
     void Update()
     {
-        if (ButtonHome.InstrucoesBackToNormal())
-        {
-            mImageInstrucoes.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonHome.ResetInstrucoesBackToNormal();
-        }
-
-        if (ButtonClose.InstrucoesBackToNormal())
-        {
-            mImageInstrucoes.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonClose.ResetInstrucoesBackToNormal();
-        }
-
         if (ButtonDefenderBaixo.InstrucoesBackToNormal())
         {
             mImageInstrucoes.overrideSprite = normalSprite;
@@ -137,11 +123,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             buttonDefenderDireitaBackToNormal = true;
         }
 
-        if (ButtonHome.CheckForHighlighted() == 1)
-        {
-            homeBackToNormal = true;
-        }
-
         if (MyButton.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
@@ -150,11 +131,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
-        }
-
-        if (ButtonClose.CheckForHighlighted() == 1)
-        {
-            closeBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -173,19 +149,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             }
 
             if (ButtonIntroducao.GetSoundOn() == 0)
-            {
-                instrucoes.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 1)
-            {
-                ButtonHome.ResetSoundOn();
-                instrucoes.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 0)
             {
                 instrucoes.Play();
                 soundOn = 1;
@@ -238,19 +201,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
             }
 
             if (ButtonDefenderBaixo.GetSoundOn() == 0)
-            {
-                instrucoes.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 1)
-            {
-                ButtonClose.ResetSoundOn();
-                instrucoes.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 0)
             {
                 instrucoes.Play();
                 soundOn = 1;

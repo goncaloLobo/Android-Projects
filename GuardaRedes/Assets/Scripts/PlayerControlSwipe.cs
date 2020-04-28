@@ -39,7 +39,6 @@ public class PlayerControlSwipe : MonoBehaviour
 
         sounds = GetComponents<AudioSource>();
         introducao = sounds[0];
-        inicioJogo = sounds[1];
         jogarCancelAction = hasEntered = false;
     }
 
@@ -89,11 +88,6 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         if (!introducao.isPlaying)
                             introducao.Play();
-                    }
-
-                    if (ButtonClose.CheckForHighlighted() == 1)
-                    {
-                        Application.Quit();
                     }
                 }
             }

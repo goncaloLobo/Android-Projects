@@ -60,12 +60,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\ButtonClose.cs" />
     <Compile Include="Assets\Scripts\ButtonDefenderBaixo.cs" />
     <Compile Include="Assets\Scripts\ButtonDefenderCima.cs" />
     <Compile Include="Assets\Scripts\ButtonDefenderDireita.cs" />
     <Compile Include="Assets\Scripts\ButtonDefenderEsquerda.cs" />
-    <Compile Include="Assets\Scripts\ButtonHome.cs" />
     <Compile Include="Assets\Scripts\ButtonInstrucoes.cs" />
     <Compile Include="Assets\Scripts\ButtonIntroducao.cs" />
     <Compile Include="Assets\Scripts\Configuration.cs" />

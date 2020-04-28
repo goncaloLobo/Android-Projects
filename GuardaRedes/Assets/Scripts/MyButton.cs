@@ -37,20 +37,6 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             ButtonInstrucoes.ResetJogarBackToNormal();
         }
 
-        if (ButtonHome.JogarBackToNormal())
-        {
-            mImageJogar.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonHome.ResetJogarBackToNormal();
-        }
-
-        if (ButtonClose.JogarBackToNormal())
-        {
-            mImageJogar.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonClose.ResetJogarBackToNormal();
-        }
-
         if (ButtonDefenderBaixo.JogarBackToNormal())
         {
             mImageJogar.overrideSprite = normalSprite;
@@ -148,16 +134,6 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             instrucoesBackToNormal = true;
         }
 
-        if (ButtonClose.CheckForHighlighted() == 1)
-        {
-            closeBackToNormal = true;
-        }
-
-        if (ButtonHome.CheckForHighlighted() == 1)
-        {
-            homeBackToNormal = true;
-        }
-
         if (highlighted == 0)
         {
             mImageJogar.sprite = spriteHighlighted;
@@ -187,32 +163,6 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             }
 
             if (ButtonIntroducao.GetSoundOn() == 0)
-            {
-                jogar.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 1)
-            {
-                ButtonHome.ResetSoundOn();
-                jogar.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 0)
-            {
-                jogar.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 1)
-            {
-                ButtonClose.ResetSoundOn();
-                jogar.Play();
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 0)
             {
                 jogar.Play();
                 soundOn = 1;

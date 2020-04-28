@@ -104,23 +104,24 @@ public class GameManager : MonoBehaviour
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
 
-                started = true;
-
-                // tipo de controlo
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
-
                 //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
-                int roll = Random.Range(1, 8);
+                //int roll = Random.Range(1, 8);
+                int roll = 1;
                 switch (roll)
                 {
                     case 1: // swipe left
+                        startedDirection = 2;
                         Invoke("Apitar", 0f);
                         break;
                     case 2: // swipe right
+                        startedDirection = 3;
+                        Invoke("Apitar", 0f);
                         break;
                     case 3: // swipe up
+                        startedDirection = 4;
                         break;
                     case 4: // swipe down
+                        startedDirection = 1;
                         break;
                     case 5: // swipe up and left
                         break;
@@ -181,12 +182,7 @@ public class GameManager : MonoBehaviour
 
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
-
-                // tipo de controlo
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
-
-                // countdown para o apito (2s)
-                //StartCoroutine(StartCountDownToApito());
+                
                 Invoke("Apitar", 0f);
 
                 break;
@@ -199,9 +195,6 @@ public class GameManager : MonoBehaviour
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
 
-                // tipo de controlo
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
-
                 break;
             case GameManagerState.SwipeUp:
                 SetSwipeupBools();
@@ -211,9 +204,6 @@ public class GameManager : MonoBehaviour
 
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
-
-                // tipo de controlo
-                playerShip.GetComponent<PlayerControlSwipe>().Init();
 
                 break;
             case GameManagerState.TutorialP1:
@@ -380,14 +370,37 @@ public class GameManager : MonoBehaviour
 
         // chama repetitivamente a funcao rematar
         // 1s apos o inicio do apito e de 3 em 3s
-        InvokeRepeating("Rematar", apitoParaChutar.clip.length, 3.0f);
+        Invoke("Rematar", apitoParaChutar.clip.length);
     }
 
     public void Rematar()
     {
-        if (GetTutorialP1())
+        if (GetStarted())
         {
-            Debug.Log("tutorial -> vou rematar para a direita!");
+            // 1 - baixo
+            // 2 - esquerda
+            // 3 - direita
+            // 4 - cima
+            switch (startedDirection)
+            {
+                case 1:
+                    break;
+                case 2:
+                    chutoEsquerda.Play();
+                    Debug.Log("chutei!!");
+                    StartCoroutine(WaitForLeftShot(3.0f));
+                    break;
+                case 3:
+                    chutoDireita.Play();
+                    StartCoroutine(WaitForRightShot(3.0f));
+                    break;
+                case 4:
+                    break;
+            }
+        }
+
+        else if (GetTutorialP1())
+        {
             chutoDireita.Play();
         }
 
@@ -433,26 +446,7 @@ public class GameManager : MonoBehaviour
 
         }
 
-        else if (GetStarted())
-        {
-            // 1 - baixo
-            // 2 - esquerda
-            // 3 - direita
-            // 4 - cima
-            switch (startedDirection)
-            {
-                case 1:
-                    break;
-                case 2:
-                    Debug.Log("vou rematar!");
-                    chutoEsquerda.Play();
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-            }
-        }
+        
     }
 
     public IEnumerator WaitForLeftShot(float duration)
@@ -465,15 +459,20 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
+                Debug.Log("passaram-se 3 segundos");
                 if (PlayerControlSwipe.GetConfirmedSwipeLeft())
                 {
+                    Debug.Log("defesa!! :o");
                     // defendeu
                     golos_defendidos++;
+                    Invoke("Rematar", 0f);
                     yield break;
                 }
                 else
                 { // nao se mexeu para a esquerda ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    Debug.Log("golooooo!! :o");
                     golos_sofridos++;
+                    Invoke("Rematar", 0f);
                     yield break;
                 }
             }

@@ -41,20 +41,6 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
             ButtonInstrucoes.ResetDefenderCimaBackToNormal();
         }
 
-        if (ButtonClose.DefenderCimaBackToNormal())
-        {
-            mImageDefenderCima.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonClose.ResetDefenderCimaBackToNormal();
-        }
-
-        if (ButtonHome.DefenderCimaBackToNormal())
-        {
-            mImageDefenderCima.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonHome.ResetDefenderCimaBackToNormal();
-        }
-
         if (MyButton.DefenderCimaBackToNormal())
         {
             mImageDefenderCima.overrideSprite = normalSprite;
@@ -139,19 +125,9 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
             buttonDefenderDireitaBackToNormal = true;
         }
 
-        if (ButtonClose.CheckForHighlighted() == 1)
-        {
-            closeBackToNormal = true;
-        }
-
         if (MyButton.CheckForHighlighted() == 1)
         {
             jogarBackToNormal = true;
-        }
-
-        if (ButtonHome.CheckForHighlighted() == 1)
-        {
-            homeBackToNormal = true;
         }
 
         if (ButtonInstrucoes.CheckForHighlighted() == 1)
@@ -226,36 +202,6 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
             }
 
             if (ButtonDefenderDireita.GetSoundOn() == 0)
-            {
-                defenderParaCima.Play();
-                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 1)
-            {
-                ButtonClose.ResetSoundOn();
-                defenderParaCima.Play();
-                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 0)
-            {
-                defenderParaCima.Play();
-                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 1)
-            {
-                ButtonHome.ResetSoundOn();
-                defenderParaCima.Play();
-                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 0)
             {
                 defenderParaCima.Play();
                 defenderDescricao.PlayDelayed(defenderParaCima.clip.length);

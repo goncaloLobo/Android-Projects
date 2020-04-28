@@ -39,13 +39,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             ButtonInstrucoes.ResetIntroducaoBackToNormal();
         }
 
-        if (ButtonHome.IntroducaoBackToNormal())
-        {
-            mImageIntroducao.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonHome.ResetIntroducaoBackToNormal();
-        }
-
         if (ButtonDefenderBaixo.IntroducaoBackToNormal())
         {
             mImageIntroducao.overrideSprite = normalSprite;
@@ -79,13 +72,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             mImageIntroducao.overrideSprite = normalSprite;
             highlighted = 0;
             MyButton.ResetIntroducaoBackToNormal();
-        }
-
-        if (ButtonClose.IntroducaoBackToNormal())
-        {
-            mImageIntroducao.overrideSprite = normalSprite;
-            highlighted = 0;
-            ButtonClose.ResetIntroducaoBackToNormal();
         }
 
         // PARTE RELACIONADA COM OS SONS
@@ -142,11 +128,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             buttonDefenderDireitaBackToNormal = true;
         }
 
-        if (ButtonClose.CheckForHighlighted() == 1)
-        {
-            closeBackToNormal = true;
-        }
-
         if (ButtonInstrucoes.CheckForHighlighted() == 1)
         {
             instrucoesBackToNormal = true;
@@ -157,11 +138,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             jogarBackToNormal = true;
         }
 
-        if (ButtonHome.CheckForHighlighted() == 1)
-        {
-            homeBackToNormal = true;
-        }
-
         if (highlighted == 0)
         {
             mImageIntroducao.sprite = spriteHighlighted;
@@ -170,21 +146,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
 
         if (!intro.isPlaying)
         {
-            if (ButtonClose.GetSoundOn() == 1)
-            {
-                ButtonClose.ResetSoundOn();
-                intro.Play();
-                introducao.PlayDelayed(intro.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonClose.GetSoundOn() == 0)
-            {
-                intro.Play();
-                introducao.PlayDelayed(intro.clip.length);
-                soundOn = 1;
-            }
-
             if (MyButton.GetSoundOn() == 1)
             {
                 MyButton.ResetSoundOn();
@@ -254,21 +215,6 @@ public class ButtonIntroducao : MonoBehaviour, IPointerClickHandler, IPointerEnt
             }
 
             if (ButtonDefenderDireita.GetSoundOn() == 0)
-            {
-                intro.Play();
-                introducao.PlayDelayed(intro.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 1)
-            {
-                ButtonHome.ResetSoundOn();
-                intro.Play();
-                introducao.PlayDelayed(intro.clip.length);
-                soundOn = 1;
-            }
-
-            if (ButtonHome.GetSoundOn() == 0)
             {
                 intro.Play();
                 introducao.PlayDelayed(intro.clip.length);
