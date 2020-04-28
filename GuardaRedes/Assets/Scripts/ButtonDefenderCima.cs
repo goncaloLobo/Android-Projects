@@ -17,7 +17,7 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
     private static Image mImageDefenderCima;
     private static int highlighted;
     private static int soundOn = 0;
-    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, closeBackToNormal, homeBackToNormal;
+    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, tutorialBackToNormal;
     private static bool buttonDefenderBaixoBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal;
 
     void Start()
@@ -28,7 +28,7 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
 
         mImageDefenderCima = GameObject.FindGameObjectWithTag("DefenderCima").GetComponent<Image>();
         highlighted = 0;
-        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = closeBackToNormal = homeBackToNormal = false;
+        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = tutorialBackToNormal = false;
         buttonDefenderBaixoBackToNormal = buttonDefenderDireitaBackToNormal = buttonDefenderEsquerdaBackToNormal = false;
     }
 
@@ -74,6 +74,13 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
             mImageDefenderCima.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonIntroducao.ResetDefenderCimaBackToNormal();
+        }
+
+        if (ButtonTutorial.DefenderCimaBackToNormal())
+        {
+            mImageDefenderCima.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonTutorial.ResetDefenderCimaBackToNormal();
         }
 
         // PARTE RELACIONADA COM OS SONS
@@ -138,6 +145,11 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
+        }
+
+        if(ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -207,6 +219,21 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
                 defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
                 soundOn = 1;
             }
+
+            if (ButtonTutorial.GetSoundOn() == 1)
+            {
+                ButtonTutorial.ResetSoundOn();
+                defenderParaCima.Play();
+                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonTutorial.GetSoundOn() == 0)
+            {
+                defenderParaCima.Play();
+                defenderDescricao.PlayDelayed(defenderParaCima.clip.length);
+                soundOn = 1;
+            }
         }
     }
 
@@ -270,16 +297,6 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
         buttonDefenderBaixoBackToNormal = false;
     }
 
-    public static bool HomeBackToNormal()
-    {
-        return homeBackToNormal;
-    }
-
-    public static void ResetHomeBackToNormal()
-    {
-        homeBackToNormal = false;
-    }
-
     public static bool DefenderDireitaBackToNormal()
     {
         return buttonDefenderDireitaBackToNormal;
@@ -300,13 +317,13 @@ public class ButtonDefenderCima : MonoBehaviour, IPointerClickHandler, IPointerE
         buttonDefenderEsquerdaBackToNormal = false;
     }
 
-    public static bool CloseBackToNormal()
+    public static bool TutorialBackToNormal()
     {
-        return closeBackToNormal;
+        return tutorialBackToNormal;
     }
 
-    public static void ResetCloseBackToNormal()
+    public static void ResetTutorialBackToNormal()
     {
-        closeBackToNormal = false;
+        tutorialBackToNormal = false;
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - HomeButton
   - CloseButton
   - ButtonIntroducao
+  - ButtonTutorial
   layers:
   - Default
   - TransparentFX

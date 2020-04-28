@@ -17,8 +17,8 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
     private static Image mImageDefenderBaixo;
     private static int highlighted;
     private static int soundOn = 0;
-    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, closeBackToNormal, homeBackToNormal;
-    private static bool buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal;
+    private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal;
+    private static bool buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal, tutorialBackToNormal;
 
     void Start()
     {
@@ -28,8 +28,8 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
 
         mImageDefenderBaixo = GameObject.FindGameObjectWithTag("DefenderBaixo").GetComponent<Image>();
         highlighted = 0;
-        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = closeBackToNormal = homeBackToNormal = false;
-        buttonDefenderEsquerdaBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderDireitaBackToNormal = false;
+        jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = false;
+        buttonDefenderEsquerdaBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderDireitaBackToNormal = tutorialBackToNormal = false;
     }
 
     void Update()
@@ -67,6 +67,13 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
             mImageDefenderBaixo.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonDefenderDireita.ResetDefenderBaixoBackToNormal();
+        }
+
+        if (ButtonTutorial.DefenderBaixoBackToNormal())
+        {
+            mImageDefenderBaixo.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonTutorial.ResetDefenderBaixoBackToNormal();
         }
 
         // PARTE RELACIONADA COM OS SONS
@@ -131,6 +138,11 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
         if (ButtonIntroducao.CheckForHighlighted() == 1)
         {
             introducaoBackToNormal = true;
+        }
+
+        if(ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -200,6 +212,21 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
                 defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
                 soundOn = 1;
             }
+
+            if (ButtonTutorial.GetSoundOn() == 1)
+            {
+                ButtonTutorial.ResetSoundOn();
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
+
+            if (ButtonTutorial.GetSoundOn() == 0)
+            {
+                defenderParaBaixo.Play();
+                defenderDescricao.PlayDelayed(defenderParaBaixo.clip.length);
+                soundOn = 1;
+            }
         }
     }
 
@@ -253,16 +280,6 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
         introducaoBackToNormal = false;
     }
 
-    public static bool HomeBackToNormal()
-    {
-        return homeBackToNormal;
-    }
-
-    public static void ResetHomeBackToNormal()
-    {
-        homeBackToNormal = false;
-    }
-
     public static bool DefenderCimaBackToNormal()
     {
         return buttonDefenderCimaBackToNormal;
@@ -293,13 +310,13 @@ public class ButtonDefenderBaixo : MonoBehaviour, IPointerClickHandler, IPointer
         buttonDefenderEsquerdaBackToNormal = false;
     }
 
-    public static bool CloseBackToNormal()
+    public static bool TutorialBackToNormal()
     {
-        return closeBackToNormal;
+        return tutorialBackToNormal;
     }
 
-    public static void ResetCloseBackToNormal()
+    public static void ResetTutorialBackToNormal()
     {
-        closeBackToNormal = false;
+        tutorialBackToNormal = false;
     }
 }

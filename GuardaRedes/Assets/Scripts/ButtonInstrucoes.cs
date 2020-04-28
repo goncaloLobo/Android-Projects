@@ -15,7 +15,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     private static Image mImageInstrucoes;
     private static int highlighted;
     private static int soundOn = 0;
-    private static bool jogarBackToNormal, homeBackToNormal, introducaoBackToNormal, closeBackToNormal;
+    private static bool jogarBackToNormal, introducaoBackToNormal;
     private static bool buttonDefenderBaixoBackToNormal, buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal;
 
     void Start()
@@ -23,7 +23,7 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         instrucoes = GetComponent<AudioSource>();
         highlighted = 0;
         mImageInstrucoes = GameObject.FindGameObjectWithTag("ButtonInstrucoes").GetComponent<Image>();
-        jogarBackToNormal = homeBackToNormal = introducaoBackToNormal = closeBackToNormal = false;
+        jogarBackToNormal = introducaoBackToNormal = false;
         buttonDefenderBaixoBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderEsquerdaBackToNormal = buttonDefenderDireitaBackToNormal = false;
     }
 
@@ -251,16 +251,6 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
         jogarBackToNormal = false;
     }
 
-    public static bool HomeBackToNormal()
-    {
-        return homeBackToNormal;
-    }
-
-    public static void ResetHomeBackToNormal()
-    {
-        homeBackToNormal = false;
-    }
-
     public static bool IntroducaoBackToNormal()
     {
         return introducaoBackToNormal;
@@ -309,15 +299,5 @@ public class ButtonInstrucoes : MonoBehaviour, IPointerClickHandler, IPointerEnt
     public static void ResetDefenderEsquerdaBackToNormal()
     {
         buttonDefenderEsquerdaBackToNormal = false;
-    }
-
-    public static bool CloseBackToNormal()
-    {
-        return closeBackToNormal;
-    }
-
-    public static void ResetCloseBackToNormal()
-    {
-        closeBackToNormal = false;
     }
 }

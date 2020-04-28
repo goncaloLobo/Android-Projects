@@ -23,7 +23,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private float currentTapTime, lastTapTime, flytime;
     private float flightDuration = 0.1f;
     private float screenDPI;
-    private static bool jogarCancelAction, hasEntered, goalScored, resetGloves;
+    private static bool jogarCancelAction, hasEntered, resetGloves, tutorialCancelAction;
     private static bool confirmedSwipeLeft, confirmedSwipeRight, confirmedSwipeUp, confirmedSwipeDown;
     private bool entreiResetGloves;
 
@@ -135,6 +135,11 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         inicioJogo.Play();
                         Invoke("ChangeToSwipeRightState", inicioJogo.clip.length);
+                    }
+
+                    if(ButtonTutorial.CheckForHighlighted() == 1)
+                    {
+                        tutorialCancelAction = true;
                     }
                 }
             }
@@ -383,8 +388,6 @@ public class PlayerControlSwipe : MonoBehaviour
                             {
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-
-                                goalScored = true;
                             }
 
                             // roda as luvas do gr para a esquerda
@@ -471,16 +474,6 @@ public class PlayerControlSwipe : MonoBehaviour
         entreiResetGloves = false;
     }
 
-    public static bool GetGoalScored()
-    {
-        return goalScored;
-    }
-
-    public static void ResetGoalScored()
-    {
-        goalScored = false;
-    }
-
     public static bool GetConfirmedSwipeLeft()
     {
         return confirmedSwipeLeft;
@@ -519,6 +512,16 @@ public class PlayerControlSwipe : MonoBehaviour
     public static void ResetConfirmedSwipeDown()
     {
         confirmedSwipeDown = false;
+    }
+
+    public static bool CancelTutorialAction()
+    {
+        return tutorialCancelAction;
+    }
+
+    public static void ResetTutorialAction()
+    {
+        tutorialCancelAction = false;
     }
 
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)

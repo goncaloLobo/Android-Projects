@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerShip;
     public GameObject playButton;
     public GameObject howToButton;
+    public GameObject tutorialButton;
     public GameObject GameOverGO;
     public GameObject defenderCima;
     public GameObject defenderBaixo;
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
+                tutorialButton.SetActive(false);
 
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
@@ -157,8 +159,9 @@ public class GameManager : MonoBehaviour
             case GameManagerState.Instructions:
                 SetInstructionsBools();
                 GameOverGO.SetActive(false);
-                playButton.SetActive(false);
+                playButton.SetActive(true);
                 howToButton.SetActive(false);
+                tutorialButton.SetActive(true);
                 //panelHolder.SetActive(true);
 
                 // mete os varios defenderes a true
@@ -201,7 +204,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.SwipeUp:
                 SetSwipeupBools();
 
-                // caso para ensinar remates para baixo (4)
+                // caso para ensinar remates para cima (4)
                 startedDirection = 4;
 
                 // mete os varios defenderes a false
@@ -214,7 +217,7 @@ public class GameManager : MonoBehaviour
                 // És o guarda redes da tua equipa e vais ter de defender um conjunto de remates. Vamos ver quantos consegues defender.
                 tutorial0.Play();
 
-                // Estás no meio da baliza e quando ouvires o apito significa que vão rematar para ti. Deves varrer o ecrã para o lado de onde ouves a bola. 
+                // Estás no centro da baliza e quando ouvires o apito significa que vão rematar para ti. Deves varrer o ecrã para o lado de onde ouves a bola.
                 // O próximo remate vem para a tua direita, experimenta.
                 tutorial1.PlayDelayed(tutorial0.clip.length);
 
@@ -224,7 +227,8 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP2:
                 SetTutorialP2Bools();
 
-                //Bom trabalho. Depois de defenderes voltas para o meio da baliza para defender outro remate. Rápido, o próximo remate vem para a esquerda.
+                // Bom trabalho. Depois de defenderes voltas para o meio da baliza para defender o próximo remate. Tens de prestar atenção ao remate. 
+                // Rápido, o próximo remate vem para a tua esquerda.
                 tutorial2.Play();
                 Invoke("Apitar", tutorial2.clip.length);
 
@@ -249,7 +253,7 @@ public class GameManager : MonoBehaviour
             case GameManagerState.TutorialP5:
                 SetTutorialP5Bools();
 
-                // Chegámos ao final do tutorial.Durante o jogo tens 5 vidas, ou seja, só podes deixar entrar 5 golos.Mais que isso e perdes.Podes fazer o tutorial as vezes que quiseres. 
+                // Chegámos ao final do tutorial. Durante o jogo tens 5 vidas, ou seja, só podes deixar entrar 5 golos.Mais que isso e perdes.Podes fazer o tutorial as vezes que quiseres. 
                 // No menu das instruções podes ainda treinar os vários tipos de remate. Boa sorte.
                 tutorial5.Play();
                 Invoke("ChangeToInstructionsState", tutorial5.clip.length);
@@ -356,9 +360,6 @@ public class GameManager : MonoBehaviour
         {
             Invoke("Rematar", 1.0f);
         }
-
-        // chama repetitivamente a funcao rematar
-        // 1s apos o inicio do apito e de 3 em 3s
         Invoke("Rematar", apitoParaChutar.clip.length);
     }
 
@@ -387,8 +388,16 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case 3:
-                    chutoDireita.Play();
-                    StartCoroutine(WaitForRightShot(3.0f));
+                    if (golos_sofridos < 5)
+                    {
+                        chutoDireita.Play();
+                        StartCoroutine(WaitForRightShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
                     break;
                 case 4:
                     break;
@@ -460,7 +469,6 @@ public class GameManager : MonoBehaviour
                     // defendeu
                     golos_defendidos++;
                     PlayerControlSwipe.ResetGloves();
-                    System.Diagnostics.Debug.WriteLine("defesa!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -469,7 +477,6 @@ public class GameManager : MonoBehaviour
                     golo.Play();
                     golos_sofridos++;
                     PlayerControlSwipe.ResetGloves();
-                    System.Diagnostics.Debug.WriteLine("golo!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -491,7 +498,6 @@ public class GameManager : MonoBehaviour
                 {
                     // defendeu
                     golos_defendidos++;
-                    System.Diagnostics.Debug.WriteLine("defesa!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -499,7 +505,6 @@ public class GameManager : MonoBehaviour
                 { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
                     golo.Play();
                     golos_sofridos++;
-                    System.Diagnostics.Debug.WriteLine("golo!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }

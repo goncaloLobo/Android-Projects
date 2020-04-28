@@ -15,7 +15,7 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     private static Image mImageJogar;
     private static int highlighted;
     private static int soundOn = 0;
-    private static bool homeBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, closeBackToNormal;
+    private static bool instrucoesBackToNormal, introducaoBackToNormal, tutorialBackToNormal;
     private static bool buttonDefenderBaixoBackToNormal, buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal, buttonDefenderDireitaBackToNormal;
 
     void Start()
@@ -24,7 +24,7 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         mImageJogar = GameObject.FindGameObjectWithTag("ButtonPlay").GetComponent<Image>();
 
         highlighted = 0;
-        homeBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = closeBackToNormal = false;
+        instrucoesBackToNormal = introducaoBackToNormal = tutorialBackToNormal = false;
         buttonDefenderBaixoBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderDireitaBackToNormal = buttonDefenderEsquerdaBackToNormal = false;
     }
 
@@ -70,6 +70,13 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
             mImageJogar.overrideSprite = normalSprite;
             highlighted = 0;
             ButtonIntroducao.ResetJogarBackToNormal();
+        }
+
+        if (ButtonTutorial.JogarBackToNormal())
+        {
+            mImageJogar.overrideSprite = normalSprite;
+            highlighted = 0;
+            ButtonTutorial.ResetJogarBackToNormal();
         }
 
         // PARTE RELACIONADA COM OS SONS
@@ -132,6 +139,11 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         if (ButtonInstrucoes.CheckForHighlighted() == 1)
         {
             instrucoesBackToNormal = true;
+        }
+
+        if (ButtonTutorial.CheckForHighlighted() == 1)
+        {
+            tutorialBackToNormal = true;
         }
 
         if (highlighted == 0)
@@ -219,6 +231,19 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
                 jogar.Play();
                 soundOn = 1;
             }
+
+            if (ButtonTutorial.GetSoundOn() == 1)
+            {
+                ButtonTutorial.ResetSoundOn();
+                jogar.Play();
+                soundOn = 1;
+            }
+
+            if (ButtonTutorial.GetSoundOn() == 0)
+            {
+                jogar.Play();
+                soundOn = 1;
+            }
         }
     }
 
@@ -240,16 +265,6 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
     public static int CheckForHighlighted()
     {
         return highlighted;
-    }
-
-    public static bool HomeBackToNormal()
-    {
-        return homeBackToNormal;
-    }
-
-    public static void ResetHomeBackToNormal()
-    {
-        homeBackToNormal = false;
     }
 
     public static bool InstrucoesBackToNormal()
@@ -312,13 +327,13 @@ public class MyButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandle
         buttonDefenderEsquerdaBackToNormal = false;
     }
 
-    public static bool CloseBackToNormal()
+    public static bool TutorialBackToNormal()
     {
-        return closeBackToNormal;
+        return tutorialBackToNormal;
     }
 
-    public static void ResetCloseBackToNormal()
+    public static void ResetTutorialBackToNormal()
     {
-        closeBackToNormal = false;
+        tutorialBackToNormal = false;
     }
 }
