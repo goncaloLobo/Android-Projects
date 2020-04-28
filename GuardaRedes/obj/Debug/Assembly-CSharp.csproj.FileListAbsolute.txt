@@ -717,3 +717,4 @@ C:\Android-Projects\GuardaRedes\obj\Debug\Assembly-CSharp.csproj.CoreCompileInpu
 C:\Android-Projects\GuardaRedes\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Android-Projects\GuardaRedes\obj\Debug\Assembly-CSharp.dll
 C:\Android-Projects\GuardaRedes\obj\Debug\Assembly-CSharp.pdb
+C:\Android-Projects\GuardaRedes\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache

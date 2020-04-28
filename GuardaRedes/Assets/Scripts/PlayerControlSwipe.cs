@@ -16,14 +16,16 @@ public class PlayerControlSwipe : MonoBehaviour
     private int doubleTapRadius = Configuration.DoubleTapRadius();
 
     private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch, sndTouch, turningPoint;
+    private Vector3 rotationEuler;
     private Touch currentTouch, previousTouch;
     private Touch startTouch, endTouch;
     private float startTouchTime, endTouchTime;
     private float currentTapTime, lastTapTime, flytime;
     private float flightDuration = 0.1f;
     private float screenDPI;
-    private static bool jogarCancelAction, hasEntered, goalScored;
+    private static bool jogarCancelAction, hasEntered, goalScored, resetGloves;
     private static bool confirmedSwipeLeft, confirmedSwipeRight, confirmedSwipeUp, confirmedSwipeDown;
+    private bool entreiResetGloves;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Vector2 StartGlovePosition { get { return startGlovePosition; } }
@@ -194,7 +196,12 @@ public class PlayerControlSwipe : MonoBehaviour
                             {
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                                confirmedSwipeLeft = true;
                             }
+
+                            // roda as luvas do gr para a esquerda
+                            rotationEuler += Vector3.forward * 30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
 
                         //swipe right
@@ -207,7 +214,12 @@ public class PlayerControlSwipe : MonoBehaviour
                             {
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                                confirmedSwipeRight = true;
                             }
+
+                            // roda as luvas do gr para a direita
+                            rotationEuler += Vector3.forward * -30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
                     }
                 }
@@ -244,12 +256,8 @@ public class PlayerControlSwipe : MonoBehaviour
                     float difference = endTouchTime - startTouchTime;
                     if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
                     {
-                        // swipe!!!
                         swipeDelta = new Vector2(deltaX, deltaY);
-
-                        //normalize the 2d vector
                         swipeDelta.Normalize();
-
                         //swipe left
                         if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
@@ -261,8 +269,11 @@ public class PlayerControlSwipe : MonoBehaviour
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                                 confirmedSwipeLeft = true;
-                                ResetGlovesPosition(); // volta a por as luvas no meio do ecrã
                             }
+
+                            // roda as luvas do gr para a esquerda
+                            rotationEuler += Vector3.forward * 30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
                     }
                 }
@@ -296,9 +307,8 @@ public class PlayerControlSwipe : MonoBehaviour
                     {
                         // swipe!!!
                         swipeDelta = new Vector2(deltaX, deltaY);
-
-                        //normalize the 2d vector
                         swipeDelta.Normalize();
+
                         //swipe right
                         if (swipeDelta.x > 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
                         {
@@ -310,8 +320,12 @@ public class PlayerControlSwipe : MonoBehaviour
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                                 confirmedSwipeRight = true;
-                                ResetGlovesPosition(); // volta a por as luvas no meio do ecrã
+                                //ResetGlovesPosition(); // volta a por as luvas no meio do ecrã
                             }
+
+                            // roda as luvas do gr para a direita
+                            rotationEuler += Vector3.forward * -30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
                     }
                 }
@@ -372,6 +386,10 @@ public class PlayerControlSwipe : MonoBehaviour
 
                                 goalScored = true;
                             }
+
+                            // roda as luvas do gr para a esquerda
+                            rotationEuler += Vector3.forward * 30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
 
                         //swipe right
@@ -385,6 +403,10 @@ public class PlayerControlSwipe : MonoBehaviour
                                 flytime += Time.deltaTime;
                                 transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
                             }
+
+                            // roda as luvas do gr para a direita
+                            rotationEuler += Vector3.forward * -30;
+                            transform.rotation = Quaternion.Euler(rotationEuler);
                         }
                     }
                 }
@@ -410,6 +432,43 @@ public class PlayerControlSwipe : MonoBehaviour
         {
 
         }
+
+        // depois de uma defesa ou golo, volta a por as luvas no centro do ecra
+        if (resetGloves && !entreiResetGloves)
+        {
+            entreiResetGloves = true;
+            flytime = 0f;
+            startGlovePosition = transform.position;
+            if (confirmedSwipeLeft)
+                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
+            if (confirmedSwipeRight)
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
+
+            while (flytime < flightDuration)
+            {
+                flytime += Time.deltaTime;
+                transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+            }
+
+            rotationEuler = new Vector3(0, 0, 0);
+            transform.rotation = Quaternion.Euler(rotationEuler);
+
+            ResetResetGloves();
+            ResetConfirmedSwipeLeft();
+            ResetConfirmedSwipeRight();
+        }
+    }
+
+    // passa o bool resetGloves a true, chamado no GameManager depois de uma defesa ou de um golo
+    public static void ResetGloves()
+    {
+        resetGloves = true;
+    }
+
+    public void ResetResetGloves()
+    {
+        resetGloves = false;
+        entreiResetGloves = false;
     }
 
     public static bool GetGoalScored()
@@ -477,19 +536,6 @@ public class PlayerControlSwipe : MonoBehaviour
         if (deltaX * deltaX + deltaY * deltaY < (doubleTapRadius * doubleTapRadius))
             return 0;
         return -1;
-    }
-
-    private void ResetGlovesPosition()
-    {
-        startGlovePosition = transform.position;
-        endGlovePosition = new Vector2(startGlovePosition.x, transform.position.y);
-        while (flytime < flightDuration)
-        {
-            flytime += Time.deltaTime;
-            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-            confirmedSwipeRight = true;
-            ResetGlovesPosition(); // volta a por as luvas no meio do ecrã
-        }
     }
 
     private void ChangeToInstructionsState()

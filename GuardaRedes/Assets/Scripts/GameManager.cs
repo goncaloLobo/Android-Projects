@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial5;
 
     private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
+    private static bool resetGloves;
     private static int startedDirection;
     private float currCountdownValue, increaseSpeedTimer;
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
         opening = true;
         started = instructions = gameover = swiperight = swipeleft = swipeup = swipedown = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        resetGloves = false;
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
@@ -457,6 +459,8 @@ public class GameManager : MonoBehaviour
                 {
                     // defendeu
                     golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    System.Diagnostics.Debug.WriteLine("defesa!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -464,7 +468,8 @@ public class GameManager : MonoBehaviour
                 { // nao se mexeu para a esquerda ou nao se mexeu a tempo do proximo remate, sofreu golo
                     golo.Play();
                     golos_sofridos++;
-                    Debug.Log("golooooo!!");
+                    PlayerControlSwipe.ResetGloves();
+                    System.Diagnostics.Debug.WriteLine("golo!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -486,6 +491,7 @@ public class GameManager : MonoBehaviour
                 {
                     // defendeu
                     golos_defendidos++;
+                    System.Diagnostics.Debug.WriteLine("defesa!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -493,12 +499,22 @@ public class GameManager : MonoBehaviour
                 { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
                     golo.Play();
                     golos_sofridos++;
-                    Debug.Log("golooooo!!");
+                    System.Diagnostics.Debug.WriteLine("golo!!!");
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
             }
         }
+    }
+
+    public static bool GetResetGloves()
+    {
+        return resetGloves;
+    }
+
+    public static void ResetResetGloves()
+    {
+        resetGloves = false;
     }
 
     //obtem o highscore que esteja guardado, qualquer que seja o valor, no start e no opening
