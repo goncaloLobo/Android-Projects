@@ -61,11 +61,11 @@ public class GameManager : MonoBehaviour
 
         tutorial0 = sounds[3];
         tutorial1 = sounds[4];
-        golo = sounds[5];
-        tutorial2 = sounds[6];
-        tutorial3 = sounds[7];
-        tutorial4 = sounds[8];
-        tutorial5 = sounds[9];
+        golo = sounds[6];
+        tutorial2 = sounds[7];
+        tutorial3 = sounds[8];
+        tutorial4 = sounds[9];
+        tutorial5 = sounds[10];
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -254,19 +254,6 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
-
-        // SE FOR GOLO
-        if (PlayerControlSwipe.GetGoalScored())
-        {
-            golo.Play();
-            golos_sofridos++;
-        }
-
-        // TERMINOU O JOGO
-        if(golos_sofridos == 5)
-        {
-            Invoke("ChangeToGameoverState", 0f);
-        }
     }
 
     public void SetGameManagerState(GameManagerState state)
@@ -386,9 +373,16 @@ public class GameManager : MonoBehaviour
                 case 1:
                     break;
                 case 2:
-                    chutoEsquerda.Play();
-                    Debug.Log("chutei!!");
-                    StartCoroutine(WaitForLeftShot(3.0f));
+                    if(golos_sofridos < 5)
+                    {
+                        chutoEsquerda.Play();
+                        StartCoroutine(WaitForLeftShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
                     break;
                 case 3:
                     chutoDireita.Play();
@@ -459,20 +453,19 @@ public class GameManager : MonoBehaviour
 
             if (increaseSpeedTimer == 0)
             {
-                Debug.Log("passaram-se 3 segundos");
                 if (PlayerControlSwipe.GetConfirmedSwipeLeft())
                 {
-                    Debug.Log("defesa!! :o");
                     // defendeu
                     golos_defendidos++;
-                    Invoke("Rematar", 0f);
+                    Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
                 else
                 { // nao se mexeu para a esquerda ou nao se mexeu a tempo do proximo remate, sofreu golo
-                    Debug.Log("golooooo!! :o");
+                    golo.Play();
                     golos_sofridos++;
-                    Invoke("Rematar", 0f);
+                    Debug.Log("golooooo!!");
+                    Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
             }
@@ -493,11 +486,15 @@ public class GameManager : MonoBehaviour
                 {
                     // defendeu
                     golos_defendidos++;
+                    Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
                 else
                 { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
                     golos_sofridos++;
+                    Debug.Log("golooooo!!");
+                    Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
             }
