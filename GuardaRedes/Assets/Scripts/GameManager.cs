@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
         {
             case GameManagerState.Opening:
                 SetOpeningBools();
-                playerShip.SetActive(false);
+                playerShip.SetActive(true);
                 GameOverGO.SetActive(false);
                 playButton.SetActive(true);
                 howToButton.SetActive(true);
@@ -142,7 +142,6 @@ public class GameManager : MonoBehaviour
                 SetGameoverBools();
                 //display game over
                 GameOverGO.SetActive(true);
-                apito3x.Play();
 
                 // se for novo highscore, vai regista-lo
                 // assim como o tempo e o numero de inimigos desviados associado

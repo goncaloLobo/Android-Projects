@@ -1,0 +1,211 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 167936 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:390), pid=5576, tid=0x000000000000693c
+#
+# JRE version: OpenJDK Runtime Environment (8.0) (build 1.8.0-adoptopenjdk-_2018_05_19_00_59-b00)
+# Java VM: OpenJDK 64-Bit Server VM (25.71-b00 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000000001c76f000):  JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=26940, stack(0x000000001cf40000,0x000000001d040000)]
+
+Stack: [0x000000001cf40000,0x000000001d040000]
+[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+
+
+Current CompileTask:
+C2:    530  965       4       java.util.regex.Matcher::search (109 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x000000001c81e000 JavaThread "Service Thread" daemon [_thread_blocked, id=8776, stack(0x000000001d340000,0x000000001d440000)]
+  0x000000001c786000 JavaThread "C1 CompilerThread3" daemon [_thread_in_native, id=12332, stack(0x000000001d240000,0x000000001d340000)]
+  0x000000001c781000 JavaThread "C2 CompilerThread2" daemon [_thread_in_native, id=25412, stack(0x000000001d140000,0x000000001d240000)]
+  0x000000001c772800 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=26784, stack(0x000000001d040000,0x000000001d140000)]
+=>0x000000001c76f000 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=26940, stack(0x000000001cf40000,0x000000001d040000)]
+  0x000000001c76a000 JavaThread "Attach Listener" daemon [_thread_blocked, id=22884, stack(0x000000001ce40000,0x000000001cf40000)]
+  0x000000001c769000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=10576, stack(0x000000001cd40000,0x000000001ce40000)]
+  0x000000001c760800 JavaThread "Finalizer" daemon [_thread_blocked, id=18656, stack(0x000000001cb40000,0x000000001cc40000)]
+  0x000000001a86b800 JavaThread "Reference Handler" daemon [_thread_blocked, id=27696, stack(0x000000001c640000,0x000000001c740000)]
+  0x00000000032a2800 JavaThread "main" [_thread_in_Java, id=28276, stack(0x0000000003100000,0x0000000003200000)]
+
+Other Threads:
+  0x000000001a866000 VMThread [stack: 0x000000001c540000,0x000000001c640000] [id=14628]
+  0x000000001c81e800 WatcherThread [stack: 0x000000001d440000,0x000000001d540000] [id=27340]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap:
+ PSYoungGen      total 57344K, used 21753K [0x0000000780980000, 0x0000000784980000, 0x00000007c0000000)
+  eden space 49152K, 44% used [0x0000000780980000,0x0000000781ebe558,0x0000000783980000)
+  from space 8192K, 0% used [0x0000000784180000,0x0000000784180000,0x0000000784980000)
+  to   space 8192K, 0% used [0x0000000783980000,0x0000000783980000,0x0000000784180000)
+ ParOldGen       total 131072K, used 0K [0x0000000701c00000, 0x0000000709c00000, 0x0000000780980000)
+  object space 131072K, 0% used [0x0000000701c00000,0x0000000701c00000,0x0000000709c00000)
+ Metaspace       used 12360K, capacity 12634K, committed 12928K, reserved 1062912K
+  class space    used 1496K, capacity 1595K, committed 1664K, reserved 1048576K
+
+Card table byte_map: [0x0000000012760000,0x0000000012d60000] byte_map_base: 0x000000000ef52000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000050c6be50
+ Begin Bits: [0x0000000013960000, 0x00000000168f0000)
+ End Bits:   [0x00000000168f0000, 0x0000000019880000)
+
+Polling page: 0x00000000014b0000
+
+CodeCache: size=245760Kb used=3547Kb max_used=3547Kb free=242212Kb
+ bounds [0x00000000033a0000, 0x0000000003720000, 0x00000000123a0000]
+ total_blobs=1358 nmethods=1000 adapters=271
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 0.503 Thread 0x000000001c786000 nmethod 963 0x00000000036db7d0 code [0x00000000036db940, 0x00000000036dbac8]
+Event: 0.503 Thread 0x000000001c786000  964       3       java.lang.AbstractStringBuilder::getChars (64 bytes)
+Event: 0.504 Thread 0x000000001c786000 nmethod 964 0x00000000036eac10 code [0x00000000036eadc0, 0x00000000036eb238]
+Event: 0.504 Thread 0x000000001c786000  959  s    3       java.lang.StringBuffer::append (13 bytes)
+Event: 0.504 Thread 0x000000001c786000 nmethod 959 0x00000000036ea690 code [0x00000000036ea800, 0x00000000036eab28]
+Event: 0.504 Thread 0x000000001c786000  953       3       java.util.regex.Pattern$GroupTail::match (111 bytes)
+Event: 0.504 Thread 0x000000001c786000 nmethod 953 0x00000000036e9e50 code [0x00000000036e9fe0, 0x00000000036ea3a8]
+Event: 0.504 Thread 0x000000001c786000  955       3       java.util.regex.Pattern$4::match (14 bytes)
+Event: 0.504 Thread 0x000000001c786000 nmethod 955 0x00000000036e9a90 code [0x00000000036e9be0, 0x00000000036e9d90]
+Event: 0.508 Thread 0x000000001c786000  977       3       com.sun.org.apache.xerces.internal.impl.XMLNSDocumentScannerImpl::scanAttribute (824 bytes)
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (10 events):
+Event: 0.412 Thread 0x00000000032a2800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000035d25ec method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+Event: 0.437 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x0000000003663814 method=java.io.FilterInputStream.read()I @ 4
+Event: 0.437 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x0000000003663814 method=java.io.FilterInputStream.read()I @ 4
+Event: 0.437 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x0000000003663814 method=java.io.FilterInputStream.read()I @ 4
+Event: 0.437 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x0000000003663814 method=java.io.FilterInputStream.read()I @ 4
+Event: 0.459 Thread 0x00000000032a2800 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000035bb344 method=java.lang.AbstractStringBuilder.append(Ljava/lang/String;)Ljava/lang/AbstractStringBuilder; @ 1
+Event: 0.502 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000036dc45c method=java.util.regex.Pattern$GroupHead.match(Ljava/util/regex/Matcher;ILjava/lang/CharSequence;)Z @ 28
+Event: 0.502 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000036dc45c method=java.util.regex.Pattern$GroupHead.match(Ljava/util/regex/Matcher;ILjava/lang/CharSequence;)Z @ 28
+Event: 0.502 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000036dc45c method=java.util.regex.Pattern$GroupHead.match(Ljava/util/regex/Matcher;ILjava/lang/CharSequence;)Z @ 28
+Event: 0.502 Thread 0x00000000032a2800 Uncommon trap: reason=class_check action=maybe_recompile pc=0x00000000036dc45c method=java.util.regex.Pattern$GroupHead.match(Ljava/util/regex/Matcher;ILjava/lang/CharSequence;)Z @ 28
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (10 events):
+Event: 0.298 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x00000007813db830) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.299 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x00000007813dd900) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.301 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x00000007813ebe30) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.301 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x00000007813ecc58) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.305 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x0000000781418e60) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.305 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException'> (0x000000078141a3c0) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\runtime\sharedRuntime.cpp, line 605]
+Event: 0.307 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException': 72> (0x0000000781433280) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp, line 366]
+Event: 0.307 Thread 0x00000000032a2800 Exception <a 'java/lang/ArrayIndexOutOfBoundsException': 72> (0x0000000781437600) thrown at [C:\Users\jenkins\workspace\openjdk8_build_x86-64_windows\openjdk\hotspot\src\share\vm\interpreter\interpreterRuntime.cpp, line 366]
+Event: 0.412 Thread 0x00000000032a2800 Implicit null exception at 0x00000000035d2219 to 0x00000000035d25d5
+Event: 0.459 Thread 0x00000000032a2800 Implicit null exception at 0x00000000035baf59 to 0x00000000035bb32d
+
+Events (10 events):
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/Op$RangeOp
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/Op$RangeOp done
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$Context
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$Context done
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$StringTarget
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$ExpressionTarget
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$ExpressionTarget done
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$StringTarget done
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$ClosureContext
+Event: 0.508 loading class com/sun/org/apache/xerces/internal/impl/xpath/regex/RegularExpression$ClosureContext done
+
+
+Dynamic libraries:
+0x00007ff77dc10000 - 0x00007ff77dc45000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\bin\java.exe
+0x00007ff8a6c00000 - 0x00007ff8a6df0000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ff8a55c0000 - 0x00007ff8a5672000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ff8a4000000 - 0x00007ff8a42a3000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ff8a6490000 - 0x00007ff8a6533000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ff8a6750000 - 0x00007ff8a67ee000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ff8a5820000 - 0x00007ff8a58b7000 	C:\WINDOWS\System32\sechost.dll
+0x00007ff8a6a70000 - 0x00007ff8a6b90000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ff8a67f0000 - 0x00007ff8a6984000 	C:\WINDOWS\System32\USER32.dll
+0x00007ff8a4c80000 - 0x00007ff8a4ca1000 	C:\WINDOWS\System32\win32u.dll
+0x00007ff8a6b90000 - 0x00007ff8a6bb6000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ff8a3d60000 - 0x00007ff8a3ef4000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ff8a3c90000 - 0x00007ff8a3d2e000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff8a3f00000 - 0x00007ff8a3ffa000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff89cf20000 - 0x00007ff89d1a5000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.18362.778_none_e6c6b761130d4fb8\COMCTL32.dll
+0x00007ff8a5a70000 - 0x00007ff8a5da6000 	C:\WINDOWS\System32\combase.dll
+0x00007ff8a4c00000 - 0x00007ff8a4c80000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff8a57f0000 - 0x00007ff8a581e000 	C:\WINDOWS\System32\IMM32.DLL
+0x0000000050cf0000 - 0x0000000050dc2000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\msvcr100.dll
+0x00000000504a0000 - 0x0000000050ce9000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\server\jvm.dll
+0x00007ff8a4cb0000 - 0x00007ff8a4cb8000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ff89acf0000 - 0x00007ff89acf9000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ff89e820000 - 0x00007ff89e82a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ff8a0760000 - 0x00007ff8a0784000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ff8a6990000 - 0x00007ff8a69ff000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ff8a0730000 - 0x00007ff8a075d000 	C:\WINDOWS\SYSTEM32\WINMMBASE.dll
+0x00007ff8a3b90000 - 0x00007ff8a3bda000 	C:\WINDOWS\System32\cfgmgr32.dll
+0x00007ff89fe00000 - 0x00007ff89fe0f000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\verify.dll
+0x00007ff8866a0000 - 0x00007ff8866c9000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\java.dll
+0x00007ff886870000 - 0x00007ff886886000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\zip.dll
+0x00007ff8a4cc0000 - 0x00007ff8a53a5000 	C:\WINDOWS\System32\SHELL32.dll
+0x00007ff8a6290000 - 0x00007ff8a6339000 	C:\WINDOWS\System32\shcore.dll
+0x00007ff8a42d0000 - 0x00007ff8a4a50000 	C:\WINDOWS\System32\windows.storage.dll
+0x00007ff8a3b60000 - 0x00007ff8a3b83000 	C:\WINDOWS\System32\profapi.dll
+0x00007ff8a3b10000 - 0x00007ff8a3b5a000 	C:\WINDOWS\System32\powrprof.dll
+0x00007ff8a3ac0000 - 0x00007ff8a3ad0000 	C:\WINDOWS\System32\UMPDC.dll
+0x00007ff8a6a10000 - 0x00007ff8a6a62000 	C:\WINDOWS\System32\shlwapi.dll
+0x00007ff8a3ad0000 - 0x00007ff8a3ae1000 	C:\WINDOWS\System32\kernel.appcore.dll
+0x00007ff8a42b0000 - 0x00007ff8a42c7000 	C:\WINDOWS\System32\cryptsp.dll
+0x00007ff885eb0000 - 0x00007ff885eca000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\net.dll
+0x00007ff8a32d0000 - 0x00007ff8a3337000 	C:\WINDOWS\system32\mswsock.dll
+0x00007ff885e90000 - 0x00007ff885ea1000 	C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer\Tools\OpenJDK\Windows\jre\bin\nio.dll
+
+VM Arguments:
+jvm_args: -Dcom.android.sdkmanager.toolsdir=C:\AndroidSDK\tools\bin\\.. 
+java_command: com.android.sdklib.tool.AvdManagerCli list target -c
+java_class_path (initial): C:\AndroidSDK\tools\bin\..\lib\dvlib-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\jimfs-1.1.jar;C:\AndroidSDK\tools\bin\..\lib\jsr305-1.3.9.jar;C:\AndroidSDK\tools\bin\..\lib\repository-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\j2objc-annotations-1.1.jar;C:\AndroidSDK\tools\bin\..\lib\layoutlib-api-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\gson-2.3.jar;C:\AndroidSDK\tools\bin\..\lib\httpcore-4.2.5.jar;C:\AndroidSDK\tools\bin\..\lib\commons-logging-1.1.1.jar;C:\AndroidSDK\tools\bin\..\lib\commons-compress-1.12.jar;C:\AndroidSDK\tools\bin\..\lib\annotations-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\error_prone_annotations-2.0.18.jar;C:\AndroidSDK\tools\bin\..\lib\animal-sniffer-annotations-1.14.jar;C:\AndroidSDK\tools\bin\..\lib\httpclient-4.2.6.jar;C:\AndroidSDK\tools\bin\..\lib\commons-codec-1.6.jar;C:\AndroidSDK\tools\bin\..\lib\common-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\kxml2-2.3.0.jar;C:\AndroidSDK\tools\bin\..\lib\httpmime-4.1.jar;C:\AndroidSDK\tools\bin\..\lib\annotations-12.0.jar;C:\AndroidSDK\tools\bin\..\lib\sdklib-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\guava-22.0.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Unity\Hub\Editor\2018.4.16f1\Editor\Data\PlaybackEngines\AndroidPlayer/Tools\OpenJDK\Windows
+CLASSPATH=C:\AndroidSDK\tools\bin\..\lib\dvlib-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\jimfs-1.1.jar;C:\AndroidSDK\tools\bin\..\lib\jsr305-1.3.9.jar;C:\AndroidSDK\tools\bin\..\lib\repository-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\j2objc-annotations-1.1.jar;C:\AndroidSDK\tools\bin\..\lib\layoutlib-api-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\gson-2.3.jar;C:\AndroidSDK\tools\bin\..\lib\httpcore-4.2.5.jar;C:\AndroidSDK\tools\bin\..\lib\commons-logging-1.1.1.jar;C:\AndroidSDK\tools\bin\..\lib\commons-compress-1.12.jar;C:\AndroidSDK\tools\bin\..\lib\annotations-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\error_prone_annotations-2.0.18.jar;C:\AndroidSDK\tools\bin\..\lib\animal-sniffer-annotations-1.14.jar;C:\AndroidSDK\tools\bin\..\lib\httpclient-4.2.6.jar;C:\AndroidSDK\tools\bin\..\lib\commons-codec-1.6.jar;C:\AndroidSDK\tools\bin\..\lib\common-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\kxml2-2.3.0.jar;C:\AndroidSDK\tools\bin\..\lib\httpmime-4.1.jar;C:\AndroidSDK\tools\bin\..\lib\annotations-12.0.jar;C:\AndroidSDK\tools\bin\..\lib\sdklib-26.0.0-dev.jar;C:\AndroidSDK\tools\bin\..\lib\guava-22.0.jar
+PATH=C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\ATI.ACE\Core-Static;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;C:\Program Files\Java\jdk1.6.0\bin;C:\Program Files\Java\jdk1.7.0_17\bin;C:\Users\Gonçalo\Documents\sqlplus\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Users\Gonçalo\AppData\Local\Microsoft\WindowsApps;C:\Users\Gonçalo\AppData\Local\GitHubDesktop\bin;%USERPROFILE%\AppData\Local\Microsoft\WindowsApps;C:\Users\Gonçalo\AppData\Local\Programs\MiKTeX 2.9\miktex\bin\x64\;
+USERNAME=Gonçalo
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 60 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 18362 (10.0.18362.778)
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2
+
+Memory: 4k page, physical 12464544k(3278760k free), swap 14939552k(1944k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.71-b00) for windows-amd64 JRE (1.8.0-adoptopenjdk-_2018_05_19_00_59-b00), built on May 19 2018 01:02:12 by "jenkins" with MS VC++ 10.0 (VS2010)
+
+time: Wed Apr 29 14:53:19 2020
+elapsed time: 0 seconds (0d 0h 0m 0s)
+

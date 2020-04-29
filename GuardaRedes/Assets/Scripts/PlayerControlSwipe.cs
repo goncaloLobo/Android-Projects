@@ -18,14 +18,15 @@ public class PlayerControlSwipe : MonoBehaviour
     private Vector2 startGlovePosition, endGlovePosition, swipeDelta, stTouch, sndTouch, turningPoint;
     private Vector3 rotationEuler;
     private Touch currentTouch, previousTouch;
-    private Touch startTouch, endTouch;
+    private Touch startTouch, endTouch, currentTouchMove, previousTouchMove, currentLMove, turningPointTouch;
     private float startTouchTime, endTouchTime;
     private float currentTapTime, lastTapTime, flytime;
     private float flightDuration = 0.1f;
     private float screenDPI;
     private static bool jogarCancelAction, hasEntered, resetGloves, tutorialCancelAction;
     private static bool confirmedSwipeLeft, confirmedSwipeRight, confirmedSwipeUp, confirmedSwipeDown;
-    private bool entreiResetGloves;
+    private bool entreiResetGloves, consideredSwipe, rightThenUpSwipe, firstTime = true, leftThenUpSwipe;
+    private int deltaXMoved = 0, deltaYMoved = 0;
 
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public Vector2 StartGlovePosition { get { return startGlovePosition; } }
@@ -37,11 +38,10 @@ public class PlayerControlSwipe : MonoBehaviour
     {
         //mostra as luvas do gr no ecra
         gameObject.SetActive(true);
-        screenDPI = Screen.dpi;
-
         sounds = GetComponents<AudioSource>();
         introducao = sounds[0];
         jogarCancelAction = hasEntered = false;
+        consideredSwipe = rightThenUpSwipe = leftThenUpSwipe = false;
     }
 
     void Update()
@@ -170,7 +170,42 @@ public class PlayerControlSwipe : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Moved)
             {
+                currentTouchMove = touch;
 
+                // swipe para a esquerda
+                if (currentTouchMove.position.x - startTouch.position.x < 0)
+                {
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && !leftThenUpSwipe)
+                    {
+                        deltaXMoved = (int)currentTouchMove.position.x - (int)startTouch.position.x;
+                        deltaYMoved = (int)currentTouchMove.position.y - (int)startTouch.position.y;
+
+                        int distance = (deltaXMoved * deltaXMoved) + (deltaYMoved * deltaYMoved);
+                        screenDPI = Screen.dpi;
+                        if (distance > (16.0f * screenDPI + 0.5f))
+                        {
+                            consideredSwipe = true;
+                        }
+                    }
+
+                    if (currentTouchMove.position.y - previousTouchMove.position.y > 5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && consideredSwipe)
+                    {
+                        if (firstTime) {
+                            turningPointTouch = currentTouchMove;
+                            firstTime = false;
+                        }
+
+                        deltaXMoved = (int)currentTouchMove.position.x - (int)turningPointTouch.position.x;
+                        deltaYMoved = (int)currentTouchMove.position.y - (int)turningPointTouch.position.y;
+                        int distance = (deltaXMoved * deltaXMoved) + (deltaYMoved * deltaYMoved);
+                        screenDPI = Screen.dpi;
+                        if (distance > (16.0f * screenDPI + 0.5f))
+                        {
+                            leftThenUpSwipe = true;
+                        }
+                    }
+                }
+                previousTouchMove = currentTouchMove;
             }
             else if (touch.phase == TouchPhase.Ended)
             {
