@@ -245,7 +245,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
 
                     // rightThenDownSwipe
-                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeRight)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeRight)
                     {
                         if (firstTime)
                         {
@@ -283,7 +283,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
 
                     // downThenRightSwipe
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < 5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
+                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
                     {
                         if (firstTime)
                         {
@@ -303,7 +303,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     }
 
                     // downThenLeftSwipe
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < 5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
+                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
                     {
                         if (firstTime)
                         {
@@ -538,41 +538,6 @@ public class PlayerControlSwipe : MonoBehaviour
             }
             else if (touchSwipeLeft.phase == TouchPhase.Ended)
             {
-                /*
-                endTouch = touchSwipeLeft;
-                endTouchTime = Time.time;
-                int deltaX = (int)endTouch.position.x - (int)startTouch.position.x;
-                int deltaY = (int)endTouch.position.y - (int)startTouch.position.y;
-
-                int distance = (deltaX * deltaX) + (deltaY * deltaY);
-                if (distance > (16.0f * screenDPI + 0.5f))
-                {
-                    float difference = endTouchTime - startTouchTime;
-                    if ((Mathf.Abs(deltaX / difference) > minimumFlingVelocity) | (Mathf.Abs(deltaY / difference) > minimumFlingVelocity))
-                    {
-                        swipeDelta = new Vector2(deltaX, deltaY);
-                        swipeDelta.Normalize();
-                        //swipe left
-                        if (swipeDelta.x < 0 && swipeDelta.y > -0.5f && swipeDelta.y < 0.5f)
-                        {
-                            flytime = 0f;
-                            startGlovePosition = transform.position;
-                            endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
-                            while (flytime < flightDuration)
-                            {
-                                flytime += Time.deltaTime;
-                                transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                                confirmedSwipeLeft = true;
-                            }
-
-                            // roda as luvas do gr para a esquerda
-                            rotationEuler += Vector3.forward * 30;
-                            transform.rotation = Quaternion.Euler(rotationEuler);
-                        }
-                    }
-                }
-                */
-
                 if (confirmedSwipeLeft)
                 {
                     flytime = 0f;
@@ -752,6 +717,10 @@ public class PlayerControlSwipe : MonoBehaviour
                 endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y - 2f);
             if (leftThenDownSwipe)
                 endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y + 2f);
+            if(rightThenDownSwipe)
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
+            if(rightThenUpSwipe)
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y - 2f);
 
             while (flytime < flightDuration)
             {
@@ -767,6 +736,8 @@ public class PlayerControlSwipe : MonoBehaviour
             ResetConfirmedSwipeRight();
             ResetLeftThenUpSwipe();
             ResetLeftThenDownSwipe();
+            ResetRightThenDownSwipe();
+            ResetUpThenRightSwipe();
         }
     }
 
