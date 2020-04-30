@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial5;
 
     private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
+    private static bool swipedownthenleft, swipeleftthenup, swiperightthendown, swipeleftthendown, swipedownthenright;
     private static bool resetGloves;
     private static int startedDirection;
     private float currCountdownValue, increaseSpeedTimer;
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour
 
     public enum GameManagerState
     {
-        Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5
+        Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5,
+        SwipeDownThenLeft, SwipeLeftThenUp, SwipeRightThenDown, SwipeLeftThenDown, SwipeDownThenRight
     }
 
     public static GameManagerState GMState;
@@ -54,6 +56,7 @@ public class GameManager : MonoBehaviour
         opening = true;
         started = instructions = gameover = swiperight = swipeleft = swipeup = swipedown = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthendown = swiperightthendown = swipeleftthendown = swipedownthenright = false;
         resetGloves = false;
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
@@ -109,7 +112,7 @@ public class GameManager : MonoBehaviour
                 DeactivateDefenderes();
 
                 //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
-                //int roll = Random.Range(1, 8);
+                //int roll = Random.Range(1, 9);
                 int roll = 1;
                 switch (roll)
                 {
@@ -127,13 +130,15 @@ public class GameManager : MonoBehaviour
                     case 4: // swipe down
                         startedDirection = 1;
                         break;
-                    case 5: // swipe up and left
+                    case 5: // swipe down then left
                         break;
-                    case 6: // swipe up and right
+                    case 6: // swipe left then up
                         break;
-                    case 7: // swipe down then left
+                    case 7: // swipe right then down
                         break;
-                    case 8: // swipe down then right
+                    case 8: // swipe left then down
+                        break;
+                    case 9: // swipe down then right
                         break;
                 }
 
@@ -199,6 +204,8 @@ public class GameManager : MonoBehaviour
                 // mete os varios defenderes a false
                 DeactivateDefenderes();
 
+                Invoke("Apitar", 0f);
+
                 break;
             case GameManagerState.SwipeUp:
                 SetSwipeupBools();
@@ -258,6 +265,56 @@ public class GameManager : MonoBehaviour
                 Invoke("ChangeToInstructionsState", tutorial5.clip.length);
 
                 break;
+            case GameManagerState.SwipeDownThenLeft:
+                SetSwipeDownThenLeftBools();
+
+                // caso para ensinar remates para swipe down then left (5)
+                startedDirection = 5;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                break;
+            case GameManagerState.SwipeLeftThenUp:
+                SetSwipeLeftThenUpBools();
+
+                // caso para ensinar remates para swipe left then up (6)
+                startedDirection = 6;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                break;
+            case GameManagerState.SwipeRightThenDown:
+                SetSwipeRightThenDownBools();
+
+                // caso para ensinar remates para swipe right then down (7)
+                startedDirection = 7;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                break;
+            case GameManagerState.SwipeLeftThenDown:
+                SetSwipeLeftThenDownBools();
+
+                // caso para ensinar remates para swipe left then down (8)
+                startedDirection = 8;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                break;
+            case GameManagerState.SwipeDownThenRight:
+                SetSwipeDownThenRightBools();
+
+                // caso para ensinar remates para swipe down then right (9)
+                startedDirection = 9;
+
+                // mete os varios defenderes a false
+                DeactivateDefenderes();
+
+                break;
         }
     }
 
@@ -287,69 +344,112 @@ public class GameManager : MonoBehaviour
         return GMState;
     }
 
+    // verifica que o jogo ja começou
     public static bool GetStarted()
     {
         return started;
     }
 
+    // verifica que se esta no estado inicial do jogo
     public static bool GetOpening()
     {
         return opening;
     }
 
+    // verifica que se terminou o jogo
     public static bool GetGameover()
     {
         return gameover;
     }
 
+    // verifica que estamos no modo de jogo de treinar swipes para cima
     public static bool GetSwipeUp()
     {
         return swipeup;
     }
 
+    // verifica que estamos no modo de jogo de treinar swipes para esquerda
     public static bool GetSwipeLeft()
     {
         return swipeleft;
     }
 
+    // verifica que estamos no modo de jogo de treinar swipes para direita
     public static bool GetSwipeRight()
     {
         return swiperight;
     }
 
+    // verifica que estamos no modo de jogo de treinar swipes para baixo
     public static bool GetSwipeDown()
     {
         return swipedown;
     }
 
+    // verifica que estamos nas instrucoes
     public static bool GetInstructions()
     {
         return instructions;
     }
 
+    // verifica que estamos na parte 1 do tutorial
     public static bool GetTutorialP1()
     {
         return tutorialp1;
     }
 
+    // verifica que estamos na parte 2 do tutorial
     public static bool GetTutorialP2()
     {
         return tutorialp2;
     }
 
+    // verifica que estamos na parte 3 do tutorial
     public static bool GetTutorialP3()
     {
         return tutorialp3;
     }
 
+    // verifica que estamos na parte 4 do tutorial
     public static bool GetTutorialP4()
     {
         return tutorialp4;
     }
 
+    // verifica que estamos na parte 5 do tutorial
     public static bool GetTutorialP5()
     {
         return tutorialp5;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para baixo e para a esquerda
+    public static bool GetSwipeDownThenLeft()
+    {
+        return swipedownthenleft;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para esquerda e para cima
+    public static bool GetSwipeLeftThenUp()
+    {
+        return swipeleftthenup;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para direita e para baixo
+    public static bool GetSwipeRightThenDown()
+    {
+        return swiperightthendown;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para esquerda e para baixo
+    public static bool GetSwipeLeftThenDown()
+    {
+        return swipeleftthendown;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para baixo e para a direita
+    public static bool GetSwipeDownThenRight()
+    {
+        return swipedownthenright;
     }
 
     public void Apitar()
@@ -370,6 +470,11 @@ public class GameManager : MonoBehaviour
             // 2 - esquerda
             // 3 - direita
             // 4 - cima
+            // 5 - down then left
+            // 6 - left then up
+            // 7 - right then down
+            // 8 - left then down
+            // 9 - down then right
             switch (startedDirection)
             {
                 case 1:
@@ -648,5 +753,45 @@ public class GameManager : MonoBehaviour
         tutorialp5 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = false;
+    }
+
+    // Bools para o estado SwipeDownThenLeft
+    private void SetSwipeDownThenLeftBools()
+    {
+        swipedownthenleft = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = false;
+    }
+
+    // Bools para o estado SwipeLeftThenUp
+    private void SetSwipeLeftThenUpBools()
+    {
+        swipeleftthenup = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swiperightthendown = swipeleftthendown = swipedownthenright = false;
+    }
+
+    // Bools para o estado SwipeRightThenDown
+    private void SetSwipeRightThenDownBools()
+    {
+        swiperightthendown = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swipeleftthendown = swipedownthenright = false;
+    }
+
+    // Bools para o estado SwipeLeftThenDown
+    private void SetSwipeLeftThenDownBools()
+    {
+        swipeleftthendown = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipedownthenright = false;
+    }
+
+    // Bools para o estado SwipeDownThenRight
+    private void SetSwipeDownThenRightBools()
+    {
+        swipedownthenright = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = false;
     }
 }

@@ -78,28 +78,31 @@ Jogo 9 -> Guarda Redes
 	Nível "normal" com todos os gestos.
 	
 	
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Corda:
 -> Representação visual do jogo (para o fim). NAO É IMPORTANTE POR ENQUANTO
--> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar.
+-> Som para aterrar depois do duplo toque. Só pode saltar de novo depois de aterrar. (ACTUALLY FAZER)
 -> Tempo de salto depende da velocidade de duplo salto: quanto mais curto, mais baixo o salto.
--> Som de que a corda bateu em mim (qdo não salta).
+-> Som de que a corda bateu em mim (qdo não salta). (SOM TROPEÇAR FEITO, SOM QDO NAO SALTA AINDA NAO FEITO)
 
 Rocket:
 -> Possivelmente ter som dos inimigos mais contínuo.
 (FEITO) Som aumenta à medida que o inimigo nave/asteroide vai descendo pelo ecrã.
 -> Arranjar uma forma de indicar que a pessoa tem de se mexer (som de onde deve estar, para sinalizar que deve ou não mexer-se).
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Como gravar os dados? -> toques, swipes, métricas do jogo (utilizar firebase?)
+Aplicação Android para as pessoas fazerem swipes para depois comparar com os jogos (papers Target Practicing, Gesture Detection, Touchscreen Gestures, Target Size, Assessing Touchscreen Gestures/ Assessing Double Tap)
+Tela em branco -> Aplicação pede para fazer duplo toque ou swipe, conta e permite fazer uns 30.
+                  Aplicação recolhe apenas um tipo de toque/swipe de cada vez.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 QUANDO A QUARENTENA E TODA ESTA CONFUSAO TERMINAR, LEVAR UM BOLO PARA A MINHA LILI.
 
 NAO APAGAR ISTO.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Próxima reunião -> QUINTA 23/04 11h
-
-Como gravar os dados? -> toques, swipes, métricas do jogo (utilizar firebase?)
-Aplicação Android para as pessoas fazerem swipes para depois comparar com os jogos (papers Target Practicing, Gesture Detection, Touchscreen Gestures, Target Size, Assessing Touchscreen Gestures/ Assessing Double Tap)
-
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Próxima reunião -> Quinta 30/04 11h30
+Próxima reunião -> Quinta 07/04 11h30
+
+Procurar bibliotecas de firebase para ligar os projetos unity para recolha de dados:
+  -> (dispositivo, tamanho do ecra, versão android, timestamp da sessao, qtos swipes detetados, qtos toques foram swipes nao detetados, toques que nao foram usados no jogo - toques que sao detetados mas que nao têm contexto no jogo)
+  -> Optar por escrever no fim de sessão em vez de escrever continuamente
+Outra opção poderá ser explorar base de dados remota
+Explorar possibilidade de a aplicação de recolha de dados fazer parte dos jogos -> Antes de iniciar o jogo, pedir para fazer p.e 10 duplo toques e dps qdo joga medir esses duplos toques para dps comparar
