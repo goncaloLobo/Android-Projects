@@ -174,7 +174,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 // swipe para a esquerda
                 if (currentTouchMove.position.x - startTouch.position.x < 0)
                 {
-                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && !leftThenUpSwipe && !leftThenDownSwipe)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && currentTouchMove.position.y - previousTouchMove.position.y > -5f && !leftThenUpSwipe && !leftThenDownSwipe)
                     {
                         deltaXMoved = (int)currentTouchMove.position.x - (int)startTouch.position.x;
                         deltaYMoved = (int)currentTouchMove.position.y - (int)startTouch.position.y;
@@ -183,12 +183,13 @@ public class PlayerControlSwipe : MonoBehaviour
                         screenDPI = Screen.dpi;
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
+                            System.Diagnostics.Debug.WriteLine("confirmedSwipeLeft");
                             confirmedSwipeLeft = true;
                         }
                     }
 
                     // leftThenUpSwipe
-                    if (currentTouchMove.position.y - previousTouchMove.position.y > 5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeLeft)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y > 5f && currentTouchMove.position.x - previousTouchMove.position.x > -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeLeft)
                     {
                         if (firstTime)
                         {
@@ -203,12 +204,11 @@ public class PlayerControlSwipe : MonoBehaviour
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
                             leftThenUpSwipe = true;
-                            confirmedSwipeLeft = false;
                         }
                     }
-                    
+
                     // leftThenDownSwipe
-                    if (currentTouchMove.position.y - previousTouchMove.position.y < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeLeft)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < -5f && currentTouchMove.position.x - previousTouchMove.position.x < 5f && currentTouchMove.position.x - previousTouchMove.position.x > -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeLeft)
                     {
                         if (firstTime)
                         {
@@ -223,15 +223,13 @@ public class PlayerControlSwipe : MonoBehaviour
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
                             leftThenDownSwipe = true;
-                            confirmedSwipeLeft = false;
                         }
-                    }
+                    } 
                 }
-
                 // swipe para a direita
                 if (currentTouchMove.position.x - startTouch.position.x > 0)
                 {
-                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && !rightThenDownSwipe)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < 5f && currentTouchMove.position.y - previousTouchMove.position.y > -5f && !rightThenDownSwipe)
                     {
                         deltaXMoved = (int)currentTouchMove.position.x - (int)startTouch.position.x;
                         deltaYMoved = (int)currentTouchMove.position.y - (int)startTouch.position.y;
@@ -240,12 +238,13 @@ public class PlayerControlSwipe : MonoBehaviour
                         screenDPI = Screen.dpi;
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
+                            System.Diagnostics.Debug.WriteLine("confirmedSwipeRight");
                             confirmedSwipeRight = true;
                         }
                     }
 
                     // rightThenDownSwipe
-                    if (currentTouchMove.position.y - previousTouchMove.position.y < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeRight)
+                    if (currentTouchMove.position.y - previousTouchMove.position.y < -5f && currentTouchMove.position.x - previousTouchMove.position.x < 5f && currentTouchMove.position.x - previousTouchMove.position.x > -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeRight)
                     {
                         if (firstTime)
                         {
@@ -260,17 +259,15 @@ public class PlayerControlSwipe : MonoBehaviour
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
                             rightThenDownSwipe = true;
-                            confirmedSwipeRight = false;
                         }
                     }
                 }
-
-                /*
+                
                 // swipe para baixo
-                if (currentTouchMove.position.y - startTouch.position.y < 0)
+                if (currentTouchMove.position.y - startTouch.position.y < 0 && !confirmedSwipeLeft && !confirmedSwipeRight)
                 {
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < 5f && !downThenRightSwipe && !downThenLeftSwipe)
-                    {
+                    if (currentTouchMove.position.x - previousTouchMove.position.x < 5f && currentTouchMove.position.x - previousTouchMove.position.x > -5f && !downThenRightSwipe && !downThenLeftSwipe)
+                    {                        
                         deltaXMoved = (int)currentTouchMove.position.x - (int)startTouch.position.x;
                         deltaYMoved = (int)currentTouchMove.position.y - (int)startTouch.position.y;
 
@@ -278,13 +275,15 @@ public class PlayerControlSwipe : MonoBehaviour
                         screenDPI = Screen.dpi;
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
+                            System.Diagnostics.Debug.WriteLine("confirmedSwipeDown");
                             confirmedSwipeDown = true;
                         }
                     }
-
+                    /*
                     // downThenRightSwipe
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
+                    if (currentTouchMove.position.x - previousTouchMove.position.x > 5f && currentTouchMove.position.y - previousTouchMove.position.y < 5f && currentTouchMove.position.y - previousTouchMove.position.y > -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
                     {
+                        System.Diagnostics.Debug.WriteLine("entrei downThenRightSwipe");
                         if (firstTime)
                         {
                             turningPointTouch = currentTouchMove;
@@ -297,13 +296,14 @@ public class PlayerControlSwipe : MonoBehaviour
                         screenDPI = Screen.dpi;
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
+                            System.Diagnostics.Debug.WriteLine("downThenRightSwipe");
                             downThenRightSwipe = true;
-                            confirmedSwipeDown = false;
                         }
                     }
+                    */
 
                     // downThenLeftSwipe
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
+                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f && currentTouchMove.position.y - previousTouchMove.position.y < 5f && currentTouchMove.position.y - previousTouchMove.position.y > -5f && previousTouchMove.position.x != 0 && previousTouchMove.position.y != 0 && confirmedSwipeDown)
                     {
                         if (firstTime)
                         {
@@ -317,68 +317,17 @@ public class PlayerControlSwipe : MonoBehaviour
                         screenDPI = Screen.dpi;
                         if (distance > (16.0f * screenDPI + 0.5f))
                         {
+                            System.Diagnostics.Debug.WriteLine("downThenLeftSwipe");
                             downThenLeftSwipe = true;
-                            confirmedSwipeDown = false;
                         }
                     }
                 }
-
-                // swipe para cima
-                if (currentTouchMove.position.y - startTouch.position.y > 0)
-                {
-
-                }
-                */
 
                 previousTouchMove = currentTouchMove;
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                if (confirmedSwipeLeft)
-                {
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, startGlovePosition.y);
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-
-                    // roda as luvas do gr para a esquerda
-                    rotationEuler += Vector3.forward * 30;
-                    transform.rotation = Quaternion.Euler(rotationEuler);
-                }
-
-                if (confirmedSwipeRight)
-                {
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-
-                    // roda as luvas do gr para a direita
-                    rotationEuler += Vector3.forward * -30;
-                    transform.rotation = Quaternion.Euler(rotationEuler);
-                }
-
-                if (confirmedSwipeDown)
-                {
-                    flytime = 0f;
-                    startGlovePosition = transform.position;
-                    endGlovePosition = new Vector2(startGlovePosition.x, startGlovePosition.x - 2f);
-                    while (flytime < flightDuration)
-                    {
-                        flytime += Time.deltaTime;
-                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
-                    }
-                }
-
-                if (leftThenUpSwipe)
+                if (leftThenUpSwipe && confirmedSwipeLeft)
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
@@ -394,7 +343,23 @@ public class PlayerControlSwipe : MonoBehaviour
                     transform.rotation = Quaternion.Euler(rotationEuler);
                 }
 
-                if (leftThenDownSwipe)
+                if (!leftThenUpSwipe && confirmedSwipeLeft && !leftThenDownSwipe)
+                {
+                    flytime = 0f;
+                    startGlovePosition = transform.position;
+                    endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, startGlovePosition.y);
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                    }
+
+                    // roda as luvas do gr para a esquerda
+                    rotationEuler += Vector3.forward * 30;
+                    transform.rotation = Quaternion.Euler(rotationEuler);
+                }
+
+                if(leftThenDownSwipe && confirmedSwipeLeft && !leftThenUpSwipe)
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
@@ -410,7 +375,7 @@ public class PlayerControlSwipe : MonoBehaviour
                     transform.rotation = Quaternion.Euler(rotationEuler);
                 }
 
-                if (rightThenDownSwipe)
+                if(rightThenDownSwipe && confirmedSwipeRight)
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
@@ -426,7 +391,23 @@ public class PlayerControlSwipe : MonoBehaviour
                     transform.rotation = Quaternion.Euler(rotationEuler);
                 }
 
-                if (downThenRightSwipe)
+                if(!rightThenDownSwipe && confirmedSwipeRight)
+                {
+                    flytime = 0f;
+                    startGlovePosition = transform.position;
+                    endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                    }
+
+                    // roda as luvas do gr para a direita
+                    rotationEuler += Vector3.forward * -30;
+                    transform.rotation = Quaternion.Euler(rotationEuler);
+                }
+
+                if(downThenRightSwipe && confirmedSwipeDown)
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
@@ -442,7 +423,19 @@ public class PlayerControlSwipe : MonoBehaviour
                     transform.rotation = Quaternion.Euler(rotationEuler);
                 }
 
-                if (downThenLeftSwipe)
+                if(!downThenRightSwipe && confirmedSwipeDown && !downThenLeftSwipe)
+                {
+                    flytime = 0f;
+                    startGlovePosition = transform.position;
+                    endGlovePosition = new Vector2(startGlovePosition.x, startGlovePosition.y - 2f);
+                    while (flytime < flightDuration)
+                    {
+                        flytime += Time.deltaTime;
+                        transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                    }
+                }
+
+                if (!downThenRightSwipe && confirmedSwipeDown && downThenLeftSwipe)
                 {
                     flytime = 0f;
                     startGlovePosition = transform.position;
@@ -457,7 +450,69 @@ public class PlayerControlSwipe : MonoBehaviour
                     rotationEuler += Vector3.forward * 30;
                     transform.rotation = Quaternion.Euler(rotationEuler);
                 }
-            }
+
+                    /*
+                    if (confirmedSwipeDown)
+                    {
+                        flytime = 0f;
+                        startGlovePosition = transform.position;
+                        endGlovePosition = new Vector2(startGlovePosition.x, startGlovePosition.y - 2f);
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        }
+                    }
+
+                    if (rightThenDownSwipe)
+                    {
+                        flytime = 0f;
+                        startGlovePosition = transform.position;
+                        endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, startGlovePosition.y - 2f);
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        }
+
+                        // roda as luvas do gr para a direita
+                        rotationEuler += Vector3.forward * -30;
+                        transform.rotation = Quaternion.Euler(rotationEuler);
+                    }
+
+                    if (downThenRightSwipe)
+                    {
+                        flytime = 0f;
+                        startGlovePosition = transform.position;
+                        endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, startGlovePosition.y - 2f);
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        }
+
+                        // roda as luvas do gr para a direita
+                        rotationEuler += Vector3.forward * -30;
+                        transform.rotation = Quaternion.Euler(rotationEuler);
+                    }
+
+                    if (downThenLeftSwipe)
+                    {
+                        flytime = 0f;
+                        startGlovePosition = transform.position;
+                        endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, startGlovePosition.y - 2f);
+                        while (flytime < flightDuration)
+                        {
+                            flytime += Time.deltaTime;
+                            transform.position = Vector2.Lerp(startGlovePosition, endGlovePosition, flytime / flightDuration);
+                        }
+
+                        // roda as luvas do gr para a esquerda
+                        rotationEuler += Vector3.forward * 30;
+                        transform.rotation = Quaternion.Euler(rotationEuler);
+                    }
+                    */
+                }
         }
 
         // TREINAR SWIPES PARA BAIXO
@@ -476,7 +531,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 // swipe para baixo
                 if (currentTouchMove.position.y - startTouch.position.y < 0)
                 {
-                    if (currentTouchMove.position.x - previousTouchMove.position.x < 5f)
+                    if (currentTouchMove.position.x - previousTouchMove.position.x < -5f)
                     {
                         deltaXMoved = (int)currentTouchMove.position.x - (int)startTouch.position.x;
                         deltaYMoved = (int)currentTouchMove.position.y - (int)startTouch.position.y;
@@ -732,6 +787,30 @@ public class PlayerControlSwipe : MonoBehaviour
             entreiResetGloves = true;
             flytime = 0f;
             startGlovePosition = transform.position;
+
+            if (leftThenUpSwipe && confirmedSwipeLeft)
+                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y - 2f);
+            if(!leftThenUpSwipe && confirmedSwipeLeft)
+                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
+            if(leftThenDownSwipe && confirmedSwipeLeft)
+                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y + 2f);
+            if(rightThenDownSwipe && confirmedSwipeRight)
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
+            if(!rightThenDownSwipe && confirmedSwipeRight)
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
+            if(downThenRightSwipe && confirmedSwipeDown)
+            {
+                System.Diagnostics.Debug.WriteLine("olha eu aqui");
+                System.Diagnostics.Debug.WriteLine("startGlovePosition.x: " + startGlovePosition.x);
+                System.Diagnostics.Debug.WriteLine("transform.position.y: " + transform.position.y);
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
+            }
+
+            if(!downThenRightSwipe && confirmedSwipeDown && !downThenLeftSwipe)
+                endGlovePosition = new Vector2(startGlovePosition.x, transform.position.y + 2f);
+            if(!downThenRightSwipe && confirmedSwipeDown && downThenLeftSwipe)
+                endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y + 2f);
+            /*
             if (confirmedSwipeLeft)
                 endGlovePosition = new Vector2(startGlovePosition.x + 1.3f, transform.position.y);
             if (confirmedSwipeRight)
@@ -744,6 +823,7 @@ public class PlayerControlSwipe : MonoBehaviour
                 endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
             if(rightThenUpSwipe)
                 endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y - 2f);
+            */
 
             while (flytime < flightDuration)
             {
@@ -761,6 +841,8 @@ public class PlayerControlSwipe : MonoBehaviour
             ResetLeftThenDownSwipe();
             ResetRightThenDownSwipe();
             ResetUpThenRightSwipe();
+            ResetDownThenRightSwipe();
+            ResetDownThenLeftSwipe();
         }
     }
 
