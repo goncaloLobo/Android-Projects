@@ -19,6 +19,7 @@ public class ButtonDefenderDireita : MonoBehaviour, IPointerClickHandler, IPoint
     private static int soundOn = 0;
     private static bool jogarBackToNormal, instrucoesBackToNormal, introducaoBackToNormal, tutorialBackToNormal;
     private static bool buttonDefenderBaixoBackToNormal, buttonDefenderCimaBackToNormal, buttonDefenderEsquerdaBackToNormal;
+    private static bool checkToStop;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class ButtonDefenderDireita : MonoBehaviour, IPointerClickHandler, IPoint
         highlighted = 0;
         jogarBackToNormal = instrucoesBackToNormal = introducaoBackToNormal = tutorialBackToNormal = false;
         buttonDefenderBaixoBackToNormal = buttonDefenderCimaBackToNormal = buttonDefenderEsquerdaBackToNormal = false;
+        checkToStop = false;
     }
 
     void Update()
@@ -90,6 +92,13 @@ public class ButtonDefenderDireita : MonoBehaviour, IPointerClickHandler, IPoint
                 defenderParaDireita.Stop();
             if (defenderDescricao.isPlaying)
                 defenderDescricao.Stop();
+        }
+
+        if (checkToStop)
+        {
+            defenderParaDireita.Stop();
+            defenderDescricao.Stop();
+            checkToStop = false;
         }
     }
 
@@ -325,5 +334,10 @@ public class ButtonDefenderDireita : MonoBehaviour, IPointerClickHandler, IPoint
     public static void ResetTutorialBackToNormal()
     {
         tutorialBackToNormal = false;
+    }
+
+    public static void SetCheckToStop()
+    {
+        checkToStop = true;
     }
 }
