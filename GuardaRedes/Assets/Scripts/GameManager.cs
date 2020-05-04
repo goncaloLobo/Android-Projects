@@ -174,47 +174,42 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.SwipeDown:
                 SetSwipedownBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para baixo (1)
-                startedDirection = 1;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 1; // caso para ensinar remates para baixo (1)
+                DeactivateDefenderes(); // mete os varios defenderes a false
+                Invoke("Apitar", 0f);
 
                 break;
             case GameManagerState.SwipeLeft:
                 SetSwipeleftBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para esquerda (2)
-                // unico caso funcional, por agora.
-                startedDirection = 2;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
-                
+                startedDirection = 2; // caso para ensinar remates para esquerda (2)
+                DeactivateDefenderes();  // mete os varios defenderes a false
                 Invoke("Apitar", 0f);
 
                 break;
             case GameManagerState.SwipeRight:
                 SetSwiperightBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para direita (3)
-                startedDirection = 3;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
-
+                startedDirection = 3; // caso para ensinar remates para direita (3)
+                DeactivateDefenderes(); // mete os varios defenderes a false
                 Invoke("Apitar", 0f);
 
                 break;
             case GameManagerState.SwipeUp:
                 SetSwipeupBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para cima (4)
-                startedDirection = 4;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 4; // caso para ensinar remates para cima (4)
+                DeactivateDefenderes(); // mete os varios defenderes a false
+                Invoke("Apitar", 0f);
 
                 break;
             case GameManagerState.TutorialP1:
@@ -478,6 +473,16 @@ public class GameManager : MonoBehaviour
             switch (startedDirection)
             {
                 case 1:
+                    if(golos_sofridos < 5)
+                    {
+                        chutoEsquerda.Play();
+                        StartCoroutine(WaitForDownShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
                     break;
                 case 2:
                     if(golos_sofridos < 5)
@@ -504,6 +509,16 @@ public class GameManager : MonoBehaviour
                     }
                     break;
                 case 4:
+                    if (golos_sofridos < 5)
+                    {
+                        chutoDireita.Play();
+                        StartCoroutine(WaitForUpShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
                     break;
             }
         }
@@ -602,6 +617,7 @@ public class GameManager : MonoBehaviour
                 {
                     // defendeu
                     golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }
@@ -609,6 +625,67 @@ public class GameManager : MonoBehaviour
                 { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
                     golo.Play();
                     golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForUpShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedSwipeUp())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForDownShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedSwipeDown())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
                     Invoke("Rematar", golo.clip.length);
                     yield break;
                 }

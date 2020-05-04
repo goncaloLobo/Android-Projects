@@ -714,6 +714,7 @@ public class PlayerControlSwipe : MonoBehaviour
                         }
                     }
                 }
+                previousTouchMove = currentTouchMove;
             }
             else if (touchSwipeUp.phase == TouchPhase.Ended)
             {
@@ -863,7 +864,7 @@ public class PlayerControlSwipe : MonoBehaviour
             if(rightThenDownSwipe && confirmedSwipeRight)
                 endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
             if(!rightThenDownSwipe && confirmedSwipeRight)
-                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);
+                endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y);                
             if(downThenRightSwipe && confirmedSwipeDown)
                 endGlovePosition = new Vector2(startGlovePosition.x - 1.3f, transform.position.y + 2f);
             if(!downThenRightSwipe && confirmedSwipeDown && !downThenLeftSwipe)
