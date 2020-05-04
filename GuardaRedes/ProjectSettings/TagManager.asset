@@ -10,8 +10,6 @@ TagManager:
   - DefenderCima
   - DefenderEsquerda
   - DefenderDireita
-  - HomeButton
-  - CloseButton
   - ButtonIntroducao
   - ButtonTutorial
   layers:

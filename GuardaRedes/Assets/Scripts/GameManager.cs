@@ -21,8 +21,8 @@ public class GameManager : MonoBehaviour
 
     public AudioSource [] sounds; // array para os varios sons
     public AudioSource apitoParaChutar; // primeiro som [0]
-    public AudioSource chutoEsquerda; // segundo som [1]
-    public AudioSource chutoDireita;
+    public AudioSource chutoEsquerdaMeio; // segundo som [1]
+    public AudioSource chutoDireitaMeio;
     public AudioSource apito3x; // terceiro som [2]
     public AudioSource introducao;
     public AudioSource tutorial0;
@@ -32,6 +32,10 @@ public class GameManager : MonoBehaviour
     public AudioSource tutorial3;
     public AudioSource tutorial4;
     public AudioSource tutorial5;
+    public AudioSource chutoCimaMeio;
+    public AudioSource chutoBaixoMeio;
+    public AudioSource chutoBaixoEsquerda;
+    public AudioSource chutoBaixoDireita;
 
     private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
     private static bool swipedownthenleft, swipeleftthenup, swiperightthendown, swipeleftthendown, swipedownthenright;
@@ -61,8 +65,8 @@ public class GameManager : MonoBehaviour
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
         apitoParaChutar = sounds[0];
-        chutoEsquerda = sounds[1];
-        chutoDireita = sounds[5];
+        chutoEsquerdaMeio = sounds[1];
+        chutoDireitaMeio = sounds[5];
         apito3x = sounds[2];
 
         tutorial0 = sounds[3];
@@ -72,6 +76,10 @@ public class GameManager : MonoBehaviour
         tutorial3 = sounds[8];
         tutorial4 = sounds[9];
         tutorial5 = sounds[10];
+        chutoCimaMeio = sounds[11];
+        chutoBaixoMeio = sounds[12];
+        chutoBaixoEsquerda = sounds[13];
+        chutoBaixoDireita = sounds[14];
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -113,7 +121,7 @@ public class GameManager : MonoBehaviour
 
                 //aqui ira ser feito toda a parte aleatoria de vários tipos de remates
                 //int roll = Random.Range(1, 9);
-                int roll = 1;
+                int roll = 3;
                 switch (roll)
                 {
                     case 1: // swipe left
@@ -126,9 +134,11 @@ public class GameManager : MonoBehaviour
                         break;
                     case 3: // swipe up
                         startedDirection = 4;
+                        Invoke("Apitar", 0f);
                         break;
                     case 4: // swipe down
                         startedDirection = 1;
+                        Invoke("Apitar", 0f);
                         break;
                     case 5: // swipe down then left
                         break;
@@ -472,10 +482,10 @@ public class GameManager : MonoBehaviour
             // 9 - down then right
             switch (startedDirection)
             {
-                case 1:
-                    if(golos_sofridos < 5)
+                case 1: // 1 - baixo
+                    if (golos_sofridos < 5)
                     {
-                        chutoEsquerda.Play();
+                        chutoBaixoMeio.Play();
                         StartCoroutine(WaitForDownShot(3.0f));
                     }
                     else
@@ -484,10 +494,10 @@ public class GameManager : MonoBehaviour
                         apito3x.Play();
                     }
                     break;
-                case 2:
-                    if(golos_sofridos < 5)
+                case 2: // 2 - esquerda
+                    if (golos_sofridos < 5)
                     {
-                        chutoEsquerda.Play();
+                        chutoEsquerdaMeio.Play();
                         StartCoroutine(WaitForLeftShot(3.0f));
                     }
                     else
@@ -496,10 +506,10 @@ public class GameManager : MonoBehaviour
                         apito3x.Play();
                     }
                     break;
-                case 3:
+                case 3: // 3 - direita
                     if (golos_sofridos < 5)
                     {
-                        chutoDireita.Play();
+                        chutoDireitaMeio.Play();
                         StartCoroutine(WaitForRightShot(3.0f));
                     }
                     else
@@ -508,11 +518,35 @@ public class GameManager : MonoBehaviour
                         apito3x.Play();
                     }
                     break;
-                case 4:
+                case 4: // 4 - cima
                     if (golos_sofridos < 5)
                     {
-                        chutoDireita.Play();
+                        chutoCimaMeio.Play();
                         StartCoroutine(WaitForUpShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 5: // 5 - down then left
+                    if (golos_sofridos < 5)
+                    {
+                        chutoBaixoEsquerda.Play();
+                        StartCoroutine(WaitForDownLeftShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 9: // 9 - down then right
+                    if (golos_sofridos < 5)
+                    {
+                        chutoBaixoDireita.Play();
+                        StartCoroutine(WaitForDownRightShot(3.0f));
                     }
                     else
                     {
@@ -525,7 +559,7 @@ public class GameManager : MonoBehaviour
 
         else if (GetTutorialP1())
         {
-            chutoDireita.Play();
+            chutoDireitaMeio.Play();
         }
 
         else if (GetTutorialP2())
@@ -550,27 +584,27 @@ public class GameManager : MonoBehaviour
 
         else if (GetSwipeLeft())
         {
-            chutoEsquerda.Play();
+            chutoEsquerdaMeio.Play();
             StartCoroutine(WaitForLeftShot(3.0f));
         }
 
         else if (GetSwipeRight())
         {
-            chutoDireita.Play();
+            chutoDireitaMeio.Play();
             StartCoroutine(WaitForRightShot(3.0f));
         }
 
         else if (GetSwipeDown())
         {
-
+            chutoBaixoMeio.Play();
+            StartCoroutine(WaitForDownShot(3.0f));
         }
 
         else if (GetSwipeUp())
         {
-
-        }
-
-        
+            chutoCimaMeio.Play();
+            StartCoroutine(WaitForUpShot(3.0f));
+        }        
     }
 
     public IEnumerator WaitForLeftShot(float duration)
@@ -674,6 +708,66 @@ public class GameManager : MonoBehaviour
             if (increaseSpeedTimer == 0)
             {
                 if (PlayerControlSwipe.GetConfirmedSwipeDown())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForDownLeftShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedDownThenLeftSwipe())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForDownRightShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedDownThenRightSwipe())
                 {
                     // defendeu
                     golos_defendidos++;
