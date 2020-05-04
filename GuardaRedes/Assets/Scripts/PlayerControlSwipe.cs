@@ -23,7 +23,7 @@ public class PlayerControlSwipe : MonoBehaviour
     private float currentTapTime, lastTapTime, flytime;
     private float flightDuration = 0.1f;
     private float screenDPI;
-    private static bool jogarCancelAction, hasEntered, resetGloves, tutorialCancelAction;
+    private static bool jogarCancelAction, hasEntered, resetGloves, tutorialCancelAction, voltarParaTras;
     private static bool confirmedSwipeLeft, confirmedSwipeRight, confirmedSwipeUp, confirmedSwipeDown;
     private static bool leftThenUpSwipe, leftThenDownSwipe, rightThenDownSwipe, upThenLeftSwipe, upThenRightSwipe, downThenRightSwipe, downThenLeftSwipe;
     private bool entreiResetGloves, firstTime = true;
@@ -65,8 +65,11 @@ public class PlayerControlSwipe : MonoBehaviour
             if (GameManager.GetInstructions())
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Opening);
 
-            if(GameManager.GetSwipeUp() || GameManager.GetSwipeDown())
+            if (GameManager.GetSwipeUp() || GameManager.GetSwipeDown() || GameManager.GetSwipeLeft() || GameManager.GetSwipeRight() || GameManager.GetSwipeDownThenLeft() || GameManager.GetSwipeDownThenRight() || GameManager.GetSwipeLeftThenDown() || GameManager.GetSwipeLeftThenUp() || GameManager.GetSwipeRightThenDown() || GameManager.GetSwipeUpThenLeft() || GameManager.GetSwipeUpThenRight())
+            {
+                voltarParaTras = true;
                 GameManagerGO.GetComponent<GameManager>().SetGameManagerState(GameManager.GameManagerState.Instructions);
+            }
         }
 
         // DETETA O INPUT PARA O ESTADO INICIAL (DUPLO TOQUE NOS BOTOES QUE É SUPOSTO)
@@ -1355,6 +1358,16 @@ public class PlayerControlSwipe : MonoBehaviour
     public static void ResetTutorialAction()
     {
         tutorialCancelAction = false;
+    }
+
+    public static bool GetVoltarParaTras()
+    {
+        return voltarParaTras;
+    }
+
+    public static void ResetVoltarParaTras()
+    {
+        voltarParaTras = false;
     }
 
     private int CheckForDoubleTap(float currentTapTime, float previousTapTime, Touch currentTouch, Touch previousTouch)

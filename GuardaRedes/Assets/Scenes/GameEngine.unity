@@ -3627,6 +3627,7 @@ MonoBehaviour:
   chutoBaixoDireita: {fileID: 0}
   chutoCimaEsquerda: {fileID: 0}
   chutoCimaDireita: {fileID: 0}
+  "vaiCome\xE7ar321": {fileID: 1852349048}
 --- !u!82 &1693170705
 AudioSource:
   m_ObjectHideFlags: 0
