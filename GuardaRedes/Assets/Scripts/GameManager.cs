@@ -36,9 +36,11 @@ public class GameManager : MonoBehaviour
     public AudioSource chutoBaixoMeio;
     public AudioSource chutoBaixoEsquerda;
     public AudioSource chutoBaixoDireita;
+    public AudioSource chutoCimaEsquerda;
+    public AudioSource chutoCimaDireita;
 
     private static bool started, opening, instructions, gameover, swiperight, swipeleft, swipeup, swipedown, tutorialp1, tutorialp2, tutorialp3, tutorialp4, tutorialp5;
-    private static bool swipedownthenleft, swipeleftthenup, swiperightthendown, swipeleftthendown, swipedownthenright;
+    private static bool swipedownthenleft, swipeleftthenup, swiperightthendown, swipeleftthendown, swipedownthenright, swipeupthenright, swipeupthenleft;
     private static bool resetGloves;
     private static int startedDirection;
     private float currCountdownValue, increaseSpeedTimer;
@@ -49,7 +51,7 @@ public class GameManager : MonoBehaviour
     public enum GameManagerState
     {
         Opening, Gameplay, GameOver, Instructions, SwipeRight, SwipeLeft, SwipeUp, SwipeDown, TutorialP1, TutorialP2, TutorialP3, TutorialP4, TutorialP5,
-        SwipeDownThenLeft, SwipeLeftThenUp, SwipeRightThenDown, SwipeLeftThenDown, SwipeDownThenRight
+        SwipeDownThenLeft, SwipeLeftThenUp, SwipeRightThenDown, SwipeLeftThenDown, SwipeDownThenRight, SwipeUpThenRight, SwipeUpThenLeft
     }
 
     public static GameManagerState GMState;
@@ -60,7 +62,7 @@ public class GameManager : MonoBehaviour
         opening = true;
         started = instructions = gameover = swiperight = swipeleft = swipeup = swipedown = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipedownthenleft = swipeleftthendown = swiperightthendown = swipeleftthendown = swipedownthenright = false;
+        swipedownthenleft = swipeleftthendown = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenright = swipeupthenleft = false;
         resetGloves = false;
         startedDirection = 0;
         sounds = GetComponents<AudioSource>();
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour
         chutoBaixoMeio = sounds[12];
         chutoBaixoEsquerda = sounds[13];
         chutoBaixoDireita = sounds[14];
+        chutoCimaEsquerda = sounds[15];
+        chutoCimaDireita = sounds[16];
 
         // vai buscar o highscore
         // aqui no start para quando o jogo é iniciado
@@ -149,6 +153,10 @@ public class GameManager : MonoBehaviour
                     case 8: // swipe left then down
                         break;
                     case 9: // swipe down then right
+                        break;
+                    case 10: // swipe up then left
+                        break;
+                    case 11: // swipe up then right
                         break;
                 }
 
@@ -272,52 +280,65 @@ public class GameManager : MonoBehaviour
                 break;
             case GameManagerState.SwipeDownThenLeft:
                 SetSwipeDownThenLeftBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para swipe down then left (5)
-                startedDirection = 5;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 5; // caso para ensinar remates para swipe down then left (5)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
                 break;
             case GameManagerState.SwipeLeftThenUp:
                 SetSwipeLeftThenUpBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para swipe left then up (6)
-                startedDirection = 6;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 6; // caso para ensinar remates para swipe left then up (6)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
                 break;
             case GameManagerState.SwipeRightThenDown:
                 SetSwipeRightThenDownBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para swipe right then down (7)
-                startedDirection = 7;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 7; // caso para ensinar remates para swipe right then down (7)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
                 break;
             case GameManagerState.SwipeLeftThenDown:
                 SetSwipeLeftThenDownBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para swipe left then down (8)
-                startedDirection = 8;
-
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                startedDirection = 8; // caso para ensinar remates para swipe left then down (8)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
                 break;
             case GameManagerState.SwipeDownThenRight:
                 SetSwipeDownThenRightBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
 
-                // caso para ensinar remates para swipe down then right (9)
-                startedDirection = 9;
+                startedDirection = 9; // caso para ensinar remates para swipe down then right (9)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
-                // mete os varios defenderes a false
-                DeactivateDefenderes();
+                break;
+            case GameManagerState.SwipeUpThenLeft:
+                SetSwipeUpThenLeftBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
+
+                startedDirection = 10; // caso para ensinar remates para swipe up then left (10)
+                DeactivateDefenderes(); // mete os varios defenderes a false
+
+                break;
+            case GameManagerState.SwipeUpThenRight:
+                SetSwipeUpThenRightBools();
+                playButton.SetActive(false);
+                tutorialButton.SetActive(false);
+
+                startedDirection = 11; // caso para ensinar remates para swipe up then right (11)
+                DeactivateDefenderes(); // mete os varios defenderes a false
 
                 break;
         }
@@ -457,6 +478,18 @@ public class GameManager : MonoBehaviour
         return swipedownthenright;
     }
 
+    // verifica que estamos no modo de jogo de treinar swipes para cima e para a direita
+    public static bool GetSwipeUpThenRight()
+    {
+        return swipeupthenright;
+    }
+
+    // verifica que estamos no modo de jogo de treinar swipes para cima e para a esquerda
+    public static bool GetSwipeUpThenLeft()
+    {
+        return swipeupthenleft;
+    }
+
     public void Apitar()
     {
         apitoParaChutar.Play();
@@ -480,6 +513,8 @@ public class GameManager : MonoBehaviour
             // 7 - right then down
             // 8 - left then down
             // 9 - down then right
+            // 10 - up then right
+            // 11 - up then left
             switch (startedDirection)
             {
                 case 1: // 1 - baixo
@@ -542,11 +577,71 @@ public class GameManager : MonoBehaviour
                         apito3x.Play();
                     }
                     break;
+                case 6: // 6 - left then up
+                    if (golos_sofridos < 5)
+                    {
+                        chutoCimaEsquerda.Play();
+                        StartCoroutine(WaitForLeftUpShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 7: // 7 - right then down
+                    if (golos_sofridos < 5)
+                    {
+                        chutoBaixoDireita.Play();
+                        StartCoroutine(WaitForDownRightShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 8: // 8 - left then down
+                    if (golos_sofridos < 5)
+                    {
+                        chutoBaixoEsquerda.Play();
+                        StartCoroutine(WaitForLeftDownShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
                 case 9: // 9 - down then right
                     if (golos_sofridos < 5)
                     {
                         chutoBaixoDireita.Play();
                         StartCoroutine(WaitForDownRightShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 10: // 10 - up then right
+                    if (golos_sofridos < 5)
+                    {
+                        chutoCimaDireita.Play();
+                        StartCoroutine(WaitForUpRightShot(3.0f));
+                    }
+                    else
+                    {
+                        Invoke("ChangeToGameoverState", 0.5f);
+                        apito3x.Play();
+                    }
+                    break;
+                case 11: // 11 - up then left
+                    if (golos_sofridos < 5)
+                    {
+                        chutoCimaEsquerda.Play();
+                        StartCoroutine(WaitForUpLeftShot(3.0f));
                     }
                     else
                     {
@@ -787,6 +882,126 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public IEnumerator WaitForLeftUpShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedLeftThenUpSwipe())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForLeftDownShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedLeftThenDownSwipe())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForUpLeftShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedUpThenLeftSwipe())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
+    public IEnumerator WaitForUpRightShot(float duration)
+    {
+        increaseSpeedTimer = duration;
+        while (increaseSpeedTimer >= 0)
+        {
+            yield return new WaitForSeconds(1.0f);
+            increaseSpeedTimer--;
+
+            if (increaseSpeedTimer == 0)
+            {
+                if (PlayerControlSwipe.GetConfirmedUpThenRightSwipe())
+                {
+                    // defendeu
+                    golos_defendidos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+                else
+                { // nao se mexeu para a direita ou nao se mexeu a tempo do proximo remate, sofreu golo
+                    golo.Play();
+                    golos_sofridos++;
+                    PlayerControlSwipe.ResetGloves();
+                    Invoke("Rematar", golo.clip.length);
+                    yield break;
+                }
+            }
+        }
+    }
+
     public static bool GetResetGloves()
     {
         return resetGloves;
@@ -828,6 +1043,7 @@ public class GameManager : MonoBehaviour
         opening = true;
         started = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado Gameplay
@@ -836,6 +1052,7 @@ public class GameManager : MonoBehaviour
         started = true;
         opening = instructions = swipedown = swipeleft = swiperight = swipeup = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado Instructions
@@ -844,6 +1061,7 @@ public class GameManager : MonoBehaviour
         instructions = true;
         opening = started = swipedown = swipeleft = swiperight = swiperight = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeDown
@@ -852,6 +1070,7 @@ public class GameManager : MonoBehaviour
         swipedown = true;
         instructions = opening = started = swipeleft = swiperight = swipeup = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeUp
@@ -860,6 +1079,7 @@ public class GameManager : MonoBehaviour
         swipeup = true;
         instructions = opening = started = swipeleft = swiperight = swipedown = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeLeft
@@ -868,6 +1088,7 @@ public class GameManager : MonoBehaviour
         swipeleft = true;
         instructions = opening = started = swipeup = swiperight = swipedown = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeRight
@@ -876,6 +1097,7 @@ public class GameManager : MonoBehaviour
         swiperight = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado Gameover
@@ -884,6 +1106,7 @@ public class GameManager : MonoBehaviour
         gameover = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado TutorialP1
@@ -892,6 +1115,7 @@ public class GameManager : MonoBehaviour
         tutorialp1 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado TutorialP2
@@ -900,6 +1124,7 @@ public class GameManager : MonoBehaviour
         tutorialp2 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp1 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado TutorialP3
@@ -908,6 +1133,7 @@ public class GameManager : MonoBehaviour
         tutorialp3 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado TutorialP4
@@ -916,6 +1142,7 @@ public class GameManager : MonoBehaviour
         tutorialp4 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado TutorialP5
@@ -924,6 +1151,7 @@ public class GameManager : MonoBehaviour
         tutorialp5 = true;
         instructions = opening = started = swipeleft = swipeup = swipedown = swiperight = gameover = false;
         tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeDownThenLeft
@@ -931,7 +1159,7 @@ public class GameManager : MonoBehaviour
     {
         swipedownthenleft = true;
         instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = false;
+        swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeLeftThenUp
@@ -939,7 +1167,7 @@ public class GameManager : MonoBehaviour
     {
         swipeleftthenup = true;
         instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipedownthenleft = swiperightthendown = swipeleftthendown = swipedownthenright = false;
+        swipedownthenleft = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeRightThenDown
@@ -947,7 +1175,7 @@ public class GameManager : MonoBehaviour
     {
         swiperightthendown = true;
         instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipedownthenleft = swipeleftthenup = swipeleftthendown = swipedownthenright = false;
+        swipedownthenleft = swipeleftthenup = swipeleftthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeLeftThenDown
@@ -955,7 +1183,7 @@ public class GameManager : MonoBehaviour
     {
         swipeleftthendown = true;
         instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipedownthenleft = swipeleftthenup = swiperightthendown = swipedownthenright = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipedownthenright = swipeupthenleft = swipeupthenright = false;
     }
 
     // Bools para o estado SwipeDownThenRight
@@ -963,6 +1191,22 @@ public class GameManager : MonoBehaviour
     {
         swipedownthenright = true;
         instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
-        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipeupthenleft = swipeupthenright = false;
+    }
+
+    // Bools para o estado SwipeUpThenLeft
+    private void SetSwipeUpThenLeftBools()
+    {
+        swipeupthenleft = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenright = false;
+    }
+
+    // Bools para o estado SwipeUpThenRight
+    private void SetSwipeUpThenRightBools()
+    {
+        swipeupthenright = true;
+        instructions = opening = started = swipedown = swipeleft = swiperight = swipeup = gameover = tutorialp1 = tutorialp2 = tutorialp3 = tutorialp4 = tutorialp5 = false;
+        swipedownthenleft = swipeleftthenup = swiperightthendown = swipeleftthendown = swipedownthenright = swipeupthenleft = false;
     }
 }
